@@ -34,3 +34,5 @@ htmlcov/
 # Node (Phase 2)
 node_modules/
 frontend/dist/
+quotes/
+migrate.py
