@@ -1,7 +1,7 @@
 # Status
 
 Branch: main | Instrument: NQ
-Data: NOT CONVERTED (Chicago → New York pending)
+Data: Parquet files to be prepared externally (Chicago → New York)
 
 ## Stats implemented
 None yet.
@@ -10,4 +10,4 @@ None yet.
 - Project scaffolding
 
 ## Next
-- #1 — Data pipeline: convert NQ CSV from Chicago to New York timezone
+- #1 — Stats infrastructure (base models, Pydantic, write_results) + opening candle continuation

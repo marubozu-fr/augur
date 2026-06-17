@@ -1,5 +1,6 @@
 # Data files — never committed
 data/
+results/
 output/
 
 # Python

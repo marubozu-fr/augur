@@ -20,12 +20,11 @@ Repository: `marubozu-fr/augur` — License: AGPL-3.0
 - **TypeScript**: Strict mode. No `any` types. Prefer `interface` over `type` for objects.
 
 ## Data Conventions
-- **Source data**: NQ 1-minute OHLCV CSV files in `America/Chicago` timezone.
-- **Working timezone**: `America/New_York` (ET). All stats are computed in ET.
-- **Conversion**: Chicago → New York directly. No UTC intermediate step.
-- **Storage**: Parquet files with timezone-aware timestamps (`America/New_York`).
+- **Input data**: Parquet files in `data/` with timezone-aware timestamps in `America/New_York`.
+- **Data preparation is external**: OHLCV Parquet files are prepared outside this repo and placed in `data/`. No pipeline code is committed.
 - **Session definition**: Regular Trading Hours = 09:30–16:15 ET for NQ.
 - **Overnight session**: 18:00 ET (previous day) → 09:30 ET.
+- **Daily candle**: RTH-based (session open to session close), not midnight-based.
 
 ## Statistics Conventions
 - Every stat module MUST include a **random baseline** comparison.
@@ -35,28 +34,48 @@ Repository: `marubozu-fr/augur` — License: AGPL-3.0
 - Results MUST be **reproducible**: fixed seed for any randomized baseline.
 - No stat is declared significant without sufficient sample size (N > 100 minimum).
 
+## Storage Format
+Stat results are stored as **one JSON file per stat family** in `results/`:
+```
+results/
+└── opening_candle_continuation.json
+```
+
+Each file is **self-documenting** with i18n-ready fields:
+- `title` and `definition`: `{"en": "...", "fr": "..."}` — what the stat measures
+- `labels`: human-readable condition and outcome names in en/fr
+- `instruments.{INSTRUMENT}.{TIMEFRAME}`: the actual results
+
+Results are validated by **Pydantic models** before writing. Atomic write (temp file + rename).
+No historical runs are stored — re-run the stat module to recompute. The source Parquet data
+is the audit trail.
+
 ## Project Structure
 ```
 augur/
 ├── .claude/
 │   ├── agents/           # Claude Code specialized agents
+│   │   ├── stats-dev.md  # Stat module implementation
+│   │   ├── code-reviewer.md
+│   │   └── test-writer.md
 │   └── skills/           # Claude Code automation skills
-├── pipeline/             # Data ingestion and OHLCV construction
-│   ├── convert_tz.py     # Chicago → New York conversion
-│   └── build_candles.py  # 1min → 5min/15min/30min/1h/daily
-├── stats/                # Statistical modules (1 directory per report family)
-│   ├── base.py           # BaseStat ABC — interface all stats implement
-│   └── opening_candle/   # Opening candle continuation stats
+│       ├── fix-issue.md  # Issue → agent routing
+│       ├── pr-ready.md   # Quality gate before PR
+│       └── create-stat.md # Scaffold new stat module
+├── stats/                # Statistical modules
+│   ├── base.py           # BaseStat ABC + Pydantic models + write_results()
+│   └── opening_candle/   # First stat family
 ├── pinescript/           # Pine Script generator
-│   ├── generator.py      # Reads stat results → produces .pine files
-│   └── templates/        # Pine Script template fragments
-├── data/                 # Parquet files (gitignored)
-│   ├── raw/              # Original CSV files
-│   └── processed/        # Timezone-converted Parquet
+│   ├── generator.py
+│   └── templates/
+├── config/
+│   └── NQ.yaml           # Instrument sessions and timeframes
+├── data/                 # OHLCV Parquet files (gitignored, prepared externally)
+├── results/              # Stat result JSON files (gitignored)
 ├── output/               # Generated Pine Script files (gitignored)
 ├── tests/
 ├── docs/
-│   └── STATS_CATALOG.md  # Definition and methodology of every stat
+│   └── STATS_CATALOG.md
 ├── CLAUDE.md
 ├── STATUS.md
 └── pyproject.toml
@@ -67,16 +86,12 @@ augur/
 - Commit messages: `feat(scope): description`, `fix(scope): description`, `docs(scope): description`
 - Every change goes through a PR linked to a GitHub issue.
 - Never commit directly to `main`.
-- Issue labels determine agent routing: `agent-stats`, `agent-pipeline`, `agent-frontend`.
+- Issue labels determine agent routing: `agent-stats`, `agent-frontend`.
 
 ## Commands
 ```bash
 # Virtual environment
 cd augur && source .venv/bin/activate
-
-# Run pipeline (convert + build candles)
-python -m pipeline.convert_tz
-python -m pipeline.build_candles
 
 # Run a specific stat
 python -m stats.opening_candle.continuation --instrument NQ
@@ -118,4 +133,4 @@ ruff check .
 - NEVER count pending/unresolved samples in any statistic.
 - ALWAYS write tests with known synthetic data for every new stat module.
 - ALWAYS verify stat results are reproducible (deterministic output for same input).
-- `data/` and `output/` directories are gitignored. Never commit data or generated files.
+- `data/`, `results/`, and `output/` directories are gitignored. Never commit data or generated files.
