@@ -447,3 +447,76 @@ seed for reproducibility.
 - `by_weekday` — the gap→intraday matrix sliced per weekday (would declare
   `slices = ("weekday",)`).
 
+
+---
+
+## 7. Seasonality
+
+**Family**: `seasonality`
+**Module**: `stats/seasonality/standard.py`
+**Result file**: `results/seasonality.json`
+**Status**: Implemented
+
+### What it measures
+Month-of-year and week-of-year average performance patterns from monthly and
+weekly returns. For each calendar month (January…December) and each ISO week
+(1…53), it reports the **average percent return**, the **green/red period split**,
+and the **average green/red move size**, averaged across all years in the data.
+
+Like **Performance by Weekday** (section 4), this is a **magnitude** stat: three
+of the five rows carry a continuous metric in `value` (a signed decimal return)
+with its random baseline in `value_baseline`; the green/red count rows
+(`green_period`, `red_period`) use the ordinary `probability` channel.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`),
+   using the same resolution rule as the other daily stats (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Aggregate resolved days into **periods** at the granularity:
+   - `monthly`: days grouped by calendar month; `period_open` = first day's
+     `session_open`, `period_close` = last day's `session_close`.
+   - `weekly`: days grouped by ISO week (analogous).
+   Each period is indexed by its first session date, so its calendar position
+   (month / ISO week) is read directly by the slice.
+3. Compute each period's signed percent return per the `performance` mode:
+   - `close_to_close` (default): `(period_close - previous resolved period's
+     close) / previous close`. The first resolved period has no prior close and
+     is excluded (pending-sample discipline).
+   - `open_to_close`: `(period_close - period_open) / period_open`.
+4. A period is **green** when its return is `>= 0`, otherwise **red**.
+5. Over all resolved periods, report five rows under the single `any_period`
+   condition: `mean_return`, `green_period`, `red_period`, `mean_green_move`,
+   `mean_red_move`.
+6. Re-run the same five rows per calendar position via the slice:
+   - `monthly` → `month_of_year` slice (one group per month present, Jan→Dec).
+   - `weekly` → `week_of_year` slice (one group per ISO week present, 1→53).
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| performance | close_to_close | Return basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `monthly`, `weekly` (merged into one result file under
+  `instruments.{INSTRUMENT}.{granularity}`).
+
+### Baseline
+Each period's return **direction is a coin flip**: magnitudes are held fixed and
+the sign of each period's return is randomized (p=0.5). Expected average return
+≈ 0 and expected green/red period counts ≈ 50/50. The baseline is computed per
+slice group as well as overall, with a fixed seed for reproducibility.
+
+### i18n
+- **title.en**: "Seasonality"
+- **title.fr**: "Saisonnalité"
+- **definition.en**: "What is the average percent return and green/red period split for each month of the year and each week of the year?"
+- **definition.fr**: "Quels sont le rendement moyen en pourcentage et la répartition des périodes vertes/rouges pour chaque mois de l'année et chaque semaine de l'année ?"
+
+### Slices
+- `month_of_year` — implemented (declared on the monthly granularity).
+- `week_of_year` — implemented (declared on the weekly granularity).
+
+Both slicers are module-local (`stats/seasonality/standard.py`); they read the
+period table's DatetimeIndex and are not shared in `stats/base.py`.
+
