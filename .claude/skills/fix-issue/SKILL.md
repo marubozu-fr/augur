@@ -18,7 +18,8 @@ Read `CLAUDE.md` and `STATUS.md` before any implementation.
 Read the labels array and look for an `agent-*` label:
 
 - `agent-stats` → use the **stats-dev** agent
-- `agent-frontend` → use the **frontend-dev** agent (Phase 2)
+- `agent-frontend` → use the **frontend-dev** agent
+- `agent-pinescript` → use the **pinescript-dev** agent
 
 **If no `agent-*` label is found, STOP and ask the user which agent to use.**
 
