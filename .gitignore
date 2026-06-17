@@ -1,0 +1,35 @@
+# Data files — never committed
+data/
+output/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+*.local
+config/*.local.yaml
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (Phase 2)
+node_modules/
+frontend/dist/
