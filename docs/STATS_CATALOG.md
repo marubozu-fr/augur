@@ -5,6 +5,74 @@ Each stat has a methodology section precise enough to reproduce the computation.
 
 ---
 
+## Slice Architecture
+
+Most stat families share the same secondary breakdowns ("how does this probability
+differ by weekday / by gap size / by prior-candle color?"). Rather than re-implement
+those in every module, a family **declares** which slicers apply and the framework
+re-runs the family's core row computation over each named subset of days.
+
+A family implements only:
+- `build_day_table(candles_df) -> pd.DataFrame` — one row per resolved day, indexed by
+  the normalized session date, with every column the core computation and the declared
+  slicers read. Pending days are excluded here.
+- `compute_rows(day_table, baseline_rows=None) -> list[StatResultRow]` — the core
+  condition/outcome computation over a (possibly sliced) subset.
+- `baseline_rows(day_table, seed) -> list[StatResultRow]` — the random baseline.
+
+The framework's `BaseStat.compute()` builds the day table once, computes the overall
+result, then for each declared slice splits the day table into groups and re-runs
+`compute_rows` (with a per-group baseline) over each. Each group also carries its own
+i18n `label`, because some labels are data-dependent (quantile bucket edges).
+
+Families declare slices on the class. Parameterless slicers may use a bare-string
+shorthand; parameterized slicers are configured instances:
+
+```python
+class GapFill(BaseStat):
+  slices = [
+    'weekday',                                   # by day of week
+    'close',                                     # by session close color
+    'prev_candle',                               # by prior session candle color
+    SizeBucket(column='gap_size', preset='quartiles'),
+    Levels(ref='orb_range', ext='extension', multiples=(0.5, 1.0, 1.5, 2.0)),
+  ]
+```
+
+### Reused slicers (shared in `stats/base.py`)
+
+| Slicer | Shorthand | Parameters | Groups |
+|--------|-----------|------------|--------|
+| `Weekday` | `'weekday'` | — | one per weekday present (Mon→Sun) |
+| `Close` | `'close'` | `column='session_green'` | green / red |
+| `PrevCandle` | `'prev_candle'` | `column='prev_session_green'` | green / red |
+| `SizeBucket` | — | `column`, `preset` (median/terciles/quartiles/quintiles) **or** explicit `buckets` | `q1…qn` (equal-frequency quantile bins, or fixed edges) |
+| `Levels` | — | `ref`, `ext`, `multiples` | extension bands in multiples of a reference range |
+
+`SizeBucket` and `Levels` require parameters, so they have no bare-string shorthand —
+declare them as instances. Slicers omit empty groups and exclude rows with missing
+values in their required columns.
+
+### JSON output
+
+Each `TimeframeResult` keeps its overall `results` and gains a `slices` map:
+
+```jsonc
+"slices": {
+  "weekday": {
+    "dimension": "weekday",
+    "groups": {
+      "monday": { "label": {"en": "Monday", "fr": "Lundi"}, "total_samples": 42, "results": [ /* StatResultRow[] */ ] }
+    }
+  }
+}
+```
+
+The static dimension names live in `labels.dimensions` (`{"weekday": {"en": "Day of week", ...}}`);
+the per-group labels (including data-dependent bucket ranges) live inside each group.
+
+---
+
 ## 1. Opening Candle Continuation
 
 **Family**: `opening_candle`
@@ -51,7 +119,14 @@ Expected baseline: ~50% for all conditions. Fixed seed for reproducibility.
 - **definition.en**: "After the first N-minute candle of the NY session, how often does the session close in the same direction?"
 - **definition.fr**: "Après la première bougie de N minutes de la session NY, à quelle fréquence la session clôture-t-elle dans la même direction ?"
 
+### Slices
+- `weekday` — implemented (declared via `slices = ("weekday",)`)
+
 ### Future variants (not in MVP)
-- `by_weekday` — sliced by day of week
-- `by_size` — sliced by candle body size buckets
-- `by_close` — compare session close zone vs opening candle
+- `by_size` — sliced by candle body size buckets (would add an opening-body-size
+  column to the day table and declare `SizeBucket(...)`)
+- `by_close` — a distinct *metric*, not the generic `Close` slicer (which merely
+  splits days into session-green / session-red). `by_close` measures where the
+  session **closes relative to the opening candle**: e.g. inside the opening
+  candle's range, beyond its close, or back through its open — quantifying how
+  far the session travels from the opening candle, not just its color.

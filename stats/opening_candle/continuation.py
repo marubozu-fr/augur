@@ -58,6 +58,12 @@ _TF_MINUTES: dict[str, int] = {
 class OpeningCandleContinuation(BaseStat):
   """Conditional probability of session direction given opening candle direction."""
 
+  stat_name = "opening_candle_continuation"
+  title = _TITLE
+  definition = _DEFINITION
+  labels = _LABELS
+  slices = ("weekday",)
+
   def __init__(
     self,
     instrument: str,
@@ -83,7 +89,7 @@ class OpeningCandleContinuation(BaseStat):
     # (floor(570 / 60) * 60 = 540), while 15min and 30min still start at 09:30.
     self.candle_open_min: int = (self.rth_start_min // self.tf_minutes) * self.tf_minutes
 
-  def _build_day_table(self, candles_df: pd.DataFrame) -> pd.DataFrame:
+  def build_day_table(self, candles_df: pd.DataFrame) -> pd.DataFrame:
     """Build a per-day summary table from 1-min OHLCV data (vectorized).
 
     Each row in the output corresponds to one resolved trading day with columns:
@@ -163,7 +169,7 @@ class OpeningCandleContinuation(BaseStat):
 
     return day
 
-  def _compute_rows(
+  def compute_rows(
     self,
     day_table: pd.DataFrame,
     baseline_rows: list[StatResultRow] | None = None,
@@ -216,52 +222,13 @@ class OpeningCandleContinuation(BaseStat):
 
     return rows
 
-  def compute(self, candles_df: pd.DataFrame) -> StatRunResult:
-    """Compute opening candle continuation probabilities."""
-    day_table = self._build_day_table(candles_df)
-    baseline_rows = self.baseline(candles_df, seed=42, _day_table=day_table)
-    rows = self._compute_rows(day_table, baseline_rows=baseline_rows)
-
-    if len(day_table) > 0:
-      dates = day_table.index
-      # index is pd.Timestamp (from dt.normalize()); format as YYYY-MM-DD
-      data_range = [
-        dates.min().strftime("%Y-%m-%d"),
-        dates.max().strftime("%Y-%m-%d"),
-      ]
-    else:
-      data_range = []
-
-    tf_result = TimeframeResult(
-      data_range=data_range,
-      total_samples=len(day_table),
-      results=rows,
-    )
-
-    return StatRunResult(
-      stat_name="opening_candle_continuation",
-      title=_TITLE,
-      definition=_DEFINITION,
-      labels=_LABELS,
-      instruments={self.instrument: {self.timeframe: tf_result}},
-    )
-
-  def baseline(
-    self,
-    candles_df: pd.DataFrame,
-    seed: int,
-    _day_table: pd.DataFrame | None = None,
-  ) -> list[StatResultRow]:
+  def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: keep actual opening direction, randomize session direction (p=0.5).
 
     Uses a fixed seed for deterministic output. Expected baseline_prob ≈ 0.5.
-
-    `_day_table` is an internal optimization: when compute() has already built
-    the day table, it passes it here to avoid rebuilding it. The public
-    interface remains baseline(candles_df, seed).
+    Operates directly on the day table so the framework can compute a baseline
+    per slice group as well as overall.
     """
-    day_table = _day_table if _day_table is not None else self._build_day_table(candles_df)
-
     rng = np.random.default_rng(seed)
     n = len(day_table)
     # Randomly assign session direction (True=green, False=red) with p=0.5
@@ -272,7 +239,7 @@ class OpeningCandleContinuation(BaseStat):
     tmp["session_green"] = random_session_green
 
     # Compute rows from the randomized frame (no nested baseline call)
-    return self._compute_rows(tmp, baseline_rows=None)
+    return self.compute_rows(tmp, baseline_rows=None)
 
 
 def run(
@@ -292,17 +259,21 @@ def run(
 
   timeframes = ["15min", "30min", "1h"]
   merged_tf: dict[str, TimeframeResult] = {}
+  labels = _LABELS.model_copy(deep=True)
 
   for tf in timeframes:
     stat = OpeningCandleContinuation(instrument=instrument, timeframe=tf, config=config)
     result = stat.compute(candles_df)
     merged_tf[tf] = result.instruments[instrument][tf]
+    # Merge the framework-enriched slice dimension labels across timeframes so
+    # no timeframe's dimensions overwrite an earlier one's.
+    labels.dimensions.update(result.labels.dimensions)
 
   final_result = StatRunResult(
     stat_name="opening_candle_continuation",
     title=_TITLE,
     definition=_DEFINITION,
-    labels=_LABELS,
+    labels=labels,
     instruments={instrument: merged_tf},
   )
 

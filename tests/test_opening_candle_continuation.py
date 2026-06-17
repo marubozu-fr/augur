@@ -383,7 +383,7 @@ def _make_truncated_day(date: str, tf_minutes: int) -> pd.DataFrame:
 
 def test_pending_day_excluded() -> None:
   """A day whose last bar is at 09:50 (mod 590 < 960) must not appear
-  in _build_day_table and must not change total_samples.
+  in build_day_table and must not change total_samples.
   """
   tf = "15min"
   tf_minutes = 15
@@ -408,10 +408,10 @@ def test_pending_day_excluded() -> None:
 
 
 def test_pending_day_absent_from_day_table() -> None:
-  """The truncated day's date must not appear in _build_day_table's index."""
+  """The truncated day's date must not appear in build_day_table's index."""
   stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
   truncated = _make_truncated_day("2024-01-17", 15)
-  day_table = stat._build_day_table(truncated)
+  day_table = stat.build_day_table(truncated)
 
   pending_date = pd.Timestamp("2024-01-17", tz=_NY).normalize()
   assert pending_date not in day_table.index
@@ -801,14 +801,14 @@ def test_result_condition_outcome_keys() -> None:
 
 
 # ===========================================================================
-# 9. _build_day_table internals
+# 9. build_day_table internals
 # ===========================================================================
 
 def test_build_day_table_columns() -> None:
-  """_build_day_table must return a DataFrame with the required columns."""
+  """build_day_table must return a DataFrame with the required columns."""
   stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
   df = make_candles(_build_spec(15))
-  day_table = stat._build_day_table(df)
+  day_table = stat.build_day_table(df)
 
   required = {"session_open", "session_close", "last_minute", "opening_open", "opening_close",
               "opening_green", "session_green"}
@@ -816,10 +816,10 @@ def test_build_day_table_columns() -> None:
 
 
 def test_build_day_table_index_is_dates() -> None:
-  """_build_day_table index must contain normalized pd.Timestamp dates."""
+  """build_day_table index must contain normalized pd.Timestamp dates."""
   stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
   df = make_candles(_build_spec(15))
-  day_table = stat._build_day_table(df)
+  day_table = stat.build_day_table(df)
 
   assert len(day_table) == 10
   # Each index value should be a normalized Timestamp (time component = 0)
@@ -833,7 +833,7 @@ def test_build_day_table_opening_green_flags() -> None:
   """opening_green must match the hand-designed patterns (first 5 green, last 5 red)."""
   stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
   df = make_candles(_build_spec(15))
-  day_table = stat._build_day_table(df)
+  day_table = stat.build_day_table(df)
 
   # Days 0-4 (index 0-4) are green opening (oc=110 > so=100)
   # Days 5-9 (index 5-9) are red opening (oc=90 < so=100)
@@ -849,7 +849,7 @@ def test_build_day_table_session_green_flags() -> None:
   """session_green must match the hand-designed close pattern."""
   stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
   df = make_candles(_build_spec(15))
-  day_table = stat._build_day_table(df)
+  day_table = stat.build_day_table(df)
   sorted_table = day_table.sort_index()
 
   # Pattern: GG GG GG GR GR RG RG RG RG RR
