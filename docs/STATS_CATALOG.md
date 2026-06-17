@@ -380,3 +380,70 @@ prior one. Expected baseline: ~50% for every row. Fixed seed for reproducibility
 ### Slices
 - None. The prev-session-correlation stat declares `slices = ()`.
 
+
+---
+
+## 6. Overnight Continuation
+
+**Family**: `overnight_continuation`
+**Module**: `stats/overnight_continuation/standard.py`
+**Result file**: `results/overnight_continuation.json`
+**Status**: Implemented
+
+### What it measures
+Given the overnight gap's direction (today's open vs the prior session's close),
+how often does the day continue in that direction intraday (close vs open)?
+Reported as a 2x2 conditional matrix: P(green day | green gap), P(red day | green
+gap), P(green day | red gap), P(red day | red gap).
+
+"Continuation" is the diagonal: a green gap that closes green, or a red gap that
+closes red.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`, `session_close`),
+   using the same resolution rule as the other daily stats (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`).
+2. Classify each resolved day's **overnight gap** from `session_open` vs the
+   PREVIOUS resolved session's `session_close`:
+   - `gap_green`: `session_open >= prev_session_close`
+   - `gap_red`: `session_open < prev_session_close`
+   The first resolved session has no prior close, so its gap is undefined and it is
+   excluded from every denominator (pending-sample discipline).
+3. Classify each day's **intraday color** from `session_close` vs `session_open`:
+   green if `session_close >= session_open`, otherwise red. This is always
+   close-vs-open (intraday) — there is no `close_to_close` mode, because the gap
+   already encodes the prior-close reference.
+4. Report the four rows: gap-green→green, gap-green→red, gap-red→green, gap-red→red.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a prior session close) carrying that gap color.
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+Unlike the day-color stats, this family has no `performance` parameter: the gap is
+always open-vs-prior-close and the outcome is always intraday close-vs-open.
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Each day's intraday color is randomized (50/50 green/red) independently of its gap
+color, so continuation is destroyed. Expected baseline: ~0.5 for every row. Fixed
+seed for reproducibility.
+
+### i18n
+- **title.en**: "Overnight Continuation"
+- **title.fr**: "Continuation overnight"
+- **definition.en**: "Given the overnight gap's direction (today's open vs the prior session's close), how often does the day close in the same direction (intraday)?"
+- **definition.fr**: "Selon la direction du gap overnight (ouverture du jour vs clôture de la session précédente), à quelle fréquence le jour clôture-t-il dans la même direction (intraday) ?"
+
+### Slices
+- None. The overnight-continuation stat declares `slices = ()`.
+
+### Future variants (not in MVP)
+- `by_weekday` — the gap→intraday matrix sliced per weekday (would declare
+  `slices = ("weekday",)`).
+
