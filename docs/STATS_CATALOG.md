@@ -182,3 +182,71 @@ Expected baseline: ~50% for both green and red. Fixed seed for reproducibility.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
+
+---
+
+## 3. Green & Red Streaks
+
+**Family**: `green_red_streaks`
+**Module**: `stats/green_red_streaks/standard.py`
+**Result file**: `results/green_red_streaks.json`
+**Status**: Implemented
+
+### What it measures
+Once a period is green (or red), how likely is the streak to continue for one more
+period of the same color? Computed at **daily**, **weekly**, and **monthly**
+granularity.
+
+The issue frames this as "consecutive green/red periods" with average and max
+streak lengths. We express it as a **continuation probability** so it fits the
+probability-row framework natively (each row carries its sample size N and a random
+baseline). The **average streak length** is recoverable by consumers as
+`1 / (1 - P(continue))`. Max streak length is not represented in this framing.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`),
+   using the same resolution rule as the other daily stats (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`).
+2. Aggregate resolved days into **periods** at the granularity:
+   - `daily`: each day is one period.
+   - `weekly`: days grouped by ISO week; `period_open` = first day's `session_open`,
+     `period_close` = last day's `session_close`.
+   - `monthly`: days grouped by calendar month (analogous).
+3. Classify each period as **green** or **red** per the `performance` mode:
+   - `close_to_close` (default): green if `period_close >= previous resolved
+     period's close`. The first period has no prior close and is excluded.
+   - `open_to_close`: green if `period_close >= period_open`.
+4. For each period, look at the chronologically **next** resolved period. A period
+   of a given color "continues" if the next period shares that color, otherwise it
+   "breaks". The final period has no next period, so its continuation outcome is
+   unresolved and it is excluded from every denominator (pending discipline).
+5. Report, per granularity, the four rows: green→continue, green→break,
+   red→continue, red→break.
+
+`total_samples` counts all resolved periods; each row's `total` counts only the
+**countable** periods of that color (those with a following period).
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| performance | close_to_close | Period-direction basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily`, `weekly`, `monthly` (merged into one result file under
+  `instruments.{INSTRUMENT}.{granularity}`).
+
+### Baseline
+Each period is recolored at random (50/50 green/red) and the next-period color is
+recomputed from the randomized sequence, so continuation is independent of the
+current color. Expected baseline: ~50% for every row. Fixed seed for reproducibility.
+
+### i18n
+- **title.en**: "Green & Red Streaks"
+- **title.fr**: "Séries vertes et rouges"
+- **definition.en**: "Once a period is green (or red), how likely is the streak to continue for one more period of the same color?"
+- **definition.fr**: "Une fois qu'une période est verte (ou rouge), quelle est la probabilité que la série se poursuive d'une période supplémentaire de la même couleur ?"
+
+### Slices
+- None. The streaks stat declares `slices = ()`.
+

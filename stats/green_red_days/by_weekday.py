@@ -30,6 +30,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, load_config, minute_of_day
+from stats.utils.daily_candles import build_resolved_days
 
 # ---------------------------------------------------------------------------
 # i18n content
@@ -91,55 +92,28 @@ class GreenRedDaysByWeekday(BaseStat):
     self.rth_end_min: int = minute_of_day(rth.end)
 
   def build_day_table(self, candles_df: pd.DataFrame) -> pd.DataFrame:
-    """Build a per-day RTH summary table from 1-min OHLCV data (vectorized).
+    """Build a per-day RTH summary table from 1-min OHLCV data.
 
     Each row corresponds to one resolved trading day, indexed by the normalized
     session date, with columns:
-      session_open, session_close, last_minute, prev_session_close, day_green
+      session_open, session_close, prev_session_close, day_green
 
-    A day is "resolved" (confirmed) if:
-      - It has a bar exactly at rth_start_min (clean session open)
-      - Its last RTH bar is at or after rth_end_min - close_tolerance_min
-        (excludes early-close days and the final incomplete day in the data)
+    The resolved-days core (RTH filter, session open/close extraction, resolution
+    filter, chronological sort) is shared via ``build_resolved_days``; this method
+    adds the prev-close reference and the day-direction flag on top.
 
     In ``close_to_close`` mode the first resolved day has no previous session
     close and is excluded (pending-sample discipline).
     """
-    columns = ["session_open", "session_close", "last_minute", "prev_session_close", "day_green"]
-    if candles_df.empty:
+    columns = ["session_open", "session_close", "prev_session_close", "day_green"]
+    day = build_resolved_days(
+      candles_df, self.rth_start_min, self.rth_end_min, self.close_tolerance_min
+    )
+    if day.empty:
       return pd.DataFrame(columns=columns)
 
-    df = candles_df.copy()
-    df["mod"] = df["timestamp"].dt.hour * 60 + df["timestamp"].dt.minute
-    df["date"] = df["timestamp"].dt.normalize()
-
-    # Keep only RTH bars: [rth_start_min, rth_end_min)
-    rth_mask = (df["mod"] >= self.rth_start_min) & (df["mod"] < self.rth_end_min)
-    rth = df[rth_mask].copy()
-    if rth.empty:
-      return pd.DataFrame(columns=columns)
-
-    # session_open = open of the bar at exactly rth_start_min
-    open_bars = (
-      rth[rth["mod"] == self.rth_start_min].set_index("date")["open"].rename("session_open")
-    )
-    # Defensive: guard against duplicate bars at rth_start_min for the same day.
-    open_bars = open_bars[~open_bars.index.duplicated(keep="first")]
-    # session_close = close of the last RTH bar for that day
-    last_bars = (
-      rth.loc[rth.groupby("date")["mod"].idxmax(), ["date", "close", "mod"]]
-      .set_index("date")
-      .rename(columns={"close": "session_close", "mod": "last_minute"})
-    )
-
-    day = pd.concat([open_bars, last_bars], axis=1, sort=False)
-
-    # Resolution filter: clean session open AND sufficient close coverage.
-    resolved_min = self.rth_end_min - self.close_tolerance_min
-    day = day[day["session_open"].notna() & (day["last_minute"] >= resolved_min)].copy()
-
-    # Chronological order so prev_session_close references the previous resolved day.
-    day = day.sort_index()
+    # build_resolved_days returns rows in chronological order, so prev_session_close
+    # references the previous resolved day.
     day["prev_session_close"] = day["session_close"].shift(1)
 
     if self.performance == "open_to_close":
