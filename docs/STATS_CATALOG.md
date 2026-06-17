@@ -319,3 +319,64 @@ overall, with a fixed seed for reproducibility.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
+
+---
+
+## 5. Previous Session Correlation
+
+**Family**: `prev_session_correlation`
+**Module**: `stats/prev_session_correlation/standard.py`
+**Result file**: `results/prev_session_correlation.json`
+**Status**: Implemented
+
+### What it measures
+How often does the current session close green (or red) given the prior session's
+color? Day-over-day color follow-through, reported as a 2x2 conditional matrix:
+P(green | prior green), P(red | prior green), P(green | prior red), P(red | prior red).
+
+This is the explicit-matrix companion to **Green & Red Streaks** (section 3): both
+read the same daily color sequence, but streaks collapses it into one continue/break
+outcome, while this stat keeps both outcomes per prior color so the asymmetry
+between green- and red-follow-through is visible directly.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`, `session_close`),
+   using the same resolution rule as the other daily stats (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`).
+2. Classify each resolved session as **green** or **red** per the `performance` mode:
+   - `close_to_close` (default): green if `session_close >= previous resolved
+     session's close`. The first resolved session has no prior close and is excluded
+     (pending-sample discipline).
+   - `open_to_close`: green if `session_close >= session_open`.
+3. Attach each session's **prior** color: the color of the chronologically previous
+   resolved session. The first usable session has no prior session, so its condition
+   is undefined and it is excluded from every denominator.
+4. Report the four rows: prior-green→green, prior-green→red, prior-red→green,
+   prior-red→red.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a prior session) carrying that prior color.
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| performance | close_to_close | Session-direction basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Each session is recolored at random (50/50 green/red) and the prior-session color is
+recomputed from the randomized sequence, so the current color is independent of the
+prior one. Expected baseline: ~50% for every row. Fixed seed for reproducibility.
+
+### i18n
+- **title.en**: "Previous Session Correlation"
+- **title.fr**: "Corrélation de la session précédente"
+- **definition.en**: "How often does the current session close green or red given the prior session's color?"
+- **definition.fr**: "À quelle fréquence la session actuelle clôture-t-elle en vert ou en rouge selon la couleur de la session précédente ?"
+
+### Slices
+- None. The prev-session-correlation stat declares `slices = ()`.
+
