@@ -130,3 +130,55 @@ Expected baseline: ~50% for all conditions. Fixed seed for reproducibility.
   session **closes relative to the opening candle**: e.g. inside the opening
   candle's range, beyond its close, or back through its open — quantifying how
   far the session travels from the opening candle, not just its color.
+
+---
+
+## 2. Green & Red Days by Weekday
+
+**Family**: `green_red_days`
+**Module**: `stats/green_red_days/by_weekday.py`
+**Result file**: `results/green_red_days_by_weekday.json`
+**Status**: Implemented
+
+### What it measures
+How often does each weekday close green (up) versus red (down)? The overall
+result is the marginal probability across all resolved days; the per-weekday
+breakdown is produced by the declared `weekday` slice.
+
+### Methodology
+1. Build the RTH daily candle per day: `session_open` = open of the 09:30 bar,
+   `session_close` = close of the last RTH bar.
+2. A day is **resolved** if it has a clean session-open bar and its last RTH bar
+   is at or after `session_end - close_tolerance` (default 16:00). Unresolved
+   days (early closes, the final incomplete day) are excluded.
+3. Classify each resolved day as **green** or **red** per the `performance` mode:
+   - `close_to_close` (default): green if `session_close >= previous resolved
+     day's session_close`. The first resolved day has no prior close and is
+     excluded (pending-sample discipline). The reference is the previous
+     **resolved** session, so it skips over any excluded/early-close day.
+   - `open_to_close`: green if `session_close >= session_open`.
+4. Count green vs red over all resolved days, then re-run per weekday via the
+   `weekday` slice.
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| performance | close_to_close | Day-direction basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random direction assignment (50/50 green/red) per resolved day.
+Expected baseline: ~50% for both green and red. Fixed seed for reproducibility.
+
+### i18n
+- **title.en**: "Green & Red Days by Weekday"
+- **title.fr**: "Jours verts et rouges par jour de la semaine"
+- **definition.en**: "How often does each weekday close green (up) versus red (down)?"
+- **definition.fr**: "À quelle fréquence chaque jour de la semaine clôture-t-il en vert (hausse) plutôt qu'en rouge (baisse) ?"
+
+### Slices
+- `weekday` — implemented (declared via `slices = ("weekday",)`)
+
