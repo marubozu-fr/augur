@@ -250,3 +250,72 @@ current color. Expected baseline: ~50% for every row. Fixed seed for reproducibi
 ### Slices
 - None. The streaks stat declares `slices = ()`.
 
+
+---
+
+## 4. Performance by Weekday
+
+**Family**: `performance_weekday`
+**Module**: `stats/performance_weekday/standard.py`
+**Result file**: `results/performance_weekday.json`
+**Status**: Implemented
+
+### What it measures
+For each weekday: the **average percent return**, the **green/red day counts**, and
+the **average green-day and red-day move sizes**. The overall result aggregates all
+resolved days; the per-weekday breakdown is produced by the declared `weekday` slice.
+
+This is the first **magnitude** stat. Most families report probabilities; here three
+of the five rows carry a continuous metric instead. To support this, `StatResultRow`
+gained two optional fields:
+- `value` — the continuous metric (a signed decimal return, e.g. `0.012` = +1.2%).
+- `value_baseline` — its random-baseline counterpart.
+
+Probability rows (`green_day`, `red_day`) leave `value`/`value_baseline` as `null` and
+use the ordinary `probability` / `baseline_prob` channel; magnitude rows (`mean_return`,
+`mean_green_move`, `mean_red_move`) leave `probability` at `0.0` and populate `value`.
+Every row reports its sample size in `count` / `total`.
+
+### Methodology
+1. Build the RTH daily candle per day (`session_open` = open of the 09:30 bar,
+   `session_close` = close of the last RTH bar), keeping only **resolved** days
+   (clean session open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute each resolved day's signed percent return per the `performance` mode:
+   - `close_to_close` (default): `(session_close - previous resolved day's
+     session_close) / previous close`. The first resolved day has no prior close and
+     is excluded (pending-sample discipline). The reference is the previous **resolved**
+     session, so it skips over any excluded/early-close day.
+   - `open_to_close`: `(session_close - session_open) / session_open`.
+3. A day is **green** when its return is `>= 0`, otherwise **red**.
+4. Over all resolved days, report five rows under the single `any_day` condition:
+   - `mean_return` — average return across all days (`value`).
+   - `green_day` / `red_day` — green and red day counts (`probability`).
+   - `mean_green_move` — average return over green days (`value`, `>= 0`).
+   - `mean_red_move` — average return over red days (`value`, `<= 0`).
+5. Re-run the same five rows per weekday via the `weekday` slice. When a group has no
+   green (or red) days, the corresponding mean falls back to `0.0`.
+
+### Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| performance | close_to_close | Return basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Each day's return **direction is a coin flip**: magnitudes are held fixed and the sign
+of each day's return is randomized (p=0.5). Expected average return ≈ 0 and expected
+green/red day counts ≈ 50/50. The baseline is computed per slice group as well as
+overall, with a fixed seed for reproducibility.
+
+### i18n
+- **title.en**: "Performance by Weekday"
+- **title.fr**: "Performance par jour de la semaine"
+- **definition.en**: "What is the average percent return, the green/red day counts, and the average green/red move size for each weekday?"
+- **definition.fr**: "Quels sont le rendement moyen en pourcentage, le nombre de jours verts/rouges et la taille moyenne des mouvements verts/rouges pour chaque jour de la semaine ?"
+
+### Slices
+- `weekday` — implemented (declared via `slices = ("weekday",)`)
+

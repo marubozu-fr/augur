@@ -30,6 +30,11 @@ class StatResultRow(BaseModel):
   probability: float
   baseline_prob: float
   baseline_n: int
+  # Continuous-metric channel for magnitude stats (e.g. average percent return).
+  # Probability rows leave these None; magnitude rows populate `value` with the
+  # metric and `value_baseline` with its random-baseline counterpart.
+  value: float | None = None
+  value_baseline: float | None = None
 
 
 class Labels(BaseModel):
