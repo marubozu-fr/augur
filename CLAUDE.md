@@ -77,7 +77,6 @@ augur/
 ├── docs/
 │   └── STATS_CATALOG.md
 ├── CLAUDE.md
-├── STATUS.md
 └── pyproject.toml
 ```
 

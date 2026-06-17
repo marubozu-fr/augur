@@ -43,11 +43,7 @@ git checkout -b feature/$ARGUMENTS-<short-description>
    ruff check .
    ```
 
-## 6. Update STATUS.md
-
-Update `STATUS.md` to reflect the completed work.
-
-## 7. Commit and open a PR
+## 6. Commit and open a PR
 
 ```bash
 git add -A

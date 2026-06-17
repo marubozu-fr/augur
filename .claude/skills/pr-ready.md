@@ -25,10 +25,7 @@ Run the full quality pipeline on the current branch before creating a PR.
    - Verify pending samples are excluded
    - Verify sample sizes are reported
 
-6. **STATUS.md updated**
-   - Confirm `STATUS.md` reflects the work done in this branch
-
-7. **Summary**
+6. **Summary**
    - List all files changed
    - List all tests added/modified
    - List any remaining findings intentionally deferred
