@@ -1,0 +1,328 @@
+"""Opening Candle Continuation stat.
+
+Measures: after the first N-minute candle of the RTH session, how often does
+the session close in the same direction as that opening candle?
+"""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+from stats.base import (
+  BaseStat,
+  I18nString,
+  Labels,
+  StatResultRow,
+  StatRunResult,
+  TimeframeResult,
+  write_results,
+)
+from stats.config import InstrumentConfig, load_config, minute_of_day
+
+# ---------------------------------------------------------------------------
+# i18n content
+# ---------------------------------------------------------------------------
+_TITLE = I18nString(
+  en="Opening Candle Continuation",
+  fr="Continuation de la bougie d'ouverture",
+)
+_DEFINITION = I18nString(
+  en="After the first N-minute candle of the NY session, how often does the session close in the same direction?",
+  fr="Après la première bougie de N minutes de la session NY, à quelle fréquence la session clôture-t-elle dans la même direction ?",
+)
+_LABELS = Labels(
+  conditions={
+    "green_open": I18nString(en="Green opening candle", fr="Bougie d'ouverture verte"),
+    "red_open": I18nString(en="Red opening candle", fr="Bougie d'ouverture rouge"),
+  },
+  outcomes={
+    "green_close": I18nString(en="Session closes green", fr="Session clôture en vert"),
+    "red_close": I18nString(en="Session closes red", fr="Session clôture en rouge"),
+  },
+)
+
+# ---------------------------------------------------------------------------
+# Timeframe string → integer minutes
+# ---------------------------------------------------------------------------
+_TF_MINUTES: dict[str, int] = {
+  "15min": 15,
+  "30min": 30,
+  "1h": 60,
+}
+
+
+class OpeningCandleContinuation(BaseStat):
+  """Conditional probability of session direction given opening candle direction."""
+
+  def __init__(
+    self,
+    instrument: str,
+    timeframe: str,
+    config: InstrumentConfig,
+    close_tolerance_min: int = 15,
+  ) -> None:
+    if timeframe not in _TF_MINUTES:
+      raise ValueError(f"Unsupported timeframe '{timeframe}'. Choose from {list(_TF_MINUTES)}")
+    self.instrument = instrument
+    self.timeframe = timeframe
+    self.config = config
+    self.tf_minutes = _TF_MINUTES[timeframe]
+    self.close_tolerance_min = close_tolerance_min
+
+    rth = config.sessions["rth"]
+    self.rth_start_min: int = minute_of_day(rth.start)
+    self.rth_end_min: int = minute_of_day(rth.end)
+
+  def _build_day_table(self, candles_df: pd.DataFrame) -> pd.DataFrame:
+    """Build a per-day summary table from 1-min OHLCV data (vectorized).
+
+    Each row in the output corresponds to one resolved trading day with columns:
+      date, session_open, session_close, opening_open, opening_close,
+      opening_green, session_green
+
+    A day is "resolved" (confirmed) if:
+      - It has a bar exactly at rth_start_min (clean session open)
+      - Its last RTH bar is at or after rth_end_min - close_tolerance_min
+        (this excludes early-close days and the final incomplete day in the data)
+    Unresolved days are excluded from all counts (pending sample rule).
+    """
+    if candles_df.empty:
+      return pd.DataFrame(
+        columns=[
+          "session_open", "session_close", "last_minute",
+          "opening_open", "opening_close", "opening_green", "session_green",
+        ]
+      )
+    df = candles_df.copy()
+
+    # Compute minute-of-day and date for each bar
+    df["mod"] = df["timestamp"].dt.hour * 60 + df["timestamp"].dt.minute
+    df["date"] = df["timestamp"].dt.normalize()
+
+    # Keep only RTH bars: [rth_start_min, rth_end_min)
+    rth_mask = (df["mod"] >= self.rth_start_min) & (df["mod"] < self.rth_end_min)
+    rth = df[rth_mask].copy()
+
+    # --- Session open and close (per day) ---
+    # session_open = open of the bar at exactly rth_start_min
+    open_bars = rth[rth["mod"] == self.rth_start_min].set_index("date")["open"].rename("session_open")
+
+    # session_close = close of the last RTH bar for that day
+    last_bars = (
+      rth.loc[rth.groupby("date")["mod"].idxmax(), ["date", "close", "mod"]]
+      .set_index("date")
+      .rename(columns={"close": "session_close", "mod": "last_minute"})
+    )
+
+    # --- Opening candle (per day) ---
+    oc_end_min = self.rth_start_min + self.tf_minutes
+    oc_mask = (rth["mod"] >= self.rth_start_min) & (rth["mod"] < oc_end_min)
+    oc_bars = rth[oc_mask].copy()
+
+    # opening_open = open of the first bar (must be at rth_start_min)
+    oc_first = oc_bars[oc_bars["mod"] == self.rth_start_min].set_index("date")["open"].rename(
+      "opening_open"
+    )
+    # opening_close = close of the last bar of the opening candle window
+    oc_last = (
+      oc_bars.loc[oc_bars.groupby("date")["mod"].idxmax(), ["date", "close"]]
+      .set_index("date")["close"]
+      .rename("opening_close")
+    )
+
+    # --- Join everything ---
+    day = pd.concat([open_bars, last_bars, oc_first, oc_last], axis=1, sort=False)
+
+    # Resolution filter: must have clean session open AND sufficient close coverage.
+    # Days missing the open bar will have NaN in session_open / opening_open.
+    resolved_min = self.rth_end_min - self.close_tolerance_min
+    day = day[
+      day["session_open"].notna()
+      & day["opening_open"].notna()
+      & (day["last_minute"] >= resolved_min)
+    ].copy()
+
+    # Direction flags
+    day["opening_green"] = day["opening_close"] >= day["opening_open"]
+    day["session_green"] = day["session_close"] >= day["session_open"]
+
+    return day
+
+  def _compute_rows(
+    self,
+    day_table: pd.DataFrame,
+    baseline_rows: list[StatResultRow] | None = None,
+  ) -> list[StatResultRow]:
+    """Compute the four condition/outcome StatResultRows.
+
+    If baseline_rows is provided, merges baseline_prob/baseline_n from it.
+    """
+    baseline_map: dict[tuple[str, str], StatResultRow] = {}
+    if baseline_rows:
+      baseline_map = {(r.condition, r.outcome): r for r in baseline_rows}
+
+    rows: list[StatResultRow] = []
+    conditions = [
+      ("green_open", True),
+      ("red_open", False),
+    ]
+    outcomes = [
+      ("green_close", True),
+      ("red_close", False),
+    ]
+
+    for cond_key, cond_green in conditions:
+      cond_mask = day_table["opening_green"] == cond_green
+      total = int(cond_mask.sum())
+
+      for out_key, out_green in outcomes:
+        out_mask = day_table["session_green"] == out_green
+        count = int((cond_mask & out_mask).sum())
+        probability = count / total if total > 0 else 0.0
+
+        # baseline_rows come from baseline(): their .probability field holds
+        # the randomized rate (since they were computed with no nested baseline).
+        # We read that as the baseline_prob for the real result rows.
+        bl = baseline_map.get((cond_key, out_key))
+        baseline_prob = bl.probability if bl else 0.0
+        baseline_n = bl.total if bl else 0
+
+        rows.append(
+          StatResultRow(
+            condition=cond_key,
+            outcome=out_key,
+            count=count,
+            total=total,
+            probability=probability,
+            baseline_prob=baseline_prob,
+            baseline_n=baseline_n,
+          )
+        )
+
+    return rows
+
+  def compute(self, candles_df: pd.DataFrame) -> StatRunResult:
+    """Compute opening candle continuation probabilities."""
+    day_table = self._build_day_table(candles_df)
+    baseline_rows = self.baseline(candles_df, seed=42, _day_table=day_table)
+    rows = self._compute_rows(day_table, baseline_rows=baseline_rows)
+
+    if len(day_table) > 0:
+      dates = day_table.index
+      # index is pd.Timestamp (from dt.normalize()); format as YYYY-MM-DD
+      data_range = [
+        dates.min().strftime("%Y-%m-%d"),
+        dates.max().strftime("%Y-%m-%d"),
+      ]
+    else:
+      data_range = []
+
+    tf_result = TimeframeResult(
+      data_range=data_range,
+      total_samples=len(day_table),
+      results=rows,
+    )
+
+    return StatRunResult(
+      stat_name="opening_candle_continuation",
+      title=_TITLE,
+      definition=_DEFINITION,
+      labels=_LABELS,
+      instruments={self.instrument: {self.timeframe: tf_result}},
+    )
+
+  def baseline(
+    self,
+    candles_df: pd.DataFrame,
+    seed: int,
+    _day_table: pd.DataFrame | None = None,
+  ) -> list[StatResultRow]:
+    """Random baseline: keep actual opening direction, randomize session direction (p=0.5).
+
+    Uses a fixed seed for deterministic output. Expected baseline_prob ≈ 0.5.
+
+    `_day_table` is an internal optimization: when compute() has already built
+    the day table, it passes it here to avoid rebuilding it. The public
+    interface remains baseline(candles_df, seed).
+    """
+    day_table = _day_table if _day_table is not None else self._build_day_table(candles_df)
+
+    rng = np.random.default_rng(seed)
+    n = len(day_table)
+    # Randomly assign session direction (True=green, False=red) with p=0.5
+    random_session_green = rng.integers(0, 2, size=n).astype(bool)
+
+    # Build a temporary frame with randomized session direction
+    tmp = day_table.copy()
+    tmp["session_green"] = random_session_green
+
+    # Compute rows from the randomized frame (no nested baseline call)
+    return self._compute_rows(tmp, baseline_rows=None)
+
+
+def run(
+  instrument: str = "NQ",
+  config_dir: str = "config",
+  data_path: str | None = None,
+) -> Path:
+  """Load data and compute Opening Candle Continuation for all three timeframes.
+
+  Merges per-timeframe TimeframeResults into a single StatRunResult and writes
+  the consolidated JSON to results/.
+  """
+  config = load_config(instrument, config_dir=config_dir)
+  parquet_path = Path(data_path) if data_path else config.parquet_path
+
+  candles_df = pd.read_parquet(parquet_path)
+
+  timeframes = ["15min", "30min", "1h"]
+  merged_tf: dict[str, TimeframeResult] = {}
+
+  for tf in timeframes:
+    stat = OpeningCandleContinuation(instrument=instrument, timeframe=tf, config=config)
+    result = stat.compute(candles_df)
+    merged_tf[tf] = result.instruments[instrument][tf]
+
+  final_result = StatRunResult(
+    stat_name="opening_candle_continuation",
+    title=_TITLE,
+    definition=_DEFINITION,
+    labels=_LABELS,
+    instruments={instrument: merged_tf},
+  )
+
+  return write_results(final_result)
+
+
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser(description="Compute Opening Candle Continuation stat")
+  parser.add_argument("--instrument", default="NQ", help="Instrument name (default: NQ)")
+  parser.add_argument("--data-path", default=None, help="Override parquet file path")
+  parser.add_argument("--config-dir", default="config", help="Config directory (default: config)")
+  args = parser.parse_args()
+
+  output_path = run(
+    instrument=args.instrument,
+    config_dir=args.config_dir,
+    data_path=args.data_path,
+  )
+
+  print(f"Written: {output_path}")
+
+  # Print a brief summary of results
+  import json
+  with open(output_path, encoding="utf-8") as f:
+    data = json.load(f)
+
+  instrument_data = data["instruments"][args.instrument]
+  for tf, tf_data in instrument_data.items():
+    print(f"\n  {tf}: {tf_data['total_samples']} resolved days | {tf_data['data_range']}")
+    for row in tf_data["results"]:
+      print(
+        f"    {row['condition']} -> {row['outcome']}: "
+        f"{row['probability']:.3f} (N={row['total']}, baseline={row['baseline_prob']:.3f})"
+      )
