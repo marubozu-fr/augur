@@ -43,25 +43,34 @@ var int   n_{{ tf.var }}_red      = {{ tf.n_red }}
 // timeframe (e.g. a 15min candle on a 1h chart) that is NOT the RTH opening
 // candle — there is no chart bar at 09:45, so the latest closed 15min candle is
 // returned instead. We therefore evaluate the capture INSIDE the requested
-// timeframe's own context: the candle whose open lands on the RTH session start
-// is the opening candle. We latch its open/close into var state and hold it for
-// the whole session, so the value is correct on any chart timeframe.
-openingCandle() =>
+// timeframe's own context: the candle whose open lands on the grid-aligned
+// opening minute is the opening candle. Chart timeframes are clock-aligned, so
+// the opening candle is the one that CONTAINS the RTH open, not necessarily one
+// that starts on it: on a 09:30 open the 1h opening candle is 09:00–10:00. Each
+// timeframe passes its own capture minute. We latch the open/close into var
+// state and hold it for the whole session, so it is correct on any chart TF.
+openingCandle(int captureMod) =>
     candleMod = hour(time, TZ) * 60 + minute(time, TZ)
     var float capturedOpen = na
     var float capturedClose = na
-    if candleMod == rthStartMod
+    if candleMod == captureMod
         capturedOpen := open
         capturedClose := close
     [capturedOpen, capturedClose]
 
 // --- Opening-candle data per timeframe (latched, chart-TF agnostic) ---
 {% for tf in timeframes %}
-[o_{{ tf.var }}, c_{{ tf.var }}] = request.security(syminfo.tickerid, "{{ tf.pine_tf }}", openingCandle(), lookahead = barmerge.lookahead_off)
+[o_{{ tf.var }}, c_{{ tf.var }}] = request.security(syminfo.tickerid, "{{ tf.pine_tf }}", openingCandle({{ tf.capture_mod }}), lookahead = barmerge.lookahead_off)
 {% endfor %}
 
 // --- Session time helpers ---
-nyMod     = hour(time, TZ) * 60 + minute(time, TZ)
+// Minute-of-day at 1-minute resolution, independent of the chart timeframe.
+// hour(time)/minute(time) return the chart bar's OPEN minute, so on a coarse
+// chart (1h, daily) RTH/open/close detection would lag until the bar closes
+// (e.g. a 1h chart's 09:00 bar reads 540, hiding the 09:30 open until 10:00).
+// Requesting the 1-minute series keeps detection aligned to wall-clock time on
+// any chart TF — the same chart-agnostic principle as the candle data above.
+nyMod     = request.security(syminfo.tickerid, "1", hour(time, TZ) * 60 + minute(time, TZ), lookahead = barmerge.lookahead_off)
 nyModPrev = nz(nyMod[1], nyMod)
 isNewSession = nyMod >= rthStartMod and nyModPrev < rthStartMod
 inRTH = nyMod >= rthStartMod and nyMod < rthEndMod

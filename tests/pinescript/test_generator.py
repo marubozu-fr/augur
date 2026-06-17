@@ -207,12 +207,15 @@ def test_version_and_indicator_header(tmp_path: Path) -> None:
 def test_request_security_timeframes(tmp_path: Path) -> None:
   """Each opening candle is requested on its own timeframe via the capture
   function (not a direct [open, close] read, which returns the wrong candle on
-  charts coarser than the requested timeframe — see issue #4)."""
+  charts coarser than the requested timeframe — see issue #4).
+
+  The capture minute is grid-aligned (issue #5): 15min/30min capture at 09:30
+  (570), but the 1h candle that contains the open starts at 09:00 (540)."""
   results_dir, config_dir = _setup(tmp_path)
   pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
-  assert 'request.security(syminfo.tickerid, "15", openingCandle()' in pine
-  assert 'request.security(syminfo.tickerid, "30", openingCandle()' in pine
-  assert 'request.security(syminfo.tickerid, "60", openingCandle()' in pine
+  assert 'request.security(syminfo.tickerid, "15", openingCandle(570)' in pine
+  assert 'request.security(syminfo.tickerid, "30", openingCandle(570)' in pine
+  assert 'request.security(syminfo.tickerid, "60", openingCandle(540)' in pine
   # The naive direct read is the bug we fixed; it must not appear.
   assert "[open, close]" not in pine
 
@@ -227,18 +230,19 @@ def test_opening_candle_capture_logic(tmp_path: Path) -> None:
   """
   results_dir, config_dir = _setup(tmp_path)
   pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
-  # Capture function defined.
-  assert "openingCandle() =>" in pine
+  # Capture function defined, parameterized by the grid-aligned capture minute.
+  assert "openingCandle(int captureMod) =>" in pine
   # Persistent var storage for the latched open/close.
   assert "var float capturedOpen = na" in pine
   assert "var float capturedClose = na" in pine
-  # The opening candle is the one whose open lands on the RTH session start.
-  assert "candleMod == rthStartMod" in pine
+  # The opening candle is the one whose open lands on the per-timeframe capture
+  # minute (issue #5: no longer a single rthStartMod for every timeframe).
+  assert "candleMod == captureMod" in pine
   # Latching assignments, held for the whole session.
   assert "capturedOpen := open" in pine
   assert "capturedClose := close" in pine
-  # The capture is wired into request.security for every timeframe.
-  assert pine.count("openingCandle()") == 1 + 3  # 1 definition call + 3 security calls
+  # One definition + one call per timeframe (each passing its capture minute).
+  assert pine.count("openingCandle(") == 1 + 3
 
 
 def test_direction_from_security_not_chart(tmp_path: Path) -> None:
@@ -255,14 +259,19 @@ def test_direction_from_security_not_chart(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def test_detection_times_from_rth_start_930(tmp_path: Path) -> None:
-  """rth start 09:30 (570) -> closes at 585/600/630, labels 09:45/10:00/10:30."""
+  """rth start 09:30 (570): 15min closes 09:45, 30min and 1h both 10:00.
+
+  The 1h opening candle is 09:00–10:00 (grid-aligned), so it closes at 10:00
+  (600), the same moment as the 30min candle — not 10:30 as before (issue #5)."""
   results_dir, config_dir = _setup(tmp_path, rth_start="09:30")
   pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
   assert "rthStartMod  = 570" in pine
   assert "is_tf15_close = nyMod >= 585 and nyModPrev < 585" in pine
   assert "is_tf30_close = nyMod >= 600 and nyModPrev < 600" in pine
-  assert "is_tf60_close = nyMod >= 630 and nyModPrev < 630" in pine
-  assert '"09:45"' in pine and '"10:00"' in pine and '"10:30"' in pine
+  assert "is_tf60_close = nyMod >= 600 and nyModPrev < 600" in pine
+  assert '"09:45"' in pine and '"10:00"' in pine
+  # The old (incorrect) 1h close at 10:30 must no longer appear.
+  assert '"10:30"' not in pine
 
 
 def test_detection_times_shift_with_config(tmp_path: Path) -> None:
@@ -313,9 +322,11 @@ def test_rows_ordered_by_close_time(tmp_path: Path) -> None:
   }
   results_dir, config_dir = _setup(tmp_path, timeframes=timeframes)
   pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
-  # Row 0 = header, row 1 = session open, so 15min owns row 2 and 1h owns row 4.
+  # Row 0 = header, row 1 = session open. Sorted by close time: 15min (09:45)
+  # owns row 2; 30min and 1h both close at 10:00 and fill rows 3 and 4.
   assert 'table.cell(augurTable, 0, 2, "09:45"' in pine
-  assert 'table.cell(augurTable, 0, 4, "10:30"' in pine
+  assert 'table.cell(augurTable, 0, 3, "10:00"' in pine
+  assert 'table.cell(augurTable, 0, 4, "10:00"' in pine
 
 
 # ---------------------------------------------------------------------------
@@ -519,6 +530,23 @@ def test_in_rth_helper_present(tmp_path: Path) -> None:
   results_dir, config_dir = _setup(tmp_path)
   pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
   assert "inRTH = nyMod >= rthStartMod and nyMod < rthEndMod" in pine
+
+
+def test_minute_of_day_from_one_minute_security(tmp_path: Path) -> None:
+  """Time detection (nyMod) must be derived from a 1-minute request.security,
+  not hour(time)/minute(time) on the chart bar (issue #5, bug 2).
+
+  On a coarse chart (1h, daily) the chart bar's open minute lags wall-clock time,
+  so RTH/open/close detection would only fire when the bar closes. Requesting the
+  1-minute series keeps detection chart-timeframe agnostic."""
+  results_dir, config_dir = _setup(tmp_path)
+  pine = render_indicator("NQ", results_dir=results_dir, config_dir=config_dir)
+  assert (
+    'nyMod     = request.security(syminfo.tickerid, "1", '
+    "hour(time, TZ) * 60 + minute(time, TZ), lookahead = barmerge.lookahead_off)"
+  ) in pine
+  # The naive chart-bar minute-of-day must not be the source of nyMod anymore.
+  assert "nyMod     = hour(time, TZ) * 60 + minute(time, TZ)\n" not in pine
 
 
 def test_rth_end_mod_from_config(tmp_path: Path) -> None:

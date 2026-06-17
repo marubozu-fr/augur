@@ -77,6 +77,12 @@ class OpeningCandleContinuation(BaseStat):
     self.rth_start_min: int = minute_of_day(rth.start)
     self.rth_end_min: int = minute_of_day(rth.end)
 
+    # Opening candle aligned to the timeframe grid: the candle that CONTAINS the
+    # RTH open, not necessarily one that starts on it. Chart timeframes are
+    # clock-aligned, so on a 09:30 open the opening 1h candle is 09:00–10:00
+    # (floor(570 / 60) * 60 = 540), while 15min and 30min still start at 09:30.
+    self.candle_open_min: int = (self.rth_start_min // self.tf_minutes) * self.tf_minutes
+
   def _build_day_table(self, candles_df: pd.DataFrame) -> pd.DataFrame:
     """Build a per-day summary table from 1-min OHLCV data (vectorized).
 
@@ -86,6 +92,7 @@ class OpeningCandleContinuation(BaseStat):
 
     A day is "resolved" (confirmed) if:
       - It has a bar exactly at rth_start_min (clean session open)
+      - It has a bar exactly at candle_open_min (clean opening-candle open)
       - Its last RTH bar is at or after rth_end_min - close_tolerance_min
         (this excludes early-close days and the final incomplete day in the data)
     Unresolved days are excluded from all counts (pending sample rule).
@@ -119,12 +126,16 @@ class OpeningCandleContinuation(BaseStat):
     )
 
     # --- Opening candle (per day) ---
-    oc_end_min = self.rth_start_min + self.tf_minutes
-    oc_mask = (rth["mod"] >= self.rth_start_min) & (rth["mod"] < oc_end_min)
-    oc_bars = rth[oc_mask].copy()
+    # The opening candle window is [candle_open_min, candle_open_min + tf).
+    # For 1h this starts at 09:00, i.e. BEFORE rth_start_min, so it is computed
+    # from the full frame (df) rather than the RTH-only subset.
+    oc_start_min = self.candle_open_min
+    oc_end_min = self.candle_open_min + self.tf_minutes
+    oc_mask = (df["mod"] >= oc_start_min) & (df["mod"] < oc_end_min)
+    oc_bars = df[oc_mask].copy()
 
-    # opening_open = open of the first bar (must be at rth_start_min)
-    oc_first = oc_bars[oc_bars["mod"] == self.rth_start_min].set_index("date")["open"].rename(
+    # opening_open = open of the first bar (must be at candle_open_min)
+    oc_first = oc_bars[oc_bars["mod"] == oc_start_min].set_index("date")["open"].rename(
       "opening_open"
     )
     # opening_close = close of the last bar of the opening candle window

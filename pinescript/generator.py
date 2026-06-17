@@ -63,8 +63,9 @@ def _build_timeframes(
 
   Each entry carries all four conditional outcome probabilities (so the indicator
   can show the most-likely session direction, continuation or reversal), the green
-  and red opening sample sizes, the Pine timeframe string, and the close-detection
-  minute (rth_start + timeframe duration).
+  and red opening sample sizes, the Pine timeframe string, the capture minute
+  (grid-aligned opening-candle open) and the close-detection minute (capture +
+  timeframe duration).
 
   Timeframes missing any of the four outcome rows are skipped (issue edge case).
   """
@@ -79,11 +80,16 @@ def _build_timeframes(
       continue
 
     tf_minutes = _timeframe_minutes(tf_key)
-    close_min = rth_start_min + tf_minutes
+    # The opening candle is the one that CONTAINS the RTH open, aligned to the
+    # clock grid (floor). For a 09:30 open this is 09:30 for 15/30min but 09:00
+    # for 1h; capture happens at that minute, the candle closes one tf later.
+    capture_min = (rth_start_min // tf_minutes) * tf_minutes
+    close_min = capture_min + tf_minutes
     entries.append({
       "label": tf_key,
       "pine_tf": str(tf_minutes),
       "var": f"tf{tf_minutes}",
+      "capture_mod": capture_min,
       "close_mod": close_min,
       "close_str": _format_hhmm(close_min),
       "prob_gg": gg.probability,

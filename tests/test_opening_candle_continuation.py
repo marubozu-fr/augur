@@ -46,53 +46,54 @@ def _make_day(
   opening_close: float,
   tf_minutes: int,
 ) -> pd.DataFrame:
-  """Build one trading day of 1-min OHLCV bars for RTH (09:30–16:14).
+  """Build one trading day of 1-min OHLCV bars covering the opening candle + RTH.
+
+  The opening candle is grid-aligned: it is the timeframe candle that contains
+  the RTH open, at `floor(rth_start / tf) * tf`. For 15min/30min that is 09:30,
+  but for 1h it is 09:00, so pre-market bars 09:00–09:29 are generated too.
 
   Args:
     date: "YYYY-MM-DD" string.
-    session_open: open price of the 09:30 bar (= session open).
+    session_open: open price of the 09:30 bar (= session open) and of the
+      grid-aligned opening-candle open bar.
     session_close: close price of the 16:14 bar (= session close).
     opening_close: close price of the last bar of the opening candle window.
-      - 15min: bar at 09:44  (mod = 583)
-      - 30min: bar at 09:59  (mod = 598)
-      - 1h:    bar at 10:29  (mod = 628)
+      - 15min: bar at 09:44  (mod = 584)
+      - 30min: bar at 09:59  (mod = 599)
+      - 1h:    bar at 09:59  (mod = 599, window 09:00–10:00)
     tf_minutes: 15, 30, or 60.
 
-  The opening_open is always session_open.
   Intermediate bars are flat at 100.0 to avoid NaN.
   """
   tz = _NY
   base = pd.Timestamp(date, tz=tz)
 
-  # Build one minute bar for each minute 09:30 … 16:14 inclusive
-  # That is mod 570 … 974 (405 bars)
+  # Opening candle aligned to the timeframe grid (floor of the RTH start).
+  candle_open_mod = (_RTH_START // tf_minutes) * tf_minutes
+  oc_last_mod = candle_open_mod + tf_minutes - 1  # last minute of opening candle
+  assert oc_last_mod != _RTH_LAST, (
+    f"tf_minutes={tf_minutes} makes the opening candle end on the session "
+    f"close bar ({_RTH_LAST}); opening_close and session_close would collide"
+  )
+
+  # Build one minute bar from the opening-candle open through the session close.
+  start_mod = min(candle_open_mod, _RTH_START)
   records = []
-  for mod in range(_RTH_START, _RTH_LAST + 1):
+  for mod in range(start_mod, _RTH_LAST + 1):
     h, m = divmod(mod, 60)
     ts = base.replace(hour=h, minute=m, second=0, microsecond=0)
 
-    oc_last_mod = _RTH_START + tf_minutes - 1  # last minute of opening candle window
-    assert oc_last_mod != _RTH_LAST, (
-      f"tf_minutes={tf_minutes} makes the opening candle end on the session "
-      f"close bar ({_RTH_LAST}); the elif branches would collide and the "
-      f"opening_close/session_close prices would overwrite each other"
-    )
-
+    # Default flat bar; the four control points below override open/close.
+    o = 100.0
+    c = 100.0
+    if mod == candle_open_mod:
+      o = session_open  # opening-candle open
     if mod == _RTH_START:
-      # 09:30 bar: open = session_open
-      o = session_open
-      c = session_open  # will be overridden if tf==1 but we handle separately
-    elif mod == oc_last_mod:
-      # Last bar of opening candle — close controls opening_close
-      o = 100.0
-      c = opening_close
-    elif mod == _RTH_LAST:
-      # 16:14 bar: close = session_close
-      o = 100.0
-      c = session_close
-    else:
-      o = 100.0
-      c = 100.0
+      o = session_open  # session open
+    if mod == oc_last_mod:
+      c = opening_close  # opening-candle close (controls opening direction)
+    if mod == _RTH_LAST:
+      c = session_close  # session close
 
     records.append({
       "timestamp": ts,
@@ -872,6 +873,20 @@ def test_stat_attributes() -> None:
   assert stat.tf_minutes == 60
   assert stat.rth_start_min == 570
   assert stat.rth_end_min == 975
+  # 1h candle that contains 09:30 is the 09:00–10:00 bar: floor(570/60)*60 = 540.
+  assert stat.candle_open_min == 540
+
+
+@pytest.mark.parametrize("tf,expected_open_min", [
+  ("15min", 570),  # 09:30 — grid-aligned, equals the RTH open
+  ("30min", 570),  # 09:30 — grid-aligned, equals the RTH open
+  ("1h", 540),     # 09:00 — the 1h candle that contains the 09:30 open
+])
+def test_candle_open_min_grid_aligned(tf: str, expected_open_min: int) -> None:
+  """The opening candle is aligned to floor(rth_start / tf) * tf, so 1h captures
+  the 09:00–10:00 candle while 15min/30min still start at 09:30."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe=tf, config=_TEST_CONFIG)
+  assert stat.candle_open_min == expected_open_min
 
 
 def test_stat_invalid_timeframe_raises() -> None:

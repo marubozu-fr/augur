@@ -17,7 +17,11 @@ After the first N-minute candle of the RTH session, how often does the session
 close in the same direction as that candle?
 
 ### Methodology
-1. For each trading day, identify the first candle of RTH (opens at 09:30 ET).
+1. For each trading day, identify the opening candle: the timeframe candle that
+   contains the RTH open, aligned to the clock grid as `floor(rth_start / tf) * tf`.
+   For a 09:30 ET open this is 09:30 for 15min/30min, but 09:00 for 1h (the 1h
+   candle 09:00–10:00 is the one that contains 09:30, since clock-aligned 1h bars
+   fall on the hour).
 2. Classify the candle as **green** (close >= open) or **red** (close < open).
 3. Classify the daily RTH session as **green** (session close >= session open) or **red**.
 4. Count the four combinations: green->green, green->red, red->green, red->red.
@@ -35,7 +39,7 @@ close in the same direction as that candle?
 ### Timeframes computed
 - 15min (first 15-minute candle: 09:30-09:45)
 - 30min (first 30-minute candle: 09:30-10:00)
-- 1h (first 1-hour candle: 09:30-10:30)
+- 1h (first 1-hour candle: 09:00-10:00)
 
 ### Baseline
 Random direction assignment (50/50 green/red) for each day.
