@@ -1,0 +1,136 @@
+//@version=6
+indicator("Augur Terminal", overlay = true)
+
+// =====================================================================
+// Augur — generated indicator. DO NOT EDIT BY HAND.
+// Source: results/opening_candle_continuation.json
+// Instrument: {{ instrument }}
+// =====================================================================
+
+// --- Constants (derived from config) ---
+TZ = "{{ timezone }}"
+rthStartMod  = {{ rth_start_mod }}
+rthEndMod    = {{ rth_end_mod }}
+
+// --- Theme (GitHub Dark) ---
+colBg = #0D1117
+colHeaderBg = #161B22
+colMuted = #8B949E
+colAccent = #58A6FF
+colBull = #3FB950
+colBear = #F85149
+colWarn = #D29922
+
+// --- Embedded probability lookup tables (generated) ---
+// Four conditional outcomes per timeframe (each opening color sums to 1):
+//   *_green     = P(session bullish | bullish opening)  [continuation]
+//   *_green_rev = P(session bearish | bullish opening)  [reversal]
+//   *_red       = P(session bearish | bearish opening)  [continuation]
+//   *_red_rev   = P(session bullish | bearish opening)  [reversal]
+// Sample sizes are embedded for future use but are not displayed.
+{% for tf in timeframes %}
+var float prob_{{ tf.var }}_green = {{ tf.prob_gg }}
+var float prob_{{ tf.var }}_red   = {{ tf.prob_rr }}
+var float prob_{{ tf.var }}_green_rev = {{ tf.prob_gr }}
+var float prob_{{ tf.var }}_red_rev   = {{ tf.prob_rg }}
+var int   n_{{ tf.var }}_green    = {{ tf.n_green }}
+var int   n_{{ tf.var }}_red      = {{ tf.n_red }}
+{% endfor %}
+
+// --- Opening-candle capture (chart-timeframe agnostic) ---
+// A plain request.security() returns the LAST closed candle of the requested
+// timeframe relative to the chart bar. On a chart coarser than the requested
+// timeframe (e.g. a 15min candle on a 1h chart) that is NOT the RTH opening
+// candle — there is no chart bar at 09:45, so the latest closed 15min candle is
+// returned instead. We therefore evaluate the capture INSIDE the requested
+// timeframe's own context: the candle whose open lands on the RTH session start
+// is the opening candle. We latch its open/close into var state and hold it for
+// the whole session, so the value is correct on any chart timeframe.
+openingCandle() =>
+    candleMod = hour(time, TZ) * 60 + minute(time, TZ)
+    var float capturedOpen = na
+    var float capturedClose = na
+    if candleMod == rthStartMod
+        capturedOpen := open
+        capturedClose := close
+    [capturedOpen, capturedClose]
+
+// --- Opening-candle data per timeframe (latched, chart-TF agnostic) ---
+{% for tf in timeframes %}
+[o_{{ tf.var }}, c_{{ tf.var }}] = request.security(syminfo.tickerid, "{{ tf.pine_tf }}", openingCandle(), lookahead = barmerge.lookahead_off)
+{% endfor %}
+
+// --- Session time helpers ---
+nyMod     = hour(time, TZ) * 60 + minute(time, TZ)
+nyModPrev = nz(nyMod[1], nyMod)
+isNewSession = nyMod >= rthStartMod and nyModPrev < rthStartMod
+inRTH = nyMod >= rthStartMod and nyMod < rthEndMod
+
+// Opening-candle close detection (first bar at or after each close time)
+{% for tf in timeframes %}
+is_{{ tf.var }}_close = nyMod >= {{ tf.close_mod }} and nyModPrev < {{ tf.close_mod }}
+{% endfor %}
+
+// --- Candle direction (latched opening candle, not the chart bar) ---
+{% for tf in timeframes %}
+dir_{{ tf.var }} = c_{{ tf.var }} >= o_{{ tf.var }}
+{% endfor %}
+
+// Tracks whether each timeframe's row has been printed in the current session.
+{% for tf in timeframes %}
+var bool shown_{{ tf.var }} = false
+{% endfor %}
+
+// --- Inputs ---
+lang = input.string("EN", "Language", options = ["EN", "FR"])
+
+// --- Instrument guard (expected symbol embedded by the generator) ---
+expectedRoot = "{{ expected_root }}"
+instrumentOk = syminfo.root == expectedRoot
+
+// --- Overlay terminal (live RTH session only) ---
+// Columns: 0 = time, 1 = factual opening-candle context, 2 = statistical
+// prediction. Row 0 = header, row 1 = session open / waiting / warning, rows
+// 2.. = one per timeframe. No frame/border so an empty table is invisible; every
+// cell carries its own bgcolor for a uniform dark look.
+var table augurTable = table.new(position.top_right, 3, {{ n_rows + 2 }}, bgcolor = colBg)
+
+// Header is always visible (during RTH, while waiting, and on a wrong asset).
+table.cell(augurTable, 0, 0, "AUGUR TERMINAL", text_color = colMuted, bgcolor = colHeaderBg, text_size = size.small, text_halign = text.align_left)
+table.cell(augurTable, 1, 0, "", bgcolor = colHeaderBg)
+table.cell(augurTable, 2, 0, "", bgcolor = colHeaderBg)
+
+// Wrong asset: header + an orange warning line, nothing else.
+if not instrumentOk
+    table.cell(augurTable, 0, 1, lang == "FR" ? "⚠ Pas de statistiques disponibles pour cet asset" : "⚠ No statistics available for this asset", text_color = colWarn, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+
+if instrumentOk
+    // Outside RTH: keep the header, show a waiting message, clear stale data.
+    if not inRTH
+        table.clear(augurTable, 0, 1, 2, {{ n_rows + 1 }})
+        table.cell(augurTable, 0, 1, lang == "FR" ? "⏳ En attente de l'ouverture de New York" : "⏳ Waiting for New York Open", text_color = colMuted, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+    // New RTH session: clear the waiting line and data, then print the open line.
+    if isNewSession
+        table.clear(augurTable, 0, 1, 2, {{ n_rows + 1 }})
+{% for tf in timeframes %}
+        shown_{{ tf.var }} := false
+{% endfor %}
+        table.cell(augurTable, 0, 1, "{{ rth_start_str }}", text_color = colMuted, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+        table.cell(augurTable, 1, 1, lang == "FR" ? "{{ open_label_fr }}" : "{{ open_label_en }}", text_color = colAccent, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+{% for tf in timeframes %}
+    // Print this timeframe's row once, when its opening candle first closes.
+    if is_{{ tf.var }}_close and not shown_{{ tf.var }} and inRTH
+        shown_{{ tf.var }} := true
+        dir         = dir_{{ tf.var }}
+        candleLbl   = lang == "FR" ? "Bougie {{ tf.label }}" : "{{ tf.label }} candle"
+        candleWord  = dir ? (lang == "FR" ? "haussière" : "bullish") : (lang == "FR" ? "baissière" : "bearish")
+        pBull       = dir ? prob_{{ tf.var }}_green : prob_{{ tf.var }}_red_rev
+        pBear       = dir ? prob_{{ tf.var }}_green_rev : prob_{{ tf.var }}_red
+        sessionBull = pBull >= pBear
+        predProb    = sessionBull ? pBull : pBear
+        sessionWord = sessionBull ? (lang == "FR" ? "haussière" : "bullish") : (lang == "FR" ? "baissière" : "bearish")
+        predColor   = sessionBull ? colBull : colBear
+        table.cell(augurTable, 0, {{ tf.row + 2 }}, "{{ tf.close_str }}", text_color = colMuted, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+        table.cell(augurTable, 1, {{ tf.row + 2 }}, candleLbl + " " + candleWord, text_color = colAccent, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+        table.cell(augurTable, 2, {{ tf.row + 2 }}, "→ Session " + sessionWord + ": " + str.tostring(predProb * 100, "#.#") + "%", text_color = predColor, bgcolor = colBg, text_size = size.normal, text_halign = text.align_left)
+{% endfor %}
