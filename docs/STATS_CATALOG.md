@@ -771,3 +771,87 @@ permutation of the full table, so its `value_baseline` equals the overall `value
 Both slicers are reused from the Seasonality family
 (`stats/seasonality/standard.py`); they read the period table's DatetimeIndex.
 
+
+---
+
+## 11. Previous Day's Range
+
+**Family**: `prev_days_range`
+**Module**: `stats/prev_days_range/standard.py`
+**Result file**: `results/prev_days_range.json`
+**Status**: Implemented
+
+### What it measures
+How often does intraday price break the prior trading day's range (its RTH high
+or low)? And, given a break, does the session follow through by closing in the
+break's direction? Two tiers of rows are reported: the **break frequency** over
+all countable days, and the **directional follow-through** among the days that
+broke each level.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   using the same resolution rule as the other daily stats (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. Attach each day's prior-range reference from the chronologically **previous
+   resolved** day (so it skips over any excluded/early-close day):
+   - `prev_high` = previous resolved day's `day_high`.
+   - `prev_low`  = previous resolved day's `day_low`.
+   The first resolved day has no prior day, so `prev_high` / `prev_low` are NaN
+   and it is excluded from every denominator (pending-sample discipline).
+4. Classify each countable day:
+   - **break_high**: `day_high > prev_high` (strict — touching is not a break).
+   - **break_low**:  `day_low  < prev_low`.
+   A single day may break both, one, or neither.
+5. Classify each day's direction: **green** if `session_close >= session_open`,
+   otherwise **red**.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `prior_range` | `break_high`, `break_low` | No (independent rates) | Break frequency over all countable days; `total` = countable days |
+| `break_high` | `green`, `red` | Yes | Follow-through given a high break; `total` = high-break days. `green` = continuation (up) |
+| `break_low` | `green`, `red` | Yes | Follow-through given a low break; `total` = low-break days. `red` = continuation (down) |
+
+Follow-through here is the **session direction** (close vs open). The distinct
+"closed outside vs back inside the prior range" classification is a separate
+variant (see below), not computed by this standard module.
+
+`total_samples` counts all resolved days; each row's `total` counts only the
+relevant countable days (those with a prior resolved day).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null with two independent randomizations (fixed seed, deterministic):
+- The prior-range pair (`prev_high`, `prev_low`) is **permuted together** across
+  days, so each day is compared against an unrelated day's range — the null for
+  break frequency (temporal adjacency carries no information). Permuting the pair
+  jointly keeps each prior range internally consistent (`low <= high`); the lone
+  NaN pair moves to a random day, preserving the countable count.
+- `day_green` is reassigned by a fair coin (p=0.5), so direction is independent
+  of any break — the null for follow-through (~0.5 for every break row).
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `prev_candle` — the "by prev close" breakdown: prior session green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+
+### Future variants (not in MVP)
+- `by_levels` — break extension measured in multiples of the prior day's range
+  (would add an extension column and declare `Levels(ref='prev_range', ...)`).
+- `by_outside_close` — a distinct *follow-through metric*: whether the session
+  **closed outside** the broken level (close beyond prior high/low) versus **back
+  inside** the prior range, rather than the green/red session direction used here.
+
