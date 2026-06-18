@@ -1196,3 +1196,80 @@ rate collapses toward zero — which makes the real-data engulfing rate the sign
 - `by_rr` — risk-reward follow-through buckets.
 - `by_size` — body size as a percent of open, bucketed.
 
+
+---
+
+## 16. Average Daily Range (ADR)
+
+**Family**: `adr`
+**Module**: `stats/adr/standard.py`
+**Result file**: `results/adr.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How often does a session's RTH high-to-low range exceed or respect the prior
+session's period-N Average Daily Range (ADR)? Reported as two outcomes that
+partition every countable session: **exceeded** (range > ADR) and **respected**
+(range <= ADR).
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`, `session_close`,
+   `day_high`, `day_low`) using the standard resolution rule (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the per-session RTH range: `day_range = day_high - day_low`.
+3. Compute the prior-session ADR using a rolling mean with no lookahead:
+   ```
+   adr = day_range.rolling(period).mean().shift(1)
+   ```
+   The `shift(1)` guarantees that each session's ADR is the mean of the
+   `period` sessions STRICTLY BEFORE it (ending with the prior session's range).
+   The first `period` resolved sessions therefore have NaN `adr` and are
+   excluded from every denominator (pending-sample discipline). `adr > 0` is
+   also asserted defensively.
+4. For each countable session classify the outcome:
+   - **exceeded**: `day_range > adr` (strict — touching the ADR is respected).
+   - **respected**: `day_range <= adr`.
+   The two outcomes are mutually exclusive and exhaustive for all countable days.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a valid prior-session ADR, i.e., at least
+`period` sessions of history).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| period | 14 | Number of prior sessions in the ADR rolling window |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `adr` column is **permuted** across
+all rows while `day_range` is held fixed. This pairs each session's actual range
+with an unrelated session's ADR, destroying the temporal and regime link (e.g. a
+volatile-regime ADR is randomly matched against a quiet day's range). The
+permutation also moves any NaN `adr` values to random rows, preserving the
+countable count exactly. Expected baseline: near 50% exceeded / 50% respected,
+since a random ADR drawn from the same historical distribution is roughly as
+likely to be above as below any given range value.
+
+### i18n
+- **title.en**: "Average Daily Range (ADR)"
+- **title.fr**: "Range journalier moyen (ADR)"
+- **definition.en**: "How often does a session's high-to-low range exceed or respect the prior session's period-N average daily range (ADR)?"
+- **definition.fr**: "À quelle fréquence le range (plus haut – plus bas) d'une session dépasse-t-il ou respecte-t-il le range journalier moyen (ADR) sur N périodes de la session précédente ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
+
+### Future variants (not in MVP)
+- `by_extension` — how far above the ADR the session extended (in multiples of
+  the ADR), bucketed into levels.
+- `by_range_to_adr` — range / ADR ratio bucketed into quartiles.
+- `by_weekday` — the weekday breakdown is already available via the declared
+  `weekday` slice, but a dedicated variant could expose additional weekday-level
+  metrics (e.g. average ADR utilisation per weekday).
+- `by_streak` — how often the exceeded / respected outcome repeats on consecutive
+  sessions.
+
