@@ -520,3 +520,90 @@ slice group as well as overall, with a fixed seed for reproducibility.
 Both slicers are module-local (`stats/seasonality/standard.py`); they read the
 period table's DatetimeIndex and are not shared in `stats/base.py`.
 
+
+---
+
+## 8. High & Low by Weekday
+
+**Family**: `high_low_weekday`
+**Module**: `stats/high_low_weekday/standard.py`
+**Result file**: `results/high_low_weekday.json`
+**Status**: Implemented
+
+### What it measures
+For each ISO week, which weekday produced the weekly high (RTH intraday high),
+the weekly low (RTH intraday low), the weekly high close (highest session close),
+and the weekly low close (lowest session close)? Aggregated across weeks as the
+fraction of weeks each weekday claims each extreme. For a given condition,
+probabilities sum to ~100% across weekdays (each week contributes exactly one
+weekday per condition).
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   using the same resolution rule as the other daily stats (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` column over RTH bars for that date.
+   - `day_low`  = min of `low` column over RTH bars for that date.
+   Join these onto the resolved-days index (inner join — only resolved dates
+   are retained).
+3. Group resolved days by ISO (year, week). For each week compute:
+   - `high_weekday`: `dayofweek` (0=Mon…4=Fri) of the day with max `day_high`
+     (first occurrence on ties via `idxmax`).
+   - `low_weekday`: `dayofweek` of the day with min `day_low`.
+   - `high_close_weekday`: `dayofweek` of the day with max `session_close`.
+   - `low_close_weekday`: `dayofweek` of the day with min `session_close`.
+   - `weekly_green`: `bool` — `True` when the weekly close (last day's
+     `session_close`) is `>=` the weekly open (first day's `session_open`).
+   - `present_weekdays`: sorted tuple of distinct `dayofweek` ints present in
+     the week (used by the baseline to draw uniformly from actual trading days).
+   Each week is indexed by its first session date for chronological sorting.
+4. **Pending discipline**: the final ISO week present in the data is always
+   excluded — it may be in progress and its extremes are not final. If 0 or 1
+   weeks remain after exclusion, an empty table is returned.
+
+### Conditions
+| Condition key | Source column | Description |
+|---|---|---|
+| `weekly_high` | `high_weekday` | Weekday with highest RTH intraday high |
+| `weekly_low` | `low_weekday` | Weekday with lowest RTH intraday low |
+| `weekly_high_close` | `high_close_weekday` | Weekday with highest RTH session close |
+| `weekly_low_close` | `low_close_weekday` | Weekday with lowest RTH session close |
+
+### Outcomes
+One per weekday present in the dataset: `monday` … `friday` (and `saturday`,
+`sunday` if ever present). Labels are the canonical English/French names from
+`_WEEKDAYS` in `stats/base.py`. Weekdays with no occurrences in a subset are
+still emitted (count=0) if they appear in any week's `present_weekdays`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `weekly` (one entry per ISO week; single entry under
+  `instruments.{INSTRUMENT}.weekly`).
+
+### Baseline
+Random null: for each week, four independent uniform draws are made from that
+week's `present_weekdays` (one per condition), representing the null hypothesis
+that each extreme falls on a uniformly random trading day of the week. A temp
+copy of the week table is built with the four weekday columns replaced by these
+random draws, then `compute_rows` is called on it. Uses
+`np.random.default_rng(seed)` for deterministic output. The baseline is
+computed per slice group as well as overall.
+
+### i18n
+- **title.en**: "High & Low by Weekday"
+- **title.fr**: "Plus haut & plus bas par jour de la semaine"
+- **definition.en**: "For each ISO week, which weekday produced the weekly high, weekly low, weekly high close, and weekly low close? Aggregated as the fraction of weeks each weekday claims each extreme."
+- **definition.fr**: "Pour chaque semaine ISO, quel jour de la semaine a produit le plus haut hebdomadaire, le plus bas hebdomadaire, le plus haut de clôture hebdomadaire et le plus bas de clôture hebdomadaire ? Agrégé sous forme de fraction des semaines où chaque jour revendique chaque extrême."
+
+### Slices
+- `weekly_candle` — custom `WeeklyCandle` slicer (subclass of `_ColorSlicer`
+  from `stats/base.py`) that splits the week table by `weekly_green` into green
+  weeks and red weeks. Delivers the "by weekly candle color" breakdown for free
+  via the framework.
+
