@@ -51,7 +51,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, load_config, minute_of_day
-from stats.utils.daily_candles import build_resolved_days
+from stats.utils.daily_candles import build_day_table_with_prior_range
 
 # ---------------------------------------------------------------------------
 # i18n content
@@ -126,37 +126,16 @@ class PrevDaysRange(BaseStat):
       "day_green",
       "prev_session_green",
     ]
-    empty = pd.DataFrame(columns=columns)
-
-    if candles_df.empty:
-      return empty
-
-    resolved = build_resolved_days(
+    daily = build_day_table_with_prior_range(
       candles_df, self.rth_start_min, self.rth_end_min, self.close_tolerance_min
     )
-    if resolved.empty:
-      return empty
-
-    # Per-day RTH high/low from the same RTH bar filter the resolution uses.
-    df = candles_df.copy()
-    df["_mod"] = df["timestamp"].dt.hour * 60 + df["timestamp"].dt.minute
-    df["_date"] = df["timestamp"].dt.normalize()
-    rth_mask = (df["_mod"] >= self.rth_start_min) & (df["_mod"] < self.rth_end_min)
-    rth = df[rth_mask]
-
-    day_high = rth.groupby("_date")["high"].max().rename("day_high")
-    day_low = rth.groupby("_date")["low"].min().rename("day_low")
-
-    # Inner join keeps only resolved dates; result stays chronologically sorted.
-    daily = resolved.join(day_high, how="inner").join(day_low, how="inner")
     if daily.empty:
-      return empty
+      return pd.DataFrame(columns=columns)
 
+    # This stat's compute reads the current day's color directly; derive it from
+    # the resolved open/close (prev_session_green is already provided upstream).
+    daily = daily.copy()
     daily["day_green"] = daily["session_close"] >= daily["session_open"]
-    # Prior RESOLVED day's values (shift over the resolved-only, sorted index).
-    daily["prev_high"] = daily["day_high"].shift(1)
-    daily["prev_low"] = daily["day_low"].shift(1)
-    daily["prev_session_green"] = daily["day_green"].shift(1)
 
     return daily[columns]
 

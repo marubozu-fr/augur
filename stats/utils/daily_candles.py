@@ -64,3 +64,71 @@ def build_resolved_days(
   day = day[day["session_open"].notna() & (day["last_minute"] >= resolved_min)].copy()
 
   return day.sort_index()[columns]
+
+
+def build_day_table_with_prior_range(
+  candles_df: pd.DataFrame,
+  rth_start_min: int,
+  rth_end_min: int,
+  close_tolerance_min: int = 15,
+) -> pd.DataFrame:
+  """Build the per-session table with RTH extremes and the prior day's range.
+
+  Returns a DataFrame indexed by the normalized session date (the
+  ``build_resolved_days`` index) with columns:
+    ``session_open``, ``session_close`` (the resolved-day open/close),
+    ``day_high``, ``day_low`` (RTH intraday extremes), ``prev_high``,
+    ``prev_low`` (the prior RESOLVED day's extremes), and ``prev_session_green``
+    (the prior session's color, ``session_close >= session_open``).
+
+  ``prev_high`` / ``prev_low`` / ``prev_session_green`` are NaN for the first
+  resolved day (no prior day), so callers exclude it from every denominator
+  (pending-sample discipline). The prior values are shifted over the
+  resolved-only, sorted index, so they skip over any excluded/early-close day.
+
+  This is the common day-table core shared by the daily prior-range stats
+  (``prev_days_range``, ``outside_days``, ``inside_bars``). Callers add any
+  stat-specific columns (e.g. their own day-color flag) on top of this table.
+  """
+  columns = [
+    "session_open",
+    "session_close",
+    "day_high",
+    "day_low",
+    "prev_high",
+    "prev_low",
+    "prev_session_green",
+  ]
+  empty = pd.DataFrame(columns=columns)
+
+  if candles_df.empty:
+    return empty
+
+  resolved = build_resolved_days(
+    candles_df, rth_start_min, rth_end_min, close_tolerance_min
+  )
+  if resolved.empty:
+    return empty
+
+  # Per-day RTH high/low from the same RTH bar filter the resolution uses.
+  df = candles_df.copy()
+  df["_mod"] = df["timestamp"].dt.hour * 60 + df["timestamp"].dt.minute
+  df["_date"] = df["timestamp"].dt.normalize()
+  rth_mask = (df["_mod"] >= rth_start_min) & (df["_mod"] < rth_end_min)
+  rth = df[rth_mask]
+
+  day_high = rth.groupby("_date")["high"].max().rename("day_high")
+  day_low = rth.groupby("_date")["low"].min().rename("day_low")
+
+  # Inner join keeps only resolved dates; result stays chronologically sorted.
+  daily = resolved.join(day_high, how="inner").join(day_low, how="inner")
+  if daily.empty:
+    return empty
+
+  day_green = daily["session_close"] >= daily["session_open"]
+  # Prior RESOLVED day's values (shift over the resolved-only, sorted index).
+  daily["prev_high"] = daily["day_high"].shift(1)
+  daily["prev_low"] = daily["day_low"].shift(1)
+  daily["prev_session_green"] = day_green.shift(1)
+
+  return daily[columns]

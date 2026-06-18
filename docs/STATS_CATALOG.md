@@ -1027,3 +1027,86 @@ price can re-enter it), which makes the strong real-data reversal rate the signa
 - `by_spike` — maximum extension reached before a reversal.
 - `by_time` — whether the reversal occurred before/after an intraday cutoff.
 
+
+## 14. Inside Bars
+
+**Family**: `inside_bars`
+**Module**: `stats/inside_bars/standard.py`
+**Result file**: `results/inside_bars.json`
+**Status**: Implemented
+
+### What it measures
+How often does a session **open inside** the prior trading day's range — within its
+RTH high-low range (inclusive)? And, given such an open, which direction does price
+**break** during the session: above the prior high only, below the prior low only,
+both sides, or does it stay **contained** within the prior range all session? Two
+tiers of rows are reported: the **inside-open frequency** over all countable days,
+and the **breakout-direction** breakdown among the days that opened inside. Inside
+Bars is the conceptual inverse of `outside_days`.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   using the same resolution rule as the other daily stats (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. Attach each day's prior-range reference from the chronologically **previous
+   resolved** day (so it skips over any excluded/early-close day):
+   - `prev_high` = previous resolved day's `day_high`.
+   - `prev_low`  = previous resolved day's `day_low`.
+   The first resolved day has no prior day, so `prev_high` / `prev_low` are NaN
+   and it is excluded from every denominator (pending-sample discipline).
+4. Classify the inside open of each countable day (inclusive — opening exactly at
+   `prev_high` or `prev_low` counts as inside, the exact complement of the
+   `outside_days` strict-outside definition):
+   - **inside**: `prev_low <= session_open <= prev_high`.
+5. For an inside open, classify the breakout direction (strict — touching a level
+   exactly is not a break, mirroring the strict re-entry convention of
+   `outside_days`). The four outcomes partition the inside set exhaustively:
+   - **broke_high**: `day_high >  prev_high` AND `day_low  >= prev_low`.
+   - **broke_low**:  `day_low  <  prev_low`  AND `day_high <= prev_high`.
+   - **broke_both**: `day_high >  prev_high` AND `day_low  <  prev_low`.
+   - **contained**:  `day_high <= prev_high` AND `day_low  >= prev_low`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `inside_open` | `inside` | No (frequency of one event vs all countable days) | Inside-open frequency over all countable days; `total` = countable days |
+| `inside` | `broke_high`, `broke_low`, `broke_both`, `contained` | Yes | Breakout direction given an inside open; `total` = inside-open days |
+
+`total_samples` counts all resolved days; each row's `total` counts only the
+relevant countable days (those with a prior resolved day).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the prior-range pair (`prev_high`,
+`prev_low`) is **permuted together** across days, so each day's open and intraday
+extremes are compared against an **unrelated** day's range. This is the joint null
+for both tiers at once — it destroys the temporal adjacency the stat measures (does
+opening inside *yesterday's* range carry information?) while keeping each prior range
+internally consistent (`low <= high`); the lone NaN pair moves to a random day,
+preserving the countable count. Against a long, trending history a random distant
+range rarely brackets the open, so the baseline inside-open rate collapses toward
+zero — which makes the strong real-data inside-open rate the signal.
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `prev_candle` — split by the prior session's color, green/red (declared via the
+  shared `PrevCandle` slicer reading `prev_session_green`).
+
+### Future variants (not in MVP)
+- `by_breakout` — outcome classification refinements on the breakout move.
+- `by_open` — split by open above/below the prior midpoint.
+- `by_prev_day_size` — bucket inside days by the prior range relative to ADR.
+

@@ -1,37 +1,38 @@
-"""Outside Days stat.
+"""Inside Bars stat.
 
-Measures how often a session OPENS outside the prior trading day's range — above
-its RTH high (bullish outside) or below its RTH low (bearish outside) — and, given
-such an open, whether the move continued away from the range or reversed back into
-it during the session.
+Measures how often a session OPENS INSIDE the prior trading day's range — within
+its RTH high-low range (inclusive) — and, given such an open, which direction
+price breaks out during the session.
 
 Two tiers of rows are reported:
 
-  1. Outside-open frequency (condition ``outside_open``): over all countable days,
-     how often does the session open above the prior day's RTH high (``bullish``)
-     or below the prior day's RTH low (``bearish``)? These two outcomes are
-     mutually exclusive (a single open cannot be both above the high and below the
-     low) but do not partition — most days open inside the prior range.
+  1. Inside-open frequency (condition ``inside_open``): over all countable days,
+     how often does the session open inside the prior day's RTH range
+     (``session_open >= prev_low`` AND ``session_open <= prev_high``)? An open
+     exactly AT ``prev_high`` or ``prev_low`` counts as inside (inclusive
+     inequalities), making this the exact complement of the outside_days
+     strict-outside definition.
 
-  2. Continuation vs reversal (conditions ``bullish`` / ``bearish``): among the
-     days that opened outside, did price hold outside the prior range for the whole
-     session (``continuation``) or trade back into it (``reversal``)?
-       - bullish outside (open > prev_high):
-           reversal     ⇐ day_low  <  prev_high (price re-entered the range)
-           continuation ⇐ day_low  >= prev_high (held above all session)
-       - bearish outside (open < prev_low):
-           reversal     ⇐ day_high >  prev_low
-           continuation ⇐ day_high <= prev_low
-     The continuation/reversal split partitions each outside condition.
+  2. Breakout direction (condition ``inside``): among the days that opened inside,
+     which direction did price break during the session? Four MUTUALLY EXCLUSIVE
+     outcomes partition the inside set exhaustively:
+       - ``broke_high``  — day_high >  prev_high AND day_low  >= prev_low
+                           (broke above the prior range only)
+       - ``broke_low``   — day_low  <  prev_low  AND day_high <= prev_high
+                           (broke below the prior range only)
+       - ``broke_both``  — day_high >  prev_high AND day_low  <  prev_low
+                           (broke both sides during the session)
+       - ``contained``   — day_high <= prev_high AND day_low  >= prev_low
+                           (held entirely within the prior range all session)
+     Strict inequalities define a break (touching the level exactly is NOT a
+     break), mirroring the strict re-entry convention of the sibling
+     ``outside_days`` stat.
 
-An outside open uses strict inequality: ``open > prev_high`` / ``open < prev_low``
-(opening exactly at the level is not outside). Re-entry into the range likewise
-uses strict inequality, mirroring the strict-break convention of the sibling
-``prev_days_range`` stat. The "prior day" is the chronologically previous RESOLVED
-day, so it skips any excluded/early-close day. The FIRST resolved day has no prior
-day and is excluded from every denominator (pending-sample discipline).
-``total_samples`` counts ALL resolved days; each row's ``total`` counts only the
-relevant countable days.
+An inside open uses inclusive inequality: ``prev_low <= open <= prev_high``.
+The "prior day" is the chronologically previous RESOLVED day, so it skips any
+excluded/early-close day. The FIRST resolved day has no prior day and is excluded
+from every denominator (pending-sample discipline). ``total_samples`` counts ALL
+resolved days; each row's ``total`` counts only the relevant countable days.
 
 Declared slices re-run the whole computation per subset:
   - ``weekday``     — the "by weekday" breakdown.
@@ -61,50 +62,50 @@ from stats.utils.daily_candles import build_day_table_with_prior_range
 # i18n content
 # ---------------------------------------------------------------------------
 _TITLE = I18nString(
-  en="Outside Days",
-  fr="Outside days",
+  en="Inside Bars",
+  fr="Inside bars",
 )
 _DEFINITION = I18nString(
-  en="How often does a session open outside the prior day's range (above its RTH high or below its RTH low), and given such an open, does price continue away from the range or reverse back into it during the session?",
-  fr="À quelle fréquence une session ouvre-t-elle hors du range du jour précédent (au-dessus de son plus haut RTH ou en-dessous de son plus bas RTH), et après une telle ouverture, le prix poursuit-il hors du range ou y revient-il (reversal) pendant la séance ?",
+  en="How often does a session open inside the prior day's range (between its RTH low and RTH high, inclusive), and given such an open, does price break above, below, both sides, or stay contained within the prior range during the session?",
+  fr="À quelle fréquence une session ouvre-t-elle à l'intérieur du range du jour précédent (entre son plus bas RTH et son plus haut RTH, bornes incluses), et après une telle ouverture, le prix casse-t-il vers le haut, vers le bas, des deux côtés, ou reste-t-il contenu dans le range précédent pendant la séance ?",
 )
 _LABELS = Labels(
   conditions={
-    "outside_open": I18nString(en="Outside open", fr="Ouverture hors range"),
-    "bullish": I18nString(
-      en="Bullish outside (open above prior high)",
-      fr="Outside haussier (ouverture au-dessus du plus haut)",
-    ),
-    "bearish": I18nString(
-      en="Bearish outside (open below prior low)",
-      fr="Outside baissier (ouverture en-dessous du plus bas)",
+    "inside_open": I18nString(en="Inside open", fr="Ouverture dans le range"),
+    "inside": I18nString(
+      en="Inside open (breakout direction)",
+      fr="Ouverture dans le range (direction de la cassure)",
     ),
   },
   outcomes={
-    "bullish": I18nString(
-      en="Open above prior high",
-      fr="Ouverture au-dessus du plus haut précédent",
+    "inside": I18nString(
+      en="Open inside prior range",
+      fr="Ouverture à l'intérieur du range précédent",
     ),
-    "bearish": I18nString(
-      en="Open below prior low",
-      fr="Ouverture en-dessous du plus bas précédent",
+    "broke_high": I18nString(
+      en="Broke above prior high only",
+      fr="Cassure au-dessus du plus haut précédent uniquement",
     ),
-    "continuation": I18nString(
-      en="Continuation (held outside)",
-      fr="Continuation (maintien hors range)",
+    "broke_low": I18nString(
+      en="Broke below prior low only",
+      fr="Cassure en-dessous du plus bas précédent uniquement",
     ),
-    "reversal": I18nString(
-      en="Reversal (back into range)",
-      fr="Reversal (retour dans le range)",
+    "broke_both": I18nString(
+      en="Broke both sides",
+      fr="Cassure des deux côtés",
+    ),
+    "contained": I18nString(
+      en="Contained within prior range",
+      fr="Contenu dans le range précédent",
     ),
   },
 )
 
 
-class OutsideDays(BaseStat):
-  """Outside-open frequency plus continuation-vs-reversal of the outside move."""
+class InsideBars(BaseStat):
+  """Inside-open frequency plus breakout-direction breakdown given an inside open."""
 
-  stat_name = "outside_days"
+  stat_name = "inside_bars"
   title = _TITLE
   definition = _DEFINITION
   labels = _LABELS
@@ -164,10 +165,14 @@ class OutsideDays(BaseStat):
     day_table: pd.DataFrame,
     baseline_rows: list[StatResultRow] | None = None,
   ) -> list[StatResultRow]:
-    """Compute the outside-open frequency and continuation/reversal rows.
+    """Compute the inside-open frequency and breakout-direction rows.
 
     Only days with a prior resolved day (``prev_high`` not NaN) are countable.
     If ``baseline_rows`` is provided, merges ``baseline_prob`` / ``baseline_n``.
+
+    The four breakout-direction outcomes (``broke_high``, ``broke_low``,
+    ``broke_both``, ``contained``) are mutually exclusive and partition the
+    set of inside-open days exhaustively.
     """
     baseline_map: dict[tuple[str, str], StatResultRow] = {}
     if baseline_rows:
@@ -187,12 +192,11 @@ class OutsideDays(BaseStat):
 
     if day_table.empty:
       return [
-        _make("outside_open", "bullish", 0, 0),
-        _make("outside_open", "bearish", 0, 0),
-        _make("bullish", "continuation", 0, 0),
-        _make("bullish", "reversal", 0, 0),
-        _make("bearish", "continuation", 0, 0),
-        _make("bearish", "reversal", 0, 0),
+        _make("inside_open", "inside", 0, 0),
+        _make("inside", "broke_high", 0, 0),
+        _make("inside", "broke_low", 0, 0),
+        _make("inside", "broke_both", 0, 0),
+        _make("inside", "contained", 0, 0),
       ]
 
     prev_high = day_table["prev_high"]
@@ -202,28 +206,27 @@ class OutsideDays(BaseStat):
     day_low = day_table["day_low"]
 
     countable = prev_high.notna() & prev_low.notna()
-    bullish = countable & (session_open > prev_high)
-    bearish = countable & (session_open < prev_low)
+    # Inclusive inequalities: opening exactly at the prior high or low is inside.
+    inside = countable & (session_open >= prev_low) & (session_open <= prev_high)
 
     countable_n = int(countable.sum())
-    bullish_n = int(bullish.sum())
-    bearish_n = int(bearish.sum())
+    inside_n = int(inside.sum())
 
-    # Reversal = price re-entered the prior range (strict); continuation = held out.
-    bull_reversal = bullish & (day_low < prev_high)
-    bull_continuation = bullish & (day_low >= prev_high)
-    bear_reversal = bearish & (day_high > prev_low)
-    bear_continuation = bearish & (day_high <= prev_low)
+    # Four mutually exclusive outcomes that partition inside days.
+    # Strict inequality defines a break (touching the level is NOT a break).
+    broke_high = inside & (day_high > prev_high) & (day_low >= prev_low)
+    broke_low = inside & (day_low < prev_low) & (day_high <= prev_high)
+    broke_both = inside & (day_high > prev_high) & (day_low < prev_low)
+    contained = inside & (day_high <= prev_high) & (day_low >= prev_low)
 
     return [
-      # Tier 1 — outside-open frequency over all countable days.
-      _make("outside_open", "bullish", bullish_n, countable_n),
-      _make("outside_open", "bearish", bearish_n, countable_n),
-      # Tier 2 — continuation vs reversal given an outside open.
-      _make("bullish", "continuation", int(bull_continuation.sum()), bullish_n),
-      _make("bullish", "reversal", int(bull_reversal.sum()), bullish_n),
-      _make("bearish", "continuation", int(bear_continuation.sum()), bearish_n),
-      _make("bearish", "reversal", int(bear_reversal.sum()), bearish_n),
+      # Tier 1 — inside-open frequency over all countable days.
+      _make("inside_open", "inside", inside_n, countable_n),
+      # Tier 2 — breakout direction given an inside open.
+      _make("inside", "broke_high", int(broke_high.sum()), inside_n),
+      _make("inside", "broke_low", int(broke_low.sum()), inside_n),
+      _make("inside", "broke_both", int(broke_both.sum()), inside_n),
+      _make("inside", "contained", int(contained.sum()), inside_n),
     ]
 
   # -------------------------------------------------------------------------
@@ -235,7 +238,7 @@ class OutsideDays(BaseStat):
     The prior-range pair (``prev_high``, ``prev_low``) is **permuted together**
     across days, so each day's open and intraday extremes are compared against an
     UNRELATED day's range. This is the joint null for both tiers at once: it
-    destroys the temporal adjacency that the stat measures (does opening outside
+    destroys the temporal adjacency that the stat measures (does opening inside
     *yesterday's* range carry information?), while keeping each prior range
     internally consistent (``low <= high``). The lone NaN pair (first day) simply
     moves to a random day, preserving the countable count.
@@ -262,7 +265,7 @@ def run(
   config_dir: str = "config",
   data_path: str | None = None,
 ) -> Path:
-  """Load data and compute Outside Days for the daily timeframe.
+  """Load data and compute Inside Bars for the daily timeframe.
 
   Writes the result JSON to results/.
   """
@@ -271,14 +274,14 @@ def run(
 
   candles_df = pd.read_parquet(parquet_path)
 
-  stat = OutsideDays(instrument=instrument, config=config)
+  stat = InsideBars(instrument=instrument, config=config)
   result = stat.compute(candles_df)
 
   return write_results(result)
 
 
 if __name__ == "__main__":
-  parser = argparse.ArgumentParser(description="Compute Outside Days stat")
+  parser = argparse.ArgumentParser(description="Compute Inside Bars stat")
   parser.add_argument("--instrument", default="NQ", help="Instrument name (default: NQ)")
   parser.add_argument("--data-path", default=None, help="Override parquet file path")
   parser.add_argument("--config-dir", default="config", help="Config directory (default: config)")

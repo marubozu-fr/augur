@@ -1,4 +1,4 @@
-"""Tests for stats.utils.daily_candles.build_resolved_days.
+"""Tests for stats.utils.daily_candles.
 
 All data is synthetic. Expected values are hand-calculated before each assertion.
 """
@@ -6,7 +6,10 @@ All data is synthetic. Expected values are hand-calculated before each assertion
 import pandas as pd
 import pytest
 
-from stats.utils.daily_candles import build_resolved_days
+from stats.utils.daily_candles import (
+  build_day_table_with_prior_range,
+  build_resolved_days,
+)
 
 _NY = "America/New_York"
 
@@ -170,3 +173,159 @@ def test_dedup_duplicate_open_bars_keeps_first() -> None:
   d2 = pd.Timestamp("2024-01-02", tz=_NY).normalize()
   assert len(out) == 1
   assert out.loc[d2, "session_open"] == pytest.approx(100.0)
+
+
+# ===========================================================================
+# build_day_table_with_prior_range
+# ===========================================================================
+
+_PRIOR_RANGE_COLUMNS = [
+  "session_open",
+  "session_close",
+  "day_high",
+  "day_low",
+  "prev_high",
+  "prev_low",
+  "prev_session_green",
+]
+
+
+def _make_day_hl(
+  date: str,
+  session_open: float,
+  session_close: float,
+  day_high: float,
+  day_low: float,
+) -> pd.DataFrame:
+  """One trading day of 1-min RTH bars with explicit RTH extremes.
+
+  The opening bar carries ``session_open``; the last bar carries
+  ``session_close``. ``day_high`` / ``day_low`` sit on a neutral mid-session bar
+  so they are independent of the open/close prices; all other bars stay between
+  the open and close.
+  """
+  base = pd.Timestamp(date, tz=_NY)
+  mid = (_RTH_START + _RTH_LAST) // 2
+  records = []
+  for mod in range(_RTH_START, _RTH_LAST + 1):
+    h, m = divmod(mod, 60)
+    ts = base.replace(hour=h, minute=m, second=0, microsecond=0)
+    o = session_open if mod == _RTH_START else session_close
+    c = session_close
+    hi = day_high if mod == mid else max(o, c)
+    lo = day_low if mod == mid else min(o, c)
+    records.append({
+      "timestamp": ts, "open": o, "high": hi, "low": lo, "close": c, "volume": 1000,
+    })
+  return pd.DataFrame(records)
+
+
+def _build_prior_range(df: pd.DataFrame) -> pd.DataFrame:
+  return build_day_table_with_prior_range(df, _RTH_START, _RTH_END, _TOL)
+
+
+def test_prior_range_columns() -> None:
+  """The returned table exposes exactly the documented columns, date-indexed."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  assert list(out.columns) == _PRIOR_RANGE_COLUMNS
+  assert len(out) == 2
+
+
+def test_prior_range_day_extremes() -> None:
+  """day_high / day_low are the RTH max-high and min-low of each session."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  d3 = pd.Timestamp("2024-01-03", tz=_NY).normalize()
+  assert out.loc[d3, "day_high"] == pytest.approx(112.0)
+  assert out.loc[d3, "day_low"] == pytest.approx(90.0)
+
+
+def test_prior_range_first_day_has_nan_prior() -> None:
+  """The first resolved day has no prior day → prev_* and prev_session_green NaN."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  d2 = pd.Timestamp("2024-01-02", tz=_NY).normalize()
+  assert pd.isna(out.loc[d2, "prev_high"])
+  assert pd.isna(out.loc[d2, "prev_low"])
+  assert pd.isna(out.loc[d2, "prev_session_green"])
+
+
+def test_prior_range_prev_values_from_previous_day() -> None:
+  """prev_high / prev_low equal the immediately preceding resolved day's extremes."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  d3 = pd.Timestamp("2024-01-03", tz=_NY).normalize()
+  # Day 2's extremes are day 3's prior range.
+  assert out.loc[d3, "prev_high"] == pytest.approx(115.0)
+  assert out.loc[d3, "prev_low"] == pytest.approx(95.0)
+
+
+def test_prior_range_prev_session_green_reflects_prior_color() -> None:
+  """prev_session_green is True after a green day (close>=open), False after red."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),  # green (110 >= 100)
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),  # red   (102 <  108)
+      _make_day_hl("2024-01-04", 103.0, 107.0, 109.0, 99.0),  # green
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  d3 = pd.Timestamp("2024-01-03", tz=_NY).normalize()
+  d4 = pd.Timestamp("2024-01-04", tz=_NY).normalize()
+  assert bool(out.loc[d3, "prev_session_green"]) is True   # prior day (02) was green
+  assert bool(out.loc[d4, "prev_session_green"]) is False  # prior day (03) was red
+
+
+def test_prior_range_shift_skips_excluded_day() -> None:
+  """The prior values shift over the resolved index, skipping unresolved days."""
+  df = pd.concat(
+    [
+      _make_day_hl("2024-01-02", 100.0, 110.0, 115.0, 95.0),
+      _make_day_hl("2024-01-03", 108.0, 102.0, 112.0, 90.0),
+      _make_truncated_day("2024-01-04"),  # unresolved → dropped
+      _make_day_hl("2024-01-05", 103.0, 107.0, 109.0, 99.0),
+    ],
+    ignore_index=True,
+  )
+  out = _build_prior_range(df)
+  d4 = pd.Timestamp("2024-01-04", tz=_NY).normalize()
+  d5 = pd.Timestamp("2024-01-05", tz=_NY).normalize()
+  assert d4 not in out.index  # the truncated day is excluded entirely
+  # Day 5's prior range comes from day 3 (the truncated day 4 is skipped).
+  assert out.loc[d5, "prev_high"] == pytest.approx(112.0)
+  assert out.loc[d5, "prev_low"] == pytest.approx(90.0)
+
+
+def test_prior_range_empty_input() -> None:
+  """Empty input returns an empty frame with the expected columns."""
+  df = pd.DataFrame(columns=["timestamp", "open", "high", "low", "close", "volume"])
+  df["timestamp"] = pd.array([], dtype="datetime64[ns, America/New_York]")
+  out = _build_prior_range(df)
+  assert out.empty
+  assert list(out.columns) == _PRIOR_RANGE_COLUMNS
