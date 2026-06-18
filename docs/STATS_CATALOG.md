@@ -607,3 +607,83 @@ computed per slice group as well as overall.
   weeks and red weeks. Delivers the "by weekly candle color" breakdown for free
   via the framework.
 
+
+---
+
+## 9. Volume & Range by Weekday
+
+**Family**: `volume_range_weekday`
+**Module**: `stats/volume_range_weekday/standard.py`
+**Result file**: `results/volume_range_weekday.json`
+**Status**: Implemented
+
+### What it measures
+For each weekday: the **average RTH session volume**, the **average price range**
+(`high - low`, in points), and the **average percentage range**
+(`(high - low) / session_open`). The overall result aggregates all resolved days;
+the per-weekday breakdown is produced by the declared `weekday` slice.
+
+This is a **magnitude** stat: all three rows carry a continuous metric in `value`
+(and its random-baseline counterpart in `value_baseline`). The `probability` /
+`baseline_prob` channel is left at `0.0` for every row. Every row reports its
+sample size in `count` / `total`.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open` = open of the
+   09:30 bar) using the shared resolution rule (clean session open and a last RTH
+   bar at or after `session_end - close_tolerance`).
+2. Compute per-day metrics from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   - `volume`   = sum of `volume` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates
+   are retained).
+3. Derive the two range columns:
+   - `range`     = `day_high - day_low` (points).
+   - `range_pct` = `range / session_open` (a decimal, e.g. `0.012` = 1.2%).
+4. Over all resolved days, report three rows under the single `any_day` condition:
+   - `mean_volume`    — average summed RTH volume (`value`).
+   - `mean_range`     — average range in points (`value`).
+   - `mean_range_pct` — average percentage range (`value`).
+5. Re-run the same three rows per weekday via the `weekday` slice.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `any_day` | All resolved trading days (the `weekday` slice does the per-day breakdown) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `mean_volume` | `value` | Average summed RTH session volume |
+| `mean_range` | `value` | Average price range (`high - low`), in points |
+| `mean_range_pct` | `value` | Average percentage range (`range / session_open`), decimal |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null: for a subset of `N` days (one weekday, or the whole table), draw `N`
+days uniformly at random **without replacement** from the full resolved-day table
+and compute the same three averages on that random sample. This represents the
+null hypothesis that the weekday carries no information — its expected metrics
+equal the grand mean across all days. Uses `np.random.default_rng(seed)` for
+deterministic output. The baseline is computed per slice group as well as overall;
+for the overall result the sample is a permutation of the full table, so its
+`value_baseline` equals the overall `value`.
+
+### i18n
+- **title.en**: "Volume & Range by Weekday"
+- **title.fr**: "Volume & amplitude par jour de la semaine"
+- **definition.en**: "What is the average volume, the average price range, and the average percentage range for each weekday?"
+- **definition.fr**: "Quels sont le volume moyen, l'amplitude moyenne en points et l'amplitude moyenne en pourcentage pour chaque jour de la semaine ?"
+
+### Slices
+- `weekday` — implemented (declared via `slices = ("weekday",)`)
+
