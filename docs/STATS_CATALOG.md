@@ -687,3 +687,87 @@ for the overall result the sample is a permutation of the full table, so its
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
+
+---
+
+## 10. Volume Trends
+
+**Family**: `volume_trends`
+**Module**: `stats/volume_trends/standard.py`
+**Result file**: `results/volume_trends.json`
+**Status**: Implemented
+
+### What it measures
+Volume seasonality: the **average traded volume** for each calendar month
+(January…December) and each ISO week of the year (1…53). Resolved RTH days are
+aggregated into monthly and weekly periods; each period's volume is the **sum** of
+its days' RTH volume (the period's total traded volume), and the slice averages
+those period totals across all years in the data.
+
+Like **Volume & Range by Weekday** (section 9), this is a **magnitude** stat: the
+single `mean_volume` row carries its metric in `value` (and its random-baseline
+counterpart in `value_baseline`). The `probability` / `baseline_prob` channel is
+left at `0.0`. Every row reports its sample size (number of periods) in
+`count` / `total`.
+
+### Methodology
+1. Build the RTH daily candle per resolved day and sum each day's RTH volume,
+   using the same RTH bar filter (`hour*60+minute >= rth_start_min` and
+   `< rth_end_min`) and resolution rule (clean 09:30 open and a last RTH bar at or
+   after `session_end - close_tolerance`) as the other daily stats.
+2. Aggregate resolved days into **periods** at the granularity:
+   - `monthly`: days grouped by calendar month; `volume` = sum of the month's
+     daily RTH volume.
+   - `weekly`: days grouped by ISO week (analogous).
+   Each period is indexed by its first session date, so its calendar position
+   (month / ISO week) is read directly by the slice.
+3. Drop the **most recent period** (pending-sample discipline): data usually ends
+   mid-period, so its total is incomplete and would bias the average downward.
+4. Over all resolved periods, report one row under the single `any_period`
+   condition: `mean_volume` — the average period volume (`value`).
+5. Re-run the same row per calendar position via the slice:
+   - `monthly` → `month_of_year` slice (one group per month present, Jan→Dec).
+   - `weekly` → `week_of_year` slice (one group per ISO week present, 1→53).
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `any_period` | All resolved periods (the month/week-of-year slice does the seasonal breakdown) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `mean_volume` | `value` | Average summed RTH volume per period |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `monthly`, `weekly` (merged into one result file under
+  `instruments.{INSTRUMENT}.{granularity}`).
+
+### Baseline
+Random null: for a subset of `N` periods (one month/week of year, or the whole
+table), draw `N` periods uniformly at random **without replacement** from the full
+period table and compute the same average on that random sample. This represents
+the null hypothesis that the calendar position carries no information — its
+expected volume equals the grand mean across all periods. Uses
+`np.random.default_rng(seed)` for deterministic output. The baseline is computed
+per slice group as well as overall; for the overall result the sample is a
+permutation of the full table, so its `value_baseline` equals the overall `value`.
+
+### i18n
+- **title.en**: "Volume Trends"
+- **title.fr**: "Tendances de volume"
+- **definition.en**: "What is the average traded volume for each calendar month and each ISO week of the year?"
+- **definition.fr**: "Quel est le volume échangé moyen pour chaque mois civil et chaque semaine ISO de l'année ?"
+
+### Slices
+- `month_of_year` — implemented (declared on the monthly granularity).
+- `week_of_year` — implemented (declared on the weekly granularity).
+
+Both slicers are reused from the Seasonality family
+(`stats/seasonality/standard.py`); they read the period table's DatetimeIndex.
+
