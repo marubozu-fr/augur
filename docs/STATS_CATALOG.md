@@ -855,3 +855,84 @@ Random null with two independent randomizations (fixed seed, deterministic):
   **closed outside** the broken level (close beyond prior high/low) versus **back
   inside** the prior range, rather than the green/red session direction used here.
 
+
+---
+
+## 12. Previous Week's Range
+
+**Family**: `prev_weeks_range`
+**Module**: `stats/prev_weeks_range/standard.py`
+**Result file**: `results/prev_weeks_range.json`
+**Status**: Implemented
+
+### What it measures
+How does a trading week resolve against the **prior week's** RTH range? Each
+countable week falls into exactly one of four buckets — it breaks the prior
+high only, the prior low only, **both**, or neither (**stays inside**). And when
+both levels are taken, which one is reached **first** during the week?
+
+### Methodology
+1. Keep RTH bars only (`hour*60+minute >= rth_start_min` and `< rth_end_min`).
+2. Assign each bar to its **ISO week**, keyed by that week's Monday date.
+3. Build the per-week range from **every** trading day in the week (early-close
+   days still contribute valid highs/lows):
+   - `week_high` = max of `high` over the week's RTH bars.
+   - `week_low`  = min of `low`  over the week's RTH bars.
+4. Drop the **last** week present in the data: it may still be in progress, so
+   its range is not final (pending-sample discipline). All earlier weeks are
+   resolved.
+5. Attach each week's prior-range reference from the chronologically **previous
+   resolved** week (skips over any gap in the data):
+   - `prev_high` = previous resolved week's `week_high`.
+   - `prev_low`  = previous resolved week's `week_low`.
+   The first resolved week has no prior week, so `prev_high` / `prev_low` are NaN
+   and it is excluded from every denominator.
+6. Classify each countable week against the prior range (strict inequality —
+   touching the level is not a break):
+   - **break_high_only**: `week_high > prev_high` and `week_low >= prev_low`.
+   - **break_low_only**:  `week_low < prev_low` and `week_high <= prev_high`.
+   - **break_both**:      both `week_high > prev_high` and `week_low < prev_low`.
+   - **inside**:          neither level is taken.
+7. For each both-break week, determine the **break sequence** from intra-week
+   1-minute bars: the first bar (by timestamp) whose `high > prev_high` versus
+   the first whose `low < prev_low`. The earlier one is taken first. If a single
+   bar is the first to break **both**, the order is inferred from that bar's
+   candle path — a bearish bar (`close < open`) prints its high first
+   (`high_first`), a bullish bar its low first (`low_first`).
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `prior_range` | `break_high_only`, `break_low_only`, `break_both`, `inside` | Yes | Four-way outcome partition over all countable weeks; `total` = countable weeks |
+| `break_both` | `high_first`, `low_first` | Yes | Which prior level is taken first, given both broke; `total` = both-break weeks |
+
+`total_samples` counts all resolved weeks; each row's `total` counts only the
+relevant countable weeks (those with a prior resolved week).
+
+### Parameters
+None (the RTH session bounds come from the instrument config).
+
+### Timeframes computed
+- `weekly` (the RTH week, keyed by its Monday; a single entry).
+
+### Baseline
+Random null, computed per tier (fixed seed, deterministic):
+- **Outcome partition**: the prior-range pair (`prev_high`, `prev_low`) is
+  **permuted together** across weeks, so each week is compared against an
+  unrelated week's range — the null for the partition (temporal adjacency carries
+  no information). Permuting the pair jointly keeps each prior range internally
+  consistent (`low <= high`).
+- **Double-break sequence**: the real prior ranges are kept (so the both-break
+  `total` stays full size) and only the break order is reassigned by a fair coin
+  (p=0.5) — the null for which level is taken first (~0.5). Permuting prior ranges
+  here would be wrong: over a long, trending history it dissolves almost every
+  both-break, leaving a meaninglessly small baseline N.
+
+### Slices
+None. The standard report has no secondary breakdowns.
+
+### Future variants (not in MVP)
+- `by_open` — split weeks by their open above/below the prior week's midpoint.
+- `by_outside_close` — split by whether the week **closed outside** the broken
+  level versus back inside the prior range.
+
