@@ -1110,3 +1110,89 @@ zero — which makes the strong real-data inside-open rate the signal.
 - `by_open` — split by open above/below the prior midpoint.
 - `by_prev_day_size` — bucket inside days by the prior range relative to ADR.
 
+
+---
+
+## 15. Engulfing Candles
+
+**Family**: `engulfing_candles`
+**Module**: `stats/engulfing_candles/standard.py`
+**Result file**: `results/engulfing_candles.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How often is the RTH daily candle a **bullish** or **bearish engulfing** pattern —
+its **body** fully engulfs the prior resolved day's body, in the opposite color —
+and, given such a pattern, how far does price **continue** in the pattern's
+direction? Continuation is measured from the engulfing candle's **close** until the
+pattern **invalidates** (price reclaims the engulfing candle's **open**), and is
+reported as the **average** and **maximum** favorable excursion in percent. Two
+tiers of rows are reported: the **engulfing frequency** over all countable days, and
+the **continuation magnitude** among the resolved patterns of each direction.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`,
+   plus `day_high` / `day_low`) using the same resolution rule as the other daily
+   stats (clean 09:30 open and a last RTH bar at or after
+   `session_end - close_tolerance`).
+2. Attach each day's prior **body** from the chronologically **previous resolved**
+   day (so it skips over any excluded/early-close day): `prev_open`, `prev_close`.
+   The first resolved day has no prior day, so these are NaN and it is excluded from
+   every denominator (pending-sample discipline).
+3. Classify each countable day using candle **bodies** (`[min(o,c), max(o,c)]`,
+   inclusive engulfment — an exactly-equal edge still engulfs):
+   - **bullish**: current green (`close >= open`) AND prior red AND
+     `max(o,c) >= prev_top` AND `min(o,c) <= prev_bot`.
+   - **bearish**: current red (`close < open`) AND prior green AND the same body
+     engulfment.
+   The opposite-prior-color requirement is the canonical reversal-pattern
+   definition.
+4. Precompute each day's **continuation** over the full chronological table in its
+   natural direction (up for a green candle, down for a red one): from the close,
+   track the **maximum favorable excursion** forward until price reclaims the open
+   (bullish: a later `day_low <= open`; bearish: a later `day_high >= open`), with
+   the invalidation day's extreme included. Report it as a percent of the close,
+   floored at zero. A pattern that never invalidates before the end of the data is
+   **pending** and is excluded from the continuation magnitude. Continuation depends
+   only on a candle's own body and forward path, so precomputing it makes slices and
+   the baseline reuse it correctly.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `engulfing` | `bullish`, `bearish` | No (two mutually exclusive events vs all countable days) | Engulfing frequency over all countable days; `total` = countable days |
+| `bullish` | `avg_continuation`, `max_continuation` | — (magnitude rows) | Continuation % over resolved bullish patterns; `total` = resolved bullish patterns |
+| `bearish` | `avg_continuation`, `max_continuation` | — (magnitude rows) | Continuation % over resolved bearish patterns; `total` = resolved bearish patterns |
+
+The magnitude rows carry their metric in `value` (random baseline in
+`value_baseline`); the `probability` channel is left at `0.0`. `total_samples`
+counts all resolved days; each row's `total` counts only the relevant
+countable/resolved days.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the prior-body pair (`prev_open`,
+`prev_close`) is **permuted together** across days, so each day's body is compared
+against an **unrelated** day's prior body. This is the joint null for both tiers at
+once — it randomizes which days qualify as engulfing while leaving each day's own
+body and precomputed continuation intact, isolating whether the engulfing criterion
+selects days with abnormal forward continuation. Against a long, trending history a
+random distant body rarely fully engulfs the current one, so the baseline engulfing
+rate collapses toward zero — which makes the real-data engulfing rate the signal.
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+
+### Future variants (not in MVP)
+- `by_daily_candle` — 3-day sequences (engulf day color → next day color).
+- `by_rr` — risk-reward follow-through buckets.
+- `by_size` — body size as a percent of open, bucketed.
+
