@@ -1273,3 +1273,93 @@ likely to be above as below any given range value.
 - `by_streak` — how often the exceeded / respected outcome repeats on consecutive
   sessions.
 
+
+---
+
+## 17. Average True Range (ATR)
+
+**Family**: `atr`
+**Module**: `stats/atr/standard.py`
+**Result file**: `results/atr.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How often does a session's **True Range** exceed or respect the prior session's
+period-N Average True Range (ATR)? This is the gap-aware companion to **ADR**
+(section 16): where ADR uses the simple high-to-low range, ATR's True Range also
+accounts for the overnight gap by including the prior session's close. Reported as
+two outcomes that partition every countable session: **exceeded** (true range >
+ATR) and **respected** (true range <= ATR).
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`, `session_close`,
+   `day_high`, `day_low`) using the standard resolution rule (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Take each session's prior-session reference: `prev_close` = the chronologically
+   **previous resolved** session's `session_close` (shifted over the resolved-only,
+   sorted index, so it skips any excluded/early-close day).
+3. Compute the per-session True Range:
+   ```
+   true_range = max(
+     day_high - day_low,
+     abs(day_high - prev_close),
+     abs(day_low  - prev_close),
+   )
+   ```
+   The first resolved session has no prior close, so its two gap terms drop out and
+   its True Range falls back to `day_high - day_low` — the standard first-bar ATR
+   convention (Wilder). It remains countable.
+4. Compute the prior-session ATR using a rolling mean with no lookahead:
+   ```
+   atr = true_range.rolling(period).mean().shift(1)
+   ```
+   The `shift(1)` guarantees that each session's ATR is the mean of the `period`
+   sessions STRICTLY BEFORE it. The first `period` resolved sessions therefore have
+   NaN `atr` and are excluded from every denominator (pending-sample discipline).
+   `atr > 0` is also asserted defensively.
+5. For each countable session classify the outcome:
+   - **exceeded**: `true_range > atr` (strict — touching the ATR is respected).
+   - **respected**: `true_range <= atr`.
+   The two outcomes are mutually exclusive and exhaustive for all countable days.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a valid prior-session ATR, i.e., at least
+`period` sessions of history).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| period | 14 | Number of prior sessions in the ATR rolling window |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `atr` column is **permuted** across
+all rows while `true_range` is held fixed. This pairs each session's actual true
+range with an unrelated session's ATR, destroying the temporal and regime link
+(e.g. a volatile-regime ATR is randomly matched against a quiet day's true range).
+The permutation also moves any NaN `atr` values to random rows, preserving the
+countable count exactly. Expected baseline: near 50% exceeded / 50% respected,
+since a random ATR drawn from the same historical distribution is roughly as
+likely to be above as below any given true-range value.
+
+### i18n
+- **title.en**: "Average True Range (ATR)"
+- **title.fr**: "Average True Range (ATR)"
+- **definition.en**: "How often does a session's true range (high-low, accounting for the prior close gap) exceed or respect the prior session's period-N average true range (ATR)?"
+- **definition.fr**: "À quelle fréquence le true range d'une session (plus haut – plus bas, en tenant compte du gap avec la clôture précédente) dépasse-t-il ou respecte-t-il l'average true range (ATR) sur N périodes de la session précédente ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
+
+### Future variants (not in MVP)
+- `by_extension` — how far above the ATR the session extended (in multiples of
+  the ATR), bucketed into levels.
+- `by_range_to_atr_by_weekday` — range / ATR ratio bucketed, split per weekday.
+- `by_streak` — how often the exceeded / respected outcome repeats on consecutive
+  sessions.
+- `by_weekday` — a dedicated weekday variant (the weekday breakdown is already
+  available via the declared `weekday` slice).
+
