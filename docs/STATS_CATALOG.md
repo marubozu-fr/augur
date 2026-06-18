@@ -936,3 +936,94 @@ None. The standard report has no secondary breakdowns.
 - `by_outside_close` — split by whether the week **closed outside** the broken
   level versus back inside the prior range.
 
+
+---
+
+## 13. Outside Days
+
+**Family**: `outside_days`
+**Module**: `stats/outside_days/standard.py`
+**Result file**: `results/outside_days.json`
+**Status**: Implemented
+
+### What it measures
+How often does a session **open outside** the prior trading day's range — above
+its RTH high (**bullish** outside) or below its RTH low (**bearish** outside)?
+And, given such an open, does price **continue** away from the range (hold
+outside all session) or **reverse** back into it during the session? Two tiers of
+rows are reported: the **outside-open frequency** over all countable days, and
+the **continuation vs reversal** split among the days that opened outside.
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   using the same resolution rule as the other daily stats (clean 09:30 open and
+   a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. Attach each day's prior-range reference from the chronologically **previous
+   resolved** day (so it skips over any excluded/early-close day):
+   - `prev_high` = previous resolved day's `day_high`.
+   - `prev_low`  = previous resolved day's `day_low`.
+   The first resolved day has no prior day, so `prev_high` / `prev_low` are NaN
+   and it is excluded from every denominator (pending-sample discipline).
+4. Classify the outside open of each countable day (strict — opening exactly at
+   the level is not outside; the two are mutually exclusive):
+   - **bullish**: `session_open > prev_high`.
+   - **bearish**: `session_open < prev_low`.
+   Most days open inside the prior range and fall into neither.
+5. For an outside open, classify continuation vs reversal (re-entry uses strict
+   inequality, mirroring the strict-break convention of `prev_days_range`):
+   - bullish: **reversal** if `day_low  <  prev_high` (price re-entered the
+     range); **continuation** if `day_low  >= prev_high` (held above all session).
+   - bearish: **reversal** if `day_high >  prev_low`; **continuation** if
+     `day_high <= prev_low`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `outside_open` | `bullish`, `bearish` | No (mutually exclusive, most days open inside) | Outside-open frequency over all countable days; `total` = countable days |
+| `bullish` | `continuation`, `reversal` | Yes | Continuation vs reversal given a bullish outside open; `total` = bullish-open days |
+| `bearish` | `continuation`, `reversal` | Yes | Continuation vs reversal given a bearish outside open; `total` = bearish-open days |
+
+Continuation/reversal here is **intraday range re-entry** (did price trade back
+into the prior range?). The distinct "where the close lands relative to the prior
+high/low" classification is a separate variant (see below), not computed by this
+standard module.
+
+`total_samples` counts all resolved days; each row's `total` counts only the
+relevant countable days (those with a prior resolved day).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the prior-range pair (`prev_high`,
+`prev_low`) is **permuted together** across days, so each day's open and intraday
+extremes are compared against an **unrelated** day's range. This is the joint null
+for both tiers at once — it destroys the temporal adjacency the stat measures
+(does opening outside *yesterday's* range carry information?) while keeping each
+prior range internally consistent (`low <= high`); the lone NaN pair moves to a
+random day, preserving the countable count. Against a long, trending history the
+baseline reversal rate is near zero (a random distant range rarely sits where
+price can re-enter it), which makes the strong real-data reversal rate the signal.
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `prev_candle` — split by the prior session's color, green/red (declared via the
+  shared `PrevCandle` slicer reading `prev_session_green`).
+
+### Future variants (not in MVP)
+- `by_close` — where the close lands relative to the prior high/low.
+- `by_size` — bucket outside days by gap size (open distance beyond the level).
+- `by_spike` — maximum extension reached before a reversal.
+- `by_time` — whether the reversal occurred before/after an intraday cutoff.
+
