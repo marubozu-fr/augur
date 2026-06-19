@@ -1,11 +1,11 @@
-"""CPI Performance stat.
+"""NFP Performance stat.
 
-Measures close-to-close price performance across three windows around each CPI
-release: a pre-announcement window, the CPI release day itself, and a
-post-announcement window.
+Measures close-to-close price performance across three windows around each
+Non-Farm Payrolls (NFP) release: a pre-announcement window, the NFP release day
+itself, and a post-announcement window.
 
 All computation lives in :mod:`stats.event_performance_base`; this module only
-sets the CPI-specific names, i18n content and the CPI calendar loader. See the
+sets the NFP-specific names, i18n content and the NFP calendar loader. See the
 base module docstring for the methodology, pending discipline and baseline.
 """
 
@@ -27,17 +27,17 @@ from stats.event_performance_base import _DEFAULT_CALENDAR_PATH as _DEFAULT_CALE
 # i18n content
 # ---------------------------------------------------------------------------
 _TITLE = I18nString(
-  en="CPI Performance",
-  fr="Performance CPI",
+  en="NFP Performance",
+  fr="Performance NFP",
 )
 _DEFINITION = I18nString(
   en=(
     "What is the average close-to-close percent return in the trading sessions "
-    "before a CPI release, on the release day itself, and in the sessions after?"
+    "before an NFP release, on the release day itself, and in the sessions after?"
   ),
   fr=(
     "Quel est le rendement moyen en pourcentage de clôture à clôture lors des "
-    "séances précédant une publication du CPI, le jour de la publication, et "
+    "séances précédant une publication du NFP, le jour de la publication, et "
     "lors des séances suivantes ?"
   ),
 )
@@ -46,7 +46,7 @@ _LABELS = Labels(
     "pre_announcement": I18nString(
       en="Pre-announcement window", fr="Fenêtre pré-annonce"
     ),
-    "cpi_day": I18nString(en="CPI release day", fr="Jour de publication du CPI"),
+    "nfp_day": I18nString(en="NFP release day", fr="Jour de publication du NFP"),
     "post_announcement": I18nString(
       en="Post-announcement window", fr="Fenêtre post-annonce"
     ),
@@ -58,38 +58,39 @@ _LABELS = Labels(
   },
 )
 
-# Calendar row identifying a CPI release. The forex-factory calendar carries
-# several CPI lines per release (headline / core, m/m / y/y); the headline
-# monthly print uniquely identifies each release date.
-_CPI_EVENT = "cpi m/m"
-_CPI_CURRENCY = "usd"
+# Calendar row identifying an NFP release. The forex-factory calendar labels the
+# headline monthly US payrolls print as "Non-Farm Employment Change"; it
+# uniquely identifies each release date.
+_NFP_EVENT = "non-farm employment change"
+_NFP_CURRENCY = "usd"
 
 
-def load_cpi_release_dates(calendar_path: str | Path) -> set[pd.Timestamp]:
-  """Read distinct CPI release dates from an economic calendar CSV.
+def load_nfp_release_dates(calendar_path: str | Path) -> set[pd.Timestamp]:
+  """Read distinct NFP release dates from an economic calendar CSV.
 
-  Keeps rows whose ``event`` is the headline monthly US CPI print and returns
-  the distinct release dates as normalized (midnight, tz-naive) Timestamps.
+  Keeps rows whose ``event`` is the headline monthly US payrolls print and
+  returns the distinct release dates as normalized (midnight, tz-naive)
+  Timestamps.
   """
   cal = pd.read_csv(calendar_path, usecols=["date", "currency", "event"])
   event = cal["event"].str.strip().str.lower()
   currency = cal["currency"].str.strip().str.lower()
-  mask = (event == _CPI_EVENT) & (currency == _CPI_CURRENCY)
+  mask = (event == _NFP_EVENT) & (currency == _NFP_CURRENCY)
   dates = pd.to_datetime(cal.loc[mask, "date"]).dt.normalize()
   return set(dates.unique())
 
 
-class CPIPerformance(EventPerformanceStat):
-  """Close-to-close performance across the three CPI-release windows."""
+class NFPPerformance(EventPerformanceStat):
+  """Close-to-close performance across the three NFP-release windows."""
 
-  stat_name = "cpi_performance"
+  stat_name = "nfp_performance"
   title = _TITLE
   definition = _DEFINITION
   labels = _LABELS
   slices = ()  # Events are scattered across the calendar; per-day slicing is meaningless.
 
-  event_condition_key = "cpi_day"
-  event_return_col = "cpi_return"
+  event_condition_key = "nfp_day"
+  event_return_col = "nfp_return"
 
 
 # ---------------------------------------------------------------------------
@@ -103,10 +104,10 @@ def run(
   pre_announcement: int = 5,
   post_announcement: int = 5,
 ) -> Path:
-  """Load data and the CPI calendar, compute CPI Performance, write the result."""
+  """Load data and the NFP calendar, compute NFP Performance, write the result."""
   return run_event_performance_stat(
-    CPIPerformance,
-    load_cpi_release_dates,
+    NFPPerformance,
+    load_nfp_release_dates,
     instrument=instrument,
     config_dir=config_dir,
     data_path=data_path,
@@ -117,4 +118,4 @@ def run(
 
 
 if __name__ == "__main__":
-  main(CPIPerformance, load_cpi_release_dates, "Compute CPI Performance stat", "CPI")
+  main(NFPPerformance, load_nfp_release_dates, "Compute NFP Performance stat", "NFP")

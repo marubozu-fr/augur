@@ -1682,3 +1682,78 @@ tendency around CPI rather than an artifact of the return distribution.
   several sessions, so the per-day slicers (weekday, close color, …) do not
   apply; `slices = ()`.
 
+
+---
+
+## 22. NFP Performance
+
+**Family**: `nfp_performance`
+**Module**: `stats/nfp_performance/standard.py`
+**Result file**: `results/nfp_performance.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+Average close-to-close percent return across three windows around each Non-Farm
+Payrolls (NFP) release: the run-up before the release, the release day itself,
+and the follow-through after.
+
+### Methodology
+1. Build the RTH resolved-day table (shared `build_resolved_days`): one row per
+   resolved session, sorted chronologically, with `session_close`.
+2. NFP release dates come from an **external economic calendar CSV** (not from
+   the OHLCV data). `load_nfp_release_dates` keeps the headline monthly US
+   payrolls print (`event == "Non-Farm Employment Change"`, `currency == "USD"`)
+   and returns the distinct release dates. They are injected into the stat, so
+   the computation stays a pure function of (candles, release dates).
+3. Each release date `D` is mapped to its trading session in the resolved-day
+   sequence. Releases on a non-resolved session (holiday / early close / outside
+   the data range) are dropped. Window offsets are positional over resolved
+   days, so "N trading days before/after" naturally skips non-trading days.
+4. With `c[i]` the session close at resolved position `i` (the release sits at
+   position `i`), `pre = pre_announcement`, `post = post_announcement`, the three
+   windows use **adjacent closes** (contiguous, non-overlapping):
+   - **pre_announcement**: `(c[i-1] - c[i-pre]) / c[i-pre]` — the run-up baseline.
+   - **nfp_day**: `(c[i] - c[i-1]) / c[i-1]` — the release-day move.
+   - **post_announcement**: `(c[i+post] - c[i]) / c[i]` — the follow-through.
+5. For each window, report three outcomes over its observations:
+   - **mean_return** — average signed decimal return (magnitude in `value`).
+   - **green** — share of observations with return `>= 0` (probability channel).
+   - **red** — share with return `< 0`.
+
+A window observation is **green** when its return is `>= 0`, else **red**.
+Pending discipline is **per window**: an observation counts only when every
+close that window needs exists, so the earliest releases drop out of the pre
+window and the most recent releases drop out of the (still-unresolved) post
+window. Each window therefore reports its own `count` / `total`. All 9 rows
+(3 windows × 3 outcomes) are always emitted; an empty window carries
+`count = total = 0` and `value = 0.0`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| pre_announcement | 5 | Trading sessions before the release in the pre window |
+| post_announcement | 5 | Trading sessions after the release in the post window |
+| calendar_path | `data/forex_factory_calendar.csv` | Economic calendar CSV with NFP release dates |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): per window, each observation's return
+magnitude is held fixed and only its sign is randomized (p=0.5). The expected
+average return is ~0 and the expected green/red split ~50/50, so an actual mean
+return or green share well away from the baseline indicates a genuine directional
+tendency around NFP rather than an artifact of the return distribution.
+
+### i18n
+- **title.en**: "NFP Performance"
+- **title.fr**: "Performance NFP"
+- **definition.en**: "What is the average close-to-close percent return in the trading sessions before an NFP release, on the release day itself, and in the sessions after?"
+- **definition.fr**: "Quel est le rendement moyen en pourcentage de clôture à clôture lors des séances précédant une publication du NFP, le jour de la publication, et lors des séances suivantes ?"
+
+### Slices
+- None. NFP releases are scattered across the calendar and each window spans
+  several sessions, so the per-day slicers (weekday, close color, …) do not
+  apply; `slices = ()`.
+
