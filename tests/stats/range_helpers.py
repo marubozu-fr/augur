@@ -57,6 +57,46 @@ def _make_day(date: str, session_close: float) -> pd.DataFrame:
   return pd.DataFrame(records)
 
 
+# ---------------------------------------------------------------------------
+# Event-performance helpers (CPI / NFP / FOMC close-to-close stats)
+# ---------------------------------------------------------------------------
+# The 10 weekdays starting 2024-01-02 (Tuesday):
+# pos 0 = 2024-01-02, 1 = 2024-01-03, 2 = 2024-01-04, 3 = 2024-01-05,
+# pos 4 = 2024-01-08, 5 = 2024-01-09, 6 = 2024-01-10, 7 = 2024-01-11,
+# pos 8 = 2024-01-12, 9 = 2024-01-15
+_DATES_10 = [
+  "2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05",
+  "2024-01-08", "2024-01-09", "2024-01-10", "2024-01-11",
+  "2024-01-12", "2024-01-15",
+]
+
+
+def make_candles_from_closes(
+  closes: list[float],
+  dates: list[str] | None = None,
+) -> pd.DataFrame:
+  """Build 1-min RTH candle data from a list of session closes.
+
+  If ``dates`` is omitted, the first len(closes) entries of ``_DATES_10`` are
+  used (which covers up to 10 weekdays starting 2024-01-02).
+  """
+  if dates is None:
+    assert len(closes) <= len(_DATES_10), "Provide explicit dates for >10 sessions"
+    dates = _DATES_10[: len(closes)]
+  frames = [_make_day(dates[i], closes[i]) for i in range(len(closes))]
+  df = pd.concat(frames, ignore_index=True)
+  return df.sort_values("timestamp").reset_index(drop=True)
+
+
+def _find_row(
+  rows: list[StatResultRow], condition: str, outcome: str
+) -> StatResultRow:
+  for r in rows:
+    if r.condition == condition and r.outcome == outcome:
+      return r
+  raise KeyError((condition, outcome))
+
+
 def _make_ohlc_day(
   date: str,
   session_open: float,

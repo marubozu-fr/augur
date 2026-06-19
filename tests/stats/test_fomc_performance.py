@@ -1,21 +1,21 @@
-"""Tests for stats.cpi_performance.standard.
+"""Tests for stats.fomc_performance.standard.
 
 All data is synthetic — no real market files required. Expected values are
 hand-calculated before each assertion.
 
 Methodology recap
 -----------------
-Given resolved session closes c[0], c[1], ..., c[n-1] and a CPI release at
+Given resolved session closes c[0], c[1], ..., c[n-1] and an FOMC decision at
 position i (0-based), with pre=pre_announcement and post=post_announcement:
 
   pre_return  = (c[i-1] - c[i-pre]) / c[i-pre]   NaN if i < pre
-  cpi_return  = (c[i]   - c[i-1])  / c[i-1]       NaN if i < 1
+  fomc_return = (c[i]   - c[i-1])  / c[i-1]       NaN if i < 1
   post_return = (c[i+post] - c[i]) / c[i]          NaN if i+post > n-1
 
 A row is dropped only when ALL THREE windows are NaN.
 Each window aggregates independently (per-window pending discipline):
   - pre  total = non-NaN pre_return observations
-  - cpi  total = non-NaN cpi_return observations
+  - fomc total = non-NaN fomc_return observations
   - post total = non-NaN post_return observations
 
 green = return >= 0 (zero counts as green).
@@ -31,7 +31,7 @@ import pandas as pd
 import pytest
 
 from stats.base import StatRunResult, write_results
-from stats.cpi_performance.standard import CPIPerformance, load_cpi_release_dates
+from stats.fomc_performance.standard import FOMCPerformance, load_fomc_release_dates
 from tests.stats.range_helpers import (
   _TEST_CONFIG,
   _empty_df,
@@ -41,15 +41,15 @@ from tests.stats.range_helpers import (
 
 
 def _stat(
-  cpi_dates: list[str],
+  fomc_dates: list[str],
   pre: int = 2,
   post: int = 2,
-) -> CPIPerformance:
-  """Build a CPIPerformance instance with synthetic CPI dates."""
-  return CPIPerformance(
+) -> FOMCPerformance:
+  """Build a FOMCPerformance instance with synthetic FOMC dates."""
+  return FOMCPerformance(
     instrument="NQ",
     config=_TEST_CONFIG,
-    event_dates=[pd.Timestamp(d) for d in cpi_dates],
+    event_dates=[pd.Timestamp(d) for d in fomc_dates],
     pre_announcement=pre,
     post_announcement=post,
   )
@@ -58,54 +58,54 @@ def _stat(
 # ===========================================================================
 # 1. Window return math — exact adjacent-close formula
 #
-# 6-day series, pre=2, post=2, single CPI at position 3 (i=3).
+# 6-day series, pre=2, post=2, single FOMC at position 3 (i=3).
 # closes: c0=100, c1=110, c2=105, c3=115, c4=112, c5=118
 #
 # Hand-calculated:
 #   pre_return  = (c[2] - c[1]) / c[1] = (105 - 110) / 110 = -5/110 = -1/22
-#   cpi_return  = (c[3] - c[2]) / c[2] = (115 - 105) / 105 = 10/105 = 2/21
+#   fomc_return = (c[3] - c[2]) / c[2] = (115 - 105) / 105 = 10/105 = 2/21
 #   post_return = (c[5] - c[3]) / c[3] = (118 - 115) / 115 = 3/115
 #
 # All three windows have total=1.
 #   pre: green=0, red=1, P(green)=0.0
-#   cpi: green=1, red=0, P(green)=1.0
+#   fomc: green=1, red=0, P(green)=1.0
 #   post: green=1, red=0, P(green)=1.0
 # ===========================================================================
 
 _WINDOW_MATH_CLOSES = [100.0, 110.0, 105.0, 115.0, 112.0, 118.0]
 # Position 3 = _DATES_10[3] = "2024-01-05"
-_WINDOW_MATH_CPI_DATE = "2024-01-05"
+_WINDOW_MATH_FOMC_DATE = "2024-01-05"
 
 
 def test_window_math_pre_return() -> None:
   # pre_return = (c[2]-c[1])/c[1] = (105-110)/110 = -5/110
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   day_table = stat.build_day_table(df)
   assert len(day_table) == 1
   assert day_table["pre_return"].iloc[0] == pytest.approx(-5 / 110)
 
 
-def test_window_math_cpi_return() -> None:
-  # cpi_return = (c[3]-c[2])/c[2] = (115-105)/105 = 10/105
+def test_window_math_fomc_return() -> None:
+  # fomc_return = (c[3]-c[2])/c[2] = (115-105)/105 = 10/105
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   day_table = stat.build_day_table(df)
-  assert day_table["cpi_return"].iloc[0] == pytest.approx(10 / 105)
+  assert day_table["fomc_return"].iloc[0] == pytest.approx(10 / 105)
 
 
 def test_window_math_post_return() -> None:
   # post_return = (c[5]-c[3])/c[3] = (118-115)/115 = 3/115
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   day_table = stat.build_day_table(df)
   assert day_table["post_return"].iloc[0] == pytest.approx(3 / 115)
 
 
 def test_window_math_green_red_totals() -> None:
-  # pre negative -> green=0; cpi positive -> green=1; post positive -> green=1
+  # pre negative -> green=0; fomc positive -> green=1; post positive -> green=1
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   rows = stat.compute(df).instruments["NQ"]["daily"].results
 
   pre_green = _find_row(rows, "pre_announcement", "green")
@@ -116,10 +116,10 @@ def test_window_math_green_red_totals() -> None:
   assert pre_red.count == 1
   assert pre_red.probability == pytest.approx(1.0)
 
-  cpi_green = _find_row(rows, "cpi_day", "green")
-  assert cpi_green.count == 1
-  assert cpi_green.total == 1
-  assert cpi_green.probability == pytest.approx(1.0)
+  fomc_green = _find_row(rows, "fomc_day", "green")
+  assert fomc_green.count == 1
+  assert fomc_green.total == 1
+  assert fomc_green.probability == pytest.approx(1.0)
 
   post_green = _find_row(rows, "post_announcement", "green")
   assert post_green.count == 1
@@ -130,46 +130,46 @@ def test_window_math_green_red_totals() -> None:
 # ===========================================================================
 # 2. Per-window pending discipline
 #
-# 10-day series, pre=2, post=2, CPI at positions 1, 4, 8.
+# 10-day series, pre=2, post=2, FOMC at positions 1, 4, 8.
 # closes: c0=100, c1=102, c2=98, c3=105, c4=103, c5=108, c6=106, c7=110,
 #         c8=112, c9=109
 #
-# Position 1 (2024-01-03): i=1 < pre=2  → pre_return NaN;  cpi OK;  post OK
+# Position 1 (2024-01-03): i=1 < pre=2  → pre_return NaN;  fomc OK;  post OK
 # Position 4 (2024-01-08): all three OK
-# Position 8 (2024-01-12): pre OK; cpi OK; i+post=10 > n-1=9 → post_return NaN
+# Position 8 (2024-01-12): pre OK; fomc OK; i+post=10 > n-1=9 → post_return NaN
 #
 # Per-window totals:
 #   pre  total = 2 (positions 4 and 8 only)
-#   cpi  total = 3 (all three)
+#   fomc total = 3 (all three)
 #   post total = 2 (positions 1 and 4 only)
 # ===========================================================================
 
 _PENDING_CLOSES = [100.0, 102.0, 98.0, 105.0, 103.0, 108.0, 106.0, 110.0, 112.0, 109.0]
-_PENDING_CPI_DATES = ["2024-01-03", "2024-01-08", "2024-01-12"]
+_PENDING_FOMC_DATES = ["2024-01-03", "2024-01-08", "2024-01-12"]
 
 
 def test_pending_pre_window_excludes_early_release() -> None:
   """Position 1 (too early for pre window) contributes NaN to pre → total=2."""
   df = make_candles_from_closes(_PENDING_CLOSES)
-  stat = _stat(_PENDING_CPI_DATES)
+  stat = _stat(_PENDING_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   pre_mr = _find_row(rows, "pre_announcement", "mean_return")
   assert pre_mr.total == 2
 
 
-def test_pending_cpi_window_counts_all_three() -> None:
-  """All three releases contribute to cpi_day → total=3."""
+def test_pending_fomc_window_counts_all_three() -> None:
+  """All three decisions contribute to fomc_day → total=3."""
   df = make_candles_from_closes(_PENDING_CLOSES)
-  stat = _stat(_PENDING_CPI_DATES)
+  stat = _stat(_PENDING_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
-  cpi_mr = _find_row(rows, "cpi_day", "mean_return")
-  assert cpi_mr.total == 3
+  fomc_mr = _find_row(rows, "fomc_day", "mean_return")
+  assert fomc_mr.total == 3
 
 
 def test_pending_post_window_excludes_late_release() -> None:
   """Position 8 (too late for post window) contributes NaN to post → total=2."""
   df = make_candles_from_closes(_PENDING_CLOSES)
-  stat = _stat(_PENDING_CPI_DATES)
+  stat = _stat(_PENDING_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   post_mr = _find_row(rows, "post_announcement", "mean_return")
   assert post_mr.total == 2
@@ -178,13 +178,13 @@ def test_pending_post_window_excludes_late_release() -> None:
 def test_pending_totals_differ_across_windows() -> None:
   """The three windows report different totals due to independent pending drops."""
   df = make_candles_from_closes(_PENDING_CLOSES)
-  stat = _stat(_PENDING_CPI_DATES)
+  stat = _stat(_PENDING_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   pre_total = _find_row(rows, "pre_announcement", "mean_return").total
-  cpi_total = _find_row(rows, "cpi_day", "mean_return").total
+  fomc_total = _find_row(rows, "fomc_day", "mean_return").total
   post_total = _find_row(rows, "post_announcement", "mean_return").total
-  # pre=2 < cpi=3 > post=2; cpi is largest
-  assert cpi_total == 3
+  # pre=2 < fomc=3 > post=2; fomc is largest
+  assert fomc_total == 3
   assert pre_total == 2
   assert post_total == 2
 
@@ -192,7 +192,7 @@ def test_pending_totals_differ_across_windows() -> None:
 def test_pending_day_table_has_3_rows() -> None:
   """Day table has 3 rows (positions 1, 4, 8 each survive — not all-NaN)."""
   df = make_candles_from_closes(_PENDING_CLOSES)
-  stat = _stat(_PENDING_CPI_DATES)
+  stat = _stat(_PENDING_FOMC_DATES)
   day_table = stat.build_day_table(df)
   assert len(day_table) == 3
 
@@ -200,13 +200,13 @@ def test_pending_day_table_has_3_rows() -> None:
 # ===========================================================================
 # 3. Release on a non-resolved / missing session is dropped
 #
-# Same 10-day series.  Add a CPI date that falls on a Sunday (2024-01-07) —
+# Same 10-day series.  Add an FOMC date that falls on a Sunday (2024-01-07) —
 # that date has no resolved session in the candle data.
 # Expected: day_table has 0 rows for the Sunday date (it is absent).
 # ===========================================================================
 
 def test_missing_session_date_dropped_from_day_table() -> None:
-  """A CPI date with no resolved session does not appear in the day_table."""
+  """An FOMC date with no resolved session does not appear in the day_table."""
   df = make_candles_from_closes(_PENDING_CLOSES)
   # 2024-01-07 is a Sunday — no resolved session
   stat = _stat(["2024-01-07"])
@@ -217,7 +217,7 @@ def test_missing_session_date_dropped_from_day_table() -> None:
 
 
 def test_valid_and_missing_releases_mixed() -> None:
-  """Mix of valid and non-existent CPI dates: only valid one appears."""
+  """Mix of valid and non-existent FOMC dates: only valid one appears."""
   df = make_candles_from_closes(_PENDING_CLOSES)
   # 2024-01-07 missing; 2024-01-08 (position 4) exists
   stat = _stat(["2024-01-07", "2024-01-08"])
@@ -234,7 +234,7 @@ def test_valid_and_missing_releases_mixed() -> None:
 # there are zero events (empty day table).
 # ===========================================================================
 
-_EXPECTED_CONDITIONS = {"pre_announcement", "cpi_day", "post_announcement"}
+_EXPECTED_CONDITIONS = {"pre_announcement", "fomc_day", "post_announcement"}
 _EXPECTED_OUTCOMES = {"mean_return", "green", "red"}
 _EXPECTED_SHAPE = {
   (c, o) for c in _EXPECTED_CONDITIONS for o in _EXPECTED_OUTCOMES
@@ -244,7 +244,7 @@ _EXPECTED_SHAPE = {
 def test_row_count_is_always_9() -> None:
   """compute() returns exactly 9 rows for a normal dataset."""
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   assert len(rows) == 9
 
@@ -252,14 +252,14 @@ def test_row_count_is_always_9() -> None:
 def test_row_shape_conditions_and_outcomes() -> None:
   """The (condition, outcome) pairs match the expected 9-element set."""
   df = make_candles_from_closes(_WINDOW_MATH_CLOSES)
-  stat = _stat([_WINDOW_MATH_CPI_DATE])
+  stat = _stat([_WINDOW_MATH_FOMC_DATE])
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   assert {(r.condition, r.outcome) for r in rows} == _EXPECTED_SHAPE
 
 
 def test_empty_day_table_still_emits_9_rows() -> None:
-  """Zero CPI events → 9 rows, all totals 0, mean_return 0.0."""
-  stat = _stat([])  # no CPI dates
+  """Zero FOMC events → 9 rows, all totals 0, mean_return 0.0."""
+  stat = _stat([])  # no FOMC dates
   rows = stat.compute(make_candles_from_closes(_WINDOW_MATH_CLOSES)).instruments["NQ"]["daily"].results
   assert len(rows) == 9
   assert {(r.condition, r.outcome) for r in rows} == _EXPECTED_SHAPE
@@ -285,11 +285,11 @@ def test_empty_candles_emits_9_zero_rows() -> None:
 # ===========================================================================
 # 5. green / red split and counts — including zero return as green
 #
-# 10-day series, pre=2, post=2, CPI at positions 2, 4, 7.
-# closes: c0=100, c1=102, c2=102 (cpi=0→green), c3=105, c4=103,
+# 10-day series, pre=2, post=2, FOMC at positions 2, 4, 7.
+# closes: c0=100, c1=102, c2=102 (fomc=0→green), c3=105, c4=103,
 #         c5=105, c6=103, c7=101, c8=103, c9=101
 #
-# Hand-calculated (all three CPI events have all windows resolved):
+# Hand-calculated (all three FOMC events have all windows resolved):
 #
 # PRE window:
 #   i=2: (c[1]-c[0])/c[0] = (102-100)/100 = 0.02        → green
@@ -298,7 +298,7 @@ def test_empty_candles_emits_9_zero_rows() -> None:
 #   green=2, red=1, P(green)=2/3
 #   mean = (1/50 + 3/102 + (-2/105)) / 3 = 271/26775
 #
-# CPI window:
+# FOMC window:
 #   i=2: (c[2]-c[1])/c[1] = (102-102)/102 = 0.0          → green (zero)
 #   i=4: (c[4]-c[3])/c[3] = (103-105)/105 = -2/105        → red
 #   i=7: (c[7]-c[6])/c[6] = (101-103)/103 = -2/103        → red
@@ -314,13 +314,13 @@ def test_empty_candles_emits_9_zero_rows() -> None:
 # ===========================================================================
 
 _GR_CLOSES = [100.0, 102.0, 102.0, 105.0, 103.0, 105.0, 103.0, 101.0, 103.0, 101.0]
-_GR_CPI_DATES = ["2024-01-04", "2024-01-08", "2024-01-11"]
+_GR_FOMC_DATES = ["2024-01-04", "2024-01-08", "2024-01-11"]
 
 
 def test_green_red_pre_window_split() -> None:
   # green=2, red=1 in pre window
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   g = _find_row(rows, "pre_announcement", "green")
   r = _find_row(rows, "pre_announcement", "red")
@@ -331,13 +331,13 @@ def test_green_red_pre_window_split() -> None:
   assert r.probability == pytest.approx(1 / 3)
 
 
-def test_zero_cpi_return_counts_as_green() -> None:
-  # i=2: cpi_return = (102-102)/102 = 0.0 → green
+def test_zero_fomc_return_counts_as_green() -> None:
+  # i=2: fomc_return = (102-102)/102 = 0.0 → green
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
-  g = _find_row(rows, "cpi_day", "green")
-  r = _find_row(rows, "cpi_day", "red")
+  g = _find_row(rows, "fomc_day", "green")
+  r = _find_row(rows, "fomc_day", "red")
   assert g.count == 1
   assert r.count == 2
   assert g.probability == pytest.approx(1 / 3)
@@ -346,7 +346,7 @@ def test_zero_cpi_return_counts_as_green() -> None:
 def test_zero_post_returns_count_as_green() -> None:
   # Post window: two zeros (i=4, i=7) and one positive (i=2) → all 3 green
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   g = _find_row(rows, "post_announcement", "green")
   r = _find_row(rows, "post_announcement", "red")
@@ -362,14 +362,14 @@ def test_zero_post_returns_count_as_green() -> None:
 # Using the same 3-event green/red dataset above.
 #
 # PRE  mean = 271/26775 ≈ 0.010121381886087768
-# CPI  mean = -416/32445 ≈ -0.012821698258591462
+# FOMC mean = -416/32445 ≈ -0.012821698258591462
 # POST mean = 1/306 ≈ 0.0032679738562091504
 # ===========================================================================
 
 def test_mean_return_pre_window() -> None:
   # mean of [1/50, 3/102, -2/105] = 271/26775
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   mr = _find_row(rows, "pre_announcement", "mean_return")
   assert mr.value == pytest.approx(271 / 26775)
@@ -379,12 +379,12 @@ def test_mean_return_pre_window() -> None:
   assert mr.probability == pytest.approx(0.0)
 
 
-def test_mean_return_cpi_window() -> None:
+def test_mean_return_fomc_window() -> None:
   # mean of [0, -2/105, -2/103] = -416/32445
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
-  mr = _find_row(rows, "cpi_day", "mean_return")
+  mr = _find_row(rows, "fomc_day", "mean_return")
   assert mr.value == pytest.approx(-416 / 32445)
   assert mr.total == 3
 
@@ -392,7 +392,7 @@ def test_mean_return_cpi_window() -> None:
 def test_mean_return_post_window() -> None:
   # mean of [1/102, 0, 0] = 1/306
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   mr = _find_row(rows, "post_announcement", "mean_return")
   assert mr.value == pytest.approx(1 / 306)
@@ -402,7 +402,7 @@ def test_mean_return_post_window() -> None:
 def test_mean_return_value_is_not_none() -> None:
   """mean_return rows always carry a non-None value."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   for condition in _EXPECTED_CONDITIONS:
     mr = _find_row(rows, condition, "mean_return")
@@ -412,7 +412,7 @@ def test_mean_return_value_is_not_none() -> None:
 def test_green_red_value_is_none() -> None:
   """green and red rows use the probability channel; value must be None."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   rows = stat.compute(df).instruments["NQ"]["daily"].results
   for condition in _EXPECTED_CONDITIONS:
     for outcome in ("green", "red"):
@@ -434,12 +434,12 @@ def test_green_red_value_is_none() -> None:
 # Use the green/red dataset (3 events, all-resolved) for the baseline tests.
 def _build_day_table_gr() -> "pd.DataFrame":
   df = make_candles_from_closes(_GR_CLOSES)
-  return _stat(_GR_CPI_DATES).build_day_table(df)
+  return _stat(_GR_FOMC_DATES).build_day_table(df)
 
 
 def test_baseline_deterministic_same_seed() -> None:
   """Same seed → identical baseline rows."""
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   day_table = _build_day_table_gr()
   rows_a = stat.baseline_rows(day_table, seed=42)
   rows_b = stat.baseline_rows(day_table, seed=42)
@@ -455,7 +455,7 @@ def test_baseline_deterministic_same_seed() -> None:
 
 def test_baseline_preserves_per_window_n() -> None:
   """Baseline rows have the same total (N) as the real stat rows."""
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   df = make_candles_from_closes(_GR_CLOSES)
   day_table = stat.build_day_table(df)
   real_rows = stat.compute_rows(day_table)
@@ -472,7 +472,7 @@ def test_baseline_preserves_magnitude_set() -> None:
   Pre-window: real values are [1/50, 3/102, -2/105]; their absolute values must
   appear in the baseline pre_return column (order may change).
   """
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   day_table = _build_day_table_gr()
   # Run baseline directly on day_table to inspect the signed copy
   # We infer magnitude preservation by checking that |baseline_mean| <= max(|real|)
@@ -490,7 +490,7 @@ def test_baseline_preserves_magnitude_set() -> None:
 
 def test_baseline_different_seeds_may_differ() -> None:
   """Different seeds produce at least one differing value on 3-event data."""
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   day_table = _build_day_table_gr()
   rows_42 = stat.baseline_rows(day_table, seed=42)
   rows_99 = stat.baseline_rows(day_table, seed=99)
@@ -507,7 +507,7 @@ def test_baseline_different_seeds_may_differ() -> None:
 def test_baseline_embedded_in_compute() -> None:
   """After compute(), probability rows carry non-zero baseline info when N>0."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df, seed=42)
   rows = result.instruments["NQ"]["daily"].results
   for row in rows:
@@ -520,80 +520,78 @@ def test_baseline_embedded_in_compute() -> None:
 
 
 # ===========================================================================
-# 8. load_cpi_release_dates
+# 8. load_fomc_release_dates
 #
 # Write a temp CSV with:
-#   - One USD CPI m/m row   (2024-01-12, must be returned)
-#   - Duplicate USD CPI m/m on same date (2024-01-12, deduped)
-#   - A non-USD CPI m/m    (EUR, must be excluded)
-#   - A Core CPI m/m row   (USD, different event, must be excluded)
-#   - An FOMC rate row      (USD, different event, must be excluded)
+#   - One USD Federal Funds Rate row (2024-01-31, must be returned)
+#   - Duplicate USD Federal Funds Rate on same date (2024-01-31, deduped)
+#   - A non-USD rate decision        (EUR, must be excluded)
+#   - An FOMC Statement row          (USD, different event, must be excluded)
+#   - A CPI m/m row                  (USD, different event, must be excluded)
 #
-# Expected: {Timestamp("2024-01-12")}
+# Expected: {Timestamp("2024-01-31")}
 # ===========================================================================
 
 _CALENDAR_CSV_CONTENT = """\
 date,currency,event,detail
-2024-01-12,USD,CPI m/m,headline
-2024-01-12,USD,CPI m/m,duplicate
-2024-01-12,EUR,CPI m/m,eurozone
-2024-01-12,USD,Core CPI m/m,core
-2024-01-31,USD,FOMC Statement,rates
+2024-01-31,USD,Federal Funds Rate,headline
+2024-01-31,USD,Federal Funds Rate,duplicate
+2024-01-31,EUR,Federal Funds Rate,eurozone
+2024-01-31,USD,FOMC Statement,statement
+2024-01-12,USD,CPI m/m,inflation
 """
 
 
-def test_load_cpi_release_dates_basic(tmp_path: Path) -> None:
-  """Only USD 'CPI m/m' rows are returned; duplicates are deduplicated."""
+def test_load_fomc_release_dates_basic(tmp_path: Path) -> None:
+  """Only USD 'Federal Funds Rate' rows are returned; duplicates are deduplicated."""
   csv_file = tmp_path / "calendar.csv"
   csv_file.write_text(_CALENDAR_CSV_CONTENT, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
-  expected = {pd.Timestamp("2024-01-12")}
+  dates = load_fomc_release_dates(csv_file)
+  expected = {pd.Timestamp("2024-01-31")}
   assert dates == expected
 
 
-def test_load_cpi_excludes_non_usd(tmp_path: Path) -> None:
-  """EUR CPI m/m rows are excluded."""
+def test_load_fomc_excludes_non_usd(tmp_path: Path) -> None:
+  """EUR Federal Funds Rate rows are excluded."""
   csv_file = tmp_path / "calendar.csv"
   csv_file.write_text(_CALENDAR_CSV_CONTENT, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
-  # No EUR Timestamp in result
-  eur_date = pd.Timestamp("2024-01-12")  # same date, but filtered by currency
-  # Only one date returned (the USD one)
+  dates = load_fomc_release_dates(csv_file)
+  # Only one date returned (the USD one), even though EUR shares the date
   assert len(dates) == 1
-  assert eur_date in dates  # the date itself is valid, just checking count
+  assert pd.Timestamp("2024-01-31") in dates
 
 
-def test_load_cpi_excludes_core_and_fomc(tmp_path: Path) -> None:
-  """Core CPI m/m and FOMC Statement rows are excluded."""
+def test_load_fomc_excludes_statement_and_cpi(tmp_path: Path) -> None:
+  """FOMC Statement and CPI m/m rows are excluded."""
   csv_file = tmp_path / "calendar.csv"
   csv_file.write_text(_CALENDAR_CSV_CONTENT, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
-  # FOMC date (2024-01-31) must not appear
-  assert pd.Timestamp("2024-01-31") not in dates
+  dates = load_fomc_release_dates(csv_file)
+  # CPI date (2024-01-12) must not appear
+  assert pd.Timestamp("2024-01-12") not in dates
 
 
-def test_load_cpi_deduplicates_same_date(tmp_path: Path) -> None:
-  """Two USD CPI m/m rows on the same date are returned as a single Timestamp."""
+def test_load_fomc_deduplicates_same_date(tmp_path: Path) -> None:
+  """Two USD Federal Funds Rate rows on the same date are returned as one Timestamp."""
   csv_file = tmp_path / "calendar.csv"
   csv_file.write_text(_CALENDAR_CSV_CONTENT, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
+  dates = load_fomc_release_dates(csv_file)
   assert len(dates) == 1
 
 
-def test_load_cpi_mixed_case_and_whitespace(tmp_path: Path) -> None:
+def test_load_fomc_mixed_case_and_whitespace(tmp_path: Path) -> None:
   """Event and currency matching is case-insensitive and trims whitespace."""
-  csv = "date,currency,event\n2024-02-13, USD , CPI M/M \n"
+  csv = "date,currency,event\n2024-03-20, USD , Federal Funds Rate \n"
   csv_file = tmp_path / "cal2.csv"
   csv_file.write_text(csv, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
-  assert pd.Timestamp("2024-02-13") in dates
+  dates = load_fomc_release_dates(csv_file)
+  assert pd.Timestamp("2024-03-20") in dates
 
 
-def test_load_cpi_returns_normalized_tz_naive(tmp_path: Path) -> None:
+def test_load_fomc_returns_normalized_tz_naive(tmp_path: Path) -> None:
   """Returned Timestamps are tz-naive and normalized to midnight."""
   csv_file = tmp_path / "calendar.csv"
   csv_file.write_text(_CALENDAR_CSV_CONTENT, encoding="utf-8")
-  dates = load_cpi_release_dates(csv_file)
+  dates = load_fomc_release_dates(csv_file)
   for ts in dates:
     assert ts.tzinfo is None
     assert ts == ts.normalize()
@@ -606,7 +604,7 @@ def test_load_cpi_returns_normalized_tz_naive(tmp_path: Path) -> None:
 def test_pre_announcement_zero_raises() -> None:
   """pre_announcement < 1 must raise ValueError."""
   with pytest.raises(ValueError):
-    CPIPerformance(
+    FOMCPerformance(
       instrument="NQ",
       config=_TEST_CONFIG,
       event_dates=[],
@@ -618,7 +616,7 @@ def test_pre_announcement_zero_raises() -> None:
 def test_post_announcement_zero_raises() -> None:
   """post_announcement < 1 must raise ValueError."""
   with pytest.raises(ValueError):
-    CPIPerformance(
+    FOMCPerformance(
       instrument="NQ",
       config=_TEST_CONFIG,
       event_dates=[],
@@ -630,7 +628,7 @@ def test_post_announcement_zero_raises() -> None:
 def test_negative_pre_raises() -> None:
   """Negative pre_announcement raises ValueError."""
   with pytest.raises(ValueError):
-    CPIPerformance(
+    FOMCPerformance(
       instrument="NQ",
       config=_TEST_CONFIG,
       event_dates=[],
@@ -647,25 +645,25 @@ def test_negative_pre_raises() -> None:
 # ===========================================================================
 
 def test_compute_stat_name() -> None:
-  """stat_name must be 'cpi_performance'."""
+  """stat_name must be 'fomc_performance'."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
-  assert result.stat_name == "cpi_performance"
+  assert result.stat_name == "fomc_performance"
 
 
 def test_compute_timeframe_is_daily() -> None:
   """Result is stored under the 'daily' timeframe key."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   assert "daily" in result.instruments["NQ"]
 
 
 def test_compute_no_slices() -> None:
-  """CPIPerformance declares no slices — slices dict must be empty."""
+  """FOMCPerformance declares no slices — slices dict must be empty."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   assert result.instruments["NQ"]["daily"].slices == {}
 
@@ -673,7 +671,7 @@ def test_compute_no_slices() -> None:
 def test_compute_total_samples_equals_day_table_length() -> None:
   """total_samples matches len(day_table)."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   day_table = stat.build_day_table(df)
   assert result.instruments["NQ"]["daily"].total_samples == len(day_table)
@@ -682,22 +680,22 @@ def test_compute_total_samples_equals_day_table_length() -> None:
 def test_compute_result_validates_as_stat_run_result() -> None:
   """compute() output re-validates cleanly as a StatRunResult."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   revalidated = StatRunResult.model_validate(result.model_dump())
-  assert revalidated.stat_name == "cpi_performance"
+  assert revalidated.stat_name == "fomc_performance"
   rows = revalidated.instruments["NQ"]["daily"].results
   assert len(rows) == 9
   assert {(r.condition, r.outcome) for r in rows} == _EXPECTED_SHAPE
 
 
-def test_compute_data_range_matches_cpi_dates() -> None:
-  """data_range covers the span of resolved CPI event dates in day_table."""
+def test_compute_data_range_matches_fomc_dates() -> None:
+  """data_range covers the span of resolved FOMC event dates in day_table."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   dr = result.instruments["NQ"]["daily"].data_range
-  # Earliest CPI date in day_table = 2024-01-04 (pos 2), latest = 2024-01-11 (pos 7)
+  # Earliest FOMC date in day_table = 2024-01-04 (pos 2), latest = 2024-01-11 (pos 7)
   assert dr == ["2024-01-04", "2024-01-11"]
 
 
@@ -706,16 +704,16 @@ def test_compute_data_range_matches_cpi_dates() -> None:
 # ===========================================================================
 
 def test_write_results_round_trip(tmp_path: Path) -> None:
-  """write_results produces cpi_performance.json that re-validates correctly."""
+  """write_results produces fomc_performance.json that re-validates correctly."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   written = write_results(result, results_dir=tmp_path)
-  assert written.name == "cpi_performance.json"
+  assert written.name == "fomc_performance.json"
 
   raw = json.loads(written.read_text(encoding="utf-8"))
   validated = StatRunResult.model_validate(raw)
-  assert validated.stat_name == "cpi_performance"
+  assert validated.stat_name == "fomc_performance"
   assert "NQ" in validated.instruments
   tf = validated.instruments["NQ"]["daily"]
   assert tf.total_samples == 3
@@ -727,11 +725,11 @@ def test_write_results_round_trip(tmp_path: Path) -> None:
 def test_write_results_french_accents_not_escaped(tmp_path: Path) -> None:
   """French labels are stored as UTF-8 literals, not \\uXXXX escape sequences."""
   df = make_candles_from_closes(_GR_CLOSES)
-  stat = _stat(_GR_CPI_DATES)
+  stat = _stat(_GR_FOMC_DATES)
   result = stat.compute(df)
   written = write_results(result, results_dir=tmp_path)
   raw = written.read_text(encoding="utf-8")
-  # The French labels contain accented characters (e.g. 'Fenêtre', 'Rendement')
+  # The French labels contain accented characters (e.g. 'Fenêtre', 'décision')
   assert "é" in raw
   assert "\\u00e9" not in raw
 
