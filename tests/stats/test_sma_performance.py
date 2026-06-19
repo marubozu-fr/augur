@@ -43,33 +43,9 @@ from tests.stats.range_helpers import (
   _NY,
   _TEST_CONFIG,
   _empty_df,
+  _make_day,
   _make_truncated_day,
 )
-
-# ---------------------------------------------------------------------------
-# Synthetic candle helpers (SMA performance only needs session_close)
-# ---------------------------------------------------------------------------
-
-_RTH_START = 570  # 09:30
-_RTH_LAST = 974   # 16:14 (last bar before 16:15)
-
-
-def _make_day(date: str, session_close: float) -> pd.DataFrame:
-  """One resolved RTH day (09:30–16:14) with a constant close."""
-  base = pd.Timestamp(date, tz=_NY)
-  records = []
-  for mod in range(_RTH_START, _RTH_LAST + 1):
-    h, m = divmod(mod, 60)
-    ts = base.replace(hour=h, minute=m, second=0, microsecond=0)
-    records.append({
-      "timestamp": ts,
-      "open": session_close,
-      "high": session_close + 0.25,
-      "low": session_close - 0.25,
-      "close": session_close,
-      "volume": 1000,
-    })
-  return pd.DataFrame(records)
 
 
 def _weekdays(n: int, start: str = "2024-01-02") -> list[str]:

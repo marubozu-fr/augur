@@ -1,10 +1,10 @@
-"""Shared synthetic-data helpers for the range-exceedance stat tests (ADR, ATR).
+"""Shared synthetic-data helpers for the daily stat tests.
 
-Both ``test_adr`` and ``test_atr`` build the same kind of synthetic 1-min RTH
-candles and share the same minimal ``InstrumentConfig``. The only differences
-live in each test module: the OHLC values of the day specs (ADR is range-driven,
-ATR is gap-driven) and the stat class under test, which is passed to
-``_stat_factory``.
+The range-exceedance tests (ADR, ATR, …) build full-OHLC days via
+``_make_ohlc_day`` / ``make_candles``; the close-only tests (SMA / CPI
+performance) build constant-close days via ``_make_day``. Both share the same
+minimal ``InstrumentConfig`` and ``_empty_df`` so they do not each redefine
+them.
 
 All data is synthetic — no real market files required.
 """
@@ -34,7 +34,30 @@ _RTH_START = 570   # 09:30
 _RTH_LAST = 974    # 16:14 (last bar before 16:15); resolved needs last mod >= 960
 
 
-def _make_day(
+def _make_day(date: str, session_close: float) -> pd.DataFrame:
+  """One resolved RTH trading day (09:30–16:14) with a constant close.
+
+  Every bar (including the 09:30 open) sits at ``session_close``; the last bar
+  is at mod 974 (>= the resolved threshold 960), so the day is resolved. Used by
+  the close-only stats (SMA / CPI performance) that need only ``session_close``.
+  """
+  base = pd.Timestamp(date, tz=_NY)
+  records = []
+  for mod in range(_RTH_START, _RTH_LAST + 1):
+    h, m = divmod(mod, 60)
+    ts = base.replace(hour=h, minute=m, second=0, microsecond=0)
+    records.append({
+      "timestamp": ts,
+      "open": session_close,
+      "high": session_close + 0.25,
+      "low": session_close - 0.25,
+      "close": session_close,
+      "volume": 1000,
+    })
+  return pd.DataFrame(records)
+
+
+def _make_ohlc_day(
   date: str,
   session_open: float,
   session_close: float,
@@ -72,7 +95,7 @@ def _make_day(
 def make_candles(days: list[dict]) -> pd.DataFrame:
   """Concatenate per-day specs into a single sorted 1-min OHLCV DataFrame."""
   frames = [
-    _make_day(d["date"], d["open"], d["close"], d["high"], d["low"]) for d in days
+    _make_ohlc_day(d["date"], d["open"], d["close"], d["high"], d["low"]) for d in days
   ]
   df = pd.concat(frames, ignore_index=True)
   return df.sort_values("timestamp").reset_index(drop=True)
