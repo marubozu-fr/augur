@@ -1833,3 +1833,102 @@ distribution.
   several sessions, so the per-day slicers (weekday, close color, …) do not
   apply; `slices = ()`.
 
+
+---
+
+## 24. Gap Fill
+
+**Family**: `gap_fill`
+**Module**: `stats/gap_fill/standard.py`
+**Result file**: `results/gap_fill.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+When a session opens with a gap up or down from the prior session's close, how
+often does intraday RTH price retrace back through a configurable percentage of
+that gap and **fill** it? Reported as a 2x2 conditional matrix: P(fill | gap up),
+P(no fill | gap up), P(fill | gap down), P(no fill | gap down). The two outcomes
+partition each gap direction, so they sum to 1.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. Take each session's `prev_session_close` = the chronologically **previous
+   resolved** session's `session_close` (shifted over the resolved-only, sorted
+   index, so it skips any excluded/early-close day). The first resolved session has
+   no prior close, so its gap is undefined and it is excluded from every
+   denominator (pending-sample discipline).
+4. Classify the **gap** from `session_open` vs `prev_session_close` (strict — an
+   open exactly at the prior close is **no gap** and is excluded):
+   - **gap_up**:   `session_open > prev_session_close`.
+   - **gap_down**: `session_open < prev_session_close`.
+   The gap distance is `gap_size = abs(session_open - prev_session_close)`.
+5. Classify the **fill**: intraday price retraces from the open back toward the
+   prior close by at least `fill_threshold_pct` percent of the gap. The target is
+   measured from the open toward the prior close:
+   - gap up:   `target = session_open - (pct/100) * gap_size`; **filled** when
+     `day_low <= target`.
+   - gap down: `target = session_open + (pct/100) * gap_size`; **filled** when
+     `day_high >= target`.
+   At the default `pct = 100` a full fill means price trades all the way back to the
+   prior close (gap up → `day_low <= prev_session_close`; gap down →
+   `day_high >= prev_session_close`).
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a prior close and a non-zero gap) carrying that
+gap direction.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `gap_up` | `filled`, `not_filled` | Yes | Fill rate given an up gap; `total` = up-gap days |
+| `gap_down` | `filled`, `not_filled` | Yes | Fill rate given a down gap; `total` = down-gap days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| fill_threshold_pct | 100.0 | Fraction of the gap that must be retraced to count as filled (100 = full fill) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `filled` outcome is **permuted**
+across countable days, so the overall fill rate is preserved but its association
+with the gap direction is destroyed. Each condition's `baseline_prob` therefore
+converges to the pooled fill rate, and the comparison reveals whether gap up and
+gap down fill at *different* rates than the market does on average. A fair-coin
+baseline would instead anchor to 0.5, which is not the relevant null for an event
+that fills well above half the time. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Gap Fill"
+- **title.fr**: "Comblement de gap"
+- **definition.en**: "When a session opens with a gap up or down from the prior session's close, how often does intraday price retrace back through the gap and fill it?"
+- **definition.fr**: "Lorsqu'une session ouvre avec un gap à la hausse ou à la baisse par rapport à la clôture de la session précédente, à quelle fréquence le prix intraday revient-il combler le gap ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by prev candle" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size_pts` — the "by size" breakdown in points: gap size quartiles (declared via
+  `SizeBucket(column="gap_size_pts")`).
+- `size_pct` — the "by size" breakdown in percent of the prior close: gap size
+  quartiles (declared via `SizeBucket(column="gap_size_pct")`). `gap_size_pct` is
+  stored in percent units (not a decimal) so the bucket-edge labels are legible.
+
+### Future variants (not in MVP)
+- `by_fill_time` — split filled days by whether the fill occurred before/after an
+  intraday cutoff minute (needs the per-day fill timestamp from the intraday path).
+- `by_spike` — bucket days by the maximum spike **against** the gap direction
+  before the fill (needs the intraday path, not just the day extremes).
+
