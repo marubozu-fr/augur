@@ -1515,3 +1515,95 @@ every slice (including the green-only / red-only `close` groups).
   declared `weekday` slice; a dedicated variant could expose additional per-day
   detail.
 
+
+---
+
+## 20. SMA Performance
+
+**Family**: `sma_performance`
+**Module**: `stats/sma_performance/standard.py`
+**Result file**: `results/sma_performance.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+When price crosses above or below the N-period simple moving average (SMA) of
+session closes, **how long does the move last** (duration, in bars) and **how far
+does price travel** from the SMA before crossing back (travel, in points)? This is
+a **magnitude** stat: each outcome carries its metric in `value` (random baseline
+in `value_baseline`) and the `probability` channel is left at `0.0`. Reported per
+direction — **cross_up** (close above the SMA) and **cross_down** (close on or
+below the SMA).
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_close`) using the
+   standard resolution rule (clean 09:30 open and a last RTH bar at or after
+   `session_end - close_tolerance`).
+2. Compute the prior-window SMA with no lookahead and the signed distance from it:
+   ```
+   sma  = session_close.rolling(period).mean().shift(1)
+   dist = session_close - sma
+   ```
+   The `shift(1)` makes each session's SMA the mean of the `period` sessions
+   STRICTLY BEFORE it (identical to the ATR convention). The first `period`
+   resolved sessions have NaN `sma` and are excluded from the dist sequence
+   (pending-sample discipline).
+3. A **move** is a maximal run of consecutive sessions with the same sign of
+   `dist`: `up` when `dist > 0`, `down` when `dist <= 0` (a close exactly on the
+   SMA goes to `down`, for determinism).
+4. A run is a **confirmed cross event** only when it is both preceded and followed
+   by an opposite-regime run (it has genuinely crossed in *and* back out). The
+   first run (no prior regime → not a cross) and the last run (has not yet crossed
+   back → pending) are excluded.
+5. Among confirmed runs, keep only those with `duration >= min_duration` sessions,
+   then for each run compute:
+   - `duration` = number of bars (sessions) in the run.
+   - `travel` = peak favorable excursion in points: `max(dist)` over the run for
+     an up-move, `max(-dist)` for a down-move — i.e. the furthest the close got
+     from the SMA in the move's direction.
+6. Report four outcomes per direction over the qualifying runs:
+   - **avg_duration** — average move length in bars.
+   - **max_duration** — longest move length in bars.
+   - **avg_travel** — average peak excursion in points.
+   - **max_travel** — maximum peak excursion in points.
+
+All 8 rows (2 conditions × 4 outcomes) are always emitted; when a direction has no
+qualifying run its rows carry `count = total = 0` and `value = 0.0`. Each row's
+`count` / `total` equals the number of qualifying confirmed runs of that direction
+(note: SMA crosses are rare events — a long-period SMA over years of data yields
+only a few dozen crosses, so N is naturally small and far below the usual N > 100
+significance bar).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| period | 200 | Number of prior sessions in the SMA rolling window |
+| min_duration | 5 | Minimum run length (bars) to count as a qualifying cross event |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `dist` series is **permuted** across
+all rows, then the same run extraction, `min_duration` filter and aggregation are
+applied to the shuffled sequence. Permutation destroys the serial autocorrelation
+that produces persistent trends, so the baseline reflects the durations and travel
+one would see if daily distances from the SMA were i.i.d. (no memory). Actual
+move durations well above the baseline confirm genuine trend persistence on the
+side of the SMA rather than an artifact of the distance distribution.
+
+### i18n
+- **title.en**: "SMA Performance"
+- **title.fr**: "Performance SMA"
+- **definition.en**: "When price crosses above or below the N-period simple moving average, how long does the move last (in bars) and how far does price travel from the SMA before crossing back?"
+- **definition.fr**: "Lorsque le prix croise au-dessus ou en dessous de la moyenne mobile simple sur N périodes, combien de temps dure le mouvement (en barres) et jusqu'où le prix s'éloigne-t-il de la SMA avant de retraverser ?"
+
+### Slices
+- None. A move spans multiple sessions of variable length, so the per-day slicers
+  (weekday, close color, …) do not apply; `slices = ()`.
+
+### Future variants (not in MVP)
+- `by_weekday` — bucketing cross events by the weekday on which the cross occurred.
+- Percent-based travel (excursion as a fraction of price) alongside the point
+  metric, mirroring the dual point/percent reporting of other magnitude stats.
+
