@@ -1435,3 +1435,83 @@ an artifact of the band width.
 - `by_streak` — how often the within / outside outcome repeats on consecutive
   sessions.
 
+
+---
+
+## 19. Session Reversal Range
+
+**Family**: `session_reversal_range`
+**Module**: `stats/session_reversal_range/standard.py`
+**Result file**: `results/session_reversal_range.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How far does a session move **against its eventual direction** before it closes —
+the adverse intraday excursion from the session open? For a **green** session
+(closes at or above its open) this is the open-to-low move; for a **red** session
+(closes below its open) it is the open-to-high move. This is a **magnitude** stat:
+each outcome carries its metric in `value` (random baseline in `value_baseline`)
+and the `probability` channel is left at `0.0`.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the standard resolution rule (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`), and join the RTH
+   intraday extremes `day_high` / `day_low`.
+2. Compute the two excursions from the open (both non-negative, since the open
+   always lies within `[day_low, day_high]`):
+   ```
+   down_excursion = session_open - day_low
+   up_excursion   = day_high - session_open
+   ```
+3. Classify the session color (`session_green = session_close >= session_open`)
+   and select the adverse side:
+   ```
+   reversal     = down_excursion if session_green else up_excursion
+   reversal_pct = reversal / session_open        # a decimal of the open
+   ```
+4. Report four outcomes over the (possibly sliced) day set:
+   - **mean_reversal** — average reversal range in points.
+   - **mean_reversal_pct** — average reversal range as a decimal of the open.
+   - **max_reversal** — maximum reversal range in points.
+   - **max_reversal_pct** — maximum reversal range as a decimal of the open.
+
+Every resolved session is countable — there is no warm-up window — so each row's
+`count` / `total` equals `total_samples`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): for each session the adverse side is
+chosen by a **fair coin** — the open-to-low or the open-to-high excursion,
+independent of the actual close direction — and the same averages / maxima are
+computed on that random-side reversal. This is the null hypothesis that the
+session's direction carries no information about which side is adverse. Expected
+baseline: the true adverse excursion (the side opposite the close) tends to be
+smaller than a randomly chosen side, so the actual mean reversal is **below** the
+baseline — confirming the directional containment is real rather than an artifact
+of intraday range. The coin flip randomizes within the overall table and within
+every slice (including the green-only / red-only `close` groups).
+
+### i18n
+- **title.en**: "Session Reversal Range"
+- **title.fr**: "Amplitude de retournement de session"
+- **definition.en**: "How far does a session move against its eventual direction (open-to-low for green sessions, open-to-high for red sessions) before it closes?"
+- **definition.fr**: "De combien une session évolue-t-elle à contre-sens de sa direction finale (ouverture-bas pour les sessions vertes, ouverture-haut pour les rouges) avant de clôturer ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown.
+- `close` — the "by session color" breakdown (green / red), the central
+  green-vs-red split of the report (declared via `slices = ("weekday", "close")`).
+
+### Future variants (not in MVP)
+- `by_weekday` — the per-weekday reversal magnitude is already available via the
+  declared `weekday` slice; a dedicated variant could expose additional per-day
+  detail.
+
