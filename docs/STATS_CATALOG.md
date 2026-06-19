@@ -1363,3 +1363,75 @@ likely to be above as below any given true-range value.
 - `by_weekday` — a dedicated weekday variant (the weekday breakdown is already
   available via the declared `weekday` slice).
 
+
+---
+
+## 18. Open to Close Range
+
+**Family**: `open_close_range`
+**Module**: `stats/open_close_range/standard.py`
+**Result file**: `results/open_close_range.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How often does a session close **within** a given percentage range of its open,
+versus closing **outside** that range? Reported as two outcomes that partition
+every resolved session: **within** (`oc_move_pct <= range_percentage`) and
+**outside** (`oc_move_pct > range_percentage`).
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the standard resolution rule (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`).
+2. Measure the open-to-close move as a percent of the open:
+   ```
+   oc_move_pct = abs(session_close - session_open) / session_open * 100
+   ```
+3. Classify each session against the `range_percentage` threshold:
+   - **within**: `oc_move_pct <= range_percentage` (boundary — a move exactly
+     equal to the threshold counts as within).
+   - **outside**: `oc_move_pct > range_percentage`.
+   The two outcomes are mutually exclusive and exhaustive for all resolved days.
+
+Every resolved session is countable — there is no warm-up window — so each row's
+`total` equals `total_samples`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| range_percentage | 1.0 | Open-to-close band as a percent of the open |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `session_close` column is
+**permuted** across all rows while `session_open` is held fixed, and the
+open-to-close move is recomputed against each session's own open. This pairs
+every session's open with an unrelated session's close, destroying the
+same-session open-to-close link. The permutation preserves the countable total
+exactly. Expected baseline: a random historical close lands within the
+(typically tight) `range_percentage` band of a given session's open far less
+often than the session's own close does, so the within-rate is much lower than
+the actual — confirming the same-session move is genuinely contained rather than
+an artifact of the band width.
+
+### i18n
+- **title.en**: "Open to Close Range"
+- **title.fr**: "Range ouverture-clôture"
+- **definition.en**: "How often does a session close within a given percentage range of its open?"
+- **definition.fr**: "À quelle fréquence une session clôture-t-elle dans une plage de pourcentage donnée par rapport à son ouverture ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown.
+- `close` — the "by session color" breakdown (green / red), which exposes the
+  `day_type` dimension (declared via `slices = ("weekday", "close")`).
+
+### Future variants (not in MVP)
+- `by_day_type` — the green / red breakdown is already available via the declared
+  `close` slice, but a dedicated variant could expose additional per-color
+  metrics.
+- `by_streak` — how often the within / outside outcome repeats on consecutive
+  sessions.
+
