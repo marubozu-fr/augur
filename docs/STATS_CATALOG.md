@@ -2553,3 +2553,84 @@ direction beyond a coin flip. Uses `np.random.default_rng(seed)`.
   pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
   (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
 
+
+---
+
+## 32. Intraday Timing
+
+**Family**: `intraday_timing`
+**Module**: `stats/intraday_timing/standard.py`
+**Result file**: `results/intraday_timing.json`
+**Status**: Implemented
+
+### What it measures
+For each resolved RTH session, which intraday time bucket produced the day's
+high and which produced the day's low? Aggregated across days as the fraction of
+days each bucket claims each extreme. For a given condition, probabilities sum to
+~100% across buckets (each day contributes exactly one bucket per condition).
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   via `build_resolved_days` (clean 09:30 open and a last RTH bar at or after
+   `session_end - close_tolerance`).
+2. Over the same RTH bar filter (`hour*60+minute >= rth_start_min` and
+   `< rth_end_min`), assign each bar a bucket index
+   `(minute_of_day - rth_start_min) // bucket_min`. For each date find:
+   - `high_bucket`: bucket of the bar with max `high` (first occurrence on ties
+     via `idxmax`).
+   - `low_bucket`: bucket of the bar with min `low` (via `idxmin`).
+   - `present_buckets`: sorted tuple of distinct bucket ints present that day
+     (used by the baseline to draw uniformly from actually-traded buckets).
+   Join onto the resolved-days index (inner join — only resolved dates retained)
+   and add `session_green` (`session_close >= session_open`).
+3. **Pending discipline**: only resolved days participate; early-close days and
+   the final incomplete day are excluded by `build_resolved_days`.
+
+### Conditions
+| Condition key | Source column | Description |
+|---|---|---|
+| `intraday_high` | `high_bucket` | Time bucket containing the RTH session high |
+| `intraday_low` | `low_bucket` | Time bucket containing the RTH session low |
+
+### Outcomes
+One per time bucket in the session grid present in the dataset. Keys are the
+zero-padded `HHMM` of the bucket start (e.g. `0930`, `0945`, `1000`); labels are
+`HH:MM` (en/fr identical). The grid spans `rth_start`→`rth_end` in `bucket_min`
+steps; the final bucket may be partial when the session length is not a whole
+multiple of the bucket size (e.g. NQ 09:30–16:15 with 30-min buckets ends with a
+15-min `1600` bucket). Buckets with no occurrences in a subset are still emitted
+(count=0) when they appear in any day's `present_buckets`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 15min | Bucket granularity: `1min`, `5min`, `15min`, `30min`, `1h` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- One bucket granularity per run, stored under
+  `instruments.{INSTRUMENT}.{timeframe}` (default `15min`).
+
+### Baseline
+Random null: for each day, two independent uniform draws are made from that day's
+`present_buckets` (one for the high, one for the low), representing the null
+hypothesis that each extreme falls in a uniformly random traded bucket. A temp
+copy of the day table is built with the two bucket columns replaced by these
+draws, then `compute_rows` is called on it. Uses `np.random.default_rng(seed)`
+for deterministic output. The baseline is computed per slice group as well as
+overall.
+
+### i18n
+- **title.en**: "Intraday Timing"
+- **title.fr**: "Timing intraday"
+- **definition.en**: "For each RTH session, which intraday time bucket produced the day's high and which produced the day's low? Aggregated as the fraction of days each bucket claims each extreme."
+- **definition.fr**: "Pour chaque séance RTH, quelle tranche horaire intraday a produit le plus haut et le plus bas du jour ? Agrégé sous forme de fraction des jours où chaque tranche revendique chaque extrême."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `session_color` — the `session_color` parameter (green / red days), expressed
+  as a custom `SessionColor` slicer (subclass of `_ColorSlicer`) splitting on
+  `session_green`. A single run yields the overall (`all`) result plus the green
+  and red breakdowns.
+
