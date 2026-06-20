@@ -2721,3 +2721,94 @@ baseline is computed per slice group as well as overall.
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
 
+
+---
+
+## 34. Intraday Range Window
+
+**Family**: `intraday_range_window`
+**Module**: `stats/intraday_range_window/standard.py`
+**Result file**: `results/intraday_range_window.json`
+**Status**: Implemented
+
+### What it measures
+The high-low range over a single, **configurable intraday window** (e.g.
+09:30–10:30) measured each trading day, then summarized across days. For both the
+**absolute** range (`high - low`, in points) and the **percentage** range
+(`(high - low) / window_open`) it reports four aggregates: average, maximum,
+minimum, and median. It quantifies how far a given time-of-day window tends to
+travel and how that varies day to day. The overall result aggregates all resolved
+days; the per-weekday breakdown is produced by the declared `weekday` slice.
+
+This is a **magnitude** stat: all eight rows carry a continuous metric in `value`
+(and its random-baseline counterpart in `value_baseline`). The `probability` /
+`baseline_prob` channel is left at `0.0` for every row. Every row reports its
+sample size in `count` / `total` (the number of resolved days whose window is
+valid).
+
+There is a single **condition**: the measured window, keyed `HHMM-HHMM` (e.g.
+`0930-1030`). The eight aggregates are the **outcomes**.
+
+### Methodology
+1. Build the resolved-days index via `build_resolved_days` (clean session open at
+   exactly `rth_start` and a last RTH bar at or after `rth_end - close_tolerance`).
+   Early-close days and the final incomplete day are excluded (pending discipline).
+2. Pivot RTH bars onto a per-day `(date × minute)` grid for high / low / open.
+3. Slide a window of `win_len` bars across the grid (`win_len = last_bar -
+   start_min + 1`, where `last_bar = min(end_min, rth_end_min - 1)`). Each slide
+   position's range is `max(high) - min(low)` and its percentage range is
+   `range / open` at the window's first bar. The **actual** window is the slide
+   position starting at `start_min`; all positions form the baseline candidate
+   pool. A day counts only when both its actual range and percentage range are
+   finite, so all eight rows share the same `count` / `total`.
+4. Report eight rows whose `value` is the aggregate over the contributing days:
+   `range_avg` / `range_max` / `range_min` / `range_median` (points) and
+   `range_pct_avg` / `range_pct_max` / `range_pct_min` / `range_pct_median`.
+5. Re-run the same rows per weekday via the `weekday` slice.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `HHMM-HHMM` (e.g. `0930-1030`) | The single measured window (start–end) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `range_avg` | `value` | Average daily range (`high - low`), in points |
+| `range_max` | `value` | Maximum daily range, in points |
+| `range_min` | `value` | Minimum daily range, in points |
+| `range_median` | `value` | Median daily range, in points |
+| `range_pct_avg` | `value` | Average daily percentage range (`range / window_open`), decimal |
+| `range_pct_max` | `value` | Maximum daily percentage range, decimal |
+| `range_pct_min` | `value` | Minimum daily percentage range, decimal |
+| `range_pct_median` | `value` | Median daily percentage range, decimal |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| start_window | `09:30` | Window start `HH:MM` (must be `>= rth_start`) |
+| end_window | `10:30` | Window end `HH:MM` (must be `> start` and `<= rth_end`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- One per run, keyed by the chosen window (`HHMM-HHMM`, default `0930-1030`).
+
+### Baseline
+Random null: for each day a single same-length window is drawn uniformly at
+random from all windows that fit the RTH session (range and percentage kept
+paired), and the eight aggregates are recomputed over those random draws. This is
+the null hypothesis that the chosen time-of-day window carries no information
+beyond a random window of the same length — a window that genuinely concentrates
+volatility (e.g. the opening hour) shows aggregates well above the baseline. Uses
+`np.random.default_rng(seed)` for deterministic output; computed per slice group
+as well as overall.
+
+### i18n
+- **title.en**: "Intraday Range Window"
+- **title.fr**: "Amplitude d'une fenêtre intraday"
+- **definition.en**: "The high-low range over a configurable intraday window measured each day, summarized across days. Reports the average, maximum, minimum, and median of both the absolute range (points) and the percentage range."
+- **definition.fr**: "L'amplitude haut-bas sur une fenêtre intraday configurable mesurée chaque jour, résumée sur l'ensemble des jours. Donne la moyenne, le maximum, le minimum et la médiane de l'amplitude en points et de l'amplitude en pourcentage."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
+
