@@ -2476,3 +2476,80 @@ makes a new high **up** more often than **down** beyond a coin flip. Uses
   pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
   (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
 
+
+## 31. Power Hour Continuation
+
+**Family**: `power_hour_continuation`
+**Module**: `stats/power_hour_continuation/standard.py`
+**Result file**: `results/power_hour_continuation.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **power hour** is the last N minutes of the RTH session (conventionally the
+final hour). This stat cross-tabulates the **pre-power-hour move** — the session's
+direction going INTO the power hour — against the **power-hour candle direction**.
+Does the power hour continue the earlier move or reverse it? A 2x2 conditional
+matrix (the same shape as `overnight_continuation`, applied to the power-hour
+window instead of the overnight gap): condition = pre-power-hour color
+(`pre_green`/`pre_red`), outcome = power-hour color (`green`/`red`). "Continuation"
+is the diagonal (pre green → power hour green, pre red → power hour red); all four
+cells are reported so the asymmetry is directly visible.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) via the shared resolution rule (clean 09:30 open and a last RTH
+   bar at or after `session_end - close_tolerance`). `session_open` is the
+   **pre-power-hour candle open**; `session_close` is the **power-hour candle
+   close** (the last RTH bar sits inside the power hour).
+2. The power hour is `[ph_start, rth_end)` where `ph_start = rth_end - ph_period`;
+   the pre-power-hour window is `[rth_start, ph_start)`.
+3. Join two per-day fields onto the resolved index (inner join — a day survives
+   only with a non-empty pre-power-hour window AND a clean power-hour open bar):
+   - `pre_close` = close of the last bar before `ph_start`.
+   - `ph_open` = open of the bar at exactly `ph_start` (the **reference open** for
+     the power-hour candle color).
+   `pre_high` / `pre_low` (pre-window extremes) are also joined for the `open`
+   slice midpoint.
+4. Classify both legs (ties count as green, `>=`):
+   - `pre_green` = `pre_close >= session_open` (pre-power-hour candle color).
+   - `ph_green` = `session_close >= ph_open` (power-hour candle color).
+
+`total_samples` counts the countable sessions; each row's `total` counts the
+countable days in that condition (`pre_green` or `pre_red`), so the two
+conditions' totals sum to `total_samples`. Within each condition the two outcomes
+partition the days, so `green + red` counts equal that condition's `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `pre_green` | `green`, `red` | Yes | Power-hour color when the pre-power-hour move was up; `total` = countable green-pre days |
+| `pre_red` | `green`, `red` | Yes | Power-hour color when the pre-power-hour move was down; `total` = countable red-pre days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 1h | Power-hour length: `1h` (the conventional final hour) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `1h` (power hour 15:15–16:15 for NQ, the canonical final hour).
+
+### Baseline
+Random null (fixed seed, deterministic): the power-hour color (`ph_green`) is
+replaced with an independent fair-coin sequence while the pre-power-hour condition
+stays as-is from real data. Every cell's `baseline_prob` converges to ~0.5, so the
+comparison reveals whether the pre-power-hour move predicts the power-hour
+direction beyond a coin flip. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Power Hour Continuation"
+- **title.fr**: "Continuation du power hour"
+- **definition.en**: "Given the session's direction going into the power hour (the pre-power-hour move, green or red), how often does the power hour itself close in the same direction (continuation) versus reverse?"
+- **definition.fr**: "Selon la direction de la séance à l'entrée du power hour (le mouvement pré-power-hour, vert ou rouge), à quelle fréquence le power hour clôture-t-il dans la même direction (continuation) plutôt que de se retourner ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `open` — the "by open" breakdown: where the power-hour open falls relative to the
+  pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
+  (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
+
