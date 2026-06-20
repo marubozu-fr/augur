@@ -2634,3 +2634,90 @@ overall.
   `session_green`. A single run yields the overall (`all`) result plus the green
   and red breakdowns.
 
+
+---
+
+## 33. Intraday Volume & Range
+
+**Family**: `intraday_volume_range`
+**Module**: `stats/intraday_volume_range/standard.py`
+**Result file**: `results/intraday_volume_range.json`
+**Status**: Implemented
+
+### What it measures
+For each intraday time bucket of the RTH session: the **average traded volume**,
+the **average price range** (`high - low`, in points), and the **average
+percentage range** (`(high - low) / bucket_open`). Shows when volume and
+volatility build or fade through the session (the classic open/close peaks with a
+midday lull). The overall result aggregates all resolved days; the per-weekday
+breakdown is produced by the declared `weekday` slice.
+
+This is a **magnitude** stat: all three rows carry a continuous metric in `value`
+(and its random-baseline counterpart in `value_baseline`). The `probability` /
+`baseline_prob` channel is left at `0.0` for every row. Every row reports its
+sample size in `count` / `total` (the number of resolved days that had bars in
+that bucket).
+
+Each intraday bucket is a **condition** (key `HHMM` of the bucket start, e.g.
+`0930`); the three metrics are the **outcomes**. The bucket conditions are
+timeframe-dependent and built per instance.
+
+### Methodology
+1. Build the resolved-days table via `build_resolved_days` (clean session open at
+   exactly `rth_start` and a last RTH bar at or after `rth_end - close_tolerance`).
+   Early-close days and the final incomplete day are excluded (pending discipline).
+2. Over the same RTH bar filter (`hour*60+minute` in `[rth_start_min, rth_end_min)`),
+   assign each bar a bucket index `(minute_of_day - rth_start_min) // bucket_min`.
+   The final bucket may be partial when the session length is not a whole multiple
+   of `bucket_min` (NQ 09:30–16:15 with 15-minute buckets ends with the 16:00–16:15
+   bucket).
+3. Per `(day, bucket)` compute: `vol` = summed bar volume, `rng` = `max(high) -
+   min(low)`, `pct` = `rng / bucket_open`, where `bucket_open` is the open of the
+   bucket's earliest bar that day. Pivot to one row per resolved day with three
+   columns per bucket (`vol_{b}`, `rng_{b}`, `pct_{b}`); absent buckets are NaN.
+4. For each bucket present in the subset, report three rows whose `value` is the
+   NaN-skipping mean across the contributing days:
+   - `mean_volume`    — average bucket volume.
+   - `mean_range`     — average bucket range in points.
+   - `mean_range_pct` — average bucket percentage range (decimal).
+5. Re-run the same rows per weekday via the `weekday` slice.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `HHMM` (e.g. `0930`, `0945`, …) | One per intraday time bucket present, keyed by the bucket's start time |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `mean_volume` | `value` | Average summed volume of the bucket's bars |
+| `mean_range` | `value` | Average bucket range (`high - low`), in points |
+| `mean_range_pct` | `value` | Average bucket percentage range (`range / bucket_open`), decimal |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | `15min` | Bucket granularity (`1min`, `5min`, `15min`, `30min`, `1h`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- One per run, keyed by the chosen bucket granularity (default `15min`).
+
+### Baseline
+Random null: for each metric, all per-`(day, bucket)` observations in the subset
+are pooled. For a bucket contributing `n` days, `n` observations are drawn
+uniformly at random **without replacement** from the pool and their mean is the
+bucket's baseline. This represents the null hypothesis that the intraday time
+bucket carries no information — its expected metric equals the grand mean across
+all buckets. Uses `np.random.default_rng(seed)` for deterministic output. The
+baseline is computed per slice group as well as overall.
+
+### i18n
+- **title.en**: "Intraday Volume & Range"
+- **title.fr**: "Volume & amplitude intraday"
+- **definition.en**: "For each intraday time bucket: the average traded volume, the average price range, and the average percentage range. Shows when volume and volatility build or fade through the session."
+- **definition.fr**: "Pour chaque tranche horaire intraday : le volume échangé moyen, l'amplitude moyenne en points et l'amplitude moyenne en pourcentage. Montre quand le volume et la volatilité montent ou retombent au fil de la séance."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
+
