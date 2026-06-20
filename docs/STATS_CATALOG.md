@@ -1932,3 +1932,95 @@ that fills well above half the time. Uses `np.random.default_rng(seed)`.
 - `by_spike` — bucket days by the maximum spike **against** the gap direction
   before the fill (needs the intraday path, not just the day extremes).
 
+
+---
+
+## 25. Opening Range Breakout
+
+**Family**: `opening_range_breakout`
+**Module**: `stats/opening_range_breakout/standard.py`
+**Result file**: `results/opening_range_breakout.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The opening range is the high-low range of the first N minutes of the RTH session.
+Given that range, which direction does price break during the **rest** of the
+session? Reported under a single `orb` condition with four mutually exclusive
+outcomes that partition every countable day: `broke_high`, `broke_low`,
+`broke_both`, `neither`. Their probabilities sum to 1.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the **opening range** from the bars in the ORB window
+   `[rth_start, rth_start + orb_period)`:
+   - `orb_high` = max of `high`, `orb_low` = min of `low` over the window.
+   - `orb_size` = `orb_high - orb_low`.
+3. Compute the **breakout window** extremes from the rest of the session,
+   `[rth_start + orb_period, rth_end)` (the opening range itself is excluded so it
+   can never break its own bars):
+   - wick criteria (default): `post_high` = max `high`, `post_low` = min `low`.
+   - close criteria: `post_close_high` = max `close`, `post_close_low` = min `close`.
+   Join these onto the resolved-days index (inner join — a day survives only with a
+   full opening range AND a non-empty breakout window).
+4. Classify the breakout direction with **strict** inequalities (touching a level
+   exactly is NOT a break), using the extremes selected by `breakout_criteria`:
+   - `broke_high`: `high > orb_high` AND `low >= orb_low` (broke up only).
+   - `broke_low`:  `low < orb_low`  AND `high <= orb_high` (broke down only).
+   - `broke_both`: `high > orb_high` AND `low < orb_low` (broke both sides).
+   - `neither`:    `high <= orb_high` AND `low >= orb_low` (held inside all session).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** days (a clean opening range and a non-empty breakout window). The
+four outcomes are mutually exclusive and exhaustive, so their counts sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `orb` | `broke_high`, `broke_low`, `broke_both`, `neither` | Yes | Breakout direction relative to the opening range; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 15min | Opening-range length: 15min, 30min, or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close beyond the level) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `15min` (opening range 09:30–09:45).
+- `30min` (opening range 09:30–10:00).
+- `1h` (opening range 09:30–10:30).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable day's breakout
+move is **reflected** around its opening-range midpoint with probability 0.5 (a
+price `p` maps to `2*mid - p`, which swaps the high and low extremes). Reflection
+turns a `broke_high` day into a `broke_low` day and vice versa, while `broke_both`
+and `neither` are direction-symmetric and unchanged. The null therefore carries NO
+directional bias, so `broke_high` and `broke_low` converge to their shared mean and
+the comparison reveals whether the opening range breaks **up** more often than
+**down** beyond a coin flip. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Opening Range Breakout"
+- **title.fr**: "Cassure du range d'ouverture"
+- **definition.en**: "After the opening range forms from the first N minutes of the session, how often does price break above the range high, below the range low, both sides, or neither during the rest of the session?"
+- **definition.fr**: "Après la formation du range d'ouverture sur les N premières minutes de la session, à quelle fréquence le prix casse-t-il au-dessus du haut du range, en-dessous du bas du range, des deux côtés, ou ni l'un ni l'autre pendant le reste de la séance ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by prev candle" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size` — the "by size" breakdown: opening-range size quartiles (declared via
+  `SizeBucket(column="orb_size")`).
+
+### Future variants (not in MVP)
+- `by_levels` — extension in multiples of the ORB size beyond the broken level.
+- `by_performance` — average/max extension before a breakback.
+- `by_rejection` — tags the ORB high/low then closes back inside.
+- `by_retracement` — pullback depth after the break.
+- `by_time` — breakout before/after an intraday threshold.
+
