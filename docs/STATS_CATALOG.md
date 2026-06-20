@@ -2283,3 +2283,95 @@ Random null, computed per tier (fixed seed, deterministic):
   broken level.
 - `by_retracement` — pullback depth after the break.
 
+
+---
+
+## 29. Initial Balance Breakout
+
+**Family**: `initial_balance`
+**Module**: `stats/initial_balance/standard.py`
+**Result file**: `results/initial_balance.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **initial balance** is the high-low range of the first N minutes of the RTH
+session (conventionally the first 30 to 60 minutes). Given that range, which
+direction does price break during the **rest** of the session? Reported under a
+single `ib` condition with four mutually exclusive outcomes that partition every
+countable day: `broke_high`, `broke_low`, `broke_both`, `neither`. Their
+probabilities sum to 1. This is the intraday sibling of `opening_range_breakout`
+(opening period → breakout window); the two differ only by convention — the
+initial balance is a longer window (>= 30min), so the 15min length is not offered.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the **initial balance** from the bars in the IB window
+   `[rth_start, rth_start + ib_period)`:
+   - `ib_high` = max of `high`, `ib_low` = min of `low` over the window.
+   - `ib_size` = `ib_high - ib_low`.
+3. Compute the **breakout window** extremes from the rest of the session,
+   `[rth_start + ib_period, rth_end)` (the initial balance itself is excluded so it
+   can never break its own bars):
+   - wick criteria (default): `post_high` = max `high`, `post_low` = min `low`.
+   - close criteria: `post_close_high` = max `close`, `post_close_low` = min `close`.
+   Join these onto the resolved-days index (inner join — a day survives only with a
+   full initial balance AND a non-empty breakout window).
+4. Classify the breakout direction with **strict** inequalities (touching a level
+   exactly is NOT a break), using the extremes selected by `breakout_criteria`:
+   - `broke_high`: `high > ib_high` AND `low >= ib_low` (broke up only).
+   - `broke_low`:  `low < ib_low`  AND `high <= ib_high` (broke down only).
+   - `broke_both`: `high > ib_high` AND `low < ib_low` (broke both sides).
+   - `neither`:    `high <= ib_high` AND `low >= ib_low` (held inside all session).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** days (a clean initial balance and a non-empty breakout window). The
+four outcomes are mutually exclusive and exhaustive, so their counts sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `ib` | `broke_high`, `broke_low`, `broke_both`, `neither` | Yes | Breakout direction relative to the initial balance; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 30min | Initial-balance length: 30min or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close beyond the level) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `30min` (initial balance 09:30–10:00).
+- `1h` (initial balance 09:30–10:30, the canonical initial balance).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable day's breakout
+move is **reflected** around its initial-balance midpoint with probability 0.5 (a
+price `p` maps to `2*mid - p`, which swaps the high and low extremes). Reflection
+turns a `broke_high` day into a `broke_low` day and vice versa, while `broke_both`
+and `neither` are direction-symmetric and unchanged. The null therefore carries NO
+directional bias, so `broke_high` and `broke_low` converge to their shared mean and
+the comparison reveals whether the initial balance breaks **up** more often than
+**down** beyond a coin flip. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Initial Balance Breakout"
+- **title.fr**: "Cassure de l'initial balance"
+- **definition.en**: "After the initial balance forms from the first N minutes of the session, how often does price break above the balance high, below the balance low, both sides, or neither during the rest of the session?"
+- **definition.fr**: "Après la formation de l'initial balance sur les N premières minutes de la session, à quelle fréquence le prix casse-t-il au-dessus du haut de l'initial balance, en-dessous du bas, des deux côtés, ou ni l'un ni l'autre pendant le reste de la séance ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by color" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size` — the "by size" breakdown: initial-balance size quartiles (declared via
+  `SizeBucket(column="ib_size")`).
+
+### Future variants (not in MVP — tracked as the IB extensions issue)
+- `by_breakout` — outcome classification refinements.
+- `by_double_break` — sequencing when both sides break.
+- `by_gap_type` — split by overnight gap up/down/no gap.
+
