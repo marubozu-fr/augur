@@ -2109,3 +2109,95 @@ hypothesis-tested). Uses `np.random.default_rng(seed)`.
   `SizeBucket(column="opening_range")`); each bucket's `mean_remaining_range` makes
   the relationship visible directly.
 
+
+---
+
+## 27. Opening Stats
+
+**Family**: `opening_stats`
+**Module**: `stats/opening_stats/standard.py`
+**Result file**: `results/opening_stats.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+Where does the daily RTH session open land relative to the **prior resolved
+session's** RTH intraday high and low? The three outcomes form a mutually
+exclusive and exhaustive partition whose probabilities sum to 1 — a marginal
+3-way distribution:
+
+| Outcome | Condition |
+|---|---|
+| `above_high` | `session_open > prev_high` (strict) |
+| `inside_range` | `prev_low <= session_open <= prev_high` (both boundaries inclusive) |
+| `below_low` | `session_open < prev_low` (strict) |
+
+Opening exactly on the prior high or prior low counts as `inside_range` — the
+boundaries are inclusive on the inside, which is the natural complement of the
+strict-outside convention used by `outside_days`.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the standard resolution rule (clean 09:30 open and a
+   last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. Attach each day's prior-range reference from the chronologically **previous
+   resolved** day (so it skips over any excluded/early-close day):
+   - `prev_high` = previous resolved day's `day_high`.
+   - `prev_low`  = previous resolved day's `day_low`.
+   The first resolved day has no prior day, so `prev_high` / `prev_low` are NaN
+   and it is excluded from every denominator (pending-sample discipline).
+4. Classify `open_location` for each countable day:
+   - `above_high` when `session_open > prev_high`.
+   - `below_low` when `session_open < prev_low`.
+   - `inside_range` otherwise (ties on either boundary are inside).
+5. Report one row per outcome under the single `open` condition.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a prior resolved day).
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `open` | `above_high`, `inside_range`, `below_low` | Yes | 3-way location of the session open relative to the prior session's range; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): each day's `open_location` is replaced
+by a uniform draw from `{above_high, inside_range, below_low}` using
+`np.random.default_rng(seed)`. Expected `baseline_prob` ≈ 1/3 per outcome — the
+null hypothesis is that the daily open is equally likely to land above, inside,
+or below the prior range. The baseline is computed per slice group as well as
+overall.
+
+### i18n
+- **title.en**: "Opening Stats"
+- **title.fr**: "Statistiques d'ouverture"
+- **definition.en**: "Where does the daily session open land relative to the prior session's high and low — above the prior high, inside the prior range, or below the prior low?"
+- **definition.fr**: "Où se situe l'ouverture quotidienne par rapport au plus haut et au plus bas de la session précédente — au-dessus du plus haut, dans la fourchette ou en dessous du plus bas ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer). This is the issue's "by weekday" variant — it is embedded in the
+  standard module rather than a separate file, mirroring the pattern used by
+  `gap_fill` and `green_red_days`.
+- `prev_candle` — split by the prior session's color, green/red (declared via the
+  shared `PrevCandle` slicer reading `prev_session_green`).
+- `close` — split by the current session's color, green/red (declared via the
+  shared `Close` slicer reading `session_green`).
+
+### Future variants (not in MVP)
+- `by_levels` — extension above/below the prior range measured in multiples of
+  the prior range, for days that open outside it.
+- `by_size` — bucket open-distance-from-range for above/below days.
+
