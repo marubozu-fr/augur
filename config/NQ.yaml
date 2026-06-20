@@ -19,6 +19,18 @@ sessions:
   eth:
     start: "18:00"  # previous day
     end: "16:15"
+  # Geographic trading sessions, carved from the 24h cycle on the 09:30 RTH
+  # boundary so they never overlap (the only gap, 16:15–18:00, is the CME break
+  # with no NQ trading). Used by the market_session_breakout stat.
+  asia:
+    start: "18:00"  # previous day
+    end: "03:00"
+  london:
+    start: "03:00"
+    end: "09:30"
+  ny:
+    start: "09:30"
+    end: "16:15"
 
 # Data paths
 data:

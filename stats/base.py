@@ -209,6 +209,46 @@ class Overnight(_ColorSlicer):
     return I18nString(en="Overnight gap", fr="Gap overnight")
 
 
+class Rejection(Slicer):
+  """Split by which extreme of a range formed first: high vs low.
+
+  Reads a boolean column where ``True`` means the range's high was reached before
+  its low (high formed first) and ``False`` the opposite. Rows whose value is
+  missing — e.g. a single bar held both the high and the low so the order is
+  undetermined — are excluded from every group (pending-sample discipline).
+  """
+
+  def __init__(self, column: str = "high_first", name: str = "rejection") -> None:
+    self.column = column
+    self.name = name
+
+  def dimension_label(self) -> I18nString:
+    return I18nString(en="First extreme of the range", fr="Premier extrême du range")
+
+  def split(self, day_table: pd.DataFrame) -> list[SliceGroup]:
+    if len(day_table) == 0 or self.column not in day_table.columns:
+      return []
+    col = day_table[self.column]
+    present = col.notna()
+    groups: list[SliceGroup] = []
+    specs = [
+      (
+        "high_first",
+        I18nString(en="High formed first", fr="Plus haut formé en premier"),
+        present & col.fillna(False).astype(bool),
+      ),
+      (
+        "low_first",
+        I18nString(en="Low formed first", fr="Plus bas formé en premier"),
+        present & ~col.fillna(True).astype(bool),
+      ),
+    ]
+    for key, label, mask in specs:
+      if bool(mask.any()):
+        groups.append(SliceGroup(key=key, label=label, mask=mask))
+    return groups
+
+
 _PRESET_BINS: dict[str, int] = {
   "median": 2,
   "terciles": 3,

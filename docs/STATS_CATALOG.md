@@ -2979,3 +2979,97 @@ the comparison reveals whether the overnight range breaks **up** more often than
   overnight range, in multiples of `on_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
   declared via `Levels(ref="on_size", ext="extension")`).
 
+
+## 37. Market Session Breakout
+
+**Family**: `market_session_breakout`
+**Module**: `stats/market_session_breakout/standard.py`
+**Result file**: `results/market_session_breakout.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+Given the high-low range a **first** market session forms, which direction does
+price break during a **second** session? Both sessions are named windows read from
+the instrument config — the single source of truth for their bounds — so any
+ordered pair works; the default is `london` (session 1) → `ny` (session 2).
+Reported under a single `session1_range` condition with four mutually exclusive
+outcomes that partition every countable cycle: `broke_high`, `broke_low`,
+`broke_both`, `neither`. Their probabilities sum to 1.
+
+This is the generic, configurable sibling of `overnight_range_breakout` (which
+hardwires overnight → RTH). For NQ the geographic sessions are carved from the 24h
+cycle on the 09:30 RTH boundary so they never overlap: `asia` 18:00→03:00,
+`london` 03:00→09:30, `ny` 09:30→16:15 (= RTH).
+
+### Methodology
+1. Attribute every bar to a **cycle** (the RTH session date). An intraday session
+   (`start < end`) maps to its own calendar date; a cross-midnight session
+   (`start >= end`, e.g. `asia`) maps its evening bars to the *next* day's cycle
+   and its early bars to the *same* day's cycle. Session 1 and session 2 are joined
+   on this shared cycle date, so the pair must be ordered within a cycle.
+2. A session is **resolved** for a cycle when it has a clean open bar (offset 0
+   from `start`) AND end coverage (last bar at or after `duration - close_tolerance`,
+   with `duration = (end - start) mod 1440`). This generalizes the daily resolution
+   rule to an arbitrary session window.
+3. Compute the **session 1 range**: `s1_high` = max `high`, `s1_low` = min `low`,
+   `s1_size` = `s1_high - s1_low`. Also record `high_first` — whether the session's
+   high was reached before its low (NaN when a single bar held both, so the order is
+   undetermined).
+4. Compute the **session 2** extremes: wick criteria (default) uses `s2_high` /
+   `s2_low`; close criteria uses `s2_close_high` / `s2_close_low`. Inner-join both
+   sessions on the cycle date — a cycle survives only when BOTH are resolved.
+5. Classify with **strict** inequalities (touching a level exactly is NOT a break),
+   using the extremes selected by `breakout_criteria`:
+   - `broke_high`: `high > s1_high` AND `low >= s1_low` (broke up only).
+   - `broke_low`:  `low < s1_low`  AND `high <= s1_high` (broke down only).
+   - `broke_both`: `high > s1_high` AND `low < s1_low` (broke both sides).
+   - `neither`:    `high <= s1_high` AND `low >= s1_low` (held inside).
+
+`total_samples` and each row's `total` are the **countable** cycles (both sessions
+resolved). The four outcomes are mutually exclusive and exhaustive, so their counts
+sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `session1_range` | `broke_high`, `broke_low`, `broke_both`, `neither` | Yes | Breakout direction of session 2 relative to the session 1 range; `total` = countable cycles |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| session1 | london | First session (range former); must be a configured session name |
+| session2 | ny | Second session (breakout window); must differ from `session1` |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close beyond the level) |
+| close_tolerance_min | 15 | Minutes before a session's end still considered full coverage |
+
+### Timeframes computed
+- `daily` (one entry per cycle).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable cycle's
+session 2 move is **reflected** around the session 1 range midpoint with
+probability 0.5 (a price `p` maps to `2*mid - p`, which swaps the high and low
+extremes). Reflection turns a `broke_high` cycle into a `broke_low` cycle and vice
+versa, while `broke_both` and `neither` are direction-symmetric and unchanged. The
+null therefore carries NO directional bias, so `broke_high` and `broke_low`
+converge to their shared mean and the comparison reveals whether session 2 breaks
+**up** more often than **down** beyond a coin flip. Uses
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Market Session Breakout"
+- **title.fr**: "Cassure de session de marché"
+- **definition.en**: "Comparing a second market session's high and low to the range a first market session formed, how often does price break above the first session's high only, below its low only, both sides, or neither during the second session?"
+- **definition.fr**: "En comparant le plus haut et le plus bas d'une deuxième session de marché au range formé par une première session, à quelle fréquence le prix casse-t-il au-dessus du plus haut de la première session uniquement, en-dessous de son plus bas uniquement, des deux côtés, ou ni l'un ni l'autre pendant la deuxième session ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `size` — the "by size" breakdown: session-1-range size quartiles (declared via
+  `SizeBucket(column="s1_size")`).
+- `levels` — the "by levels" breakdown: how far session 2 extended past the session
+  1 range, in multiples of `s1_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x; declared
+  via `Levels(ref="s1_size", ext="extension")`).
+- `rejection` — the "by rejection" breakdown: which session 1 extreme formed first,
+  `high_first` / `low_first` (declared via the shared `Rejection` slicer reading
+  `high_first`); cycles with an undetermined order are excluded.
+
