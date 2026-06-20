@@ -2201,3 +2201,85 @@ overall.
   the prior range, for days that open outside it.
 - `by_size` — bucket open-distance-from-range for above/below days.
 
+
+---
+
+## 28. Opening Week Range
+
+**Family**: `opening_week_range`
+**Module**: `stats/opening_week_range/standard.py`
+**Result file**: `results/opening_week_range.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **opening week range** is the high-low RTH range formed by the first
+`open_days` trading sessions of each ISO week. Given that range, how does the
+**rest** of the same week resolve against it — break the opening high only, the
+opening low only, **both**, or stay **inside** (neither)? And when both levels
+are taken, which one is reached **first**? This is the weekly analogue of
+`opening_range_breakout` (opening period → breakout window).
+
+### Methodology
+1. Keep RTH bars only (`hour*60+minute >= rth_start_min` and `< rth_end_min`).
+2. Assign each bar to its **ISO week**, keyed by that week's Monday date.
+3. Drop the **last** week present in the data: it may still be in progress, so
+   its range is not final (pending-sample discipline). All earlier weeks are
+   resolved.
+4. For each resolved week, order its unique trading dates. The first `open_days`
+   dates form the **opening window**, the remaining dates the **breakout window**:
+   - `opening_high` = max `high`, `opening_low` = min `low` over the opening
+     sessions; `opening_size = opening_high - opening_low`.
+   - `post_high` = max `high`, `post_low` = min `low` over the breakout sessions.
+   A week with no breakout window (`<= open_days` trading sessions) has
+   `post_high` / `post_low` as NaN and is excluded from every denominator.
+5. Classify each countable week against the opening range (strict inequality —
+   touching the level is not a break):
+   - **break_high_only**: `post_high > opening_high` and `post_low >= opening_low`.
+   - **break_low_only**:  `post_low < opening_low` and `post_high <= opening_high`.
+   - **break_both**:      both `post_high > opening_high` and `post_low < opening_low`.
+   - **inside**:          neither level is taken.
+6. For each both-break week, determine the **break sequence** from intra-week
+   1-minute breakout-window bars: the first bar (by timestamp) whose
+   `high > opening_high` versus the first whose `low < opening_low`. The earlier
+   one is taken first. If a single bar is first to break **both**, the order is
+   inferred from that bar's candle path — a bearish bar (`close < open`) prints
+   its high first (`high_first`), a bullish bar its low first (`low_first`).
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `opening_range` | `break_high_only`, `break_low_only`, `break_both`, `inside` | Yes | Four-way outcome partition over all countable weeks; `total` = countable weeks |
+| `break_both` | `high_first`, `low_first` | Yes | Which opening level is taken first, given both broke; `total` = both-break weeks |
+
+`total_samples` counts all resolved weeks; each row's `total` counts only the
+relevant countable weeks (those with a non-empty breakout window).
+
+### Parameters
+None (the RTH session bounds come from the instrument config). The opening length
+is fixed by each timeframe entry.
+
+### Timeframes computed
+- `1d` (opening window = first 1 session of the week).
+
+### Baseline
+Random null, computed per tier (fixed seed, deterministic):
+- **Outcome partition**: each week's breakout extremes are **reflected** around
+  the opening-range midpoint with probability 0.5 (`p -> 2*mid - p`, swapping
+  `post_high` and `post_low`). Reflection turns a `break_high_only` week into a
+  `break_low_only` week and vice versa, while `break_both` and `inside` are
+  direction-symmetric and unchanged — the null has no directional bias, so the
+  comparison reveals whether the week breaks **up** more often than **down**
+  beyond a coin flip.
+- **Double-break sequence**: the real opening ranges are kept (so the both-break
+  `total` stays full size) and only the break order is reassigned by a fair coin
+  (p=0.5) — the null for which level is taken first (~0.5).
+
+### Slices
+- `size` — the "by size" breakdown: opening-week-range size quartiles (declared
+  `week_range_size` parameter.
+
+### Future variants (not in MVP)
+- `by_levels` — extension in multiples of the opening-week range beyond the
+  broken level.
+- `by_retracement` — pullback depth after the break.
+
