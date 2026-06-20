@@ -2024,3 +2024,88 @@ the comparison reveals whether the opening range breaks **up** more often than
 - `by_retracement` — pullback depth after the break.
 - `by_time` — breakout before/after an intraday threshold.
 
+
+---
+
+## 26. Opening Range Indicator
+
+**Family**: `opening_range_indicator`
+**Module**: `stats/opening_range_indicator/standard.py`
+**Result file**: `results/opening_range_indicator.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How big is the opening range (the high-low of the first N minutes of the RTH
+session) relative to the range of the **rest** of the session, and how strongly are
+the two correlated? A **magnitude** stat: a single `opening_range` condition reports
+four value-channel outcomes (the `probability` channel is left at `0.0`):
+`mean_opening_range`, `mean_remaining_range`, `opening_range_share`, and
+`correlation`.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the **opening range** from the bars in the opening window
+   `[rth_start, rth_start + orb_period)`:
+   `opening_range = max(high) - min(low)` over the window.
+3. Compute the **remaining range** from the rest of the session,
+   `[rth_start + orb_period, rth_end)` (the opening window is excluded so the two
+   ranges never share bars): `remaining_range = max(high) - min(low)`.
+   Join both onto the resolved-days index (inner join — a day survives only with a
+   full opening range AND a non-empty remaining window).
+4. The opening and remaining windows exactly partition the RTH session, so the
+   full **session range** is `max(orb_high, rest_high) - min(orb_low, rest_low)`.
+5. Reduce the (sliced) day table to the four metrics:
+   - `mean_opening_range` = average `opening_range` in points.
+   - `mean_remaining_range` = average `remaining_range` in points.
+   - `opening_range_share` = average per-day `opening_range / session_range`
+     (a decimal in [0, 1], over days with a positive session range).
+   - `correlation` = Pearson r between `opening_range` and `remaining_range` across
+     days (in [-1, 1]; reported as `0.0` when undefined — fewer than two days or
+     zero variance).
+
+`total_samples` counts all resolved sessions; each row's `count` / `total` equals
+the countable-day count (a clean opening range and a non-empty remaining window).
+
+### Conditions & outcomes
+| Condition | Outcomes | Channel | Description |
+|---|---|---|---|
+| `opening_range` | `mean_opening_range`, `mean_remaining_range`, `opening_range_share`, `correlation` | `value` | Size of the opening range vs the remaining-session range, and their correlation |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 15min | Opening-range length: 15min, 30min, or 1h (emitted as separate timeframe entries) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `15min` (opening range 09:30–09:45).
+- `30min` (opening range 09:30–10:00).
+- `1h` (opening range 09:30–10:30).
+
+### Baseline
+Random permutation null (fixed seed, deterministic): the `remaining_range` column
+is permuted across days while `opening_range` and `session_range` are held fixed,
+pairing each day's opening range with an unrelated day's remaining range. This
+destroys the same-day link that `correlation` measures, so the baseline correlation
+collapses toward 0 — the headline test is whether the actual correlation sits well
+above its permuted null. `mean_opening_range`, `mean_remaining_range` and
+`opening_range_share` are invariant under a permutation of `remaining_range`, so
+their baselines equal their actual values by construction (descriptive context, not
+hypothesis-tested). Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Opening Range Indicator"
+- **title.fr**: "Indicateur du range d'ouverture"
+- **definition.en**: "How big is the opening range (the first N minutes of the session) relative to the rest-of-session range, and how strongly are the two correlated?"
+- **definition.fr**: "Quelle est la taille du range d'ouverture (les N premières minutes de la séance) par rapport au range du reste de la séance, et à quel point les deux sont-ils corrélés ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `size` — the "by size" breakdown: opening-range size quartiles (declared via
+  `SizeBucket(column="opening_range")`); each bucket's `mean_remaining_range` makes
+  the relationship visible directly.
+
