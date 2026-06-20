@@ -2391,3 +2391,88 @@ and are deferred to follow-up issues:
 - `by_time` — distribution of the first-breakout time (early vs. late).
 - `by_rejection` — contingency of which balance edge formed first vs. which broke first.
 
+
+## 30. Power Hour Breakout
+
+**Family**: `power_hour_breakout`
+**Module**: `stats/power_hour_breakout/standard.py`
+**Result file**: `results/power_hour_breakout.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **power hour** is the last N minutes of the RTH session (conventionally the
+final hour). Going into the power hour, the session has already established a
+high-low range (the "high/low of day so far"). Does the power hour make a **new
+high of day**, a **new low of day**, both, or neither relative to that prior
+range? Reported under a single `power_hour` condition with four mutually
+exclusive outcomes that partition every countable day: `made_high`, `made_low`,
+`made_both`, `neither`. Their probabilities sum to 1. This is the end-of-session
+mirror of `initial_balance` (early window sets a range, a later window may break
+it) — here the measured window sits at the END and is compared against everything
+before it. The marginal new-high / new-low rates are recoverable as
+`made_high + made_both` and `made_low + made_both`.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the **pre-power-hour** extremes from the bars before the power hour,
+   `[rth_start, ph_start)` where `ph_start = rth_end - ph_period`:
+   - `pre_high` = max of `high`, `pre_low` = min of `low` over the window.
+3. Compute the **power-hour** extremes from the last `ph_period` minutes,
+   `[ph_start, rth_end)`:
+   - `ph_high` = max `high`, `ph_low` = min `low` (wick: a wick beyond the level
+     counts as a new extreme).
+   - `ph_open` = open of the bar at exactly `ph_start`.
+   Join these onto the resolved-days index (inner join — a day survives only with a
+   non-empty pre-power-hour window, a clean power-hour open bar, AND a non-empty
+   power-hour window).
+4. Classify the new-extreme direction with **strict** inequalities (touching a
+   level exactly is NOT a new extreme):
+   - `made_high`: `ph_high > pre_high` AND `ph_low >= pre_low` (new high only).
+   - `made_low`:  `ph_low < pre_low`  AND `ph_high <= pre_high` (new low only).
+   - `made_both`: `ph_high > pre_high` AND `ph_low < pre_low` (both extremes).
+   - `neither`:   `ph_high <= pre_high` AND `ph_low >= pre_low` (held inside).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** days (a non-empty pre-power-hour window and a non-empty power hour).
+The four outcomes are mutually exclusive and exhaustive, so their counts sum to
+`total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `power_hour` | `made_high`, `made_low`, `made_both`, `neither` | Yes | New-extreme direction of the power hour vs. the prior range; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 1h | Power-hour length: `1h` (the conventional final hour) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `1h` (power hour 15:15–16:15 for NQ, the canonical final hour).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable day's
+power-hour move is **reflected** around its pre-power-hour range midpoint with
+probability 0.5 (a price `p` maps to `2*mid - p`, which swaps the high and low
+extremes). Reflection turns a `made_high` day into a `made_low` day and vice
+versa, while `made_both` and `neither` are direction-symmetric and unchanged. The
+null therefore carries NO directional bias, so `made_high` and `made_low`
+converge to their shared mean and the comparison reveals whether the power hour
+makes a new high **up** more often than **down** beyond a coin flip. Uses
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Power Hour Breakout"
+- **title.fr**: "Cassure du power hour"
+- **definition.en**: "During the last hour of the session (the power hour), how often does price make a new high of day, a new low of day, both, or neither relative to the range established earlier in the session?"
+- **definition.fr**: "Pendant la dernière heure de la séance (le power hour), à quelle fréquence le prix inscrit-il un nouveau plus haut du jour, un nouveau plus bas du jour, les deux, ou ni l'un ni l'autre par rapport à l'amplitude établie plus tôt dans la séance ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `open` — the "by open" breakdown: where the power-hour open falls relative to the
+  pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
+  (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
+
