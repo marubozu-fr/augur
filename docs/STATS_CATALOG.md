@@ -2889,3 +2889,93 @@ deterministic output.
 ### Slices
 - None (`slices = ()`).
 
+
+---
+
+## 36. Overnight Range Breakout
+
+**Family**: `overnight_range_breakout`
+**Module**: `stats/overnight_range_breakout/standard.py`
+**Result file**: `results/overnight_range_breakout.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **overnight range** is the high-low range of the overnight session that
+precedes a given RTH session (18:00 ET previous day → 09:30 ET). Given that range,
+which direction does price break during the **RTH session**? Reported under a
+single `overnight_range` condition with four mutually exclusive outcomes that
+partition every countable day: `broke_high`, `broke_low`, `broke_both`, `neither`.
+Their probabilities sum to 1. The marginal high-break / low-break rates are
+recoverable as `broke_high + broke_both` and `broke_low + broke_both`.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute the **overnight range** from the overnight session bars. The session
+   crosses midnight, so each bar is attributed to the RTH session date it
+   **precedes**: evening bars (`hour*60+minute >= overnight_start`, i.e. ≥ 18:00)
+   belong to the *next* calendar day's overnight; early bars
+   (`hour*60+minute < overnight_end`, i.e. < 09:30) belong to the *same* calendar
+   day's overnight. Over that window:
+   - `on_high` = max of `high`, `on_low` = min of `low`.
+   - `on_size` = `on_high - on_low`.
+3. Compute the **RTH session** extremes over `[rth_start, rth_end)`:
+   - wick criteria (default): `day_high` = max `high`, `day_low` = min `low`.
+   - close criteria: `day_close_high` = max `close`, `day_close_low` = min `close`.
+   Join the overnight range and the RTH extremes onto the resolved-days index
+   (inner join — a day survives only with a resolved RTH session AND a prior
+   overnight range).
+4. Classify the breakout direction with **strict** inequalities (touching a level
+   exactly is NOT a break), using the extremes selected by `breakout_criteria`:
+   - `broke_high`: `high > on_high` AND `low >= on_low` (broke up only).
+   - `broke_low`:  `low < on_low`  AND `high <= on_high` (broke down only).
+   - `broke_both`: `high > on_high` AND `low < on_low` (broke both sides).
+   - `neither`:    `high <= on_high` AND `low >= on_low` (held inside all session).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** days (a resolved RTH session and a prior overnight range). The four
+outcomes are mutually exclusive and exhaustive, so their counts sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `overnight_range` | `broke_high`, `broke_low`, `broke_both`, `neither` | Yes | Breakout direction of the RTH session relative to the prior overnight range; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close beyond the level) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable day's RTH move
+is **reflected** around its overnight-range midpoint with probability 0.5 (a price
+`p` maps to `2*mid - p`, which swaps the high and low extremes). Reflection turns a
+`broke_high` day into a `broke_low` day and vice versa, while `broke_both` and
+`neither` are direction-symmetric and unchanged. The null therefore carries NO
+directional bias, so `broke_high` and `broke_low` converge to their shared mean and
+the comparison reveals whether the overnight range breaks **up** more often than
+**down** beyond a coin flip. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Overnight Range Breakout"
+- **title.fr**: "Cassure du range overnight"
+- **definition.en**: "Comparing each session's market-hours high and low to the prior overnight session's high and low, how often does price break above the overnight high only, below the overnight low only, both sides, or neither during the RTH session?"
+- **definition.fr**: "En comparant le plus haut et le plus bas de la séance régulière au plus haut et au plus bas de la session overnight précédente, à quelle fréquence le prix casse-t-il au-dessus du plus haut overnight uniquement, en-dessous du plus bas uniquement, des deux côtés, ou ni l'un ni l'autre pendant la séance RTH ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by prev candle" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size` — the "by size" breakdown: overnight-range size quartiles (declared via
+  `SizeBucket(column="on_size")`).
+- `levels` — the "by levels" breakdown: how far the breakout extended past the
+  overnight range, in multiples of `on_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
+  declared via `Levels(ref="on_size", ext="extension")`).
+
