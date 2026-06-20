@@ -194,6 +194,21 @@ class PrevCandle(_ColorSlicer):
     return I18nString(en="Prior session candle", fr="Bougie de la session précédente")
 
 
+class Overnight(_ColorSlicer):
+  """Split by overnight gap direction: RTH open above (green) / below (red) prior close.
+
+  ``green`` collects sessions opening above the previous session's close (gap up);
+  ``red`` collects sessions opening below it (gap down). The first resolved day has
+  no prior close and is excluded (pending-sample discipline).
+  """
+
+  def __init__(self, column: str = "overnight_green", name: str = "overnight") -> None:
+    super().__init__(column=column, name=name)
+
+  def dimension_label(self) -> I18nString:
+    return I18nString(en="Overnight gap", fr="Gap overnight")
+
+
 _PRESET_BINS: dict[str, int] = {
   "median": 2,
   "terciles": 3,
@@ -329,6 +344,7 @@ _SLICER_SHORTHAND: dict[str, type[Slicer]] = {
   "weekday": Weekday,
   "close": Close,
   "prev_candle": PrevCandle,
+  "overnight": Overnight,
 }
 
 

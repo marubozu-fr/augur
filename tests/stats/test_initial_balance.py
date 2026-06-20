@@ -365,7 +365,15 @@ def test_empty_input_yields_zero_rows() -> None:
 def test_declared_slices_are_present() -> None:
   result = _stat().compute(_canon_candles())
   slices = result.instruments["NQ"]["30min"].slices
-  assert set(slices) == {"weekday", "close", "prev_candle", "size"}
+  assert set(slices) == {
+    "weekday",
+    "close",
+    "prev_candle",
+    "overnight",
+    "size",
+    "size_pct",
+    "levels",
+  }
 
 
 def test_close_slice_splits_by_session_colour() -> None:
@@ -393,6 +401,76 @@ def test_size_slice_buckets_by_ib_size() -> None:
   ])
   groups = _stat().compute(candles).instruments["NQ"]["30min"].slices["size"].groups
   assert sum(g.total_samples for g in groups.values()) == 4
+
+
+# ---------------------------------------------------------------------------
+# New extension slices: overnight, size_pct, levels
+# ---------------------------------------------------------------------------
+def test_ib_size_pct_column_is_size_over_open() -> None:
+  # session_open defaults to the IB midpoint (100 here), so ib_size_pct == ib_size.
+  table = _stat().build_day_table(_canon_candles())
+  # ib_size = 20, open = 100 -> 20%.
+  assert (table["ib_size_pct"] == 20.0).all()
+
+
+def test_extension_column_is_furthest_break_past_balance() -> None:
+  # extension = max(post_high - ib_high, ib_low - post_low, 0), criteria-aware (wick).
+  table = _stat().build_day_table(_canon_candles())
+  ext = {d.strftime("%Y-%m-%d"): v for d, v in table["extension"].items()}
+  assert ext["2024-01-02"] == pytest.approx(5.0)   # broke_high: 115 - 110
+  assert ext["2024-01-03"] == pytest.approx(5.0)   # broke_low: 90 - 85
+  assert ext["2024-01-04"] == pytest.approx(5.0)   # broke_both: max(5, 5)
+  assert ext["2024-01-05"] == pytest.approx(0.0)   # neither: stayed inside
+  assert ext["2024-01-08"] == pytest.approx(0.0)   # boundary touch
+
+
+def test_overnight_slice_splits_by_gap_direction() -> None:
+  # Day 1 has no prior close (excluded). Day 2 opens above day 1's close (green
+  # overnight); day 3 opens below day 2's close (red overnight). All broke_high.
+  candles = _concat([
+    _make_ib_day(date="2024-01-02", ib_high=110, ib_low=90, post_high=115,
+                 post_low=95, session_open=100, session_close=100),
+    _make_ib_day(date="2024-01-03", ib_high=110, ib_low=90, post_high=115,
+                 post_low=95, session_open=105, session_close=100),
+    _make_ib_day(date="2024-01-04", ib_high=110, ib_low=90, post_high=115,
+                 post_low=95, session_open=95, session_close=100),
+  ])
+  groups = _stat().compute(candles).instruments["NQ"]["30min"].slices["overnight"].groups
+  assert groups["green"].total_samples == 1   # 2024-01-03 opened above prior close
+  assert groups["red"].total_samples == 1     # 2024-01-04 opened below prior close
+  # The first day has no prior close and is excluded from both groups.
+  assert sum(g.total_samples for g in groups.values()) == 2
+
+
+def test_size_pct_slice_uses_preset_price_relative_bands() -> None:
+  # session_open defaults to the IB midpoint (100), so ib_size_pct == ib_size.
+  # Sizes 0.1 / 0.5 / 1.2 land in the <0.2 / 0.4–0.6 / >0.9 preset bands.
+  candles = _concat([
+    _make_ib_day(date="2024-01-02", ib_high=100.05, ib_low=99.95,
+                 post_high=101, post_low=99),
+    _make_ib_day(date="2024-01-03", ib_high=100.25, ib_low=99.75,
+                 post_high=101, post_low=99),
+    _make_ib_day(date="2024-01-04", ib_high=100.6, ib_low=99.4,
+                 post_high=102, post_low=98),
+  ])
+  groups = _stat().compute(candles).instruments["NQ"]["30min"].slices["size_pct"].groups
+  # Three distinct preset bands, one day each (empty bands are omitted).
+  assert sum(g.total_samples for g in groups.values()) == 3
+  assert len(groups) == 3
+
+
+def test_levels_slice_buckets_by_extension_multiple() -> None:
+  # ib_size = 20. Extensions 5 / 35 give ratios 0.25 / 1.75 -> bands [0,0.5) and
+  # [1.5,2). A neither day (extension 0) falls in the first band.
+  candles = _concat([
+    _make_ib_day(date="2024-01-02", ib_high=110, ib_low=90, post_high=115, post_low=95),
+    _make_ib_day(date="2024-01-03", ib_high=110, ib_low=90, post_high=145, post_low=95),
+    _make_ib_day(date="2024-01-04", ib_high=110, ib_low=90, post_high=108, post_low=92),
+  ])
+  groups = _stat().compute(candles).instruments["NQ"]["30min"].slices["levels"].groups
+  assert sum(g.total_samples for g in groups.values()) == 3
+  # The 1.75x extension lands in its own higher band, distinct from the small ones.
+  assert groups["1_5_2x"].total_samples == 1
 
 
 # ===========================================================================

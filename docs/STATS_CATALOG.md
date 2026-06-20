@@ -46,6 +46,7 @@ class GapFill(BaseStat):
 | `Weekday` | `'weekday'` | — | one per weekday present (Mon→Sun) |
 | `Close` | `'close'` | `column='session_green'` | green / red |
 | `PrevCandle` | `'prev_candle'` | `column='prev_session_green'` | green / red |
+| `Overnight` | `'overnight'` | `column='overnight_green'` | green / red (open above / below prior close) |
 | `SizeBucket` | — | `column`, `preset` (median/terciles/quartiles/quintiles) **or** explicit `buckets` | `q1…qn` (equal-frequency quantile bins, or fixed edges) |
 | `Levels` | — | `ref`, `ext`, `multiples` | extension bands in multiples of a reference range |
 
@@ -2367,11 +2368,26 @@ the comparison reveals whether the initial balance breaks **up** more often than
   the shared `Close` slicer reading `session_green`).
 - `prev_candle` — the "by color" breakdown: prior session color, green/red
   (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
-- `size` — the "by size" breakdown: initial-balance size quartiles (declared via
-  `SizeBucket(column="ib_size")`).
+- `size` — the "by size" breakdown: initial-balance size quartiles, absolute
+  (declared via `SizeBucket(column="ib_size")`).
+- `size_pct` — the "by size (% of price)" breakdown: initial-balance size as a
+  percentage of the session open, in preset bands (<0.2%, 0.2–0.4%, 0.4–0.6%,
+  `SizeBucket(column="ib_size_pct", buckets=[…])`).
+- `overnight` — the "by overnight session" breakdown: overnight gap direction, the
+  session open above (green) / below (red) the prior session's close (declared via
+  the shared `Overnight` slicer reading `overnight_green`).
+- `levels` — the "by levels" breakdown: how far the breakout extended past the
+  balance, in multiples of `ib_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x; declared
+  via `Levels(ref="ib_size", ext="extension")`).
 
-### Future variants (not in MVP — tracked as the IB extensions issue)
-- `by_breakout` — outcome classification refinements.
-- `by_double_break` — sequencing when both sides break.
-- `by_gap_type` — split by overnight gap up/down/no gap.
+### Extension variants (slices added by the IB extensions issue #36)
+The slice-friendly extension variants are implemented above as `size_pct`,
+outcome/metric computations (they do not fit the four-outcome breakout partition)
+and are deferred to follow-up issues:
+- `by_performance` — average / maximum extension before price breaks back into the
+  balance (a magnitude metric via the `value` channel).
+- `by_retracement` — pullback depth into the balance after the break, on single-break
+  days only, bucketed at 0.25 / 0.5 / 0.75 of `ib_size`.
+- `by_time` — distribution of the first-breakout time (early vs. late).
+- `by_rejection` — contingency of which balance edge formed first vs. which broke first.
 

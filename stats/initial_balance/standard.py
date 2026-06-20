@@ -37,7 +37,11 @@ Declared slices re-run the whole computation per subset:
   - ``weekday``     — the "by weekday" breakdown.
   - ``close``       — split by session close color (green/red).
   - ``prev_candle`` — split by the prior session's color (green/red).
-  - ``size``        — quartile buckets of the initial-balance size.
+  - ``size``        — quartile buckets of the initial-balance size (absolute).
+  - ``size_pct``    — preset buckets of the initial-balance size as % of price.
+  - ``overnight``   — split by overnight gap (RTH open above/below prior close).
+  - ``levels``      — bands of how far the breakout extended past the balance,
+                      measured in multiples of the initial-balance size.
 """
 
 from __future__ import annotations
@@ -53,6 +57,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  Levels,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -122,7 +127,16 @@ class InitialBalanceBreakout(BaseStat):
     "weekday",
     "close",
     "prev_candle",
+    "overnight",
     SizeBucket(column="ib_size", preset="quartiles", name="size"),
+    # 0.6–0.9%, >0.9%); upper edge is open (inf).
+    SizeBucket(
+      column="ib_size_pct",
+      buckets=[0.0, 0.2, 0.4, 0.6, 0.9, float("inf")],
+      name="size_pct",
+    ),
+    # How far the breakout extended past the balance, in multiples of ib_size.
+    Levels(ref="ib_size", ext="extension", name="levels"),
   )
 
   def __init__(
@@ -163,6 +177,11 @@ class InitialBalanceBreakout(BaseStat):
     Columns returned:
       ``ib_high`` / ``ib_low``           — initial-balance extremes from the IB window.
       ``ib_size``                        — ``ib_high - ib_low`` (read by the size slicer).
+      ``ib_size_pct``                    — ``ib_size`` as % of the session open price
+                                           (read by the ``size_pct`` slicer).
+      ``extension``                      — furthest breakout past the balance in either
+                                           direction (``>= 0``, criteria-aware); read by
+                                           the ``levels`` slicer as a multiple of ``ib_size``.
       ``post_high`` / ``post_low``       — breakout-window intraday extremes (wick).
       ``post_close_high`` / ``post_close_low`` — breakout-window extreme CLOSES (close
                                            criteria); max / min of the window's bar closes.
@@ -170,6 +189,9 @@ class InitialBalanceBreakout(BaseStat):
                                            read by the ``close`` slicer.
       ``prev_session_green``             — prior session color (NaN for the first resolved
                                            day), read by the ``prev_candle`` slicer.
+      ``overnight_green``                — overnight gap: session open above the prior
+                                           session's close (NaN for the first resolved day),
+                                           read by the ``overnight`` slicer.
 
     The resolved-days core (RTH filter, session open/close, resolution filter,
     chronological sort) is shared via ``build_resolved_days``; the IB and
@@ -182,12 +204,15 @@ class InitialBalanceBreakout(BaseStat):
       "ib_high",
       "ib_low",
       "ib_size",
+      "ib_size_pct",
+      "extension",
       "post_high",
       "post_low",
       "post_close_high",
       "post_close_low",
       "session_green",
       "prev_session_green",
+      "overnight_green",
     ]
     empty = pd.DataFrame(columns=columns)
 
@@ -232,10 +257,23 @@ class InitialBalanceBreakout(BaseStat):
       return empty
 
     day["ib_size"] = day["ib_high"] - day["ib_low"]
+    # IB size as % of the session open price (price-relative size bucketing).
+    day["ib_size_pct"] = (day["ib_size"] / day["session_open"]) * 100.0
     day["session_green"] = day["session_close"] >= day["session_open"]
     # Prior RESOLVED session's color (shift over the resolved-only, sorted index,
     # so it skips any excluded/early-close day). NaN for the first resolved day.
     day["prev_session_green"] = day["session_green"].shift(1)
+    # Overnight gap: session open above the prior RESOLVED session's close. NaN for
+    # the first resolved day (no prior close), so it is excluded from the slice.
+    prev_close = day["session_close"].shift(1)
+    day["overnight_green"] = (day["session_open"] > prev_close).where(prev_close.notna())
+
+    # Furthest breakout past the balance in either direction, using the same
+    # criteria-selected extremes as the break classification (wick or close).
+    high, low = self._break_extremes(day)
+    ext_up = (high - day["ib_high"]).clip(lower=0.0)
+    ext_down = (day["ib_low"] - low).clip(lower=0.0)
+    day["extension"] = pd.concat([ext_up, ext_down], axis=1).max(axis=1)
 
     return day[columns]
 
