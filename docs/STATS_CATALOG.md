@@ -2812,3 +2812,80 @@ as well as overall.
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
 
+
+---
+
+## 35. Market Open Volume
+
+**Family**: `market_open_volume`
+**Module**: `stats/market_open_volume/standard.py`
+**Result file**: `results/market_open_volume.json`
+**Status**: Implemented
+
+### What it measures
+The **Pearson correlation** between the opening bar's traded volume and the
+rest-of-session volume, measured across resolved RTH trading days. It answers:
+does a high-volume open predict a high-volume session? A correlation near `+1`
+means opening volume tracks session activity; a correlation near `0` means the
+open carries no information about the rest of the day.
+
+This is a **magnitude** stat: the single row carries the correlation coefficient
+in `value` (and its random-baseline counterpart in `value_baseline`). The
+`probability` / `baseline_prob` channel is left at `0.0`. The row reports its
+sample size in `count` / `total` (the number of resolved days with both volumes
+present).
+
+There is a single **condition** (`any_day`) and a single **outcome**
+(`correlation`). The opening bar's duration is governed by the chosen timeframe;
+the three timeframes are merged into one result file.
+
+### Methodology
+1. Build the resolved-days index via `build_resolved_days` (clean session open at
+   exactly `rth_start` and a last RTH bar at or after `rth_end - close_tolerance`).
+   Early-close days and the final incomplete day are excluded (pending discipline).
+2. For each resolved day, sum 1-min bar volume over two minute-of-day windows:
+   `open_volume` over `[rth_start, rth_start + open_bar_min)` and `rest_volume`
+   over `[rth_start + open_bar_min, rth_end)`, where `open_bar_min` is the
+   timeframe's minute length (15 / 30 / 60).
+3. Compute the Pearson `r` between `open_volume` and `rest_volume` across all days
+   where both are non-NaN. When fewer than two such days exist, or either series
+   has zero variance, `r = 0.0`.
+4. Repeat for timeframes `15min`, `30min`, `1h`; merge into one result file keyed
+   by timeframe.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `any_day` | All resolved days (the single population) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `correlation` | `value` | Pearson `r` between opening-bar volume and rest-of-session volume |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | `1h` | Opening-bar duration; one of `15min` / `30min` / `1h` (all three computed by `run()`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `15min`, `30min`, `1h` — merged into a single result file under
+  `instruments.{INSTRUMENT}.{timeframe}`.
+
+### Baseline
+Random null: hold `open_volume` fixed and randomly **permute** `rest_volume`
+across days, then recompute Pearson `r`. Shuffling breaks any open→rest
+relationship, so the expected baseline `r ≈ 0`. A genuine relationship shows an
+actual `r` well above the baseline. Uses `np.random.default_rng(seed)` for
+deterministic output.
+
+### i18n
+- **title.en**: "Market Open Volume"
+- **title.fr**: "Volume à l'ouverture"
+- **definition.en**: "Pearson correlation between the opening bar's volume and the rest-of-session volume: does a high-volume open predict a high-volume session?"
+- **definition.fr**: "Corrélation de Pearson entre le volume de la bougie d'ouverture et le volume du reste de la séance : un volume élevé à l'ouverture annonce-t-il une séance active ?"
+
+### Slices
+- None (`slices = ()`).
+
