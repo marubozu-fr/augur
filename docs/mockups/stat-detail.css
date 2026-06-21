@@ -1,0 +1,463 @@
+/* ==========================================================================
+   Augur Backoffice — Stat Detail page (Issue #117)
+   Page-specific styles. Extends styles.css — reuses all design tokens.
+   Do not redefine tokens here; only layout/components unique to this page.
+   ========================================================================== */
+
+/* ----- Back link above the page title ----- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+}
+
+.back-link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Title row: title + instrument badge inline */
+.title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ----- Metadata metric strip wrapper (slight separation rule) ----- */
+.detail-meta {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   Generic panel surface (documentation, results sections)
+   ========================================================================== */
+
+.panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.panel-title {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+
+/* Small uppercase tag that classifies a results block (PROBABILITY / MAGNITUDE) */
+.stat-type {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stat-type-prob {
+  background-color: var(--color-accent-soft);
+  border: 1px solid rgba(76, 141, 255, 0.3);
+  color: var(--color-accent-hover);
+}
+
+.stat-type-mag {
+  background-color: var(--color-instrument-soft);
+  border: 1px solid var(--color-instrument-border);
+  color: var(--color-instrument);
+}
+
+.panel-spacer {
+  flex: 1;
+}
+
+.panel-note {
+  font-size: var(--fs-xs);
+  color: var(--color-text-dim);
+}
+
+/* ==========================================================================
+   Timeframe tab selector (reuses filter-group / filter-chip semantics)
+   ========================================================================== */
+
+.tf-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.tf-label {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+}
+
+/* ==========================================================================
+   Documentation section
+   ========================================================================== */
+
+.doc-definition {
+  margin: 0 0 var(--space-4);
+  max-width: 760px;
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+}
+
+.doc-method {
+  margin: 0 0 var(--space-4);
+  max-width: 760px;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--color-text-dim);
+}
+
+.param-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.param {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+}
+
+.param-key {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-dim);
+}
+
+.param-val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-medium);
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   Data tables (probability + magnitude share the same skeleton)
+   ========================================================================== */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-md);
+}
+
+.data-table thead th {
+  position: sticky;
+  top: 0;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border-strong);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dim);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr:hover td {
+  background-color: var(--color-surface-2);
+}
+
+/* Right-align numeric columns (header + cells) */
+.col-num {
+  text-align: right !important;
+}
+
+/* Numeric cell: mono + tabular figures */
+.cell-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Baseline values are de-emphasised vs the live probability/value */
+.cell-baseline {
+  color: var(--color-text-muted);
+}
+
+/* Primary probability / value gets a touch more weight */
+.cell-primary {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+/* Condition cell: keep grouped conditions visually attached */
+.cell-condition {
+  font-weight: var(--fw-medium);
+}
+
+/* Subtle swatch before a green/red condition label */
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: var(--space-2);
+  vertical-align: baseline;
+}
+
+.dot-green {
+  background-color: var(--color-positive);
+}
+
+.dot-red {
+  background-color: var(--color-negative);
+}
+
+/* Edge pill aligned to the right inside its cell */
+.cell-num .edge {
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   Probability bar (inline visual scale inside the Probability cell)
+   ========================================================================== */
+
+.prob-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.prob-bar {
+  position: relative;
+  flex: 0 0 88px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-3);
+  overflow: hidden;
+}
+
+.prob-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.prob-bar-fill.is-positive {
+  background-color: var(--color-positive);
+}
+
+.prob-bar-fill.is-negative {
+  background-color: var(--color-negative);
+}
+
+.prob-bar-fill.is-neutral {
+  background-color: var(--color-neutral);
+}
+
+.prob-value {
+  flex: 0 0 auto;
+  min-width: 52px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-semibold);
+  text-align: right;
+}
+
+/* ==========================================================================
+   Magnitude stat — distinct from the probability table.
+   Rendered as a row of value blocks (NOT a probability table) so the
+   reader immediately sees this is a value/magnitude family.
+   ========================================================================== */
+
+.mag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.mag-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.mag-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+  line-height: var(--lh-tight);
+  min-height: 2.4em;
+}
+
+.mag-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.mag-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.mag-baseline {
+  font-size: var(--fs-xs);
+  color: var(--color-text-dim);
+}
+
+.mag-baseline .num {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Slices section — collapsible groups via <details>/<summary>
+   ========================================================================== */
+
+.slices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.slice-group {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.slice-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.slice-summary::-webkit-details-marker {
+  display: none;
+}
+
+.slice-summary:hover {
+  background-color: var(--color-surface-3);
+}
+
+.slice-chevron {
+  flex: 0 0 12px;
+  color: var(--color-text-dim);
+  font-size: 11px;
+  transition: transform 0.12s ease;
+}
+
+.slice-group[open] .slice-chevron {
+  transform: rotate(90deg);
+}
+
+.slice-dim-name {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.slice-dim-desc {
+  font-size: var(--fs-xs);
+  color: var(--color-text-dim);
+}
+
+.slice-summary-spacer {
+  flex: 1;
+}
+
+.slice-count {
+  font-size: var(--fs-xs);
+  color: var(--color-text-dim);
+}
+
+.slice-body {
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.slice-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  margin-top: var(--space-2);
+}
+
+.slice-table thead th {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dim);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.slice-table tbody td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.slice-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.slice-table tbody tr:hover td {
+  background-color: var(--color-surface-3);
+}
+
+.slice-group-name {
+  font-weight: var(--fw-medium);
+}

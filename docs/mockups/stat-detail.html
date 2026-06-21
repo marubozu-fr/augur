@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Augur — Stat Detail (Opening Candle Continuation)</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="stat-detail.css" />
+  </head>
+  <body>
+    <!-- Checkbox-hack toggle for sidebar collapse (no JS) -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle" />
+
+    <div class="app">
+      <!-- ============================ Sidebar ============================ -->
+      <aside class="sidebar">
+        <div class="sidebar-section-title">Dashboard</div>
+        <nav class="nav">
+          <a class="nav-item" href="index.html">
+            <span class="nav-icon">▦</span>
+            <span class="nav-label">All stat families</span>
+            <span class="nav-meta">16</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-section-title">Stat families</div>
+        <nav class="nav">
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Initial Balance Breakout</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item active" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Opening Candle Continuation</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Opening Range Breakout</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Opening Range Indicator</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Gap Fill</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Engulfing Candles</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Inside Bars</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Outside Days</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Seasonality</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Volume Trends</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">High &amp; Low by Weekday</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Performance by Weekday</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Overnight Range Breakout</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Market Session Breakout</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Power Hour Breakout</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Intraday Volume &amp; Range</span>
+            <span class="badge-instrument">NQ</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- ============================ Header ============================= -->
+      <header class="header">
+        <label class="menu-button" for="sidebar-toggle" title="Toggle sidebar"
+          >☰</label
+        >
+        <div class="brand">
+          <span class="brand-mark">A</span>
+          <span class="brand-text">Augur</span>
+        </div>
+
+        <div class="header-spacer"></div>
+
+        <div class="header-status">
+          <span class="status-dot"></span>
+          <span>Results loaded</span>
+        </div>
+
+        <button class="reload-button" type="button">
+          <span>⟳</span><span>Reload</span>
+        </button>
+
+        <div class="user-chip">
+          <span class="user-avatar">A</span>
+          <div>
+            <div class="user-name">admin</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============================= Main ============================== -->
+      <main class="main">
+        <!-- ===================== 1. Page header ===================== -->
+        <div class="page-head">
+          <div>
+            <a class="back-link" href="index.html">← Stat Families</a>
+            <div class="title-row">
+              <h1 class="page-title">Opening Candle Continuation</h1>
+              <span class="badge-instrument">NQ</span>
+            </div>
+            <p class="page-subtitle">
+              After the first N-minute candle of the NY session, how often does
+              the session close in the same direction?
+            </p>
+          </div>
+        </div>
+
+        <!-- Metadata metric strip -->
+        <div class="detail-meta">
+          <div class="metric-strip">
+            <div class="metric">
+              <span class="metric-value">2008–2026</span>
+              <span class="metric-label">Date range</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value num">4,332</span>
+              <span class="metric-label">Total samples</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value num">3</span>
+              <span class="metric-label">Timeframes</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value num">2026-05-05</span>
+              <span class="metric-label">Last updated</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============== 2. Timeframe selector ============== -->
+        <div class="tf-selector">
+          <span class="tf-label">Timeframe</span>
+          <div class="filter-group">
+            <button class="filter-chip active" type="button">15min</button>
+            <button class="filter-chip" type="button">30min</button>
+            <button class="filter-chip" type="button">1h</button>
+          </div>
+          <span class="result-count">Showing NQ · 15min</span>
+        </div>
+
+        <!-- ============== 3. Documentation ============== -->
+        <section class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title">Definition</h2>
+          </div>
+          <p class="doc-definition">
+            After the first 15-minute candle of the NY session, how often does
+            the session close in the same direction? A green opening candle is
+            compared against a green session close, a red opening candle against
+            a red close.
+          </p>
+          <p class="doc-method">
+            Methodology — every probability is measured against a random
+            baseline computed on the same confirmed sample. Pending (unresolved)
+            sessions are excluded from both numerator and denominator. The edge
+            column is probability minus baseline; positive means the condition
+            beats chance.
+          </p>
+          <div class="param-row">
+            <span class="param">
+              <span class="param-key">Timeframe</span>
+              <span class="param-val">15min</span>
+            </span>
+            <span class="param">
+              <span class="param-key">Session</span>
+              <span class="param-val">RTH 09:30–16:15 ET</span>
+            </span>
+            <span class="param">
+              <span class="param-key">Instrument</span>
+              <span class="param-val">NQ</span>
+            </span>
+            <span class="param">
+              <span class="param-key">Baseline seed</span>
+              <span class="param-val">fixed</span>
+            </span>
+          </div>
+        </section>
+
+        <!-- ============== 4. Results — PROBABILITY ============== -->
+        <section class="panel">
+          <div class="panel-head">
+            <span class="stat-type stat-type-prob">Probability</span>
+            <h2 class="panel-title">Continuation probabilities</h2>
+            <div class="panel-spacer"></div>
+            <span class="panel-note">Probability vs random baseline · edge = Δ</span>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Condition</th>
+                <th scope="col">Outcome</th>
+                <th scope="col" class="col-num">Probability</th>
+                <th scope="col" class="col-num">Baseline</th>
+                <th scope="col" class="col-num">N</th>
+                <th scope="col" class="col-num">Edge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cell-condition">
+                  <span class="dot dot-green"></span>Green opening candle
+                </td>
+                <td>Session closes green</td>
+                <td class="col-num">
+                  <div class="prob-cell">
+                    <span class="prob-bar"
+                      ><span
+                        class="prob-bar-fill is-positive"
+                        style="width: 68%"
+                      ></span
+                    ></span>
+                    <span class="prob-value">68.0%</span>
+                  </div>
+                </td>
+                <td class="cell-num cell-baseline">49.5%</td>
+                <td class="cell-num">2,248</td>
+                <td class="cell-num">
+                  <span class="edge edge-positive">+18.5%</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="cell-condition">
+                  <span class="dot dot-green"></span>Green opening candle
+                </td>
+                <td>Session closes red</td>
+                <td class="col-num">
+                  <div class="prob-cell">
+                    <span class="prob-bar"
+                      ><span
+                        class="prob-bar-fill is-negative"
+                        style="width: 32%"
+                      ></span
+                    ></span>
+                    <span class="prob-value">32.0%</span>
+                  </div>
+                </td>
+                <td class="cell-num cell-baseline">50.5%</td>
+                <td class="cell-num">2,248</td>
+                <td class="cell-num">
+                  <span class="edge edge-negative">−18.5%</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="cell-condition">
+                  <span class="dot dot-red"></span>Red opening candle
+                </td>
+                <td>Session closes green</td>
+                <td class="col-num">
+                  <div class="prob-cell">
+                    <span class="prob-bar"
+                      ><span
+                        class="prob-bar-fill is-negative"
+                        style="width: 41%"
+                      ></span
+                    ></span>
+                    <span class="prob-value">41.1%</span>
+                  </div>
+                </td>
+                <td class="cell-num cell-baseline">49.3%</td>
+                <td class="cell-num">2,084</td>
+                <td class="cell-num">
+                  <span class="edge edge-negative">−8.3%</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="cell-condition">
+                  <span class="dot dot-red"></span>Red opening candle
+                </td>
+                <td>Session closes red</td>
+                <td class="col-num">
+                  <div class="prob-cell">
+                    <span class="prob-bar"
+                      ><span
+                        class="prob-bar-fill is-positive"
+                        style="width: 59%"
+                      ></span
+                    ></span>
+                    <span class="prob-value">58.9%</span>
+                  </div>
+                </td>
+                <td class="cell-num cell-baseline">50.7%</td>
+                <td class="cell-num">2,084</td>
+                <td class="cell-num">
+                  <span class="edge edge-positive">+8.3%</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ============== 5. Results — MAGNITUDE ============== -->
+        <section class="panel">
+          <div class="panel-head">
+            <span class="stat-type stat-type-mag">Magnitude</span>
+            <h2 class="panel-title">Opening Range Indicator</h2>
+            <div class="panel-spacer"></div>
+            <span class="panel-note">
+              Value family — points &amp; ratios, not a probability
+            </span>
+          </div>
+          <p class="doc-method">
+            A magnitude family reports a measured value and a baseline value
+            (in points or as a ratio), so it is shown as value blocks rather
+            than a probability table. Δ is value minus baseline, with the same
+            green-above / red-below semantic.
+          </p>
+
+          <div class="mag-grid">
+            <div class="mag-block">
+              <span class="mag-label">Average opening range</span>
+              <span class="mag-value">46.83</span>
+              <div class="mag-foot">
+                <span class="mag-baseline"
+                  >Baseline <span class="num">46.83</span> pts</span
+                >
+                <span class="edge edge-neutral">±0.00</span>
+              </div>
+            </div>
+
+            <div class="mag-block">
+              <span class="mag-label">Average remaining-session range</span>
+              <span class="mag-value">133.90</span>
+              <div class="mag-foot">
+                <span class="mag-baseline"
+                  >Baseline <span class="num">133.90</span> pts</span
+                >
+                <span class="edge edge-neutral">±0.00</span>
+              </div>
+            </div>
+
+            <div class="mag-block">
+              <span class="mag-label">Opening range as share of session range</span>
+              <span class="mag-value">36.7%</span>
+              <div class="mag-foot">
+                <span class="mag-baseline"
+                  >Baseline <span class="num">36.7%</span></span
+                >
+                <span class="edge edge-neutral">±0.0%</span>
+              </div>
+            </div>
+
+            <div class="mag-block">
+              <span class="mag-label">
+                Correlation of opening range with remaining range (Pearson r)
+              </span>
+              <span class="mag-value">0.796</span>
+              <div class="mag-foot">
+                <span class="mag-baseline"
+                  >Baseline <span class="num">0.003</span> · strong +</span
+                >
+                <span class="edge edge-positive">+0.793</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== 6. Slices (collapsible) ============== -->
+        <section class="panel">
+          <div class="panel-head">
+            <span class="stat-type stat-type-mag">Magnitude</span>
+            <h2 class="panel-title">Slices</h2>
+            <div class="panel-spacer"></div>
+            <span class="panel-note">
+              Opening Range Indicator broken down by dimension · NQ · 15min
+            </span>
+          </div>
+
+          <div class="slices">
+            <!-- ---- Dimension: weekday (fully populated) ---- -->
+            <details class="slice-group" open>
+              <summary class="slice-summary">
+                <span class="slice-chevron">▶</span>
+                <span class="slice-dim-name">Day of week</span>
+                <span class="slice-dim-desc">5 groups · Mon–Fri</span>
+                <span class="slice-summary-spacer"></span>
+                <span class="slice-count num">4,332 samples</span>
+              </summary>
+              <div class="slice-body">
+                <table class="slice-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Group</th>
+                      <th scope="col" class="col-num">N</th>
+                      <th scope="col" class="col-num">Open range</th>
+                      <th scope="col" class="col-num">Remaining range</th>
+                      <th scope="col" class="col-num">OR share</th>
+                      <th scope="col" class="col-num">Corr (r)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="slice-group-name">Monday</td>
+                      <td class="cell-num">816</td>
+                      <td class="cell-num">48.73</td>
+                      <td class="cell-num">125.30</td>
+                      <td class="cell-num">39.4%</td>
+                      <td class="cell-num">0.786</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Tuesday</td>
+                      <td class="cell-num">896</td>
+                      <td class="cell-num">45.83</td>
+                      <td class="cell-num">128.86</td>
+                      <td class="cell-num">36.6%</td>
+                      <td class="cell-num">0.817</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Wednesday</td>
+                      <td class="cell-num">890</td>
+                      <td class="cell-num">43.91</td>
+                      <td class="cell-num">139.00</td>
+                      <td class="cell-num">34.4%</td>
+                      <td class="cell-num">0.795</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Thursday</td>
+                      <td class="cell-num">875</td>
+                      <td class="cell-num">47.46</td>
+                      <td class="cell-num">141.98</td>
+                      <td class="cell-num">35.7%</td>
+                      <td class="cell-num">0.789</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Friday</td>
+                      <td class="cell-num">855</td>
+                      <td class="cell-num">48.44</td>
+                      <td class="cell-num">133.81</td>
+                      <td class="cell-num">37.7%</td>
+                      <td class="cell-num">0.822</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+            <!-- ---- Dimension: close color (representative) ---- -->
+            <details class="slice-group">
+              <summary class="slice-summary">
+                <span class="slice-chevron">▶</span>
+                <span class="slice-dim-name">Session close color</span>
+                <span class="slice-dim-desc">2 groups · green / red</span>
+                <span class="slice-summary-spacer"></span>
+                <span class="slice-count num">4,332 samples</span>
+              </summary>
+              <div class="slice-body">
+                <table class="slice-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Group</th>
+                      <th scope="col" class="col-num">N</th>
+                      <th scope="col" class="col-num">Open range</th>
+                      <th scope="col" class="col-num">Remaining range</th>
+                      <th scope="col" class="col-num">OR share</th>
+                      <th scope="col" class="col-num">Corr (r)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="slice-group-name">
+                        <span class="dot dot-green"></span>Green
+                      </td>
+                      <td class="cell-num">2,384</td>
+                      <td class="cell-num">46.24</td>
+                      <td class="cell-num">123.66</td>
+                      <td class="cell-num">38.2%</td>
+                      <td class="cell-num">0.834</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">
+                        <span class="dot dot-red"></span>Red
+                      </td>
+                      <td class="cell-num">1,948</td>
+                      <td class="cell-num">47.55</td>
+                      <td class="cell-num">146.43</td>
+                      <td class="cell-num">34.9%</td>
+                      <td class="cell-num">0.760</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+            <!-- ---- Dimension: size bucket (representative) ---- -->
+            <details class="slice-group">
+              <summary class="slice-summary">
+                <span class="slice-chevron">▶</span>
+                <span class="slice-dim-name">Size bucket</span>
+                <span class="slice-dim-desc">4 groups · quartiles by opening range</span>
+                <span class="slice-summary-spacer"></span>
+                <span class="slice-count num">4,332 samples</span>
+              </summary>
+              <div class="slice-body">
+                <table class="slice-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Group</th>
+                      <th scope="col" class="col-num">N</th>
+                      <th scope="col" class="col-num">Open range</th>
+                      <th scope="col" class="col-num">Remaining range</th>
+                      <th scope="col" class="col-num">OR share</th>
+                      <th scope="col" class="col-num">Corr (r)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="slice-group-name">Q1 · −0.00–13.22</td>
+                      <td class="cell-num">1,083</td>
+                      <td class="cell-num">9.58</td>
+                      <td class="cell-num">33.61</td>
+                      <td class="cell-num">32.2%</td>
+                      <td class="cell-num">0.029</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Q2 · 13.22–26.34</td>
+                      <td class="cell-num">1,083</td>
+                      <td class="cell-num">18.26</td>
+                      <td class="cell-num">52.14</td>
+                      <td class="cell-num">39.2%</td>
+                      <td class="cell-num">0.303</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Q3 · 26.34–68.75</td>
+                      <td class="cell-num">1,083</td>
+                      <td class="cell-num">45.65</td>
+                      <td class="cell-num">146.76</td>
+                      <td class="cell-num">36.2%</td>
+                      <td class="cell-num">0.501</td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name">Q4 · 68.75–385.92</td>
+                      <td class="cell-num">1,083</td>
+                      <td class="cell-num">113.81</td>
+                      <td class="cell-num">303.09</td>
+                      <td class="cell-num">39.3%</td>
+                      <td class="cell-num">0.478</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
