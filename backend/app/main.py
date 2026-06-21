@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.admin import stats as admin_stats
+from backend.app.api.v1 import stats as api_v1_stats
 from backend.app.auth import routes as auth_routes
 from backend.app.core import health
 from backend.app.core.config import settings
@@ -54,6 +55,7 @@ def create_app() -> FastAPI:
   app.include_router(health.router)
   app.include_router(auth_routes.router)
   app.include_router(admin_stats.router)
+  app.include_router(api_v1_stats.router)
 
   # Static serving (no-op when frontend/dist/ is absent)
   mount_frontend(app, settings.frontend_dist_dir)

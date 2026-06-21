@@ -9,6 +9,8 @@ from backend.app.main import create_app
 from stats.base import (
   I18nString,
   Labels,
+  SliceGroupResult,
+  SliceResult,
   StatResultRow,
   StatRunResult,
   TimeframeResult,
@@ -60,6 +62,48 @@ def make_stat_run_result(
     labels=Labels(
       conditions={"cond_a": I18nString(en="Condition A", fr="Condition A")},
       outcomes={"out_x": I18nString(en="Outcome X", fr="Résultat X")},
+    ),
+    instruments={instrument: {timeframe: tf_result}},
+  )
+
+
+def make_sliced_stat_run_result(
+  stat_name: str,
+  instrument: str = "NQ",
+  timeframe: str = "1h",
+  total_samples: int = 100,
+  data_range: list[str] | None = None,
+) -> StatRunResult:
+  """Build a StatRunResult that declares a 'weekday' slice dimension.
+
+  The TimeframeResult includes a 'weekday' SliceResult with a single
+  'monday' SliceGroupResult, so slice-filtering tests have real data to narrow.
+  """
+  if data_range is None:
+    data_range = ["2023-01-02", "2023-12-29"]
+  monday_group = SliceGroupResult(
+    label=I18nString(en="Monday", fr="Lundi"),
+    total_samples=20,
+    results=[make_result_row()],
+  )
+  weekday_slice = SliceResult(
+    dimension="weekday",
+    groups={"monday": monday_group},
+  )
+  tf_result = TimeframeResult(
+    data_range=data_range,
+    total_samples=total_samples,
+    results=[make_result_row()],
+    slices={"weekday": weekday_slice},
+  )
+  return StatRunResult(
+    stat_name=stat_name,
+    title=I18nString(en=f"{stat_name} title", fr=f"{stat_name} titre"),
+    definition=I18nString(en=f"{stat_name} def", fr=f"{stat_name} déf"),
+    labels=Labels(
+      conditions={"cond_a": I18nString(en="Condition A", fr="Condition A")},
+      outcomes={"out_x": I18nString(en="Outcome X", fr="Résultat X")},
+      dimensions={"weekday": I18nString(en="Day of week", fr="Jour de la semaine")},
     ),
     instruments={instrument: {timeframe: tf_result}},
   )
