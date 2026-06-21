@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.core.config import settings
 from backend.app.core import health
+from backend.app.core.stats_loader import StatsLoader
 
 
 @asynccontextmanager
@@ -15,9 +16,11 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
   """Application lifespan handler.
 
   Runs startup logic before yielding, and teardown logic after.
-  Future: initialise StatsLoader and DB connection pool here.
   """
   # Startup
+  loader = StatsLoader()
+  loader.load_all()
+  app.state.stats_loader = loader
   yield
   # Teardown
 
