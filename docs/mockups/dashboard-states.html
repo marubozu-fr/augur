@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Augur — Dashboard States (Loading / Empty)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ====================================================================
+         This page shows the non-populated dashboard states as labeled
+         sections. The populated state lives in index.html.
+         ==================================================================== -->
+
+    <!-- ============================ LOADING ============================== -->
+    <section class="state-section">
+      <span class="state-banner">State 1 · Loading (skeleton)</span>
+
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Stat Families</h1>
+          <p class="page-subtitle">
+            Conditional market probabilities computed from historical OHLCV.
+          </p>
+        </div>
+        <div class="metric-strip">
+          <div class="metric">
+            <span class="skeleton sk-block sk-w-sm"></span>
+            <span class="metric-label">Families</span>
+          </div>
+          <div class="metric">
+            <span class="skeleton sk-block sk-w-sm"></span>
+            <span class="metric-label">Timeframes</span>
+          </div>
+          <div class="metric">
+            <span class="skeleton sk-block sk-w-sm"></span>
+            <span class="metric-label">Instruments</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="loading-bar">
+        <span class="spinner"></span>
+        <span>Loading results from results/*.json…</span>
+      </div>
+
+      <div class="grid">
+        <!-- Skeleton card x6 -->
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <span class="skeleton sk-title"></span>
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="skeleton-row">
+            <span class="skeleton sk-chip"></span>
+          </div>
+          <div class="card-stats">
+            <span class="skeleton sk-block"></span>
+            <span class="skeleton sk-block"></span>
+          </div>
+          <span class="skeleton sk-line sk-w-lg"></span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================= EMPTY ============================== -->
+    <section class="state-section">
+      <span class="state-banner">State 2 · Empty (no results)</span>
+
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Stat Families</h1>
+          <p class="page-subtitle">
+            Conditional market probabilities computed from historical OHLCV.
+          </p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <span class="search-icon">⌕</span>
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Search stat families…"
+          />
+        </div>
+        <div class="toolbar-spacer"></div>
+        <span class="result-count">0 families</span>
+      </div>
+
+      <div class="empty">
+        <span class="empty-icon">▦</span>
+        <h2 class="empty-title">No stat results found</h2>
+        <p class="empty-text">
+          The results directory is empty or no JSON files matched. Run a stat
+          module to compute results, then reload to populate the dashboard.
+        </p>
+        <button class="empty-action" type="button">
+          <span>⟳</span><span>Reload results</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== EMPTY (filtered search) ==================== -->
+    <section class="state-section">
+      <span class="state-banner">State 3 · Empty (no search match)</span>
+
+      <div class="toolbar">
+        <div class="search">
+          <span class="search-icon">⌕</span>
+          <input
+            class="search-input"
+            type="text"
+            value="vwap reversion"
+            placeholder="Search stat families…"
+          />
+        </div>
+        <div class="toolbar-spacer"></div>
+        <span class="result-count">0 of 16 families</span>
+      </div>
+
+      <div class="empty">
+        <span class="empty-icon">⌕</span>
+        <h2 class="empty-title">No families match “vwap reversion”</h2>
+        <p class="empty-text">
+          Try a different search term or clear the filter to see all 16 stat
+          families.
+        </p>
+        <button class="empty-action" type="button">
+          <span>✕</span><span>Clear search</span>
+        </button>
+      </div>
+    </section>
+  </body>
+</html>
