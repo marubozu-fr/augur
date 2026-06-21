@@ -5,9 +5,13 @@ import {
   Alert,
   SegmentedControl,
   Skeleton,
+  Switch,
 } from '@mantine/core'
-import { IconAlertCircle, IconArrowLeft, IconRefresh } from '@tabler/icons-react'
+import { IconAlertCircle, IconArrowLeft, IconChartBar, IconRefresh } from '@tabler/icons-react'
 import { useStatDetail } from '../hooks/useStatDetail'
+import { MagnitudeBarChart } from '../components/charts/MagnitudeBarChart'
+import { ProbabilityBarChart } from '../components/charts/ProbabilityBarChart'
+import { SliceGroupedBarChart } from '../components/charts/SliceGroupedBarChart'
 import type {
   Labels,
   SliceResult,
@@ -201,9 +205,10 @@ function MagnitudeGrid({ rows, labels }: MagnitudeGridProps) {
 interface SlicesSectionProps {
   slices: Record<string, SliceResult>
   labels: Labels
+  showCharts: boolean
 }
 
-function SlicesSection({ slices, labels }: SlicesSectionProps) {
+function SlicesSection({ slices, labels, showCharts }: SlicesSectionProps) {
   const entries = Object.entries(slices)
   if (entries.length === 0) return null
 
@@ -219,6 +224,11 @@ function SlicesSection({ slices, labels }: SlicesSectionProps) {
               labels.dimensions[dimKey]?.en ?? dimKey
             const groups = Object.entries(sliceResult.groups)
 
+            // Determine if this slice dimension contains probability rows
+            const hasProbRows = Object.values(sliceResult.groups).some((g) =>
+              g.results.some((r) => r.value === null || r.value === undefined),
+            )
+
             return (
               <Accordion.Item key={dimKey} value={dimKey}>
                 <Accordion.Control>
@@ -229,6 +239,16 @@ function SlicesSection({ slices, labels }: SlicesSectionProps) {
                 </Accordion.Control>
                 <Accordion.Panel>
                   <div className={styles.sliceContent}>
+                    {/* Grouped bar chart across all groups for this dimension */}
+                    {showCharts && (
+                      <SliceGroupedBarChart
+                        groups={sliceResult.groups}
+                        labels={labels}
+                        preferProbability={hasProbRows}
+                      />
+                    )}
+
+                    {/* Per-group detail tables */}
                     {groups.map(([groupKey, group]) => (
                       <div key={groupKey} className={styles.sliceGroup}>
                         <div className={styles.sliceGroupHead}>
@@ -263,17 +283,20 @@ function SlicesSection({ slices, labels }: SlicesSectionProps) {
 interface ResultsSectionProps {
   tfResult: TimeframeResult
   labels: Labels
+  showCharts: boolean
 }
 
-function ResultsSection({ tfResult, labels }: ResultsSectionProps) {
+function ResultsSection({ tfResult, labels, showCharts }: ResultsSectionProps) {
   // Discriminate by `value` presence, consistent with ResultRowsTable — a
   // probability of exactly 0 is a valid probability row, not a magnitude row.
-  const hasProbRows = tfResult.results.some(
+  const probRows = tfResult.results.filter(
     (r) => r.value === null || r.value === undefined,
   )
-  const hasMagRows = tfResult.results.some(
+  const magRows = tfResult.results.filter(
     (r) => r.value !== null && r.value !== undefined,
   )
+  const hasProbRows = probRows.length > 0
+  const hasMagRows = magRows.length > 0
 
   const typeTag = hasProbRows ? (
     <span className={styles.statTypeProbability}>Probability</span>
@@ -291,7 +314,23 @@ function ResultsSection({ tfResult, labels }: ResultsSectionProps) {
           Probability vs random baseline · edge = Δ
         </span>
       </div>
-      <ResultRowsTable rows={tfResult.results} labels={labels} />
+
+      {/* Side-by-side: table on the left, chart on the right */}
+      <div className={showCharts ? styles.resultsLayout : undefined}>
+        <div className={styles.resultsTable}>
+          <ResultRowsTable rows={tfResult.results} labels={labels} />
+        </div>
+        {showCharts && (
+          <div className={styles.resultsChart}>
+            {hasProbRows && (
+              <ProbabilityBarChart rows={probRows} labels={labels} />
+            )}
+            {hasMagRows && (
+              <MagnitudeBarChart rows={magRows} labels={labels} />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -307,6 +346,9 @@ export function StatDetailPage() {
   // Instrument + timeframe selection state
   const [selectedInstrument, setSelectedInstrument] = useState<string>('')
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('')
+
+  // Chart visibility toggle — charts visible by default
+  const [showCharts, setShowCharts] = useState<boolean>(true)
 
   // Derive selector options once detail is loaded
   const instruments = detail
@@ -457,6 +499,18 @@ export function StatDetailPage() {
             onChange={setSelectedTimeframe}
             data={timeframes}
           />
+          <span className={styles.selectorDivider} />
+          <Switch
+            size="xs"
+            checked={showCharts}
+            onChange={(e) => setShowCharts(e.currentTarget.checked)}
+            label={
+              <span className={styles.chartToggleLabel}>
+                <IconChartBar size={12} />
+                Charts
+              </span>
+            }
+          />
         </div>
       )}
 
@@ -487,6 +541,7 @@ export function StatDetailPage() {
         <ResultsSection
           tfResult={tfResult}
           labels={result.labels}
+          showCharts={showCharts}
         />
       )}
 
@@ -495,6 +550,7 @@ export function StatDetailPage() {
         <SlicesSection
           slices={tfResult.slices}
           labels={result.labels}
+          showCharts={showCharts}
         />
       )}
     </div>

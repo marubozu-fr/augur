@@ -446,6 +446,52 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* ===== Chart toggle label (icon + text inside Switch label) ===== */
+
+.chartToggleLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+}
+
+/* ===== Results layout — side-by-side on wide viewports ===== */
+
+/**
+ * When charts are shown the results panel splits into two columns:
+ *   left  = table (min 320px, grows to fill)
+ *   right = chart (min 280px, grows to fill)
+ * On narrow viewports they stack vertically.
+ */
+.resultsLayout {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(280px, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .resultsLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Table column within the side-by-side layout */
+.resultsTable {
+  min-width: 0; /* allow shrink inside grid */
+}
+
+/* Chart column within the side-by-side layout */
+.resultsChart {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 /* ===== Loading skeleton placeholders ===== */
 
 .skeletonStack {

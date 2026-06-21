@@ -1,0 +1,49 @@
+/* ChartTooltip — shared dark-theme tooltip for all chart components */
+
+.tooltip {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  min-width: 160px;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltipLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--color-border);
+  line-height: 1.4;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 2px 0;
+}
+
+.tooltipDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.tooltipName {
+  flex: 1;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+}
+
+.tooltipValue {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+}

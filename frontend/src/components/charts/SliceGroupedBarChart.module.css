@@ -1,0 +1,6 @@
+/* SliceGroupedBarChart — co-located styles */
+
+.chartWrap {
+  width: 100%;
+  margin-top: var(--space-4);
+}
