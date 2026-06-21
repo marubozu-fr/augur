@@ -25,5 +25,14 @@ class Settings(BaseSettings):
   # CORS
   cors_origins: list[str] = ["http://localhost:5173"]
 
+  # Auth — seed admin credentials (empty = skip seeding)
+  admin_username: str = ""
+  admin_password: str = ""
+
+  # Session cookie
+  session_cookie_name: str = "augur_session"
+  session_ttl_hours: int = 24
+  session_cookie_secure: bool = False  # Set True in production (HTTPS only)
+
 
 settings = Settings()

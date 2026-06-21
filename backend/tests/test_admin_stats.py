@@ -2,6 +2,9 @@
 
 The StatsLoader dependency is overridden with a loader bound to a synthetic
 tmp_path, so these tests never depend on the real results/ directory.
+
+Auth is required since issue #110: all tests authenticate as admin before
+hitting the protected routes.
 """
 
 from pathlib import Path
@@ -9,23 +12,49 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+from backend.app.core.config import settings
+from backend.app.core.db import init_db
 from backend.app.core.dependencies import get_stats_loader
 from backend.app.core.stats_loader import StatsLoader
 from backend.app.main import create_app
+from backend.app.repositories import users as users_repo
+from backend.app.services.auth import hash_password
 from backend.tests.conftest import make_stat_run_result, write_stat_result
 
 
 @pytest.fixture()
 def stats_client(tmp_path: Path) -> tuple[TestClient, StatsLoader, Path]:
-  """TestClient whose get_stats_loader dependency is bound to tmp_path."""
-  write_stat_result(make_stat_run_result("alpha_stat"), tmp_path)
+  """TestClient with isolated DB + get_stats_loader bound to tmp_path.
 
-  loader = StatsLoader(results_dir=tmp_path)
+  The client is authenticated as an admin user so it can access all
+  protected endpoints.
+  """
+  results_dir = tmp_path / "results"
+  results_dir.mkdir()
+  write_stat_result(make_stat_run_result("alpha_stat"), results_dir)
+
+  loader = StatsLoader(results_dir=results_dir)
   loader.load_all()
+
+  # Initialise a temp database and seed an admin user.
+  tmp_db = tmp_path / "test.db"
+  init_db(tmp_db)
+  users_repo.create_user("admin_user", hash_password("admin_pass"), "admin", tmp_db)
+  settings.db_path = tmp_db
 
   app = create_app()
   app.dependency_overrides[get_stats_loader] = lambda: loader
-  return TestClient(app), loader, tmp_path
+
+  client = TestClient(app)
+
+  # Log in so all subsequent requests carry the session cookie.
+  resp = client.post("/auth/login", json={"username": "admin_user", "password": "admin_pass"})
+  assert resp.status_code == 200, f"Login failed: {resp.json()}"
+
+  yield client, loader, results_dir
+
+  # Restore real db_path after the test.
+  settings.db_path = Path(__file__).resolve().parents[3] / "backend" / "db" / "augur.db"
 
 
 def test_list_stats_returns_200_and_envelope(

@@ -1,19 +1,20 @@
 """Admin endpoints for browsing loaded stat families.
 
-Session cookie auth will be added with the auth layer (#110); for now these
-endpoints are open so the backoffice shell can list stat families.
+GET  /admin/stats           — any authenticated user (admin or reader)
+GET  /admin/stats/{family}  — any authenticated user (admin or reader)
+POST /admin/stats/reload    — admin role required
 """
 
 from fastapi import APIRouter, Depends, Response
 
-from backend.app.core.dependencies import get_stats_loader
+from backend.app.core.dependencies import get_current_user, get_stats_loader, require_admin
 from backend.app.core.models import ApiResponse
 from backend.app.core.stats_loader import StatFamilyDetail, StatFamilyMeta, StatsLoader
 
 router = APIRouter(prefix="/admin")
 
 
-@router.get("/stats")
+@router.get("/stats", dependencies=[Depends(get_current_user)])
 def list_stats(
   loader: StatsLoader = Depends(get_stats_loader),
 ) -> ApiResponse[list[StatFamilyMeta]]:
@@ -21,7 +22,7 @@ def list_stats(
   return ApiResponse(data=loader.list_families())
 
 
-@router.post("/stats/reload")
+@router.post("/stats/reload", dependencies=[Depends(require_admin)])
 def reload_stats(
   loader: StatsLoader = Depends(get_stats_loader),
 ) -> ApiResponse[list[StatFamilyMeta]]:
@@ -30,7 +31,7 @@ def reload_stats(
   return ApiResponse(data=loader.list_families())
 
 
-@router.get("/stats/{family}")
+@router.get("/stats/{family}", dependencies=[Depends(get_current_user)])
 def get_stat(
   family: str,
   response: Response,

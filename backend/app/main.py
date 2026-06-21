@@ -7,9 +7,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.admin import stats as admin_stats
-from backend.app.core.config import settings
+from backend.app.auth import routes as auth_routes
 from backend.app.core import health
+from backend.app.core.config import settings
+from backend.app.core.db import init_db
 from backend.app.core.stats_loader import StatsLoader
+from backend.app.services.auth import seed_admin
 
 
 @asynccontextmanager
@@ -19,6 +22,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
   Runs startup logic before yielding, and teardown logic after.
   """
   # Startup
+  init_db()
+  seed_admin()
+
   loader = StatsLoader()
   loader.load_all()
   app.state.stats_loader = loader
@@ -45,6 +51,7 @@ def create_app() -> FastAPI:
 
   # Routers
   app.include_router(health.router)
+  app.include_router(auth_routes.router)
   app.include_router(admin_stats.router)
 
   return app
