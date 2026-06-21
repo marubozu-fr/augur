@@ -11,6 +11,7 @@ from backend.app.auth import routes as auth_routes
 from backend.app.core import health
 from backend.app.core.config import settings
 from backend.app.core.db import init_db
+from backend.app.core.static import mount_frontend
 from backend.app.core.stats_loader import StatsLoader
 from backend.app.services.auth import seed_admin
 
@@ -49,10 +50,13 @@ def create_app() -> FastAPI:
     allow_headers=["*"],
   )
 
-  # Routers
+  # Routers — must be registered before the static catch-all
   app.include_router(health.router)
   app.include_router(auth_routes.router)
   app.include_router(admin_stats.router)
+
+  # Static serving (no-op when frontend/dist/ is absent)
+  mount_frontend(app, settings.frontend_dist_dir)
 
   return app
 

@@ -21,6 +21,7 @@ class Settings(BaseSettings):
   # Paths
   results_dir: Path = _REPO_ROOT / "results"
   db_path: Path = _REPO_ROOT / "backend" / "db" / "augur.db"
+  frontend_dist_dir: Path = _REPO_ROOT / "frontend" / "dist"
 
   # CORS
   cors_origins: list[str] = ["http://localhost:5173"]
