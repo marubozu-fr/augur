@@ -1,0 +1,101 @@
+/*
+  Global CSS custom properties — design tokens from docs/mockups/styles.css.
+  These are exposed as CSS variables so CSS Modules can reference them.
+  Mantine theme receives the same values via src/theme/theme.ts.
+*/
+
+:root {
+  /* Surfaces */
+  --color-bg: #0b0e14;
+  --color-surface: #111722;
+  --color-surface-2: #161d2b;
+  --color-surface-3: #1d2738;
+  --color-sidebar: #0d1119;
+  --color-header: #0d1119;
+
+  /* Borders */
+  --color-border: #232c3d;
+  --color-border-strong: #324054;
+
+  /* Text */
+  --color-text: #e6ebf2;
+  --color-text-muted: #9aa7bd;
+  --color-text-dim: #66738c;
+
+  /* Accent */
+  --color-accent: #4c8dff;
+  --color-accent-hover: #6aa0ff;
+  --color-accent-soft: rgba(76, 141, 255, 0.14);
+  --color-accent-border: rgba(76, 141, 255, 0.3);
+
+  /* Semantics */
+  --color-positive: #2ecc8f;
+  --color-positive-soft: rgba(46, 204, 143, 0.14);
+  --color-positive-border: rgba(46, 204, 143, 0.35);
+  --color-negative: #ff5c6c;
+  --color-negative-soft: rgba(255, 92, 108, 0.14);
+  --color-negative-border: rgba(255, 92, 108, 0.35);
+  --color-neutral: #9aa7bd;
+  --color-neutral-soft: rgba(154, 167, 189, 0.12);
+
+  /* Instrument */
+  --color-instrument: #c9a227;
+  --color-instrument-soft: rgba(201, 162, 39, 0.16);
+  --color-instrument-border: rgba(201, 162, 39, 0.4);
+
+  /* Typography */
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+
+  /* Layout dimensions */
+  --sidebar-width: 264px;
+  --sidebar-width-collapsed: 64px;
+  --header-height: 56px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Numeric/tabular values: mono + tabular figures */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
