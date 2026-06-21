@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { listFamilies, reloadFamilies } from '../api/stats'
 import type { StatFamilyMeta } from '../types/stats'
 
-interface UseStatFamiliesResult {
+export interface UseStatFamiliesResult {
   families: StatFamilyMeta[]
   loading: boolean
   error: string | null

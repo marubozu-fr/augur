@@ -7,17 +7,17 @@ import {
   IconAlertCircle,
 } from '@tabler/icons-react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { useStatFamilies } from '../hooks/useStatFamilies'
+import {
+  useStatFamilies,
+  type UseStatFamiliesResult,
+} from '../hooks/useStatFamilies'
+import { getInstruments } from '../utils/statHelpers'
 import styles from './ShellPage.module.css'
-
-/** Returns the distinct set of instrument codes for a stat family. */
-function getInstruments(timeframes: { instrument: string }[]): string[] {
-  return [...new Set(timeframes.map((t) => t.instrument))]
-}
 
 export function ShellPage() {
   const [opened, { toggle }] = useDisclosure()
-  const { families, loading, error, reload } = useStatFamilies()
+  const statFamilies = useStatFamilies()
+  const { families, loading, error, reload } = statFamilies
 
   return (
     <AppShell
@@ -120,7 +120,7 @@ export function ShellPage() {
           {!loading &&
             !error &&
             families.map((family) => {
-              const instruments = getInstruments(family.timeframes)
+              const instruments = getInstruments(family)
               return (
                 <NavLink
                   key={family.family}
@@ -146,7 +146,7 @@ export function ShellPage() {
 
       {/* ===== Main content (router outlet) ===== */}
       <AppShell.Main>
-        <Outlet />
+        <Outlet context={statFamilies satisfies UseStatFamiliesResult} />
       </AppShell.Main>
     </AppShell>
   )
