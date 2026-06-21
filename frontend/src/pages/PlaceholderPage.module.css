@@ -1,0 +1,27 @@
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 320px;
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  margin: var(--space-6);
+}
+
+.placeholderTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.placeholderText {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  max-width: 380px;
+}

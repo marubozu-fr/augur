@@ -6,6 +6,7 @@ from typing import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.admin import stats as admin_stats
 from backend.app.core.config import settings
 from backend.app.core import health
 from backend.app.core.stats_loader import StatsLoader
@@ -44,6 +45,7 @@ def create_app() -> FastAPI:
 
   # Routers
   app.include_router(health.router)
+  app.include_router(admin_stats.router)
 
   return app
 

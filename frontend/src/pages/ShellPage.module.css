@@ -4,14 +4,23 @@
   padding: var(--space-4) var(--space-3);
   gap: var(--space-2);
   overflow-y: auto;
+  height: 100%;
+}
+
+/* ===== Header ===== */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0 var(--space-5);
+  height: 56px;
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0 var(--space-2);
-  margin-bottom: var(--space-4);
 }
 
 .brandMark {
@@ -35,6 +44,47 @@
   color: var(--color-text);
 }
 
+.headerSpacer {
+  flex: 1;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-positive);
+  box-shadow: 0 0 0 3px var(--color-positive-soft);
+  flex-shrink: 0;
+}
+
+.statusDotLoading {
+  background-color: var(--color-neutral);
+  box-shadow: 0 0 0 3px var(--color-neutral-soft);
+}
+
+.statusDotError {
+  background-color: var(--color-negative);
+  box-shadow: 0 0 0 3px var(--color-negative-soft);
+}
+
+.headerStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.reloadButton {
+  color: var(--color-text-muted);
+}
+
+.reloadButton:hover {
+  color: var(--color-text);
+}
+
+/* ===== Sidebar nav ===== */
+
 .sectionTitle {
   margin: var(--space-4) var(--space-2) var(--space-2);
   font-size: 11px;
@@ -42,6 +92,10 @@
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--color-text-dim);
+}
+
+.sectionTitle:first-child {
+  margin-top: 0;
 }
 
 .navItem {
@@ -59,6 +113,7 @@
   transition:
     background-color 0.1s ease,
     color 0.1s ease;
+  min-width: 0;
 }
 
 .navItem:hover {
@@ -66,62 +121,88 @@
   color: var(--color-text);
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: 0 var(--space-5);
-  height: 56px;
+.navItemActive {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-color: var(--color-accent-border);
 }
 
-.headerSpacer {
-  flex: 1;
+.navItemActive:hover {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
-.statusDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-positive);
-  box-shadow: 0 0 0 3px var(--color-positive-soft);
+.navIcon {
   flex-shrink: 0;
 }
 
-.headerStatus {
+.navLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ===== Instrument badges ===== */
+
+.badges {
   display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.badgeInstrument {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--color-text-muted);
-  font-size: 12px;
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-instrument-soft);
+  color: var(--color-instrument);
+  border: 1px solid var(--color-instrument-border);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.main {
-  padding: var(--space-6);
-}
+/* ===== Loading / error / empty states ===== */
 
-.placeholder {
+.skeletonList {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-  min-height: 320px;
-  background-color: var(--color-surface);
-  border: 1px dashed var(--color-border-strong);
-  border-radius: var(--radius-lg);
-  text-align: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-1);
 }
 
-.placeholderTitle {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text);
+.errorBox {
+  padding: 0 var(--space-1);
 }
 
-.placeholderText {
-  margin: 0;
+.errorMessage {
+  display: block;
   font-size: 12px;
+  margin-bottom: var(--space-2);
   color: var(--color-text-muted);
-  max-width: 380px;
+}
+
+.retryButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.retryButton:hover {
+  text-decoration: underline;
+}
+
+.emptyText {
+  margin: var(--space-2) var(--space-3);
+  font-size: 12px;
+  color: var(--color-text-dim);
 }
