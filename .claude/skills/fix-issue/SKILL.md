@@ -16,12 +16,15 @@ Read `CLAUDE.md` and `STATUS.md` before any implementation.
 ## 3. Determine the agent via labels
 
 Read the labels array and look for an `agent-*` label:
-
+   
 - `agent-stats` → use the **stats-dev** agent
+- `agent-backend` → use the **backend-dev** agent
 - `agent-frontend` → use the **frontend-dev** agent
+- `agent-designer` → use the **ui-designer** agent
 - `agent-pinescript` → use the **pinescript-dev** agent
 
 **If no `agent-*` label is found, STOP and ask the user which agent to use.**
+**If multiple `agent-*` labels are found, STOP and ask the user — one issue must have exactly one agent label.**
 
 ## 4. Create a feature branch
 

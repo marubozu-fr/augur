@@ -7,10 +7,10 @@ Repository: `marubozu-fr/augur` — License: AGPL-3.0
 
 ## Tech Stack
 - **Stats engine**: Python 3.12+, pandas, pyarrow (Parquet)
-- **API** (Phase 2): FastAPI, SQLite
-- **Frontend** (Phase 2): React 18+, TypeScript, Mantine UI, TradingView Lightweight Charts
-- **Output**: Pine Script v5 indicator (Phase 1 deliverable)
-- **Package manager**: `uv` (Python), `pnpm` (Node — Phase 2)
+- **Backend**: FastAPI, SQLite (auth only), Pydantic v2
+- **Frontend (backoffice)**: React 18+, TypeScript, Mantine v7, CSS Modules, Recharts, Vite 6+
+- **Output**: Pine Script v6 indicator
+- **Package managers**: `uv` (Python), `pnpm` (Node)
 
 ## Code Style — STRICT
 - **Language**: All code, comments, commit messages, and documentation in English.
@@ -18,6 +18,7 @@ Repository: `marubozu-fr/augur` — License: AGPL-3.0
 - **Indentation**: 2 spaces everywhere (Python, TypeScript, JSON, YAML, CSS).
 - **Python**: PEP 8 except 2-space indentation. Type hints on all functions.
 - **TypeScript**: Strict mode. No `any` types. Prefer `interface` over `type` for objects.
+- **CSS**: CSS Modules only. No inline styles. No Tailwind. No styled-components.
 
 ## Data Conventions
 - **Input data**: Parquet files in `data/` with timezone-aware timestamps in `America/New_York`.
@@ -50,21 +51,68 @@ Results are validated by **Pydantic models** before writing. Atomic write (temp 
 No historical runs are stored — re-run the stat module to recompute. The source Parquet data
 is the audit trail.
 
+## Backoffice Architecture
+
+### Backend (FastAPI)
+- **Architecture**: routers → services → repositories → models (Kiroku pattern)
+- **Stats loader** (`backend/app/core/stats_loader.py`): reads `results/*.json`, caches in memory, reloadable on demand. This is a core service, not a repository — it reads files, not a database.
+- **Auth**: SQLite (`backend/db/augur.db`) for users (admin/reader roles) and API keys only. `PRAGMA foreign_keys = ON`. Parameterized queries only.
+- **Endpoints**: `/auth/` (public), `/admin/` (session cookie auth), `/api/v1/` (API key auth via `X-API-Key` header)
+- **Response envelope**: `{ "data": ..., "error": null }` or `{ "data": null, "error": "message" }`
+- The backend NEVER writes to `results/` or `data/` — those are managed by the stats engine.
+
+### Frontend (React — backoffice admin)
+- **Architecture**: pages → components → hooks → services → types
+- Mantine v7 for UI components, CSS Modules for custom styling
+- Recharts for stat visualizations (probability bars, grouped comparisons)
+- Dark theme first — this is a quant/trading tool
+- English only — no i18n
+- Design mockups produced by **ui-designer** agent before frontend implementation
+- Color semantics: green = above baseline / positive edge, red = below baseline / negative edge
+
+### Production
+- Vite builds static assets, FastAPI serves them. One process, one port.
+- Dev mode: Vite on :5173 (with proxy to backend), uvicorn on :8000.
+
 ## Project Structure
 ```
 augur/
 ├── .claude/
 │   ├── agents/           # Claude Code specialized agents
-│   │   ├── stats-dev.md  # Stat module implementation
+│   │   ├── stats-dev.md      # Stat module implementation
+│   │   ├── backend-dev.md    # FastAPI backend
+│   │   ├── frontend-dev.md   # React admin frontend
+│   │   ├── ui-designer.md    # HTML/CSS mockups (no production code)
+│   │   ├── pinescript-dev.md # Pine Script indicator
 │   │   ├── code-reviewer.md
 │   │   └── test-writer.md
 │   └── skills/           # Claude Code automation skills
-│       ├── fix-issue.md  # Issue → agent routing
-│       ├── pr-ready.md   # Quality gate before PR
-│       └── create-stat.md # Scaffold new stat module
+│       ├── fix-issue/    # Issue → agent routing
+│       ├── pr-ready/     # Quality gate before PR
+│       └── create-stat/  # Scaffold new stat module
 ├── stats/                # Statistical modules
 │   ├── base.py           # BaseStat ABC + Pydantic models + write_results()
 │   └── opening_candle/   # First stat family
+├── backend/              # FastAPI backoffice + API
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── routers/      # HTTP route handlers
+│   │   ├── models/       # Pydantic models
+│   │   ├── services/     # Business logic
+│   │   ├── repositories/ # SQLite queries (auth only)
+│   │   └── core/         # Config, stats loader, dependencies
+│   ├── db/               # SQLite database (auth)
+│   └── tests/
+├── frontend/             # React admin dashboard
+│   ├── src/
+│   │   ├── pages/        # Page-level route components
+│   │   ├── components/   # Reusable UI components
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── services/     # API client functions
+│   │   ├── types/        # TypeScript interfaces
+│   │   └── theme/        # Mantine theme overrides
+│   ├── package.json
+│   └── vite.config.ts
 ├── pinescript/           # Pine Script generator
 │   ├── generator.py
 │   └── templates/
@@ -73,9 +121,10 @@ augur/
 ├── data/                 # OHLCV Parquet files (gitignored, prepared externally)
 ├── results/              # Stat result JSON files (gitignored)
 ├── output/               # Generated Pine Script files (gitignored)
-├── tests/
+├── tests/                # Stats engine tests
 ├── docs/
-│   └── STATS_CATALOG.md
+│   ├── STATS_CATALOG.md
+│   └── DESIGN_SYSTEM.md  # Backoffice visual reference
 ├── CLAUDE.md
 └── pyproject.toml
 ```
@@ -85,7 +134,7 @@ augur/
 - Commit messages: `feat(scope): description`, `fix(scope): description`, `docs(scope): description`
 - Every change goes through a PR linked to a GitHub issue.
 - Never commit directly to `main`.
-- Issue labels determine agent routing: `agent-stats`, `agent-frontend`.
+- Issue labels determine agent routing: `agent-stats`, `agent-pinescript`, `agent-backend`, `agent-frontend`, `agent-designer`.
 
 ## Commands
 ```bash
@@ -98,11 +147,32 @@ python -m stats.opening_candle.continuation --instrument NQ
 # Generate Pine Script
 python -m pinescript.generator --instrument NQ --output output/augur_nq.pine
 
-# Tests
+# Stats tests
 pytest tests/ -v
 
-# Lint
+# Stats lint
 ruff check .
+
+# Backend dev server
+cd backend && uv run uvicorn app.main:app --reload --port 8000
+
+# Backend tests
+cd backend && uv run pytest
+
+# Backend lint
+cd backend && uv run ruff check .
+
+# Frontend dev server
+cd frontend && pnpm dev
+
+# Frontend lint
+cd frontend && pnpm lint
+
+# Frontend type check
+cd frontend && pnpm tsc --noEmit
+
+# Production build
+cd frontend && pnpm build
 ```
 
 ## Behavioral Guidelines
@@ -132,4 +202,8 @@ ruff check .
 - NEVER count pending/unresolved samples in any statistic.
 - ALWAYS write tests with known synthetic data for every new stat module.
 - ALWAYS verify stat results are reproducible (deterministic output for same input).
-- `data/`, `results/`, and `output/` directories are gitignored. Never commit data or generated files.
+- NEVER put business logic in routers — it belongs in services.
+- NEVER use SQL string concatenation — parameterized queries only.
+- NEVER use `any` type in TypeScript — define proper interfaces.
+- ALWAYS check `docs/DESIGN_SYSTEM.md` before creating UI components.
+- `data/`, `results/`, `output/`, and `frontend/dist/` directories are gitignored. Never commit data or generated files.
