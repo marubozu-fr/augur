@@ -5,6 +5,7 @@ Never writes to the results directory.
 """
 
 import logging
+from datetime import date
 from pathlib import Path
 
 from pydantic import BaseModel, ValidationError
@@ -31,6 +32,13 @@ class StatFamilyMeta(BaseModel):
   title: I18nString
   definition: I18nString
   timeframes: list[TimeframeMeta]
+
+
+class StatFamilyDetail(BaseModel):
+  """Full result payload for a single stat family, plus its file mtime."""
+
+  computed_at: str | None  # result file mtime as ISO date "YYYY-MM-DD", None if file missing
+  result: StatRunResult
 
 
 class StatsLoader:
@@ -84,6 +92,25 @@ class StatsLoader:
       family: Stat family name (equals the JSON filename stem).
     """
     return self._cache.get(family)
+
+  def get_detail(self, family: str) -> StatFamilyDetail | None:
+    """Return the full result payload for a single stat family, or None if absent.
+
+    Reads the result from the in-memory cache. The computed_at timestamp is
+    derived from the result file's mtime on disk; if the file no longer exists
+    (e.g. deleted after a load), computed_at is None.
+
+    Args:
+      family: Stat family name (equals the JSON filename stem).
+    """
+    result = self._cache.get(family)
+    if result is None:
+      return None
+    path = self._results_dir / f"{family}.json"
+    computed_at: str | None = (
+      date.fromtimestamp(path.stat().st_mtime).isoformat() if path.exists() else None
+    )
+    return StatFamilyDetail(computed_at=computed_at, result=result)
 
   def list_families(self) -> list[StatFamilyMeta]:
     """Return lightweight metadata for every loaded stat family.

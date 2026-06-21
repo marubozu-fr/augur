@@ -4,11 +4,11 @@ Session cookie auth will be added with the auth layer (#110); for now these
 endpoints are open so the backoffice shell can list stat families.
 """
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 
 from backend.app.core.dependencies import get_stats_loader
 from backend.app.core.models import ApiResponse
-from backend.app.core.stats_loader import StatFamilyMeta, StatsLoader
+from backend.app.core.stats_loader import StatFamilyDetail, StatFamilyMeta, StatsLoader
 
 router = APIRouter(prefix="/admin")
 
@@ -28,3 +28,17 @@ def reload_stats(
   """Re-scan results/ and return the refreshed stat family index."""
   loader.reload()
   return ApiResponse(data=loader.list_families())
+
+
+@router.get("/stats/{family}")
+def get_stat(
+  family: str,
+  response: Response,
+  loader: StatsLoader = Depends(get_stats_loader),
+) -> ApiResponse[StatFamilyDetail]:
+  """Return the full result payload for a single stat family."""
+  detail = loader.get_detail(family)
+  if detail is None:
+    response.status_code = 404
+    return ApiResponse(error=f"Stat family '{family}' not found")
+  return ApiResponse(data=detail)

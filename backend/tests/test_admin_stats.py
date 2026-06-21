@@ -76,3 +76,38 @@ def test_reload_stats_picks_up_new_file(
   assert reload_body["error"] is None
   families = {f["family"] for f in reload_body["data"]}
   assert families == {"alpha_stat", "beta_stat"}
+
+
+def test_get_stat_returns_full_result(
+  stats_client: tuple[TestClient, StatsLoader, Path],
+) -> None:
+  """GET /admin/stats/{family} returns 200 with the full StatRunResult payload."""
+  client, _, _ = stats_client
+  response = client.get("/admin/stats/alpha_stat")
+
+  assert response.status_code == 200
+  body = response.json()
+  assert body["error"] is None
+
+  data = body["data"]
+  assert data["result"]["stat_name"] == "alpha_stat"
+  assert "NQ" in data["result"]["instruments"]
+  assert "1h" in data["result"]["instruments"]["NQ"]
+  tf = data["result"]["instruments"]["NQ"]["1h"]
+  assert tf["total_samples"] == 100
+  assert len(tf["results"]) == 1
+  assert isinstance(data["computed_at"], str)
+  assert len(data["computed_at"]) > 0
+
+
+def test_get_stat_returns_404_for_unknown_family(
+  stats_client: tuple[TestClient, StatsLoader, Path],
+) -> None:
+  """GET /admin/stats/{family} returns 404 with an error message when family is absent."""
+  client, _, _ = stats_client
+  response = client.get("/admin/stats/does_not_exist")
+
+  assert response.status_code == 404
+  body = response.json()
+  assert body["data"] is None
+  assert "not found" in body["error"].lower()
