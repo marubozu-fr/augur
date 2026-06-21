@@ -159,7 +159,7 @@
         <div class="detail-meta">
           <div class="metric-strip">
             <div class="metric">
-              <span class="metric-value">2008–2026</span>
+              <span class="metric-value num">2008-12-11 → 2026-05-05</span>
               <span class="metric-label">Date range</span>
             </div>
             <div class="metric">
@@ -252,7 +252,7 @@
                   <span class="dot dot-green"></span>Green opening candle
                 </td>
                 <td>Session closes green</td>
-                <td class="col-num">
+                <td>
                   <div class="prob-cell">
                     <span class="prob-bar"
                       ><span
@@ -274,7 +274,7 @@
                   <span class="dot dot-green"></span>Green opening candle
                 </td>
                 <td>Session closes red</td>
-                <td class="col-num">
+                <td>
                   <div class="prob-cell">
                     <span class="prob-bar"
                       ><span
@@ -296,7 +296,7 @@
                   <span class="dot dot-red"></span>Red opening candle
                 </td>
                 <td>Session closes green</td>
-                <td class="col-num">
+                <td>
                   <div class="prob-cell">
                     <span class="prob-bar"
                       ><span
@@ -318,7 +318,7 @@
                   <span class="dot dot-red"></span>Red opening candle
                 </td>
                 <td>Session closes red</td>
-                <td class="col-num">
+                <td>
                   <div class="prob-cell">
                     <span class="prob-bar"
                       ><span
@@ -337,6 +337,173 @@
               </tr>
             </tbody>
           </table>
+        </section>
+
+        <!-- ============== 4b. Slices — PROBABILITY ============== -->
+        <section class="panel">
+          <div class="panel-head">
+            <span class="stat-type stat-type-prob">Probability</span>
+            <h2 class="panel-title">Slices</h2>
+            <div class="panel-spacer"></div>
+            <span class="panel-note">
+              Opening Candle Continuation broken down by dimension · NQ · 15min
+            </span>
+          </div>
+
+          <div class="slices">
+            <!-- ---- Dimension: weekday ---- -->
+            <details class="slice-group">
+              <summary class="slice-summary">
+                <span class="slice-chevron">▶</span>
+                <span class="slice-dim-name">Day of week</span>
+                <span class="slice-dim-desc">5 groups · Mon–Fri</span>
+                <span class="slice-summary-spacer"></span>
+                <span class="slice-count num">4,332 samples</span>
+              </summary>
+              <div class="slice-body">
+                <table class="slice-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Group</th>
+                      <th scope="col">Condition</th>
+                      <th scope="col">Outcome</th>
+                      <th scope="col" class="col-num">Probability</th>
+                      <th scope="col" class="col-num">Baseline</th>
+                      <th scope="col" class="col-num">N</th>
+                      <th scope="col" class="col-num">Edge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="slice-group-name" rowspan="2">Monday</td>
+                      <td class="cell-condition">
+                        <span class="dot dot-green"></span>Green open
+                      </td>
+                      <td>Session closes green</td>
+                      <td class="cell-num cell-primary">67.5%</td>
+                      <td class="cell-num cell-baseline">49.6%</td>
+                      <td class="cell-num">456</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+17.9%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="cell-condition">
+                        <span class="dot dot-red"></span>Red open
+                      </td>
+                      <td>Session closes red</td>
+                      <td class="cell-num cell-primary">58.2%</td>
+                      <td class="cell-num cell-baseline">50.4%</td>
+                      <td class="cell-num">421</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+7.8%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name" rowspan="2">Tuesday</td>
+                      <td class="cell-condition">
+                        <span class="dot dot-green"></span>Green open
+                      </td>
+                      <td>Session closes green</td>
+                      <td class="cell-num cell-primary">69.1%</td>
+                      <td class="cell-num cell-baseline">49.2%</td>
+                      <td class="cell-num">472</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+19.9%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="cell-condition">
+                        <span class="dot dot-red"></span>Red open
+                      </td>
+                      <td>Session closes red</td>
+                      <td class="cell-num cell-primary">60.3%</td>
+                      <td class="cell-num cell-baseline">50.8%</td>
+                      <td class="cell-num">438</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+9.5%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name" rowspan="2">Wednesday</td>
+                      <td class="cell-condition">
+                        <span class="dot dot-green"></span>Green open
+                      </td>
+                      <td>Session closes green</td>
+                      <td class="cell-num cell-primary">65.8%</td>
+                      <td class="cell-num cell-baseline">49.8%</td>
+                      <td class="cell-num">465</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+16.0%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="cell-condition">
+                        <span class="dot dot-red"></span>Red open
+                      </td>
+                      <td>Session closes red</td>
+                      <td class="cell-num cell-primary">56.4%</td>
+                      <td class="cell-num cell-baseline">50.1%</td>
+                      <td class="cell-num">425</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+6.3%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name" rowspan="2">Thursday</td>
+                      <td class="cell-condition">
+                        <span class="dot dot-green"></span>Green open
+                      </td>
+                      <td>Session closes green</td>
+                      <td class="cell-num cell-primary">68.4%</td>
+                      <td class="cell-num cell-baseline">49.5%</td>
+                      <td class="cell-num">451</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+18.9%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="cell-condition">
+                        <span class="dot dot-red"></span>Red open
+                      </td>
+                      <td>Session closes red</td>
+                      <td class="cell-num cell-primary">59.7%</td>
+                      <td class="cell-num cell-baseline">50.6%</td>
+                      <td class="cell-num">418</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+9.1%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="slice-group-name" rowspan="2">Friday</td>
+                      <td class="cell-condition">
+                        <span class="dot dot-green"></span>Green open
+                      </td>
+                      <td>Session closes green</td>
+                      <td class="cell-num cell-primary">66.2%</td>
+                      <td class="cell-num cell-baseline">50.1%</td>
+                      <td class="cell-num">444</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+16.1%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="cell-condition">
+                        <span class="dot dot-red"></span>Red open
+                      </td>
+                      <td>Session closes red</td>
+                      <td class="cell-num cell-primary">57.1%</td>
+                      <td class="cell-num cell-baseline">49.9%</td>
+                      <td class="cell-num">409</td>
+                      <td class="cell-num">
+                        <span class="edge edge-positive">+7.2%</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
         </section>
 
         <!-- ============== 5. Results — MAGNITUDE ============== -->
@@ -554,7 +721,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="slice-group-name">Q1 · −0.00–13.22</td>
+                      <td class="slice-group-name">Q1 · 0.00–13.22</td>
                       <td class="cell-num">1,083</td>
                       <td class="cell-num">9.58</td>
                       <td class="cell-num">33.61</td>

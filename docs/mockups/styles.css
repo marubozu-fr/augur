@@ -26,6 +26,7 @@
   --color-accent: #4c8dff;        /* primary action, focus */
   --color-accent-hover: #6aa0ff;
   --color-accent-soft: rgba(76, 141, 255, 0.14);
+  --color-accent-border: rgba(76, 141, 255, 0.3);
 
   /* ----- Color: semantics (consistent app-wide) ----- */
   --color-positive: #2ecc8f;      /* green = above baseline / positive edge */
