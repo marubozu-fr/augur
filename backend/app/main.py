@@ -1,6 +1,7 @@
 """Augur FastAPI application entry point."""
 
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.admin import api_keys as admin_api_keys
 from backend.app.admin import stats as admin_stats
+from backend.app.admin import status as admin_status
 from backend.app.api.v1 import stats as api_v1_stats
 from backend.app.auth import routes as auth_routes
 from backend.app.core import health
@@ -31,6 +33,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
   loader = StatsLoader()
   loader.load_all()
   app.state.stats_loader = loader
+  app.state.started_at = datetime.now(timezone.utc)
   yield
   # Teardown
 
@@ -56,6 +59,7 @@ def create_app() -> FastAPI:
   app.include_router(health.router)
   app.include_router(auth_routes.router)
   app.include_router(admin_stats.router)
+  app.include_router(admin_status.router)
   app.include_router(admin_api_keys.router)
   app.include_router(api_v1_stats.router)
 

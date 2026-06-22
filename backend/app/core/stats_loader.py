@@ -53,6 +53,11 @@ class StatsLoader:
     self._results_dir: Path = results_dir if results_dir is not None else settings.results_dir
     self._cache: dict[str, StatRunResult] = {}
 
+  @property
+  def results_dir(self) -> Path:
+    """Directory this loader reads stat result files from."""
+    return self._results_dir
+
   def scan(self) -> list[Path]:
     """Discover all stat JSON files, excluding atomic temp files.
 

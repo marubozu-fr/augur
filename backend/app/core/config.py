@@ -20,6 +20,7 @@ class Settings(BaseSettings):
 
   # Paths
   results_dir: Path = _REPO_ROOT / "results"
+  data_dir: Path = _REPO_ROOT / "data"
   db_path: Path = _REPO_ROOT / "backend" / "db" / "augur.db"
   frontend_dist_dir: Path = _REPO_ROOT / "frontend" / "dist"
 
