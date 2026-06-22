@@ -188,16 +188,20 @@ export function ShellPage() {
             })}
 
           {/* Admin section */}
-          <p className={styles.sectionTitle}>Admin</p>
-          <NavLink
-            to="/api-keys"
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
-          >
-            <IconKey size={16} className={styles.navIcon} />
-            <span className={styles.navLabel}>API keys</span>
-          </NavLink>
+          {user?.role === 'admin' && (
+            <>
+              <p className={styles.sectionTitle}>Admin</p>
+              <NavLink
+                to="/api-keys"
+                className={({ isActive }) =>
+                  `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
+                }
+              >
+                <IconKey size={16} className={styles.navIcon} />
+                <span className={styles.navLabel}>API keys</span>
+              </NavLink>
+            </>
+          )}
         </div>
       </AppShell.Navbar>
 
