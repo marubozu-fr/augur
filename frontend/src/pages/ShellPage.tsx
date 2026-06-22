@@ -8,6 +8,7 @@ import {
   IconAlertCircle,
   IconKey,
   IconLogout,
+  IconActivity,
 } from '@tabler/icons-react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
@@ -187,7 +188,19 @@ export function ShellPage() {
               )
             })}
 
-          {/* Admin section */}
+          {/* System section — visible to all authenticated users */}
+          <p className={styles.sectionTitle}>System</p>
+          <NavLink
+            to="/system-status"
+            className={({ isActive }) =>
+              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
+            }
+          >
+            <IconActivity size={16} className={styles.navIcon} />
+            <span className={styles.navLabel}>System status</span>
+          </NavLink>
+
+          {/* Admin section — admin-only entries */}
           {user?.role === 'admin' && (
             <>
               <p className={styles.sectionTitle}>Admin</p>

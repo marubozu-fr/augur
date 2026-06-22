@@ -8,6 +8,7 @@ import { ShellPage } from './pages/ShellPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { StatDetailPage } from './pages/StatDetailPage'
 import { ApiKeysPage } from './pages/ApiKeysPage'
+import { SystemStatusPage } from './pages/SystemStatusPage'
 import { LoginPage } from './pages/LoginPage'
 import { RequireAuth } from './components/RequireAuth'
 import { RequireAdmin } from './components/RequireAdmin'
@@ -25,6 +26,7 @@ export function App() {
               <Route element={<ShellPage />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="stats/:family" element={<StatDetailPage />} />
+                <Route path="system-status" element={<SystemStatusPage />} />
                 <Route element={<RequireAdmin />}>
                   <Route path="api-keys" element={<ApiKeysPage />} />
                 </Route>

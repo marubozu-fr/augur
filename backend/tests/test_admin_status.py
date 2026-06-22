@@ -1,7 +1,9 @@
-"""Tests for the /admin/status endpoint (issue #114).
+"""Tests for the /admin/status endpoint (issues #114, #120).
 
 The endpoint exposes loaded stats files, available data files, runtime
-versions, and uptime. It requires the admin role.
+versions, and uptime. Any authenticated user (admin or reader) may read it;
+the reload action that mutates state lives on POST /admin/stats/reload and
+remains admin-only.
 """
 
 from datetime import datetime, timezone
@@ -94,11 +96,13 @@ def test_status_requires_auth(status_env) -> None:
   assert client.get("/admin/status").status_code == 401
 
 
-def test_status_requires_admin_role(status_env) -> None:
-  """A reader-role session is rejected with 403."""
+def test_status_allows_reader_role(status_env) -> None:
+  """A reader-role session can read the status (reload remains admin-only)."""
   client, _, _ = status_env
   _login(client, "reader_user", "reader_pass")
-  assert client.get("/admin/status").status_code == 403
+  body = client.get("/admin/status")
+  assert body.status_code == 200
+  assert body.json()["error"] is None
 
 
 def test_status_envelope_shape(status_env) -> None:
