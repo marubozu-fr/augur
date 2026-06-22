@@ -1,6 +1,7 @@
-"""Public REST endpoints for browsing stat results.
+"""REST endpoints for browsing stat results — protected by X-API-Key auth.
 
-Note: these endpoints will be protected by X-API-Key auth once issue #113 lands.
+All endpoints require a valid, active API key supplied via the X-API-Key header.
+Keys are managed through the /admin/api-keys endpoints (admin session required).
 
 GET /api/v1/stats                           — list all stat families (metadata only)
 GET /api/v1/stats/{family}                  — full result for one stat family
@@ -13,7 +14,7 @@ every returned TimeframeResult.slices to the requested dimension only.
 
 from fastapi import APIRouter, Depends, Query, Response
 
-from backend.app.core.dependencies import get_stats_loader
+from backend.app.core.dependencies import get_stats_loader, require_api_key
 from backend.app.core.models import ApiResponse
 from backend.app.core.stats_loader import StatFamilyMeta, StatsLoader
 from backend.app.services.stats_api import (
@@ -25,7 +26,7 @@ from backend.app.services.stats_api import (
 )
 from stats.base import StatRunResult, TimeframeResult
 
-router = APIRouter(prefix="/api/v1")
+router = APIRouter(prefix="/api/v1", dependencies=[Depends(require_api_key)])
 
 
 def _available_slices(result: StatRunResult) -> list[str]:

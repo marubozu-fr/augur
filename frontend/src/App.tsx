@@ -7,6 +7,7 @@ import { theme } from './theme/theme'
 import { ShellPage } from './pages/ShellPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { StatDetailPage } from './pages/StatDetailPage'
+import { ApiKeysPage } from './pages/ApiKeysPage'
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
           <Route element={<ShellPage />}>
             <Route index element={<DashboardPage />} />
             <Route path="stats/:family" element={<StatDetailPage />} />
+            <Route path="api-keys" element={<ApiKeysPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

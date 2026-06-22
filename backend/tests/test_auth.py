@@ -14,37 +14,7 @@ from backend.app.core.stats_loader import StatsLoader
 from backend.app.main import create_app
 from backend.app.repositories import users as users_repo
 from backend.app.services.auth import hash_password
-from backend.tests.conftest import make_stat_run_result, write_stat_result
-
-
-# ---------------------------------------------------------------------------
-# Shared helpers
-# ---------------------------------------------------------------------------
-
-def _make_app(tmp_db: Path, tmp_results: Path) -> tuple:
-  """Build a FastAPI app + TestClient with isolated DB and results dir."""
-  init_db(tmp_db)
-
-  # Insert a known admin and a known reader directly.
-  users_repo.create_user("admin_user", hash_password("admin_pass"), "admin", tmp_db)
-  users_repo.create_user("reader_user", hash_password("reader_pass"), "reader", tmp_db)
-
-  # Provide at least one stat family so list_stats returns a real result.
-  write_stat_result(make_stat_run_result("test_stat"), tmp_results)
-  loader = StatsLoader(results_dir=tmp_results)
-  loader.load_all()
-
-  app = create_app()
-
-  # Override stats loader so tests don't need the real results/ directory.
-  from backend.app.core.dependencies import get_stats_loader  # noqa: PLC0415
-  app.dependency_overrides[get_stats_loader] = lambda: loader
-
-  # Patch settings.db_path so auth services route to the temp database.
-  settings.db_path = tmp_db
-
-  client = TestClient(app, raise_server_exceptions=True)
-  return app, client
+from backend.tests.conftest import make_stat_run_result, make_test_app, write_stat_result
 
 
 # ---------------------------------------------------------------------------
@@ -57,7 +27,7 @@ def auth_client(tmp_path: Path):
   tmp_db = tmp_path / "test.db"
   tmp_results = tmp_path / "results"
   tmp_results.mkdir()
-  app, client = _make_app(tmp_db, tmp_results)
+  app, client = make_test_app(tmp_db, tmp_results)
   yield app, client
   # Reset settings.db_path to avoid leaking into other tests.
   settings.db_path = Path(__file__).resolve().parents[3] / "backend" / "db" / "augur.db"

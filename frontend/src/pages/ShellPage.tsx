@@ -5,6 +5,7 @@ import {
   IconLayoutDashboard,
   IconChartBar,
   IconAlertCircle,
+  IconKey,
 } from '@tabler/icons-react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
@@ -141,6 +142,18 @@ export function ShellPage() {
                 </NavLink>
               )
             })}
+
+          {/* Admin section */}
+          <p className={styles.sectionTitle}>Admin</p>
+          <NavLink
+            to="/api-keys"
+            className={({ isActive }) =>
+              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
+            }
+          >
+            <IconKey size={16} className={styles.navIcon} />
+            <span className={styles.navLabel}>API keys</span>
+          </NavLink>
         </div>
       </AppShell.Navbar>
 

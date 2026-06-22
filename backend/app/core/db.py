@@ -29,6 +29,7 @@ def init_db(db_path: Path | None = None) -> None:
   Tables created:
     - users: id, username (unique), password_hash, role, created_at
     - sessions: token (PK), user_id (FK → users.id CASCADE), created_at, expires_at
+    - api_keys: id, key_hash (unique), name, role, created_at, revoked_at
   """
   path = db_path or settings.db_path
   path.parent.mkdir(parents=True, exist_ok=True)
@@ -47,5 +48,14 @@ def init_db(db_path: Path | None = None) -> None:
         user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
         expires_at  TEXT    NOT NULL
+      );
+
+      CREATE TABLE IF NOT EXISTS api_keys (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        key_hash    TEXT    NOT NULL UNIQUE,
+        name        TEXT    NOT NULL,
+        role        TEXT    NOT NULL DEFAULT 'reader' CHECK(role IN ('reader')),
+        created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+        revoked_at  TEXT
       );
     """)

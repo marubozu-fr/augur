@@ -45,3 +45,25 @@ def require_admin(
   """
   if current_user.role != "admin":
     raise HTTPException(status_code=403, detail="Admin role required")
+
+
+def require_api_key(request: Request) -> None:
+  """Validate the X-API-Key header against the api_keys table.
+
+  Raises:
+    HTTPException(401): if the header is missing or does not match any key.
+    HTTPException(403): if the key exists but has been revoked.
+  """
+  # Import here to avoid circular dependency at module load time.
+  from backend.app.services import api_keys as api_keys_service  # noqa: PLC0415
+
+  plaintext = request.headers.get("X-API-Key")
+  if not plaintext:
+    raise HTTPException(status_code=401, detail="Invalid or missing API key")
+
+  row = api_keys_service.resolve_api_key(plaintext)
+  if row is None:
+    raise HTTPException(status_code=401, detail="Invalid or missing API key")
+
+  if row["revoked_at"] is not None:
+    raise HTTPException(status_code=403, detail="API key revoked")

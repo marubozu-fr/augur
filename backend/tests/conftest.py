@@ -3,9 +3,16 @@
 from pathlib import Path
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
+from backend.app.core.config import settings
+from backend.app.core.db import init_db
+from backend.app.core.dependencies import get_stats_loader
+from backend.app.core.stats_loader import StatsLoader
 from backend.app.main import create_app
+from backend.app.repositories import users as users_repo
+from backend.app.services.auth import hash_password
 from stats.base import (
   I18nString,
   Labels,
@@ -21,6 +28,30 @@ from stats.base import (
 def client() -> TestClient:
   """Return a synchronous TestClient bound to a fresh FastAPI app."""
   return TestClient(create_app())
+
+
+def make_test_app(tmp_db: Path, tmp_results: Path) -> tuple[FastAPI, TestClient]:
+  """Build a FastAPI app + TestClient with isolated DB and results dir.
+
+  Creates an admin_user/admin_pass and a reader_user/reader_pass directly
+  in the temp database, writes one synthetic stat family into tmp_results,
+  and overrides get_stats_loader so tests don't need the real results/ dir.
+  Also redirects settings.db_path to tmp_db — callers should restore it.
+  """
+  init_db(tmp_db)
+  users_repo.create_user("admin_user", hash_password("admin_pass"), "admin", tmp_db)
+  users_repo.create_user("reader_user", hash_password("reader_pass"), "reader", tmp_db)
+
+  write_stat_result(make_stat_run_result("test_stat"), tmp_results)
+  loader = StatsLoader(results_dir=tmp_results)
+  loader.load_all()
+
+  app = create_app()
+  app.dependency_overrides[get_stats_loader] = lambda: loader
+  settings.db_path = tmp_db
+
+  client = TestClient(app, raise_server_exceptions=True)
+  return app, client
 
 
 # ---------------------------------------------------------------------------

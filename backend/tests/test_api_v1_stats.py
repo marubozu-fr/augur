@@ -1,8 +1,10 @@
 """Tests for the public /api/v1/stats endpoints.
 
-These endpoints are unprotected (no auth required), so no DB seeding or login
-is needed.  The StatsLoader dependency is overridden with a loader bound to a
-synthetic tmp_path, so tests never depend on the real results/ directory.
+These endpoints require an X-API-Key header (issue #113). The require_api_key
+dependency is bypassed via dependency_overrides in each fixture so tests remain
+focused on stat routing rather than key management (covered in test_api_keys.py).
+The StatsLoader dependency is overridden with a loader bound to a synthetic
+tmp_path, so tests never depend on the real results/ directory.
 """
 
 from pathlib import Path
@@ -10,7 +12,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from backend.app.core.dependencies import get_stats_loader
+from backend.app.core.dependencies import get_stats_loader, require_api_key
 from backend.app.core.stats_loader import StatsLoader
 from backend.app.main import create_app
 from backend.tests.conftest import (
@@ -26,7 +28,10 @@ from backend.tests.conftest import (
 
 @pytest.fixture()
 def api_client(tmp_path: Path) -> TestClient:
-  """TestClient with get_stats_loader bound to a tmp_path holding alpha_stat."""
+  """TestClient with get_stats_loader bound to a tmp_path holding alpha_stat.
+
+  require_api_key is bypassed so tests focus on stat routing only.
+  """
   results_dir = tmp_path / "results"
   results_dir.mkdir()
   write_stat_result(make_stat_run_result("alpha_stat"), results_dir)
@@ -36,12 +41,16 @@ def api_client(tmp_path: Path) -> TestClient:
 
   app = create_app()
   app.dependency_overrides[get_stats_loader] = lambda: loader
+  app.dependency_overrides[require_api_key] = lambda: None
   return TestClient(app)
 
 
 @pytest.fixture()
 def sliced_api_client(tmp_path: Path) -> TestClient:
-  """TestClient with a family that declares a 'weekday' slice dimension."""
+  """TestClient with a family that declares a 'weekday' slice dimension.
+
+  require_api_key is bypassed so tests focus on slice filtering only.
+  """
   results_dir = tmp_path / "results"
   results_dir.mkdir()
   write_stat_result(make_sliced_stat_run_result("sliced_stat"), results_dir)
@@ -51,6 +60,7 @@ def sliced_api_client(tmp_path: Path) -> TestClient:
 
   app = create_app()
   app.dependency_overrides[get_stats_loader] = lambda: loader
+  app.dependency_overrides[require_api_key] = lambda: None
   return TestClient(app)
 
 

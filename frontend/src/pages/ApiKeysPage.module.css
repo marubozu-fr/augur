@@ -1,0 +1,251 @@
+.page {
+  padding: var(--space-6);
+}
+
+/* ===== Page head ===== */
+
+.pageHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.pageSubtitle {
+  margin: var(--space-1) 0 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ===== Create form ===== */
+
+.createForm {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-5);
+}
+
+.createFormInput {
+  flex: 1;
+  max-width: 360px;
+}
+
+/* ===== Plaintext key callout ===== */
+
+.keyCallout {
+  padding: var(--space-4);
+  background-color: var(--color-surface-3);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-5);
+}
+
+.keyCalloutTitle {
+  margin: 0 0 var(--space-2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.keyCalloutWarning {
+  margin: 0 0 var(--space-3);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.keyDisplay {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+.keyValue {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent-hover);
+  word-break: break-all;
+  overflow: hidden;
+}
+
+/* ===== Table ===== */
+
+.tableSection {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.tableSectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tableSectionTitle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+  background-color: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: var(--color-surface-2);
+}
+
+.cellName {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.cellMono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* ===== Status badges ===== */
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.statusActive {
+  background-color: var(--color-positive-soft);
+  border: 1px solid var(--color-positive-border);
+  color: var(--color-positive);
+}
+
+.statusRevoked {
+  background-color: var(--color-neutral-soft);
+  border: 1px solid rgba(154, 167, 189, 0.25);
+  color: var(--color-text-dim);
+}
+
+/* ===== Error / empty states ===== */
+
+.alertMessage {
+  margin: 0 0 var(--space-2);
+  font-size: 12px;
+}
+
+.alertRetry {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-accent);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.alertRetry:hover {
+  text-decoration: underline;
+}
+
+.emptyRow td {
+  text-align: center;
+  padding: var(--space-8) var(--space-4) !important;
+  color: var(--color-text-dim) !important;
+  font-size: 13px;
+}
+
+/* ===== Loading skeletons ===== */
+
+.skeletonTable {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+/* ===== Revoke modal ===== */
+
+.modalBody {
+  margin: 0 0 var(--space-4);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.modalBodyStrong {
+  color: var(--color-text);
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ===== New key callout dismiss row ===== */
+
+.keyCalloutDismiss {
+  margin-top: var(--space-3);
+  display: flex;
+  justify-content: flex-end;
+}
