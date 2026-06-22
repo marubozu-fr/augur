@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
+from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.admin import api_keys as admin_api_keys
@@ -15,6 +16,7 @@ from backend.app.auth import routes as auth_routes
 from backend.app.core import health
 from backend.app.core.config import settings
 from backend.app.core.db import init_db
+from backend.app.core.exceptions import http_exception_handler
 from backend.app.core.static import mount_frontend
 from backend.app.core.stats_loader import StatsLoader
 from backend.app.services.auth import seed_admin
@@ -54,6 +56,8 @@ def create_app() -> FastAPI:
     allow_methods=["*"],
     allow_headers=["*"],
   )
+
+  app.add_exception_handler(HTTPException, http_exception_handler)
 
   # Routers — must be registered before the static catch-all
   app.include_router(health.router)
