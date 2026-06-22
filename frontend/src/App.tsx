@@ -8,20 +8,28 @@ import { ShellPage } from './pages/ShellPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { StatDetailPage } from './pages/StatDetailPage'
 import { ApiKeysPage } from './pages/ApiKeysPage'
+import { LoginPage } from './pages/LoginPage'
+import { RequireAuth } from './components/RequireAuth'
+import { AuthProvider } from './hooks/AuthProvider'
 
 export function App() {
   return (
     <MantineProvider theme={theme} forceColorScheme="dark">
       <Notifications />
       <BrowserRouter>
-        <Routes>
-          <Route element={<ShellPage />}>
-            <Route index element={<DashboardPage />} />
-            <Route path="stats/:family" element={<StatDetailPage />} />
-            <Route path="api-keys" element={<ApiKeysPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route element={<RequireAuth />}>
+              <Route element={<ShellPage />}>
+                <Route index element={<DashboardPage />} />
+                <Route path="stats/:family" element={<StatDetailPage />} />
+                <Route path="api-keys" element={<ApiKeysPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </MantineProvider>
   )

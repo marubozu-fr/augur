@@ -1,17 +1,20 @@
-import { AppShell, Burger, ActionIcon, Skeleton, Alert } from '@mantine/core'
+import { AppShell, Burger, ActionIcon, Skeleton, Alert, Tooltip } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
 import {
   IconRefresh,
   IconLayoutDashboard,
   IconChartBar,
   IconAlertCircle,
   IconKey,
+  IconLogout,
 } from '@tabler/icons-react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
   useStatFamilies,
   type UseStatFamiliesResult,
 } from '../hooks/useStatFamilies'
+import { useAuth } from '../hooks/useAuth'
 import { getInstruments } from '../utils/statHelpers'
 import styles from './ShellPage.module.css'
 
@@ -19,6 +22,21 @@ export function ShellPage() {
   const [opened, { toggle }] = useDisclosure()
   const statFamilies = useStatFamilies()
   const { families, loading, error, reload } = statFamilies
+  const { user, logout } = useAuth()
+
+  async function handleLogout() {
+    try {
+      await logout()
+      // No navigate() here: AuthProvider clears the user, RequireAuth handles
+      // the redirect to /login. Keeping routing the guard's responsibility.
+    } catch (err) {
+      notifications.show({
+        title: 'Logout failed',
+        message: err instanceof Error ? err.message : 'Unknown error',
+        color: 'red',
+      })
+    }
+  }
 
   return (
     <AppShell
@@ -60,10 +78,36 @@ export function ShellPage() {
             aria-label="Reload stat families"
             loading={loading}
             onClick={() => void reload()}
-            className={styles.reloadButton}
+            className={styles.headerAction}
           >
             <IconRefresh size={16} />
           </ActionIcon>
+          {user !== null && (
+            <div className={styles.user}>
+              <span className={styles.userName}>{user.username}</span>
+              <span
+                className={`${styles.userRole} ${
+                  user.role === 'admin'
+                    ? styles.userRoleAdmin
+                    : styles.userRoleReader
+                }`}
+              >
+                {user.role}
+              </span>
+            </div>
+          )}
+          <Tooltip label="Sign out" withArrow>
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              size="md"
+              aria-label="Sign out"
+              onClick={() => void handleLogout()}
+              className={styles.headerAction}
+            >
+              <IconLogout size={16} />
+            </ActionIcon>
+          </Tooltip>
         </div>
       </AppShell.Header>
 
