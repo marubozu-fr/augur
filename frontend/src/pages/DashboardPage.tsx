@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link, useOutletContext } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Alert, Skeleton } from '@mantine/core'
 import {
   IconSearch,
@@ -9,10 +9,10 @@ import {
   IconRefresh,
   IconX,
 } from '@tabler/icons-react'
-import type { UseStatFamiliesResult } from '../hooks/useStatFamilies'
+import { useShellContext } from '../hooks/useShellContext'
 import type { StatFamilyMeta } from '../types/stats'
 import {
-  getInstruments,
+  familyHasInstrument,
   getTimeframeLabels,
   getTotalSamples,
   getDateRange,
@@ -24,20 +24,17 @@ const numberFormat = new Intl.NumberFormat('en-US')
 interface DashboardMetrics {
   families: number
   timeframes: number
-  instruments: number
   coverage: string
 }
 
 /** Computes the summary metric strip values from the loaded families. */
 function computeMetrics(families: StatFamilyMeta[]): DashboardMetrics {
-  const instruments = new Set<string>()
   let timeframes = 0
   let minDate = ''
   let maxDate = ''
   for (const family of families) {
     timeframes += family.timeframes.length
     for (const t of family.timeframes) {
-      instruments.add(t.instrument)
       const [start, end] = t.data_range
       if (start && (minDate === '' || start < minDate)) minDate = start
       if (end && (maxDate === '' || end > maxDate)) maxDate = end
@@ -48,23 +45,34 @@ function computeMetrics(families: StatFamilyMeta[]): DashboardMetrics {
   return {
     families: families.length,
     timeframes,
-    instruments: instruments.size,
     coverage,
   }
 }
 
 export function DashboardPage() {
-  const { families, loading, error, reload } =
-    useOutletContext<UseStatFamiliesResult>()
+  const { families, loading, error, reload, selectedInstrument } =
+    useShellContext()
   const [query, setQuery] = useState('')
 
+  // Metric strip stays a global overview of everything loaded.
   const metrics = useMemo(() => computeMetrics(families), [families])
+
+  // Show only families that carry the selected instrument, then apply search.
+  const instrumentFamilies = useMemo(
+    () =>
+      selectedInstrument === ''
+        ? families
+        : families.filter((f) => familyHasInstrument(f, selectedInstrument)),
+    [families, selectedInstrument],
+  )
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (q === '') return families
-    return families.filter((f) => f.title.en.toLowerCase().includes(q))
-  }, [families, query])
+    if (q === '') return instrumentFamilies
+    return instrumentFamilies.filter((f) =>
+      f.title.en.toLowerCase().includes(q),
+    )
+  }, [instrumentFamilies, query])
 
   return (
     <div className={styles.page}>
@@ -85,10 +93,6 @@ export function DashboardPage() {
             <div className={styles.metric}>
               <span className={styles.metricValue}>{metrics.timeframes}</span>
               <span className={styles.metricLabel}>Timeframes</span>
-            </div>
-            <div className={styles.metric}>
-              <span className={styles.metricValue}>{metrics.instruments}</span>
-              <span className={styles.metricLabel}>Instruments</span>
             </div>
             <div className={styles.metric}>
               <span className={styles.metricValue}>{metrics.coverage}</span>
@@ -181,8 +185,8 @@ export function DashboardPage() {
             <div className={styles.toolbarSpacer} />
             <span className={styles.resultCount}>
               {query.trim() === ''
-                ? `${families.length} families`
-                : `${filtered.length} of ${families.length} families`}
+                ? `${instrumentFamilies.length} families`
+                : `${filtered.length} of ${instrumentFamilies.length} families`}
             </span>
           </div>
 
@@ -210,7 +214,11 @@ export function DashboardPage() {
           ) : (
             <div className={styles.grid}>
               {filtered.map((family) => (
-                <StatFamilyCard key={family.family} family={family} />
+                <StatFamilyCard
+                  key={family.family}
+                  family={family}
+                  instrument={selectedInstrument}
+                />
               ))}
             </div>
           )}
@@ -222,25 +230,22 @@ export function DashboardPage() {
 
 interface StatFamilyCardProps {
   family: StatFamilyMeta
+  /** Active instrument; '' means no selection, so all instruments are shown. */
+  instrument: string
 }
 
-function StatFamilyCard({ family }: StatFamilyCardProps) {
-  const instruments = getInstruments(family)
-  const timeframeLabels = getTimeframeLabels(family)
-  const totalSamples = getTotalSamples(family)
-  const dateRange = getDateRange(family)
+function StatFamilyCard({ family, instrument }: StatFamilyCardProps) {
+  // An empty instrument means "no global selection" — fall back to the whole
+  // family. Otherwise every figure on the card is scoped to that instrument.
+  const scope = instrument === '' ? undefined : instrument
+  const timeframeLabels = getTimeframeLabels(family, scope)
+  const totalSamples = getTotalSamples(family, scope)
+  const dateRange = getDateRange(family, scope)
 
   return (
     <Link to={`/stats/${family.family}`} className={styles.card}>
       <div className={styles.cardHead}>
         <h2 className={styles.cardTitle}>{family.title.en}</h2>
-        <div className={styles.cardInstruments}>
-          {instruments.map((inst) => (
-            <span key={inst} className={styles.badgeInstrument}>
-              {inst}
-            </span>
-          ))}
-        </div>
       </div>
 
       <div className={styles.cardTags}>

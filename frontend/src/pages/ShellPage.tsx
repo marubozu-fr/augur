@@ -1,4 +1,13 @@
-import { AppShell, Burger, ActionIcon, Skeleton, Alert, Tooltip } from '@mantine/core'
+import { useMemo, useState } from 'react'
+import {
+  AppShell,
+  Burger,
+  ActionIcon,
+  SegmentedControl,
+  Skeleton,
+  Alert,
+  Tooltip,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
 import {
@@ -11,12 +20,10 @@ import {
   IconActivity,
 } from '@tabler/icons-react'
 import { NavLink, Outlet } from 'react-router-dom'
-import {
-  useStatFamilies,
-  type UseStatFamiliesResult,
-} from '../hooks/useStatFamilies'
+import { useStatFamilies } from '../hooks/useStatFamilies'
+import type { ShellContext } from '../hooks/useShellContext'
 import { useAuth } from '../hooks/useAuth'
-import { getInstruments } from '../utils/statHelpers'
+import { getAllInstruments } from '../utils/statHelpers'
 import styles from './ShellPage.module.css'
 
 export function ShellPage() {
@@ -24,6 +31,26 @@ export function ShellPage() {
   const statFamilies = useStatFamilies()
   const { families, loading, error, reload } = statFamilies
   const { user, logout } = useAuth()
+
+  // Global instrument selection — derived dynamically from loaded families,
+  // never hardcoded. State lives here so it survives child-route navigation
+  // (ShellPage stays mounted for the whole session).
+  const instruments = useMemo(() => getAllInstruments(families), [families])
+  const [selectedInstrument, setSelectedInstrument] = useState<string>('')
+  // Fall back to the first instrument when nothing is chosen yet or the prior
+  // choice is no longer present (e.g. after a reload), so the context value is
+  // always a valid instrument.
+  const effectiveInstrument =
+    selectedInstrument && instruments.includes(selectedInstrument)
+      ? selectedInstrument
+      : (instruments[0] ?? '')
+
+  const shellContext: ShellContext = {
+    ...statFamilies,
+    instruments,
+    selectedInstrument: effectiveInstrument,
+    setSelectedInstrument,
+  }
 
   async function handleLogout() {
     try {
@@ -54,6 +81,18 @@ export function ShellPage() {
             <span className={styles.brandText}>Augur</span>
           </div>
           <div className={styles.headerSpacer} />
+          {instruments.length > 0 && (
+            <div className={styles.instrumentSelector}>
+              <span className={styles.instrumentLabel}>Instrument</span>
+              <SegmentedControl
+                size="xs"
+                value={effectiveInstrument}
+                onChange={setSelectedInstrument}
+                data={instruments}
+                aria-label="Select instrument"
+              />
+            </div>
+          )}
           <div className={styles.headerStatus}>
             <div
               className={`${styles.statusDot} ${
@@ -165,28 +204,18 @@ export function ShellPage() {
 
           {!loading &&
             !error &&
-            families.map((family) => {
-              const instruments = getInstruments(family)
-              return (
-                <NavLink
-                  key={family.family}
-                  to={`/stats/${family.family}`}
-                  className={({ isActive }) =>
-                    `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-                  }
-                >
-                  <IconChartBar size={16} className={styles.navIcon} />
-                  <span className={styles.navLabel}>{family.title.en}</span>
-                  <div className={styles.badges}>
-                    {instruments.map((inst) => (
-                      <span key={inst} className={styles.badgeInstrument}>
-                        {inst}
-                      </span>
-                    ))}
-                  </div>
-                </NavLink>
-              )
-            })}
+            families.map((family) => (
+              <NavLink
+                key={family.family}
+                to={`/stats/${family.family}`}
+                className={({ isActive }) =>
+                  `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
+                }
+              >
+                <IconChartBar size={16} className={styles.navIcon} />
+                <span className={styles.navLabel}>{family.title.en}</span>
+              </NavLink>
+            ))}
 
           {/* System section — visible to all authenticated users */}
           <p className={styles.sectionTitle}>System</p>
@@ -220,7 +249,7 @@ export function ShellPage() {
 
       {/* ===== Main content (router outlet) ===== */}
       <AppShell.Main>
-        <Outlet context={statFamilies satisfies UseStatFamiliesResult} />
+        <Outlet context={shellContext satisfies ShellContext} />
       </AppShell.Main>
     </AppShell>
   )

@@ -155,26 +155,6 @@ a.card:hover {
   color: var(--color-text);
 }
 
-.cardInstruments {
-  display: flex;
-  gap: var(--space-1);
-  flex-shrink: 0;
-}
-
-.badgeInstrument {
-  display: inline-flex;
-  align-items: center;
-  padding: 1px var(--space-2);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-instrument-soft);
-  border: 1px solid var(--color-instrument-border);
-  color: var(--color-instrument);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
 .cardTags {
   display: flex;
   flex-wrap: wrap;

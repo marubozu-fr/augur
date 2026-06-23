@@ -9,6 +9,7 @@ import {
 } from '@mantine/core'
 import { IconAlertCircle, IconArrowLeft, IconChartBar, IconRefresh } from '@tabler/icons-react'
 import { useStatDetail } from '../hooks/useStatDetail'
+import { useShellContext } from '../hooks/useShellContext'
 import { MagnitudeBarChart } from '../components/charts/MagnitudeBarChart'
 import { ProbabilityBarChart } from '../components/charts/ProbabilityBarChart'
 import { SliceGroupedBarChart } from '../components/charts/SliceGroupedBarChart'
@@ -343,8 +344,10 @@ export function StatDetailPage() {
   const { family } = useParams<{ family: string }>()
   const { detail, loading, error, reload } = useStatDetail(family)
 
-  // Instrument + timeframe selection state
-  const [selectedInstrument, setSelectedInstrument] = useState<string>('')
+  // Instrument is driven by the global selector in the app shell.
+  const { selectedInstrument } = useShellContext()
+
+  // Timeframe selection is local to this page.
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('')
 
   // Chart visibility toggle — charts visible by default
@@ -355,6 +358,8 @@ export function StatDetailPage() {
     ? Object.keys(detail.result.instruments)
     : []
 
+  // Honour the global instrument when this family has data for it; otherwise
+  // fall back to the family's first instrument so the page still renders.
   const effectiveInstrument =
     selectedInstrument && instruments.includes(selectedInstrument)
       ? selectedInstrument
@@ -375,12 +380,6 @@ export function StatDetailPage() {
       ? (detail.result.instruments[effectiveInstrument]?.[effectiveTimeframe] ??
         null)
       : null
-
-  // When instrument changes, reset timeframe so first TF is auto-selected
-  function handleInstrumentChange(val: string) {
-    setSelectedInstrument(val)
-    setSelectedTimeframe('')
-  }
 
   // ---------------------------------------------------------------------------
   // Loading state
@@ -445,11 +444,9 @@ export function StatDetailPage() {
         </Link>
         <div className={styles.titleRow}>
           <h1 className={styles.pageTitle}>{result.title.en}</h1>
-          {instruments.map((inst) => (
-            <span key={inst} className={styles.badgeInstrument}>
-              {inst}
-            </span>
-          ))}
+          {effectiveInstrument && (
+            <span className={styles.badgeInstrument}>{effectiveInstrument}</span>
+          )}
         </div>
       </div>
 
@@ -477,21 +474,10 @@ export function StatDetailPage() {
         </div>
       )}
 
-      {/* ===== Instrument + timeframe selector ===== */}
+      {/* ===== Timeframe selector ===== */}
+      {/* Instrument is chosen globally from the app shell header. */}
       {instruments.length > 0 && (
         <div className={styles.selectorBar}>
-          {instruments.length > 1 && (
-            <>
-              <span className={styles.selectorLabel}>Instrument</span>
-              <SegmentedControl
-                size="xs"
-                value={effectiveInstrument}
-                onChange={handleInstrumentChange}
-                data={instruments}
-              />
-              <span className={styles.selectorDivider} />
-            </>
-          )}
           <span className={styles.selectorLabel}>Timeframe</span>
           <SegmentedControl
             size="xs"
@@ -521,12 +507,12 @@ export function StatDetailPage() {
         </div>
         <p className={styles.docDefinition}>{result.definition.en}</p>
         <div className={styles.paramRow}>
-          {instruments.map((inst) => (
-            <span key={inst} className={styles.param}>
+          {effectiveInstrument && (
+            <span className={styles.param}>
               <span className={styles.paramKey}>Instrument</span>
-              <span className={styles.paramVal}>{inst}</span>
+              <span className={styles.paramVal}>{effectiveInstrument}</span>
             </span>
-          ))}
+          )}
           {timeframes.map((tf) => (
             <span key={tf} className={styles.param}>
               <span className={styles.paramKey}>Timeframe</span>
