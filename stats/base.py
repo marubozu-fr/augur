@@ -7,6 +7,7 @@ declare which slicers apply via the class-level ``slices`` attribute; they never
 implement the slicing themselves.
 """
 
+import logging
 import os
 import tempfile
 from abc import ABC, abstractmethod
@@ -14,7 +15,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
+
+logger = logging.getLogger(__name__)
 
 
 class I18nString(BaseModel):
@@ -508,11 +511,44 @@ class BaseStat(ABC):
     )
 
 
+def _merge_instruments(new: StatRunResult, final_path: Path) -> StatRunResult:
+  """Merge ``new`` into any existing result file at ``final_path``.
+
+  The ``StatRunResult.instruments`` dict is multi-instrument: running a stat for
+  a second instrument must add its entry without dropping instruments already on
+  disk. New instrument keys are added; an existing key is replaced (re-run of the
+  same instrument). Top-level fields come from ``new`` so i18n/label fixes
+  propagate on every run.
+
+  An existing file that cannot be read or validated is logged and ignored, so a
+  corrupt file is overwritten rather than crashing the run.
+  """
+  if not final_path.exists():
+    return new
+
+  try:
+    existing = StatRunResult.model_validate_json(final_path.read_text(encoding="utf-8"))
+  except (OSError, ValueError, ValidationError) as exc:
+    logger.warning(
+      "Existing results file %s is unreadable or invalid (%s); overwriting it.",
+      final_path,
+      exc,
+    )
+    return new
+
+  merged = {**existing.instruments, **new.instruments}
+  return new.model_copy(update={"instruments": merged})
+
+
 def write_results(
   result: StatRunResult,
   results_dir: str | Path = "results",
 ) -> Path:
   """Validate and atomically write a StatRunResult to a JSON file.
+
+  When a result file already exists for the stat family, the new result's
+  ``instruments`` entries are merged into it (see ``_merge_instruments``) so that
+  running the stat for one instrument never discards another instrument's data.
 
   The file is written to a temp file first, then renamed to ensure
   atomicity (no partial reads on failure).
@@ -526,6 +562,9 @@ def write_results(
   validated = StatRunResult.model_validate(result.model_dump())
 
   final_path = results_dir / f"{validated.stat_name}.json"
+
+  # Preserve other instruments already on disk by merging into the existing file.
+  validated = _merge_instruments(validated, final_path)
 
   # Atomic write: write to temp in same directory, then rename
   fd, tmp_path = tempfile.mkstemp(dir=results_dir, prefix=".tmp_", suffix=".json")

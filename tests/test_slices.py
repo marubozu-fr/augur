@@ -16,6 +16,7 @@ Covers:
 """
 
 import json
+import logging
 from pathlib import Path
 
 import pandas as pd
@@ -1059,6 +1060,101 @@ def test_write_results_empty_slices_dict_round_trips(tmp_path: Path) -> None:
   validated = StatRunResult.model_validate(raw)
 
   assert validated.instruments["NQ"]["15min"].slices == {}
+
+
+# ===========================================================================
+# 7b. write_results merges instruments instead of overwriting (issue #143)
+# ===========================================================================
+
+def _make_single_instrument_result(
+  instrument: str,
+  probability: float,
+  stat_name: str = "merge_stat",
+) -> StatRunResult:
+  """A minimal StatRunResult for one instrument, with a tunable probability so
+  re-runs of the same instrument can be told apart."""
+  tf_result = TimeframeResult(
+    data_range=["2024-01-01", "2024-01-05"],
+    total_samples=5,
+    results=[
+      StatResultRow(
+        condition="green_open",
+        outcome="green_close",
+        count=3,
+        total=5,
+        probability=probability,
+        baseline_prob=0.5,
+        baseline_n=5,
+      )
+    ],
+    slices={},
+  )
+  return StatRunResult(
+    stat_name=stat_name,
+    title=I18nString(en="Merge Stat", fr="Stat de fusion"),
+    definition=I18nString(en="A stat", fr="Une stat"),
+    labels=Labels(
+      conditions={"green_open": I18nString(en="Green open", fr="Ouverture verte")},
+      outcomes={"green_close": I18nString(en="Green close", fr="Clôture verte")},
+    ),
+    instruments={instrument: {"15min": tf_result}},
+  )
+
+
+def test_write_results_fresh_write_has_only_its_instrument(tmp_path: Path) -> None:
+  """With no existing file, the written file contains exactly the new instrument."""
+  written_path = write_results(
+    _make_single_instrument_result("NQ", 0.6), results_dir=tmp_path
+  )
+  validated = StatRunResult.model_validate_json(written_path.read_text(encoding="utf-8"))
+
+  assert set(validated.instruments) == {"NQ"}
+  assert validated.instruments["NQ"]["15min"].results[0].probability == 0.6
+
+
+def test_write_results_second_instrument_merges(tmp_path: Path) -> None:
+  """Writing a second instrument keeps the first one's data."""
+  write_results(_make_single_instrument_result("NQ", 0.6), results_dir=tmp_path)
+  written_path = write_results(
+    _make_single_instrument_result("ES", 0.7), results_dir=tmp_path
+  )
+  validated = StatRunResult.model_validate_json(written_path.read_text(encoding="utf-8"))
+
+  assert set(validated.instruments) == {"NQ", "ES"}
+  assert validated.instruments["NQ"]["15min"].results[0].probability == 0.6
+  assert validated.instruments["ES"]["15min"].results[0].probability == 0.7
+
+
+def test_write_results_rerun_replaces_only_that_instrument(tmp_path: Path) -> None:
+  """Re-running one instrument replaces its data and leaves the others untouched."""
+  write_results(_make_single_instrument_result("NQ", 0.6), results_dir=tmp_path)
+  write_results(_make_single_instrument_result("ES", 0.7), results_dir=tmp_path)
+  # Re-run NQ with a different probability.
+  written_path = write_results(
+    _make_single_instrument_result("NQ", 0.9), results_dir=tmp_path
+  )
+  validated = StatRunResult.model_validate_json(written_path.read_text(encoding="utf-8"))
+
+  assert set(validated.instruments) == {"NQ", "ES"}
+  assert validated.instruments["NQ"]["15min"].results[0].probability == 0.9
+  assert validated.instruments["ES"]["15min"].results[0].probability == 0.7
+
+
+def test_write_results_corrupt_existing_file_is_overwritten(
+  tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+  """An unparseable existing file is logged and overwritten, not crashed on."""
+  target = tmp_path / "merge_stat.json"
+  target.write_text("{ this is not valid json", encoding="utf-8")
+
+  with caplog.at_level(logging.WARNING):
+    written_path = write_results(
+      _make_single_instrument_result("NQ", 0.6), results_dir=tmp_path
+    )
+
+  validated = StatRunResult.model_validate_json(written_path.read_text(encoding="utf-8"))
+  assert set(validated.instruments) == {"NQ"}
+  assert any("unreadable or invalid" in r.message for r in caplog.records)
 
 
 # ===========================================================================
