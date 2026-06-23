@@ -1,6 +1,15 @@
 import type { StatFamilyMeta } from '../types/stats'
 
 /**
+ * Choose the default instrument from the available list.
+ * Prefers 'NQ' when present; otherwise picks the first entry.
+ */
+export function pickDefaultInstrument(instruments: string[]): string {
+  if (instruments.includes('NQ')) return 'NQ'
+  return instruments[0] ?? ''
+}
+
+/**
  * Distinct instrument codes across all families, in first-seen order.
  * Drives the global instrument selector — no hardcoded list.
  */

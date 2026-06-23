@@ -9,7 +9,6 @@ import {
 } from '@mantine/core'
 import { IconAlertCircle, IconArrowLeft, IconChartBar, IconRefresh } from '@tabler/icons-react'
 import { useStatDetail } from '../hooks/useStatDetail'
-import { useShellContext } from '../hooks/useShellContext'
 import { MagnitudeBarChart } from '../components/charts/MagnitudeBarChart'
 import { ProbabilityBarChart } from '../components/charts/ProbabilityBarChart'
 import { SliceGroupedBarChart } from '../components/charts/SliceGroupedBarChart'
@@ -341,12 +340,10 @@ function ResultsSection({ tfResult, labels, showCharts }: ResultsSectionProps) {
 // ---------------------------------------------------------------------------
 
 export function StatDetailPage() {
-  const { family } = useParams<{ family: string }>()
+  const { instrument, family } = useParams<{ instrument: string; family: string }>()
   const { detail, loading, error, reload } = useStatDetail(family)
 
-  // Instrument is driven by the global selector in the app shell.
-  const { selectedInstrument } = useShellContext()
-
+  // Instrument comes from the URL — the header Select navigates to a new prefix.
   // Timeframe selection is local to this page.
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('')
 
@@ -358,11 +355,11 @@ export function StatDetailPage() {
     ? Object.keys(detail.result.instruments)
     : []
 
-  // Honour the global instrument when this family has data for it; otherwise
+  // Honour the URL instrument when this family has data for it; otherwise
   // fall back to the family's first instrument so the page still renders.
   const effectiveInstrument =
-    selectedInstrument && instruments.includes(selectedInstrument)
-      ? selectedInstrument
+    instrument && instruments.includes(instrument)
+      ? instrument
       : instruments[0] ?? ''
 
   const timeframes =
@@ -438,7 +435,7 @@ export function StatDetailPage() {
     <div className={styles.page}>
       {/* ===== Page head ===== */}
       <div>
-        <Link to="/" className={styles.backLink}>
+        <Link to={`/${instrument}/stats`} className={styles.backLink}>
           <IconArrowLeft size={12} />
           <span>Stat Families</span>
         </Link>

@@ -81,6 +81,10 @@
   color: var(--color-text-dim);
 }
 
+.instrumentSelect {
+  width: 110px;
+}
+
 .headerStatus {
   display: flex;
   align-items: center;

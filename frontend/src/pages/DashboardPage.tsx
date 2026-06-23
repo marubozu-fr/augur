@@ -243,7 +243,7 @@ function StatFamilyCard({ family, instrument }: StatFamilyCardProps) {
   const dateRange = getDateRange(family, scope)
 
   return (
-    <Link to={`/stats/${family.family}`} className={styles.card}>
+    <Link to={`/${instrument}/stats/${family.family}`} className={styles.card}>
       <div className={styles.cardHead}>
         <h2 className={styles.cardTitle}>{family.title.en}</h2>
       </div>

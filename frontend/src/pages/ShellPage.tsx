@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   AppShell,
   Burger,
   ActionIcon,
-  SegmentedControl,
+  Select,
   Skeleton,
   Alert,
   Tooltip,
@@ -19,11 +19,18 @@ import {
   IconLogout,
   IconActivity,
 } from '@tabler/icons-react'
-import { NavLink, Outlet } from 'react-router-dom'
+import {
+  NavLink,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom'
 import { useStatFamilies } from '../hooks/useStatFamilies'
 import type { ShellContext } from '../hooks/useShellContext'
 import { useAuth } from '../hooks/useAuth'
-import { getAllInstruments } from '../utils/statHelpers'
+import { getAllInstruments, pickDefaultInstrument } from '../utils/statHelpers'
 import styles from './ShellPage.module.css'
 
 export function ShellPage() {
@@ -31,25 +38,48 @@ export function ShellPage() {
   const statFamilies = useStatFamilies()
   const { families, loading, error, reload } = statFamilies
   const { user, logout } = useAuth()
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  // Global instrument selection — derived dynamically from loaded families,
-  // never hardcoded. State lives here so it survives child-route navigation
-  // (ShellPage stays mounted for the whole session).
+  // Instrument comes from the URL when a :instrument/* route is matched.
+  // In a layout route, useParams sees params from descendant matches too.
+  const { instrument: urlInstrument } = useParams<{ instrument?: string }>()
+
   const instruments = useMemo(() => getAllInstruments(families), [families])
-  const [selectedInstrument, setSelectedInstrument] = useState<string>('')
-  // Fall back to the first instrument when nothing is chosen yet or the prior
-  // choice is no longer present (e.g. after a reload), so the context value is
-  // always a valid instrument.
-  const effectiveInstrument =
-    selectedInstrument && instruments.includes(selectedInstrument)
-      ? selectedInstrument
-      : (instruments[0] ?? '')
+  const defaultInstrument = useMemo(
+    () => pickDefaultInstrument(instruments),
+    [instruments],
+  )
 
-  const shellContext: ShellContext = {
-    ...statFamilies,
-    instruments,
-    selectedInstrument: effectiveInstrument,
-    setSelectedInstrument,
+  // Derive the effective instrument: URL param when valid, else the default.
+  const selectedInstrument =
+    urlInstrument && instruments.includes(urlInstrument)
+      ? urlInstrument
+      : defaultInstrument
+
+  // Invalid-instrument redirect: after data loads, if the URL carries an
+  // instrument segment that is not in the list, swap it for the default and
+  // preserve the rest of the path + search.
+  if (!loading && !error && instruments.length > 0 && urlInstrument && !instruments.includes(urlInstrument)) {
+    const rest = location.pathname.slice(('/' + urlInstrument).length)
+    return (
+      <Navigate
+        replace
+        to={`/${defaultInstrument}${rest}${location.search}`}
+      />
+    )
+  }
+
+  function handleInstrumentChange(next: string | null) {
+    if (next === null) return
+    if (urlInstrument) {
+      // On an instrument-scoped page: swap the instrument prefix, keep the rest.
+      const rest = location.pathname.slice(('/' + urlInstrument).length)
+      navigate(`/${next}${rest}${location.search}`)
+    } else {
+      // On an instrument-agnostic page (system-status, api-keys): go to stats.
+      navigate(`/${next}/stats`)
+    }
   }
 
   async function handleLogout() {
@@ -64,6 +94,15 @@ export function ShellPage() {
         color: 'red',
       })
     }
+  }
+
+  // Dashboard nav link target — instrument-scoped when we have one.
+  const dashboardTo = selectedInstrument ? `/${selectedInstrument}/stats` : '/'
+
+  const shellContext: ShellContext = {
+    ...statFamilies,
+    instruments,
+    selectedInstrument,
   }
 
   return (
@@ -84,12 +123,16 @@ export function ShellPage() {
           {instruments.length > 0 && (
             <div className={styles.instrumentSelector}>
               <span className={styles.instrumentLabel}>Instrument</span>
-              <SegmentedControl
+              <Select
                 size="xs"
-                value={effectiveInstrument}
-                onChange={setSelectedInstrument}
                 data={instruments}
+                value={selectedInstrument || null}
+                onChange={handleInstrumentChange}
                 aria-label="Select instrument"
+                disabled={instruments.length === 1}
+                searchable={false}
+                clearable={false}
+                className={styles.instrumentSelect}
               />
             </div>
           )}
@@ -157,7 +200,7 @@ export function ShellPage() {
           {/* Dashboard link */}
           <p className={styles.sectionTitle}>Dashboard</p>
           <NavLink
-            to="/"
+            to={dashboardTo}
             end
             className={({ isActive }) =>
               `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
@@ -207,7 +250,7 @@ export function ShellPage() {
             families.map((family) => (
               <NavLink
                 key={family.family}
-                to={`/stats/${family.family}`}
+                to={`/${selectedInstrument}/stats/${family.family}`}
                 className={({ isActive }) =>
                   `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
                 }
