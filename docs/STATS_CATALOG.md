@@ -3073,3 +3073,104 @@ converge to their shared mean and the comparison reveals whether session 2 break
   `high_first` / `low_first` (declared via the shared `Rejection` slicer reading
   `high_first`); cycles with an undetermined order are excluded.
 
+
+---
+
+## 38. Fair Value Gaps
+
+**Family**: `fair_value_gaps`
+**Module**: `stats/fair_value_gaps/standard.py`
+**Result file**: `results/fair_value_gaps.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+On 15-minute RTH candles, a **Fair Value Gap (FVG)** forms when three consecutive
+candles leave a price imbalance: candle 1 and candle 3 have no price overlap
+(bullish: `c1.high < c3.low`; bearish: `c1.low > c3.high`), with candle 2 as the
+impulse body inside the gap. This stat measures **how often each FVG is filled
+(mitigated) within the same RTH session**. Reported as a 2×2 conditional
+probability matrix: P(filled | bullish FVG), P(not filled | bullish FVG),
+P(filled | bearish FVG), P(not filled | bearish FVG). The two outcomes partition
+each direction, so they sum to 1.
+
+### Methodology
+1. Build the resolved-sessions index via `build_resolved_days` (clean RTH open at
+   `rth_start` and a last RTH bar at or after `rth_end - close_tolerance`).
+   Early-close days and the final incomplete day are excluded.
+2. Aggregate 1-minute OHLCV bars within the RTH window
+   `[rth_start_min, rth_end_min)` into **15-minute candles** using bucket index
+   `k = (minute_of_day - rth_start_min) // 15`. For each bucket: `open` = first
+   bar's open, `high` = max high, `low` = min low, `close` = last bar's close.
+3. Slide a **consecutive 3-candle window** (c1, c2, c3) across each session's
+   15-min candles with overlapping steps (every qualifying triple is counted):
+   - **Bullish FVG**: `c1.high < c3.low`.
+     Gap zone `(c1.high, c3.low)`, `gap_pts = c3.low - c1.high`.
+   - **Bearish FVG**: `c1.low > c3.high`.
+     Gap zone `(c3.high, c1.low)`, `gap_pts = c1.low - c3.high`.
+   The two FVG types are mutually exclusive for any given triple.
+4. Compute the **gap size**: `gap_size_pct = 100 * gap_pts / c3.close` (percent
+   of price at formation). This is the column read by the `size` slicer.
+5. **Pending discipline**: an FVG whose c3 is the **last 15-min candle** of its
+   session has no subsequent candle to resolve the fill outcome → excluded from
+   BOTH numerator and denominator. Every other FVG resolves by session end.
+6. **Fill detection**: for each non-pending FVG, evaluate the `fill_threshold_pct`
+   target over all 15-min candles after c3 within the same session.  The
+   suffix-min-low and suffix-max-high for those candles are computed vectorially
+   via a reversed cumulative min/max applied to the within-session shifted series:
+   - Bullish target `= c3.low - (pct/100) * gap_pts`.
+     At 100 % the target collapses to `c1.high` (full mitigation — price must
+     trade back through the gap to the candle that originally bounded it).
+     **Filled** when `min(subsequent lows) <= target`.
+   - Bearish target `= c3.high + (pct/100) * gap_pts`.
+     At 100 % the target collapses to `c1.low`.
+     **Filled** when `max(subsequent highs) >= target`.
+7. Build the **event table**: one row per resolved FVG event, indexed by the
+   normalized session date (duplicate dates expected — multiple FVGs per session
+   are all recorded). Columns: `direction` (`"bullish"` / `"bearish"`),
+   `gap_size_pct`, `filled` (bool).
+
+`total_samples` = total number of resolved FVG events (not sessions). Each row's
+`total` = FVG events of that direction.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `bullish` | `filled`, `not_filled` | Yes | Fill rate among bullish FVGs; `total` = bullish events |
+| `bearish` | `filled`, `not_filled` | Yes | Fill rate among bearish FVGs; `total` = bearish events |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| fill_threshold_pct | 100.0 | Fill target as a percent of the gap (100 = full mitigation, 50 = halfway into the gap) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `15min` (single entry under `instruments.{INSTRUMENT}.15min`).
+
+### Baseline
+Random null (fixed seed, deterministic): the `filled` column is **permuted**
+across all FVG events. This preserves the pooled fill rate but destroys its
+association with the gap direction — the null hypothesis that bullish and bearish
+FVGs fill at the same rate as the market-wide average. Each condition's
+`baseline_prob` therefore converges to the pooled fill rate. A fair-coin baseline
+(50 %) would be inappropriate here because FVGs fill well above 50 % of the time;
+the permutation baseline is the correct direction-agnostic null. Uses
+`np.random.default_rng(seed)`.
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer; reads `index.dayofweek` on the event table — same session date → same
+  weekday for all FVGs within a session).
+  `gap_size_pct` (`SizeBucket(column="gap_size_pct", buckets=[0.0, 0.024, 0.049,
+  0.089, 0.149, 0.25, inf], name="size")`). The six buckets are: 0–0.024 %,
+  0.025–0.049 %, 0.05–0.089 %, 0.09–0.149 %, 0.15–0.25 %, >0.25 %.
+
+### Future variants (not in MVP)
+- `by_time` — which intraday time bucket the FVG forms in (first hour, mid-session,
+  power hour), using a `SizeBucket` on the c3 bucket index.
+- `by_direction` — whether the FVG is with or against the prior daily trend.
+- `by_partial_fill` — varying `fill_threshold_pct` (e.g. 25 %, 50 %, 75 %, 100 %)
+  to show how fill rate degrades as the threshold tightens.
+- `by_gap_age` — how many candles after formation the gap is finally filled (a
+  magnitude stat using the bucket offset to fill).
+
