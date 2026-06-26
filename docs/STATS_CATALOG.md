@@ -3174,3 +3174,82 @@ the permutation baseline is the correct direction-agnostic null. Uses
 - `by_gap_age` — how many candles after formation the gap is finally filled (a
   magnitude stat using the bucket offset to fill).
 
+
+---
+
+## 39. Market Session Correlation
+
+**Family**: `market_session_correlation`
+**Module**: `stats/market_session_correlation/standard.py`
+**Result file**: `results/market_session_correlation.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+How often does a **second** market session close green (or red) given the color a
+**first** market session closed, within the same trading cycle? Intraday color
+follow-through between two named sessions, reported as a 2x2 conditional matrix:
+P(s2 green | s1 green), P(s2 red | s1 green), P(s2 green | s1 red), P(s2 red | s1 red).
+
+Both sessions are named windows read from the instrument config — the single source
+of truth for their bounds — so any ordered pair works; the default is `london`
+(session 1) → `ny` (session 2). This is the within-cycle, two-session companion to
+`prev_session_correlation` (section 5), which instead correlates a session with the
+chronologically PREVIOUS session of the same kind.
+
+### Methodology
+1. Attribute every bar to a **cycle** (the RTH session date). An intraday session
+   (`start < end`) maps to its own calendar date; a cross-midnight session
+   (`start >= end`, e.g. `asia`) maps its evening bars to the *next* day's cycle and
+   its early bars to the *same* day's cycle. Session 1 and session 2 are joined on
+   this shared cycle date, so the pair must be ordered within a cycle.
+2. Build each session's per-cycle candle (`open` = first bar's open, `close` = last
+   bar's close, plus `high` / `low`). A session is **resolved** for a cycle when it
+   has a clean open bar (offset 0 from `start`) AND end coverage (last bar at or
+   after `duration - close_tolerance`, with `duration = (end - start) mod 1440`).
+3. Inner-join both sessions on the cycle date — a cycle survives only when BOTH are
+   resolved (pending-sample discipline).
+4. Classify each session as **green** or **red** per the `performance` mode:
+   - `close_to_close` (default): green if `close >= the previous cycle's close for
+     that same session`. The first joined cycle has no prior close for either
+     session and is excluded.
+   - `open_to_close`: green if `close >= open`.
+5. Report the four rows: s1-green→s2-green, s1-green→s2-red, s1-red→s2-green,
+   s1-red→s2-red.
+
+`total_samples` and each row's `total` count the **countable** cycles (both sessions
+resolved, prior close present in `close_to_close`). The two outcomes per condition
+partition the cycles carrying that session 1 color, so their counts sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `s1_green` | `green`, `red` | Yes | Session 2 color given session 1 closed green |
+| `s1_red` | `green`, `red` | Yes | Session 2 color given session 1 closed red |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| session1 | london | First session (the condition); must be a configured session name |
+| session2 | ny | Second session (the outcome); must differ from `session1` |
+| performance | close_to_close | Session-direction basis: `close_to_close` or `open_to_close` |
+| close_tolerance_min | 15 | Minutes before a session's end still considered full coverage |
+
+### Timeframes computed
+- `daily` (one entry per cycle).
+
+### Baseline
+Each cycle's session 1 and session 2 are recolored independently at random (50/50
+green/red), so session 2's color is independent of session 1's. Expected baseline:
+~50 % for every row. Fixed seed for reproducibility (`np.random.default_rng(seed)`).
+
+### i18n
+- **title.en**: "Market Session Correlation"
+- **title.fr**: "Corrélation de session de marché"
+- **definition.en**: "How often does a second market session close green or red given the color a first market session closed, within the same trading cycle?"
+- **definition.fr**: "À quelle fréquence une deuxième session de marché clôture-t-elle en vert ou en rouge selon la couleur de clôture d'une première session, au cours du même cycle de trading ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `size` — the "by size" breakdown: session-1-range size quartiles (declared via
+  `SizeBucket(column="s1_size")`).
+

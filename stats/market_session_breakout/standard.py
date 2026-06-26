@@ -64,6 +64,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, load_config, minute_of_day
+from stats.utils.session_candles import session_bars
 
 # ---------------------------------------------------------------------------
 # i18n content
@@ -162,27 +163,6 @@ class MarketSessionBreakout(BaseStat):
   # -------------------------------------------------------------------------
   # Day table construction
   # -------------------------------------------------------------------------
-  @staticmethod
-  def _session_bars(df: pd.DataFrame, start_min: int, end_min: int) -> pd.DataFrame:
-    """Return the session's bars tagged with their cycle date in ``_cycle``.
-
-    Intraday sessions (``start < end``) keep ``[start, end)`` on each calendar
-    date. Cross-midnight sessions (``start >= end``) take evening bars (at or
-    after ``start``) attributed to the NEXT day's cycle and early bars (before
-    ``end``) to the same day's cycle.
-    """
-    mod = df["_mod"]
-    if start_min < end_min:
-      bars = df[(mod >= start_min) & (mod < end_min)].copy()
-      bars["_cycle"] = bars["_date"]
-    else:
-      bars = df[(mod >= start_min) | (mod < end_min)].copy()
-      evening = bars["_mod"] >= start_min
-      bars["_cycle"] = bars["_date"].where(
-        ~evening, bars["_date"] + pd.Timedelta(days=1)
-      )
-    return bars
-
   def _session_table(
     self, df: pd.DataFrame, start_min: int, end_min: int, ordering: bool
   ) -> pd.DataFrame:
@@ -194,7 +174,7 @@ class MarketSessionBreakout(BaseStat):
     before the low, 0.0 otherwise, NaN if a single bar held both — undetermined).
     Only resolved cycles are returned.
     """
-    bars = self._session_bars(df, start_min, end_min)
+    bars = session_bars(df, start_min, end_min)
     if bars.empty:
       return pd.DataFrame()
 
