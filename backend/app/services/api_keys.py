@@ -1,12 +1,16 @@
 """API key service — generation, hashing, persistence, and resolution."""
 
 import hashlib
+import logging
 import secrets
-import sqlite3
 from pathlib import Path
 
 from backend.app.auth.models import ApiKeyCreated, ApiKeyOut
+from backend.app.core.config import settings
+from backend.app.core.db import DBError, RowMapping
 from backend.app.repositories import api_keys as api_keys_repo
+
+logger = logging.getLogger(__name__)
 
 
 def generate_key() -> str:
@@ -88,7 +92,7 @@ def revoke_key(
 def resolve_api_key(
   plaintext: str,
   db_path: Path | None = None,
-) -> sqlite3.Row | None:
+) -> RowMapping | None:
   """Look up an API key by its plaintext value.
 
   Hashes the plaintext and queries the database. Returns the raw row
@@ -99,18 +103,40 @@ def resolve_api_key(
     db_path: Optional override for the database path.
 
   Returns:
-    A sqlite3.Row if a matching key exists (active or revoked), else None.
+    A row mapping if a matching key exists (active or revoked), else None.
   """
   key_hash = hash_key(plaintext)
   return api_keys_repo.get_api_key_by_hash(key_hash, db_path)
+
+
+def seed_default_api_key(db_path: Path | None = None) -> None:
+  """Create the default API key from settings if configured and not yet stored.
+
+  No-op if settings.default_api_key is empty.  If a row with the same hash
+  already exists, the insert is skipped (idempotent).
+
+  Non-fatal: logs a warning on DB error so a seeding failure does not crash
+  startup.
+  """
+  if not settings.default_api_key:
+    return
+
+  try:
+    key_hash = hash_key(settings.default_api_key)
+    existing = api_keys_repo.get_api_key_by_hash(key_hash, db_path)
+    if existing is not None:
+      return
+    api_keys_repo.create_api_key(key_hash, settings.default_api_key_name, db_path)
+  except DBError as exc:
+    logger.warning("Failed to seed default API key: %s", exc)
 
 
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
 
-def _row_to_api_key_out(row: sqlite3.Row) -> ApiKeyOut:
-  """Map a sqlite3.Row from api_keys to an ApiKeyOut model."""
+def _row_to_api_key_out(row: RowMapping) -> ApiKeyOut:
+  """Map a row mapping from api_keys to an ApiKeyOut model."""
   revoked_at: str | None = row["revoked_at"]
   return ApiKeyOut(
     id=row["id"],

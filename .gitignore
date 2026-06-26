@@ -26,6 +26,9 @@ Thumbs.db
 *.local
 config/*.local.yaml
 
+# Secrets / credentials — never committed
+cookies.txt
+
 # Test / Coverage
 .pytest_cache/
 .coverage

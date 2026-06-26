@@ -19,6 +19,7 @@ from backend.app.core.db import init_db
 from backend.app.core.exceptions import http_exception_handler
 from backend.app.core.static import mount_frontend
 from backend.app.core.stats_loader import StatsLoader
+from backend.app.services.api_keys import seed_default_api_key
 from backend.app.services.auth import seed_admin
 
 
@@ -31,6 +32,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
   # Startup
   init_db()
   seed_admin()
+  seed_default_api_key()
 
   loader = StatsLoader()
   loader.load_all()

@@ -1,9 +1,8 @@
-"""API key repository — parameterized SQLite queries for the api_keys table."""
+"""API key repository — parameterized queries for the api_keys table."""
 
-import sqlite3
 from pathlib import Path
 
-from backend.app.core.db import get_connection
+from backend.app.core.db import RowMapping, get_connection
 
 
 def create_api_key(
@@ -24,22 +23,21 @@ def create_api_key(
     The integer primary key of the inserted row.
   """
   with get_connection(db_path) as conn:
-    cursor = conn.execute(
+    return conn.insert(
       "INSERT INTO api_keys (key_hash, name) VALUES (?, ?)",
       (key_hash, name),
     )
-    return cursor.lastrowid  # type: ignore[return-value]
 
 
 def list_api_keys(
   db_path: Path | None = None,
-) -> list[sqlite3.Row]:
+) -> list[RowMapping]:
   """Return all API key rows ordered by creation date descending.
 
   key_hash is never selected — callers receive only the safe fields.
 
   Returns:
-    A list of sqlite3.Row with columns: id, name, role, created_at, revoked_at.
+    A list of row mappings with columns: id, name, role, created_at, revoked_at.
   """
   with get_connection(db_path) as conn:
     return conn.execute(
@@ -54,7 +52,7 @@ def list_api_keys(
 def get_api_key_by_hash(
   key_hash: str,
   db_path: Path | None = None,
-) -> sqlite3.Row | None:
+) -> RowMapping | None:
   """Return an API key row by its SHA-256 hash, or None if not found.
 
   Returns revoked keys as well — callers must inspect revoked_at to decide
@@ -65,7 +63,7 @@ def get_api_key_by_hash(
     db_path: Optional override for the database path.
 
   Returns:
-    sqlite3.Row with columns id, name, role, created_at, revoked_at, or None.
+    Row mapping with columns id, name, role, created_at, revoked_at, or None.
   """
   with get_connection(db_path) as conn:
     return conn.execute(
@@ -81,7 +79,7 @@ def get_api_key_by_hash(
 def get_api_key_by_id(
   key_id: int,
   db_path: Path | None = None,
-) -> sqlite3.Row | None:
+) -> RowMapping | None:
   """Return an API key row by primary key, or None if not found.
 
   Args:
@@ -89,7 +87,7 @@ def get_api_key_by_id(
     db_path: Optional override for the database path.
 
   Returns:
-    sqlite3.Row with columns id, name, role, created_at, revoked_at, or None.
+    Row mapping with columns id, name, role, created_at, revoked_at, or None.
   """
   with get_connection(db_path) as conn:
     return conn.execute(
@@ -122,7 +120,7 @@ def revoke_api_key(
     cursor = conn.execute(
       """
       UPDATE api_keys
-      SET    revoked_at = datetime('now')
+      SET    revoked_at = CURRENT_TIMESTAMP
       WHERE  id = ?
         AND  revoked_at IS NULL
       """,

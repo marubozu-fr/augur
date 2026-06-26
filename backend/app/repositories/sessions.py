@@ -1,9 +1,8 @@
-"""Session repository — parameterized SQLite queries for the sessions table."""
+"""Session repository — parameterized queries for the sessions table."""
 
-import sqlite3
 from pathlib import Path
 
-from backend.app.core.db import get_connection
+from backend.app.core.db import RowMapping, get_connection
 
 
 def create_session(
@@ -30,7 +29,7 @@ def create_session(
 def get_session(
   token: str,
   db_path: Path | None = None,
-) -> sqlite3.Row | None:
+) -> RowMapping | None:
   """Return a non-expired session joined to its user, or None.
 
   The query filters out rows whose expires_at is in the past so callers
@@ -44,7 +43,7 @@ def get_session(
       FROM   sessions s
       JOIN   users u ON u.id = s.user_id
       WHERE  s.token = ?
-        AND  s.expires_at > datetime('now')
+        AND  s.expires_at > CURRENT_TIMESTAMP
       """,
       (token,),
     ).fetchone()
@@ -63,6 +62,6 @@ def prune_expired_sessions(db_path: Path | None = None) -> int:
   """Delete all expired sessions and return the number of rows removed."""
   with get_connection(db_path) as conn:
     cursor = conn.execute(
-      "DELETE FROM sessions WHERE expires_at <= datetime('now')"
+      "DELETE FROM sessions WHERE expires_at <= CURRENT_TIMESTAMP"
     )
     return cursor.rowcount

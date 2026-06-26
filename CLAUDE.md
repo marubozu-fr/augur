@@ -7,7 +7,7 @@ Repository: `marubozu-fr/augur` — License: AGPL-3.0
 
 ## Tech Stack
 - **Stats engine**: Python 3.12+, pandas, pyarrow (Parquet)
-- **Backend**: FastAPI, SQLite (auth only), Pydantic v2
+- **Backend**: FastAPI, dual-backend auth DB (PostgreSQL in production, SQLite fallback), Pydantic v2
 - **Frontend (backoffice)**: React 18+, TypeScript, Mantine v7, CSS Modules, Recharts, Vite 6+
 - **Output**: Pine Script v6 indicator
 - **Package managers**: `uv` (Python), `pnpm` (Node)
@@ -56,7 +56,7 @@ is the audit trail.
 ### Backend (FastAPI)
 - **Architecture**: routers → services → repositories → models (Kiroku pattern)
 - **Stats loader** (`backend/app/core/stats_loader.py`): reads `results/*.json`, caches in memory, reloadable on demand. This is a core service, not a repository — it reads files, not a database.
-- **Auth**: SQLite (`backend/db/augur.db`) for users (admin/reader roles) and API keys only. `PRAGMA foreign_keys = ON`. Parameterized queries only.
+- **Auth**: dual-backend DB for users (admin/reader roles) and API keys only. PostgreSQL (Supabase/Railway) when `DATABASE_URL` is set, otherwise SQLite (`backend/db/augur.db`) for local dev and tests. The backend is selected at runtime in `backend/app/core/db.py`, which centralizes dialect differences (schema DDL, inserted-id retrieval) so repository SQL stays portable. Parameterized queries only.
 - **Endpoints**: `/auth/` (public), `/admin/` (session cookie auth), `/api/v1/` (API key auth via `X-API-Key` header)
 - **Response envelope**: `{ "data": ..., "error": null }` or `{ "data": null, "error": "message" }`
 - The backend NEVER writes to `results/` or `data/` — those are managed by the stats engine.
@@ -99,9 +99,9 @@ augur/
 │   │   ├── routers/      # HTTP route handlers
 │   │   ├── models/       # Pydantic models
 │   │   ├── services/     # Business logic
-│   │   ├── repositories/ # SQLite queries (auth only)
+│   │   ├── repositories/ # Auth DB queries (Postgres/SQLite, auth only)
 │   │   └── core/         # Config, stats loader, dependencies
-│   ├── db/               # SQLite database (auth)
+│   ├── db/               # Local SQLite auth database (fallback)
 │   └── tests/
 ├── frontend/             # React admin dashboard
 │   ├── src/

@@ -2,7 +2,6 @@
 
 import logging
 import secrets
-import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -10,6 +9,7 @@ import bcrypt
 
 from backend.app.auth.models import UserOut
 from backend.app.core.config import settings
+from backend.app.core.db import DBError
 from backend.app.repositories import sessions as sessions_repo
 from backend.app.repositories import users as users_repo
 
@@ -100,7 +100,7 @@ def seed_admin(db_path: Path | None = None) -> None:
       "admin",
       db_path,
     )
-  except sqlite3.Error as exc:
+  except DBError as exc:
     # Non-fatal: log and continue so a seeding failure does not crash startup,
     # but the operator can see why login is impossible.
     logger.warning("Failed to seed admin user: %s", exc)
