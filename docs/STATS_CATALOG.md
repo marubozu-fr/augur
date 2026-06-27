@@ -3577,3 +3577,92 @@ for a fixed seed.
 ### Slices
 None. The CPI Reaction stat declares `slices = ()`. Events are scattered across
 the calendar; per-day slicing is meaningless.
+
+---
+
+## 44. FOMC Intraday
+
+**Family**: `fomc_intraday`
+**Module**: `stats/fomc_intraday/standard.py`
+**Result file**: `results/fomc_intraday.json`
+**Status**: Implemented
+
+### What it measures
+On FOMC decision days, how does price perform within each 15-minute RTH
+interval? Days are split into positive vs negative reaction groups based on the
+direction of the 2pm ET (14:00) interval — the window that captures the
+immediate market response to the Fed's rate decision. Each interval reports its
+average % change, average $ change, and average volume, both overall (all FOMC
+days) and per reaction group.
+
+
+### Methodology
+1. **Interval grid**: the RTH session `[rth_start_min, rth_end_min)` is split
+   into consecutive 15-minute intervals (`range(rth_start, rth_end, 15)`). For
+   NQ (09:30–16:15) this is 27 intervals, keyed `i0930`, `i0945`, …, `i1600`.
+   No times are hardcoded — the grid and its labels are derived from config.
+2. **Per-interval metrics** for interval `[t, t+15)` on a given day, from the
+   1-min `candles_df`:
+   - `interval_open` = `open` of the bar at EXACTLY minute `t`. If that bar is
+     missing, the interval is undefined for that day → its metrics are NaN
+     (pending-sample discipline applied at the **interval** level, not the day).
+   - `interval_close` = `close` of the LAST bar in `[t, t+15)`.
+   - `pct_{key}` = `(interval_close - interval_open) / interval_open`
+   - `dollar_{key}` = `interval_close - interval_open`
+   - `vol_{key}` = sum of 1-min bar volumes in `[t, t+15)` (NaN when the open
+     bar is missing, for consistent pending discipline).
+3. **Day qualification**: a date is included iff it is an RTH-resolved session
+   (via `build_resolved_days`: clean session-open bar AND a last RTH bar at or
+   after `session_end - close_tolerance_min`) AND an FOMC decision date.
+4. **FOMC decision dates** loaded from the external economic calendar via
+   `load_fomc_release_dates(calendar_path)` (reused from `fomc_performance`).
+   Injected into `__init__` as `event_dates`; normalized to tz-naive midnight
+   Timestamps for date-level alignment.
+5. **Reaction flag**: `reaction_positive` = direction of the 14:00 interval —
+   `1.0` when strictly up (`close > open`), `0.0` when flat or down, `NaN` when
+   the 14:00 bar (or its window close) is missing. Days with `NaN` stay in the
+   overall results but are excluded from both reaction groups.
+6. **day_table**: one row per qualifying FOMC date, columns `pct_{key}`,
+   `dollar_{key}`, `vol_{key}` for every interval plus `reaction_positive`.
+7. **compute_rows**: for each interval (`condition`) × metric (`outcome` ∈
+   `pct_change`, `dollar_change`, `volume`) emit one row with `value` = mean of
+   non-NaN observations, `total` = N non-NaN days, `count` = up-count (`val >= 0`)
+   for pct/dollar or `= total` for volume, `probability = count / total`. All
+   rows are always emitted (27 × 3 = 81 for NQ) for a deterministic shape.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| `close_tolerance_min` | `15` | Minutes before RTH end still considered a full close |
+
+The reaction window is fixed at 14:00 ET (the conventional FOMC announcement
+time). The interval size is 15 minutes.
+
+### Timeframes computed
+- `daily` (one entry; FOMC events are date-keyed, not intraday-timeframe-keyed).
+
+### Baseline
+The sign of each non-NaN `pct_change` / `dollar_change` observation is
+independently randomized (`np.random.default_rng(seed)`, ±1 with p=0.5), holding
+magnitudes fixed; expected mean ≈ 0 and expected up-fraction ≈ 0.5 per interval.
+Volume has no directional baseline, so `value_baseline` is `None` for every
+volume row. Deterministic for a fixed seed.
+
+### i18n
+- **title.en**: "FOMC Intraday"
+- **title.fr**: "FOMC Intrajournalier"
+- **definition.en**: "On FOMC decision days, how does price perform within each 15-minute RTH interval? Results are split by the direction of the 2pm ET reaction window (the bar that captures the immediate response to the Fed's rate decision)."
+- **definition.fr**: "Les jours de décision du FOMC, comment le prix évolue-t-il dans chaque intervalle de 15 minutes de la session RTH ? Les résultats sont divisés selon la direction de la fenêtre de réaction de 14h ET (la bougie capturant la réponse immédiate à la décision de taux de la Fed)."
+
+Interval condition labels are generated dynamically from the grid (e.g. `i0930`
+→ "09:30–09:45"). Outcome labels: `pct_change` → "Average % change", `dollar_change`
+→ "Average $ change", `volume` → "Average volume".
+
+### Slices
+- `reaction` (dimension "2pm ET reaction"): splits qualifying days into
+  `positive` (14:00 interval closed strictly up) and `negative` (flat or down).
+  Days missing the 14:00 bar are excluded from both groups. This is the core
+  reaction split; the top-level results cover all FOMC days aggregated.
+
+### Future variants (not in MVP)
+- `by_individual_days` — per-date breakdown of each FOMC day's intraday profile
