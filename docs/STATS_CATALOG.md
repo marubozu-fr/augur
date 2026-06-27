@@ -3428,3 +3428,86 @@ the overall `value`.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
+
+---
+
+## 42. Session Volume by Weekday
+
+**Family**: `session_volume_weekday`
+**Module**: `stats/session_volume_weekday/standard.py`
+**Result file**: `results/session_volume_weekday.json`
+**Status**: Implemented
+
+### What it measures
+For each weekday: the **average total traded volume** of the Asia, London, and
+NY geographic market sessions. The overall result aggregates all countable
+cycles; the per-weekday breakdown is produced by the declared `weekday` slice.
+
+This is a **magnitude** stat: all three rows carry a continuous metric in
+`value` (and its random-baseline counterpart in `value_baseline`). The
+`probability` / `baseline_prob` channel is left at `0.0` for every row. Every
+row reports its sample size in `count` / `total`.
+
+### Methodology
+1. **Cycle attribution**: bars are tagged to the RTH session date they belong
+   to via `session_bars` (cross-midnight sessions such as `asia` 18:00→03:00
+   attribute their evening bars to the NEXT calendar day's cycle).
+2. **Session resolution**: for each cycle, a session is **resolved** when (a)
+   it has a clean open bar (offset 0 from the session's `start`) AND (b) its
+   last bar falls within `close_tolerance_min` minutes of the session's
+   scheduled end. `duration = (end − start) mod 1440` (1440 if equal).
+3. **Countable cycles**: a cycle is countable only when ALL three sessions are
+   resolved. The three session tables are inner-joined on the cycle date —
+   any missing session drops the entire cycle (pending-sample discipline). This
+   keeps N uniform across all three outcomes.
+4. **Per-session volume**: for each countable cycle,
+   - `asia_volume`   = sum of the Asia session bars' `volume`
+   - `london_volume` = sum of the London session bars' `volume`
+   - `ny_volume`     = sum of the NY session bars' `volume`
+5. Over all countable cycles, report three rows under the single `any_day`
+   condition: `mean_asia_volume`, `mean_london_volume`, `mean_ny_volume`.
+6. Re-run the same three rows per weekday via the `weekday` slice.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `any_day` | All countable cycles (the `weekday` slice does the per-day breakdown) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `mean_asia_volume`   | `value` | Average total traded volume of the Asia session |
+| `mean_london_volume` | `value` | Average total traded volume of the London session |
+| `mean_ny_volume`     | `value` | Average total traded volume of the NY session |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| `asia` | `"asia"` | Config session name for the Asia window |
+| `london` | `"london"` | Config session name for the London window |
+| `ny` | `"ny"` | Config session name for the NY window |
+| `close_tolerance_min` | 15 | Minutes before a session's scheduled end still considered full coverage |
+
+### Timeframes computed
+- `daily` (one entry per countable cycle).
+
+### Baseline
+Random null: for a subset of `N` cycles (one weekday, or the whole table),
+draw `N` cycles uniformly at random **without replacement** from the full
+countable-cycle table and compute the same three averages on that random
+sample. This represents the null hypothesis that the weekday carries no
+information — its expected session volumes equal the grand mean across all
+cycles. Uses `np.random.default_rng(seed)` for deterministic output. The
+baseline is computed per slice group as well as overall; for the overall result
+the sample is a permutation of the full table, so its `value_baseline` equals
+the overall `value`.
+
+### i18n
+- **title.en**: "Session Volume by Weekday"
+- **title.fr**: "Volume de session par jour de la semaine"
+- **definition.en**: "What is the average total traded volume of the Asia, London, and NY sessions for each weekday?"
+- **definition.fr**: "Quel est le volume total moyen échangé des sessions asiatique, de Londres et de New York pour chaque jour de la semaine ?"
+
+### Slices
+- `weekday` — implemented (declared via `slices = ("weekday",)`)
+
