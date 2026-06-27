@@ -3511,3 +3511,69 @@ the overall `value`.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
+
+---
+
+## 43. CPI Reaction
+
+**Family**: `cpi_reaction`
+**Module**: `stats/cpi_reaction/standard.py`
+**Result file**: `results/cpi_reaction.json`
+**Status**: Implemented
+
+### What it measures
+On CPI release dates, given the direction of the initial reaction candle
+(the 08:30–09:30 ET pre-RTH window that captures the immediate post-release
+move), how often does the RTH day close in the same direction? Reported as a
+2×2 conditional matrix: P(green day | green reaction), P(red day | green
+reaction), P(green day | red reaction), P(red day | red reaction).
+
+### Methodology
+1. Build RTH daily candles via `build_resolved_days` (`session_open`,
+   `session_close`), using the standard resolution rule (clean session-open
+   bar and a last RTH bar at or after `session_end - close_tolerance_min`).
+   **Day color**: `day_green = session_close >= session_open`.
+2. **Reaction candle** = the intraday window `[reaction_start_min, reaction_end_min)`
+   in ET on the release date, computed from the 1-min `candles_df`:
+   - `reaction_open` = `open` of the bar at EXACTLY `reaction_start_min`.
+     If that bar is missing for a date, the reaction is undefined → date dropped.
+   - `reaction_close` = `close` of the LAST bar in the window for that date.
+   - `reaction_green = reaction_close >= reaction_open`.
+   Duplicate bars at the exact start minute are de-duplicated (`keep="first"`).
+3. **CPI release dates** loaded from the external economic calendar via
+   `load_cpi_release_dates(calendar_path)` (reused from `cpi_performance`).
+   Injected into `__init__` as `event_dates`; normalized to tz-naive midnight
+   Timestamps for date-level alignment.
+4. **day_table**: one row per CPI release date that has BOTH (a) a resolved
+   RTH session AND (b) a complete reaction candle. Columns: `reaction_green`
+   (bool), `day_green` (bool). Dates failing either requirement are excluded
+   from all denominators (pending-sample discipline).
+5. **compute_rows**: 2×2 over `_CONDITIONS = (("reaction_green", True),
+   ("reaction_red", False))` and `_OUTCOMES = (("green", True), ("red", False))`.
+   All four rows are always emitted even when the table is empty.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| `reaction_start` | `"08:30"` | Reaction window start time (HH:MM ET) |
+| `reaction_end` | `"09:30"` | Reaction window end time HH:MM ET; must be after `reaction_start` |
+| `close_tolerance_min` | `15` | Minutes before RTH end still considered a full close |
+
+### Timeframes computed
+- `daily` (one entry; CPI events are date-keyed, not intraday-timeframe-keyed).
+
+### Baseline
+Each qualifying day's RTH color (`day_green`) is replaced by an independent
+fair-coin flip (`np.random.default_rng(seed)`, p=0.5); the reaction condition
+stays from real data. Expected baseline_prob ≈ 0.5 for every row. Deterministic
+for a fixed seed.
+
+### i18n
+- **title.en**: "CPI Reaction"
+- **title.fr**: "Réaction CPI"
+- **definition.en**: "On CPI release dates, given the initial reaction candle's direction (08:30–09:30 ET move after the release), how often does the RTH day close in the same direction?"
+- **definition.fr**: "Les jours de publication du CPI, selon la direction de la bougie de réaction initiale (mouvement 08:30–09:30 ET après la publication), à quelle fréquence la séance RTH clôture-t-elle dans la même direction ?"
+
+### Slices
+None. The CPI Reaction stat declares `slices = ()`. Events are scattered across
+the calendar; per-day slicing is meaningless.
