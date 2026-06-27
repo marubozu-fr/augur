@@ -3253,3 +3253,94 @@ green/red), so session 2's color is independent of session 1's. Expected baselin
 - `size` — the "by size" breakdown: session-1-range size quartiles (declared via
   `SizeBucket(column="s1_size")`).
 
+
+---
+
+## 40. Daily High / Low Session
+
+**Family**: `daily_high_low_session`
+**Module**: `stats/daily_high_low_session/standard.py`
+**Result file**: `results/daily_high_low_session.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+For each 24-hour trading cycle, which intraday market session produced the
+cycle's **highest high** and which produced the **lowest low**? The configured
+sessions (default: `asia`, `london`, `ny`) partition the full cycle with no
+overlap; together they cover the complete 24-hour period. The stat reports the
+fraction of cycles where each session "owns" each daily extreme. Probabilities
+sum to 1 within each condition (every cycle's extreme belongs to exactly one
+session).
+
+### Methodology
+1. **Cycle attribution**: bars are tagged to the RTH session date they belong
+   to. A cross-midnight session (`start >= end`, e.g. `asia` 18:00→03:00)
+   maps its evening bars to the NEXT calendar day's cycle and its early bars
+   to the SAME day's cycle. An intraday session (`start < end`) maps to its
+   own calendar date. All configured sessions are joined on this shared cycle
+   date, so the session list must be ordered chronologically within a cycle.
+2. **Session resolution**: for each cycle, a session is **resolved** when (a)
+   it has a clean open bar (offset 0 from the session's `start`) AND (b) its
+   last bar falls within `close_tolerance_min` minutes of the session's
+   scheduled end. `duration = (end - start) mod 1440` (1440 if equal).
+3. **Countable cycles**: a cycle is countable only when ALL configured sessions
+   are resolved. Any missing or unresolved session drops the entire cycle from
+   the denominator (pending-sample discipline). The cycle tables are inner-joined
+   on the cycle date.
+4. **Extreme attribution**: for each countable cycle, `high_session` is the
+   session whose `max(high)` equals the overall cycle max. `low_session` is the
+   session whose `min(low)` equals the overall cycle min. On exact ties (two
+   sessions share the same extreme value), the first session in the configured
+   order is credited — `np.argmax` / `np.argmin` return the first occurrence.
+5. **Daily candle**: `day_green = True` when the cycle's overall close (last
+   bar across all sessions) is `>=` the cycle's overall open (first bar across
+   all sessions). Used by the `candle` slice.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `daily_high` | one per session | Yes | Which session contained the cycle's max high; `total` = countable cycles |
+| `daily_low` | one per session | Yes | Which session contained the cycle's min low; `total` = countable cycles |
+
+Both conditions have the same `total` (all countable cycles). Counts for a
+condition sum to `total`, so probabilities sum to 1.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| sessions | `("asia", "london", "ny")` | Ordered session names; must be at least 2, distinct, and all present in the instrument config. Chronological order matters: first session wins on exact ties. |
+| close_tolerance_min | 15 | Minutes before a session's scheduled end still considered full coverage |
+
+### Timeframes computed
+- `daily` (one entry per countable cycle).
+
+### Baseline
+Duration-weighted random null (fixed seed, deterministic). For each countable
+cycle, the day's high (and independently the day's low) is assigned to a
+randomly drawn session with probability proportional to that session's bar
+count `n_{session}` in the cycle. Rationale: under a structureless random
+walk a price extreme is equally likely at any minute, so the probability a
+session captures an extreme should equal its share of the cycle's total bar
+count (time). The stat's edge is whether a session captures the high or low
+MORE than its duration share predicts.
+
+Implementation: build a per-row normalized weight matrix from the `n_{session}`
+columns, compute cumulative sums, draw `rng.random(n)` for high and again for
+low, pick the first session whose cumulative weight exceeds the draw
+(`(u[:, None] < cum).argmax(axis=1)`). A tmp copy of the day table with
+replaced `high_session` / `low_session` columns is passed to `compute_rows`.
+Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Daily High / Low Session"
+- **title.fr**: "Session du plus haut / plus bas journalier"
+- **definition.en**: "For each trading cycle, which intraday market session produced the day's highest high and which produced the day's lowest low? Reported as a probability distribution over the configured sessions; probabilities sum to 1 within each condition."
+- **definition.fr**: "Pour chaque cycle de trading, quelle session de marché intrajournalière a produit le plus haut du jour et laquelle a produit le plus bas du jour ? Présenté comme une distribution de probabilité sur les sessions configurées ; les probabilités somment à 1 par condition."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer; reads `index.dayofweek` on the day table).
+- `candle` — split by daily candle color: green (`cycle_close >= cycle_open`)
+  or red. Declared via the module-local `_DailyCandle` slicer, a subclass of
+  the public `Close` slicer reading the `day_green` boolean column.
+
