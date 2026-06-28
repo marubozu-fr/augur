@@ -3988,3 +3988,107 @@ momentum). Days are iterated in stable chronological order for reproducibility.
 ### Slices
 None.
 
+
+---
+
+## 49. Fibonacci Retracement Levels
+
+**Family**: `fibonacci_levels`
+**Module**: `stats/fibonacci_levels/standard.py`
+**Result file**: `results/fibonacci_levels.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+For each resolved trading day, compute the seven standard Fibonacci retracement
+levels (0%, 23.6%, 38.2%, 50%, 61.8%, 78.6%, 100%) of the **prior RTH session's
+range**, anchored by the prior candle's direction. Then measure two things about
+the **current session**:
+- **Which levels the session touches** during RTH (independent rates per level).
+- **Which Fibonacci zone the session opens in** (one of 8 mutually exclusive zones).
+
+The prior candle's direction determines the anchor orientation:
+- **Green prior session** (low → high move): the retracement starts from the top.
+  f=0 → prev_high, f=1 → prev_low.
+- **Red prior session** (high → low move): the retracement starts from the bottom.
+  f=0 → prev_low, f=1 → prev_high.
+
+The `prev_candle` slice naturally exposes the green/red asymmetry in fib-level
+
+### Methodology
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   and per-day RTH extremes (`day_high`, `day_low`) using
+   `build_day_table_with_prior_range`. This also provides the prior RESOLVED
+   day's extremes (`prev_high`, `prev_low`) and color (`prev_session_green`).
+   The first resolved day has NaN prior values and is excluded from every
+   denominator (pending-sample discipline).
+2. Countable days require `prev_high` and `prev_low` not NaN **and** a strictly
+   positive prior range (`prev_high > prev_low`). `total_samples` counts all
+   resolved days; each row's `total` = countable days.
+3. Compute the 7 Fibonacci level prices per countable day:
+   - Green prior: `level(f) = prev_high - f * rng_` where `rng_ = prev_high - prev_low`.
+   - Red prior: `level(f) = prev_low + f * rng_`.
+4. **Tier 1 — level touches**: a level `L` is touched when
+   `day_low <= L <= day_high`. Each of the 7 levels is tested independently;
+   outcomes do NOT partition (a single session can touch multiple levels).
+5. **Tier 2 — opening zone**: compute the open's position on the anchored scale:
+   - Green prior: `open_frac = (prev_high - session_open) / rng_`.
+   - Red prior:   `open_frac = (session_open - prev_low) / rng_`.
+   Then classify into one of 8 zones. Zones partition the countable set.
+
+### Conditions & outcomes
+
+#### Tier 1 — `fib_levels` (independent rates, do NOT partition)
+| Outcome key | Description |
+|---|---|
+| `touch_0` | Session touched the 0% level (anchor extreme) |
+| `touch_236` | Session touched the 23.6% level |
+| `touch_382` | Session touched the 38.2% level |
+| `touch_500` | Session touched the 50% level |
+| `touch_618` | Session touched the 61.8% level |
+| `touch_786` | Session touched the 78.6% level |
+| `touch_100` | Session touched the 100% level (far extreme) |
+
+#### Tier 2 — `opening_zone` (partition; each session in exactly one zone)
+| Outcome key | open_frac range | Description |
+|---|---|---|
+| `below_0` | open_frac < 0 | Open beyond the anchor extreme |
+| `0_236` | 0 ≤ open_frac < 0.236 | Open in 0%–23.6% zone |
+| `236_382` | 0.236 ≤ open_frac < 0.382 | Open in 23.6%–38.2% zone |
+| `382_500` | 0.382 ≤ open_frac < 0.5 | Open in 38.2%–50% zone |
+| `500_618` | 0.5 ≤ open_frac < 0.618 | Open in 50%–61.8% zone |
+| `618_786` | 0.618 ≤ open_frac < 0.786 | Open in 61.8%–78.6% zone |
+| `786_100` | 0.786 ≤ open_frac ≤ 1.0 | Open in 78.6%–100% zone |
+| `above_100` | open_frac > 1.0 | Open beyond the far extreme |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry under
+  `instruments.{INSTRUMENT}.daily`).
+
+### Baseline
+Random null (fixed seed, deterministic): the prior-range triple (`prev_high`,
+`prev_low`, `prev_session_green`) is **permuted together** across days using the
+same permutation index. Each session is thus compared against an UNRELATED day's
+Fibonacci levels — the null that temporal adjacency of the prior range and anchor
+direction carries no information. Permuting all three columns jointly preserves
+the internal consistency of each prior range (`prev_low <= prev_high`) and keeps
+each anchor direction aligned with its range. The lone NaN prior triple (the
+first resolved day) moves to a random row, preserving the countable count exactly.
+
+### i18n
+- **title.en**: "Fibonacci Retracement Levels"
+- **title.fr**: "Niveaux de retracement de Fibonacci"
+- **definition.en**: "Which Fibonacci retracement levels (0%, 23.6%, 38.2%, 50%, 61.8%, 78.6%, 100%) of the prior RTH session's range does the current session touch? And which Fibonacci zone does the session open in? Levels are anchored by the prior candle's direction."
+- **definition.fr**: "Quels niveaux de retracement de Fibonacci (0 %, 23,6 %, 38,2 %, 50 %, 61,8 %, 78,6 %, 100 %) du range de la session RTH précédente la session actuelle touche-t-elle ? Et dans quelle zone de Fibonacci la session ouvre-t-elle ? Les niveaux sont ancrés par la direction de la bougie précédente."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `prev_candle` — the "by prior close" breakdown: prior session green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+  asymmetry in fib-level touch rates and opening zones.
+
