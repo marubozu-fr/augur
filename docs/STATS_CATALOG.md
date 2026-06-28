@@ -3666,3 +3666,73 @@ Interval condition labels are generated dynamically from the grid (e.g. `i0930`
 
 ### Future variants (not in MVP)
 - `by_individual_days` — per-date breakdown of each FOMC day's intraday profile
+
+---
+
+## 45. Economic Data Volume
+
+**Family**: `economic_data_volume`
+**Module**: `stats/economic_data_volume/standard.py`
+**Result file**: `results/economic_data_volume.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The average total RTH daily traded volume on economic-event days compared to
+non-event days. Five event conditions are reported — CPI, FOMC, NFP and GDP
+release days individually, plus an `any_event` union — alongside a `non_event`
+condition (sessions carrying none of the four releases).
+
+### Methodology
+1. Build the RTH resolved-day table (shared `build_resolved_days`): one row per
+   resolved session (clean 09:30 open bar AND a last RTH bar at or after
+   `session_end - close_tolerance_min`), sorted chronologically. Early-close days
+   and the final incomplete day are excluded (pending discipline).
+2. Each resolved day's `volume` is the sum of its RTH bar volumes.
+3. Release dates come from an **external economic calendar CSV** (not from the
+   OHLCV data). Per type the headline US print is matched and the distinct
+   release dates injected:
+   - CPI — `load_cpi_release_dates` (`event == "CPI m/m"`, `currency == "USD"`).
+   - FOMC — `load_fomc_release_dates` (`event == "Federal Funds Rate"`).
+   - NFP — `load_nfp_release_dates` (`event == "Non-Farm Employment Change"`).
+   - GDP — `load_gdp_release_dates` (`event in {Advance, Prelim, Final} GDP q/q`;
+     the "GDP Price Index" deflator lines are deliberately not matched).
+4. A resolved session is flagged for an event type when its date matches one of
+   that type's release dates. `is_any_event` is the union of the four flags;
+   `is_non_event` is its complement (a day with no matched release).
+5. For each of the six conditions, report a single magnitude outcome:
+   - **mean_volume** — average summed RTH volume over that condition's days
+     (carried in `value`; the `probability` channel is left at `0.0`).
+
+Each condition reports its own sample size in `count` / `total`. All 6 rows are
+always emitted; a condition with no days carries `count = total = 0` and
+`value = 0.0`. `total_samples` is the number of resolved days (the whole
+population), not the per-condition count.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| calendar_path | `data/forex_factory_calendar.csv` | Economic calendar CSV with the release dates |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): per condition holding `N` days, draw `N`
+days uniformly at random (without replacement) from the whole resolved-day table
+and average their volume. Every condition's expected baseline equals the grand
+mean across all sessions, so an actual event-day mean well above its baseline
+indicates a genuine volume lift around the release rather than an artifact of the
+day count. Draws are sequential over the fixed condition order with
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Economic Data Volume"
+- **title.fr**: "Volume des données économiques"
+- **definition.en**: "How does the average total RTH daily volume on economic-event days (CPI, FOMC, NFP, GDP) compare to non-event days?"
+- **definition.fr**: "Comment le volume quotidien RTH total moyen des jours d'annonces économiques (CPI, FOMC, NFP, GDP) se compare-t-il aux jours sans annonce ?"
+
+### Slices
+- None. Releases are scattered across the calendar, so the per-day slicers
+  (weekday, close color, …) do not apply; `slices = ()`.
+
