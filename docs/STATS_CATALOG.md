@@ -3736,3 +3736,94 @@ day count. Draws are sequential over the fixed condition order with
 - None. Releases are scattered across the calendar, so the per-day slicers
   (weekday, close color, …) do not apply; `slices = ()`.
 
+
+## 46. Asian Range Breakout
+
+**Family**: `asian_range_breakout`
+**Module**: `stats/asian_range_breakout/standard.py`
+**Result file**: `results/asian_range_breakout.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+The **Asian range** is the high-low range of the Asian (Tokyo) session that
+precedes a given RTH session (NQ: 18:00 ET previous day → 03:00 ET, read from the
+config `asia` session window). Given that range, which direction does price break
+during the **RTH session** (09:30–16:15)? Reported under a single `asian_range`
+condition with four mutually exclusive outcomes that partition every countable
+day: `broke_high`, `broke_low`, `broke_both`, `neither`. Their probabilities sum
+to 1. The marginal high-break / low-break rates are recoverable as
+`broke_high + broke_both` and `broke_low + broke_both`. This is the Asian-session
+sibling of `overnight_range_breakout` (which uses the wider 18:00→09:30 overnight
+window).
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) via `build_resolved_days` — the same resolution rule as the
+   other daily stats (clean 09:30 open and a last RTH bar at or after
+   `session_end - close_tolerance`).
+2. Compute the **Asian range** from the `asia` session bars, attributed to the RTH
+   session date they precede via `session_bars` (`stats/utils/session_candles.py`).
+   The session crosses midnight, so evening bars (`hour*60+minute >= asia_start`,
+   i.e. ≥ 18:00) are tagged to the *next* calendar day's cycle and early bars
+   (`hour*60+minute < asia_end`, i.e. < 03:00) to the *same* calendar day's cycle.
+   Grouping the tagged bars by `_cycle`:
+   - `ar_high` = max of `high`, `ar_low` = min of `low`.
+   - `ar_size` = `ar_high - ar_low`.
+3. Compute the **RTH session** extremes over `[rth_start, rth_end)`:
+   - wick criteria (default): `day_high` = max `high`, `day_low` = min `low`.
+   - close criteria: `day_close_high` = max `close`, `day_close_low` = min `close`.
+   Join the Asian range and the RTH extremes onto the resolved-days index (inner
+   join — a day survives only with a resolved RTH session AND a prior Asian range).
+4. Classify the breakout direction with **strict** inequalities (touching a level
+   exactly is NOT a break), using the extremes selected by `breakout_criteria`:
+   - `broke_high`: `high > ar_high` AND `low >= ar_low` (broke up only).
+   - `broke_low`:  `low < ar_low`  AND `high <= ar_high` (broke down only).
+   - `broke_both`: `high > ar_high` AND `low < ar_low` (broke both sides).
+   - `neither`:    `high <= ar_high` AND `low >= ar_low` (held inside all session).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** days (a resolved RTH session and a prior Asian range). The four
+outcomes are mutually exclusive and exhaustive, so their counts sum to `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `asian_range` | `broke_high`, `broke_low`, `broke_both`, `neither` | Yes | Breakout direction of the RTH session relative to the prior Asian range; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close beyond the level) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random directional null (fixed seed, deterministic): each countable day's RTH move
+is **reflected** around its Asian-range midpoint with probability 0.5 (a price `p`
+maps to `2*mid - p`, which swaps the high and low extremes). Reflection turns a
+`broke_high` day into a `broke_low` day and vice versa, while `broke_both` and
+`neither` are direction-symmetric and unchanged. The null therefore carries NO
+directional bias, so `broke_high` and `broke_low` converge to their shared mean and
+the comparison reveals whether the Asian range breaks **up** more often than
+**down** beyond a coin flip. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Asian Range Breakout"
+- **title.fr**: "Cassure du range asiatique"
+- **definition.en**: "Comparing each session's market-hours high and low to the prior Asian (Tokyo) session's high and low, how often does price break above the Asian high only, below the Asian low only, both sides, or neither during the RTH session?"
+- **definition.fr**: "En comparant le plus haut et le plus bas de la séance régulière au plus haut et au plus bas de la session asiatique (Tokyo) précédente, à quelle fréquence le prix casse-t-il au-dessus du plus haut asiatique uniquement, en-dessous du plus bas uniquement, des deux côtés, ou ni l'un ni l'autre pendant la séance RTH ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by prev candle" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size` — the "by size" breakdown: Asian-range size quartiles (declared via
+  `SizeBucket(column="ar_size")`).
+- `levels` — the "by levels" breakdown: how far the breakout extended past the
+  Asian range, in multiples of `ar_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
+  declared via `Levels(ref="ar_size", ext="extension")`).
+
