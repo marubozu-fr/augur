@@ -3909,3 +3909,82 @@ is computed per slice group as well as overall.
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
 
+
+---
+
+## 48. Average Consecutive Bars
+
+**Family**: `avg_consecutive_bars`
+**Module**: `stats/avg_consecutive_bars/standard.py`
+**Result file**: `results/avg_consecutive_bars.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+For each resolved trading day, on the intraday chart at a given `timeframe`,
+find the **longest run of consecutive green bars** and the **longest run of
+consecutive red bars** within the RTH session. Then average those per-day
+maximums across all resolved days. The output is, per color, the mean of the
+daily-max streak lengths.
+
+This is a **magnitude** stat: each row's `value` holds the mean of daily
+maximum streak lengths; `value_baseline` holds the permutation-null baseline.
+The `probability` channel is always `0.0` (unused).
+
+### Methodology
+1. Build the resolved-days table via `build_resolved_days` (clean session open
+   at exactly `rth_start` and a last RTH bar at or after
+   `rth_end - close_tolerance`). Early-close days and the final incomplete day
+   are excluded (pending discipline).
+2. Over the same RTH bar filter (`hour*60+minute` in `[rth_start_min, rth_end_min)`),
+   assign each 1-min bar a bucket index
+   `(minute_of_day - rth_start_min) // bucket_min`.
+3. Per `(day, bucket)` build the candle: `open` = open of the bucket's earliest
+   bar, `close` = close of its latest bar. A bar is **green** when
+   `close >= open`, **red** otherwise.
+4. For each resolved day, order the bucket bars chronologically (ascending
+   bucket index) and compute:
+   - `max_green_streak`: length of the longest consecutive green run that day.
+   - `max_red_streak`: length of the longest consecutive red run that day.
+   Days without any RTH bucket bars are excluded.
+5. Report the mean of `max_green_streak` across all contributing days as the
+   `green` / `max_streak` value, and similarly for `max_red_streak` → `red`.
+   `count` = `total` = number of contributing days.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `green` | Green bars (bucket close ≥ open) |
+| `red` | Red bars (bucket close < open) |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `max_streak` | `value` | Avg of the daily-max consecutive-bar run length |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | `5min` | Bucket granularity (`1min`, `5min`, `15min`, `30min`, `1h`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- One per run, keyed by the chosen bucket granularity (default `5min`).
+
+### Baseline
+Permutation null (fixed seed, deterministic): for each resolved day, the
+`bar_colors` array (a bool array preserving the day's actual green/red counts)
+is randomly shuffled using `np.random.default_rng(seed)`. The max green and
+max red streak lengths are recomputed on the shuffled array. Averaging these
+shuffled maxima across all days gives the null: what streak length would occur
+if bar colors within each day were independently ordered (no clustering or
+momentum). Days are iterated in stable chronological order for reproducibility.
+
+### i18n
+- **title.en**: "Average Consecutive Bars"
+- **title.fr**: "Bougies consécutives moyennes"
+- **definition.en**: "For each trading day, the longest run of consecutive green and of consecutive red intraday bars, averaged across days. Shows the typical length of intraday color streaks."
+- **definition.fr**: "Pour chaque jour de bourse, la plus longue série de bougies intraday vertes consécutives et de rouges consécutives, moyennée sur l'ensemble des jours. Montre la longueur typique des séries de couleur intraday."
+
+### Slices
+None.
+

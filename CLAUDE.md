@@ -47,6 +47,12 @@ Each file is **self-documenting** with i18n-ready fields:
 - `labels`: human-readable condition and outcome names in en/fr
 - `instruments.{INSTRUMENT}.{TIMEFRAME}`: the actual results
 
+**`results/*.json` IS committed to git** — it is the published stat output the
+backend serves, not a throwaway artifact. The `results/` line in `.gitignore` is
+commented out (`#results/`). Every stat PR MUST include its result JSON file
+(e.g. `results/<stat_family>.json`). This is unlike `data/`, `output/`, and
+`frontend/dist/`, which ARE gitignored and never committed.
+
 Results are validated by **Pydantic models** before writing. Atomic write (temp file + rename).
 No historical runs are stored — re-run the stat module to recompute. The source Parquet data
 is the audit trail.
@@ -119,7 +125,7 @@ augur/
 ├── config/
 │   └── NQ.yaml           # Instrument sessions and timeframes
 ├── data/                 # OHLCV Parquet files (gitignored, prepared externally)
-├── results/              # Stat result JSON files (gitignored)
+├── results/              # Stat result JSON files (COMMITTED — published output)
 ├── output/               # Generated Pine Script files (gitignored)
 ├── tests/                # Stats engine tests
 ├── docs/
@@ -206,4 +212,4 @@ cd frontend && pnpm build
 - NEVER use SQL string concatenation — parameterized queries only.
 - NEVER use `any` type in TypeScript — define proper interfaces.
 - ALWAYS check `docs/DESIGN_SYSTEM.md` before creating UI components.
-- `data/`, `results/`, `output/`, and `frontend/dist/` directories are gitignored. Never commit data or generated files.
+- `data/`, `output/`, and `frontend/dist/` directories are gitignored — never commit data or generated artifacts. NOTE: `results/` is NOT gitignored — its stat JSON files ARE committed (published output the backend serves); always include the result JSON in a stat PR.
