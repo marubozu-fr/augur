@@ -3827,3 +3827,85 @@ the comparison reveals whether the Asian range breaks **up** more often than
   Asian range, in multiples of `ar_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
   declared via `Levels(ref="ar_size", ext="extension")`).
 
+
+---
+
+## 47. Candle Body Ratio
+
+**Family**: `candle_body_ratio`
+**Module**: `stats/candle_body_ratio/standard.py`
+**Result file**: `results/candle_body_ratio.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+For each intraday time bucket of the RTH session: the fraction of resolved days
+whose bucket candle has a **body** (`|close - open|`) covering at least
+`candle_size` percent of its full **range** (`high - low`). A high body ratio
+marks a decisive, trend-like candle; a low ratio an indecisive, wick-heavy one.
+Bucketed by time slot, the stat shows when in the session decisive candles are
+most (and least) likely to print.
+
+This is a **probability** stat. Each intraday bucket is a **condition** (key
+`HHMM`, e.g. `0930`); the single **outcome** `large_body` carries the fraction of
+that bucket's days whose candle had a large body. The `value` channel is left
+`None` on every row.
+
+### Methodology
+1. Build the resolved-days table via `build_resolved_days` (clean session open at
+   exactly `rth_start` and a last RTH bar at or after `rth_end - close_tolerance`).
+   Early-close days and the final incomplete day are excluded (pending discipline).
+2. Over the same RTH bar filter (`hour*60+minute` in `[rth_start_min, rth_end_min)`),
+   assign each bar a bucket index `(minute_of_day - rth_start_min) // bucket_min`.
+   The final bucket may be partial when the session length is not a whole multiple
+   of `bucket_min` (NQ 09:30–16:15 with 15-minute buckets ends with the 16:00–16:15
+   bucket).
+3. Per `(day, bucket)` build the candle: `open` = open of the bucket's earliest
+   bar, `close` = close of its latest bar, `high` = max `high`, `low` = min `low`.
+   Compute `ratio = |close - open| / (high - low)`, defined as `0.0` for a flat
+   candle (`high == low`). The candle is a **large body** when
+   `ratio >= candle_size / 100`. Pivot to one row per resolved day with one
+   `body_{b}` column per bucket holding `1.0` (large), `0.0` (not large), or `NaN`
+   (bucket absent that day, excluded from the denominator).
+4. For each bucket present in the subset, report one `large_body` row whose
+   `probability` is the large-body rate over the contributing days. `count` =
+   large-body days; `total` = contributing days.
+5. Re-run the same row per weekday via the `weekday` slice.
+
+### Conditions
+| Condition key | Description |
+|---|---|
+| `HHMM` (e.g. `0930`, `0945`, …) | One per intraday time bucket present, keyed by the bucket's start time |
+
+### Outcomes
+| Outcome key | Channel | Description |
+|---|---|---|
+| `large_body` | `probability` | Fraction of the bucket's days whose candle body is ≥ `candle_size`% of its range |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | `15min` | Bucket granularity (`1min`, `5min`, `15min`, `30min`, `1h`) |
+| candle_size | 50 | Minimum body-to-range ratio percentage (must be in `[0, 100]`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- One per run, keyed by the chosen bucket granularity (default `15min`).
+
+### Baseline
+Random null: all per-`(day, bucket)` large-body flags in the subset are pooled.
+For a bucket contributing `n` days, `n` flags are drawn uniformly at random —
+without replacement — from the pool and their mean is the bucket's baseline rate.
+This represents the null hypothesis that the intraday time bucket carries no
+information — its expected large-body rate equals the grand mean across all
+buckets. Uses `np.random.default_rng(seed)` for deterministic output. The baseline
+is computed per slice group as well as overall.
+
+### i18n
+- **title.en**: "Candle Body Ratio"
+- **title.fr**: "Ratio de corps de bougie"
+- **definition.en**: "For each intraday time bucket: the fraction of days whose candle body covers at least the configured percentage of its high-to-low range. Shows when in the session decisive, trend-like candles are most likely to print."
+- **definition.fr**: "Pour chaque tranche horaire intraday : la fraction des jours dont le corps de la bougie couvre au moins le pourcentage configuré de son amplitude haut-bas. Montre à quel moment de la séance les bougies décisives, de tendance, sont les plus probables."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+
