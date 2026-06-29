@@ -40,7 +40,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, Session
-from stats.opening_candle.continuation import OpeningCandleContinuation
+from stats.opening_candle.continuation import OpeningCandleContinuation, _CloseLocation
 
 # ---------------------------------------------------------------------------
 # Shared test infrastructure
@@ -1491,3 +1491,241 @@ def test_weekday_slice_write_results_round_trip(tmp_path: Path) -> None:
   gr_mon = rows_by_key[("green_open", "red_close")]
   assert gr_mon.count == 1
   assert gr_mon.probability == pytest.approx(1.0)
+
+
+# ===========================================================================
+# 9. _CloseLocation slicer (stat-specific: session close vs opening candle)
+# ===========================================================================
+
+class TestCloseLocation:
+  """Tests for stats.opening_candle.continuation._CloseLocation."""
+
+  def test_name(self) -> None:
+    """The dimension name is 'close'."""
+    assert _CloseLocation().name == "close"
+
+  def test_dimension_label_en_fr(self) -> None:
+    """dimension_label() must return non-empty en and fr."""
+    label = _CloseLocation().dimension_label()
+    assert label.en != ""
+    assert label.fr != ""
+
+  def test_empty_day_table_returns_empty(self) -> None:
+    """Empty day-table returns []."""
+    dt = pd.DataFrame(
+      {"close_location": pd.Series([], dtype=object)},
+      index=pd.DatetimeIndex([], tz=_NY),
+    )
+    assert _CloseLocation().split(dt) == []
+
+  def test_missing_column_returns_empty(self) -> None:
+    """A day-table without close_location returns []."""
+    dt = _make_day_table(["2024-01-02"], session_green=[True])
+    assert _CloseLocation().split(dt) == []
+
+  def test_three_groups_above_inside_below(self) -> None:
+    """One row of each location yields three single-member groups."""
+    dt = _make_day_table(
+      ["2024-01-02", "2024-01-03", "2024-01-04"],
+      close_location=["above", "inside", "below"],
+    )
+    by_key = _groups_by_key(_CloseLocation().split(dt))
+    assert set(by_key.keys()) == {"above", "inside", "below"}
+    for key in ("above", "inside", "below"):
+      assert int(by_key[key].mask.sum()) == 1
+
+  def test_group_order_is_above_inside_below(self) -> None:
+    """Groups are emitted in fixed order regardless of input order."""
+    dt = _make_day_table(
+      ["2024-01-02", "2024-01-03", "2024-01-04"],
+      close_location=["below", "above", "inside"],
+    )
+    groups = _CloseLocation().split(dt)
+    assert [g.key for g in groups] == ["above", "inside", "below"]
+
+  def test_absent_group_omitted(self) -> None:
+    """A location with no rows produces no group."""
+    dt = _make_day_table(
+      ["2024-01-02", "2024-01-03"], close_location=["above", "above"]
+    )
+    groups = _CloseLocation().split(dt)
+    assert [g.key for g in groups] == ["above"]
+
+  def test_unknown_value_excluded(self) -> None:
+    """Rows with a value outside the three known keys join no group."""
+    dt = _make_day_table(
+      ["2024-01-02", "2024-01-03"], close_location=["above", "sideways"]
+    )
+    by_key = _groups_by_key(_CloseLocation().split(dt))
+    assert set(by_key.keys()) == {"above"}
+    assert int(by_key["above"].mask.sum()) == 1
+
+  def test_mask_alignment_to_index(self) -> None:
+    """Each group's mask must be index-aligned to the day table."""
+    dates = ["2024-01-02", "2024-01-03", "2024-01-04"]
+    dt = _make_day_table(dates, close_location=["above", "inside", "below"])
+    for g in _CloseLocation().split(dt):
+      assert list(g.mask.index) == list(dt.index)
+
+
+# ===========================================================================
+# 10. Framework integration: OpeningCandleContinuation close & size slices
+# ===========================================================================
+
+def _make_candles_from_patterns(
+  patterns: list[tuple[float, float, float]],
+  dates: list[str],
+  tf_minutes: int,
+) -> pd.DataFrame:
+  """Build a multi-day 1-min dataset from (session_open, opening_close,
+  session_close) triples, reusing the integration day builder."""
+  frames = [
+    _make_day_for_integration(
+      date=dates[i],
+      session_open=so,
+      opening_close=oc,
+      session_close=sc,
+      tf_minutes=tf_minutes,
+    )
+    for i, (so, oc, sc) in enumerate(patterns)
+  ]
+  df = pd.concat(frames, ignore_index=True)
+  return df.sort_values("timestamp").reset_index(drop=True)
+
+
+# All green openings (open=100, close=110 → opening range [99.75, 110.25]); the
+# session close places each day above / inside / below that range.
+_CLOSE_DATES = [
+  "2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05", "2024-01-08",
+]
+_CLOSE_PATTERNS = [
+  (100.0, 110.0, 120.0),  # above
+  (100.0, 110.0, 121.0),  # above
+  (100.0, 110.0, 105.0),  # inside
+  (100.0, 110.0, 80.0),   # below
+  (100.0, 110.0, 81.0),   # below
+]
+
+
+def test_compute_produces_close_slice() -> None:
+  """The 'close' slice must be present with the expected group membership.
+
+  Hand-calculation (opening range [99.75, 110.25]):
+    above=2 (sc=120, 121), inside=1 (sc=105), below=2 (sc=80, 81).
+  """
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_CLOSE_PATTERNS, _CLOSE_DATES, 15)
+  result = stat.compute(df)
+
+  tf_result = result.instruments["NQ"]["15min"]
+  assert "close" in tf_result.slices
+  assert tf_result.slices["close"].dimension == "close"
+
+  groups = tf_result.slices["close"].groups
+  assert set(groups.keys()) == {"above", "inside", "below"}
+  assert groups["above"].total_samples == 2
+  assert groups["inside"].total_samples == 1
+  assert groups["below"].total_samples == 2
+
+
+def test_close_slice_totals_sum_to_overall() -> None:
+  """Per-group condition totals must sum to the overall condition total.
+
+  All five days are green openings, so green_open overall total=5 and the close
+  groups partition them: 2 + 1 + 2 = 5.
+  """
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_CLOSE_PATTERNS, _CLOSE_DATES, 15)
+  result = stat.compute(df)
+
+  tf_result = result.instruments["NQ"]["15min"]
+
+  def _overall_total(condition: str) -> int:
+    for row in tf_result.results:
+      if row.condition == condition and row.outcome == "green_close":
+        return row.total
+    raise KeyError(condition)
+
+  groups = tf_result.slices["close"].groups
+  summed = 0
+  for g in groups.values():
+    for row in g.results:
+      if row.condition == "green_open" and row.outcome == "green_close":
+        summed += row.total
+  assert summed == _overall_total("green_open") == 5
+
+
+def test_close_slice_groups_have_baseline_n() -> None:
+  """Every non-empty close-group result row must carry baseline_n > 0."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_CLOSE_PATTERNS, _CLOSE_DATES, 15)
+  result = stat.compute(df)
+
+  groups = result.instruments["NQ"]["15min"].slices["close"].groups
+  for key, group in groups.items():
+    for row in group.results:
+      if row.total > 0:
+        assert row.baseline_n > 0, f"close group '{key}' row has baseline_n=0"
+
+
+# Eight days with varied opening body sizes (|opening_close - 100|): 5,10,15,20
+# repeated for green and red openings, to exercise the quartile size buckets.
+_SIZE_DATES = [
+  "2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05",
+  "2024-01-08", "2024-01-09", "2024-01-10", "2024-01-11",
+]
+_SIZE_PATTERNS = [
+  (100.0, 105.0, 110.0),  # green body 5
+  (100.0, 110.0, 120.0),  # green body 10
+  (100.0, 115.0, 120.0),  # green body 15
+  (100.0, 120.0, 130.0),  # green body 20
+  (100.0, 95.0, 90.0),    # red body 5
+  (100.0, 90.0, 80.0),    # red body 10
+  (100.0, 85.0, 80.0),    # red body 15
+  (100.0, 80.0, 70.0),    # red body 20
+]
+
+
+def test_compute_produces_size_slice() -> None:
+  """The 'size' slice must be present and partition every resolved day.
+
+  SizeBucket itself is unit-tested elsewhere; here we only assert the stat wires
+  it on the opening_body column and that the buckets cover all 8 days.
+  """
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_SIZE_PATTERNS, _SIZE_DATES, 15)
+  result = stat.compute(df)
+
+  tf_result = result.instruments["NQ"]["15min"]
+  assert "size" in tf_result.slices
+  assert tf_result.slices["size"].dimension == "size"
+
+  groups = tf_result.slices["size"].groups
+  assert len(groups) >= 2  # quartiles on a varied column → multiple buckets
+  assert sum(g.total_samples for g in groups.values()) == 8
+
+
+def test_labels_dimensions_contains_all_slices() -> None:
+  """labels.dimensions must expose weekday, close, and size with en/fr text."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_SIZE_PATTERNS, _SIZE_DATES, 15)
+  result = stat.compute(df)
+
+  dims = result.labels.dimensions
+  for key in ("weekday", "close", "size"):
+    assert key in dims, f"missing dimension label '{key}'"
+    assert dims[key].en != ""
+    assert dims[key].fr != ""
+
+
+def test_close_slice_write_results_round_trip(tmp_path: Path) -> None:
+  """The close slice must survive a compute → write → read → validate round-trip."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  df = _make_candles_from_patterns(_CLOSE_PATTERNS, _CLOSE_DATES, 15)
+  result = stat.compute(df)
+  written_path = write_results(result, results_dir=tmp_path)
+
+  validated = StatRunResult.model_validate_json(written_path.read_text(encoding="utf-8"))
+  tf = validated.instruments["NQ"]["15min"]
+  assert "close" in tf.slices
+  assert tf.slices["close"].groups["inside"].total_samples == 1

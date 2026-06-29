@@ -16,6 +16,9 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SizeBucket,
+  SliceGroup,
+  Slicer,
   StatResultRow,
   StatRunResult,
   TimeframeResult,
@@ -55,6 +58,65 @@ _TF_MINUTES: dict[str, int] = {
 }
 
 
+class _CloseLocation(Slicer):
+  """Split by where the session closes relative to the opening candle range.
+
+  Unlike the generic ``Close`` slicer (which merely splits days by session
+  color), this is a distinct metric: it groups days by how far the session
+  travels from the opening candle, using the candle's wick extremes as the
+  reference. Three ordered groups:
+
+    above  — session_close >  opening_high (closes beyond the candle's high)
+    inside — opening_low <= session_close <= opening_high (closes within it)
+    below  — session_close <  opening_low (closes beyond the candle's low)
+
+  Reads the ``close_location`` column produced by ``build_day_table``.
+  """
+
+  name = "close"
+
+  _GROUPS: tuple[tuple[str, I18nString], ...] = (
+    (
+      "above",
+      I18nString(
+        en="Closes above opening candle",
+        fr="Clôture au-dessus de la bougie d'ouverture",
+      ),
+    ),
+    (
+      "inside",
+      I18nString(
+        en="Closes inside opening candle",
+        fr="Clôture dans la bougie d'ouverture",
+      ),
+    ),
+    (
+      "below",
+      I18nString(
+        en="Closes below opening candle",
+        fr="Clôture en dessous de la bougie d'ouverture",
+      ),
+    ),
+  )
+
+  def dimension_label(self) -> I18nString:
+    return I18nString(
+      en="Session close vs opening candle",
+      fr="Clôture de session vs bougie d'ouverture",
+    )
+
+  def split(self, day_table: pd.DataFrame) -> list[SliceGroup]:
+    if len(day_table) == 0 or "close_location" not in day_table.columns:
+      return []
+    col = day_table["close_location"]
+    groups: list[SliceGroup] = []
+    for key, label in self._GROUPS:
+      mask = pd.Series(col == key, index=day_table.index)
+      if bool(mask.any()):
+        groups.append(SliceGroup(key=key, label=label, mask=mask))
+    return groups
+
+
 class OpeningCandleContinuation(BaseStat):
   """Conditional probability of session direction given opening candle direction."""
 
@@ -62,7 +124,11 @@ class OpeningCandleContinuation(BaseStat):
   title = _TITLE
   definition = _DEFINITION
   labels = _LABELS
-  slices = ("weekday",)
+  slices = (
+    "weekday",
+    _CloseLocation(),
+    SizeBucket(column="opening_body", preset="quartiles", name="size"),
+  )
 
   def __init__(
     self,
@@ -107,7 +173,8 @@ class OpeningCandleContinuation(BaseStat):
       return pd.DataFrame(
         columns=[
           "session_open", "session_close", "last_minute",
-          "opening_open", "opening_close", "opening_green", "session_green",
+          "opening_open", "opening_close", "opening_high", "opening_low",
+          "opening_green", "session_green", "opening_body", "close_location",
         ]
       )
     df = candles_df.copy()
@@ -150,9 +217,14 @@ class OpeningCandleContinuation(BaseStat):
       .set_index("date")["close"]
       .rename("opening_close")
     )
+    # opening_high / opening_low = wick extremes over the opening candle window
+    oc_high = oc_bars.groupby("date")["high"].max().rename("opening_high")
+    oc_low = oc_bars.groupby("date")["low"].min().rename("opening_low")
 
     # --- Join everything ---
-    day = pd.concat([open_bars, last_bars, oc_first, oc_last], axis=1, sort=False)
+    day = pd.concat(
+      [open_bars, last_bars, oc_first, oc_last, oc_high, oc_low], axis=1, sort=False
+    )
 
     # Resolution filter: must have clean session open AND sufficient close coverage.
     # Days missing the open bar will have NaN in session_open / opening_open.
@@ -166,6 +238,18 @@ class OpeningCandleContinuation(BaseStat):
     # Direction flags
     day["opening_green"] = day["opening_close"] >= day["opening_open"]
     day["session_green"] = day["session_close"] >= day["session_open"]
+
+    # Slice metrics
+    # opening_body = absolute opening-candle body size (drives the `size` slice).
+    day["opening_body"] = (day["opening_close"] - day["opening_open"]).abs()
+    # close_location = session close relative to the opening candle range
+    # (drives the `close` slice). Wick extremes are the reference; boundaries are
+    # inclusive on the inside.
+    day["close_location"] = np.select(
+      [day["session_close"] > day["opening_high"], day["session_close"] < day["opening_low"]],
+      ["above", "below"],
+      default="inside",
+    )
 
     return day
 

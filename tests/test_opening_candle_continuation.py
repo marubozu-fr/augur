@@ -862,6 +862,56 @@ def test_build_day_table_session_green_flags() -> None:
 
 
 # ===========================================================================
+# 9b. Slice-metric columns (opening_body, close_location, opening wick extremes)
+# ===========================================================================
+
+def test_build_day_table_has_slice_columns() -> None:
+  """build_day_table must expose the columns the size/close slices read."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  day_table = stat.build_day_table(make_candles(_build_spec(15)))
+
+  required = {"opening_high", "opening_low", "opening_body", "close_location"}
+  assert required.issubset(set(day_table.columns))
+
+
+def test_opening_body_is_absolute_candle_body() -> None:
+  """opening_body = |opening_close - opening_open|, regardless of candle color."""
+  days = [
+    {"date": "2024-01-02", "session_open": 100.0, "opening_close": 110.0,
+     "session_close": 120.0, "tf_minutes": 15},  # green, body 10
+    {"date": "2024-01-03", "session_open": 100.0, "opening_close": 92.0,
+     "session_close": 80.0, "tf_minutes": 15},   # red, body 8
+  ]
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  day_table = stat.build_day_table(make_candles(days)).sort_index()
+
+  bodies = list(day_table["opening_body"])
+  assert bodies[0] == pytest.approx(10.0)
+  assert bodies[1] == pytest.approx(8.0)
+
+
+def test_close_location_above_inside_below() -> None:
+  """close_location classifies the session close vs the opening candle range.
+
+  The range uses wick extremes. With the synthetic builder a green opening
+  (open=100, close=110) spans high=110.25, low=99.75; a session close above
+  110.25 is 'above', within [99.75, 110.25] is 'inside', below 99.75 is 'below'.
+  """
+  days = [
+    {"date": "2024-01-02", "session_open": 100.0, "opening_close": 110.0,
+     "session_close": 120.0, "tf_minutes": 15},  # above the opening high
+    {"date": "2024-01-03", "session_open": 100.0, "opening_close": 110.0,
+     "session_close": 105.0, "tf_minutes": 15},  # inside the opening range
+    {"date": "2024-01-04", "session_open": 100.0, "opening_close": 110.0,
+     "session_close": 80.0, "tf_minutes": 15},   # below the opening low
+  ]
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  day_table = stat.build_day_table(make_candles(days)).sort_index()
+
+  assert list(day_table["close_location"]) == ["above", "inside", "below"]
+
+
+# ===========================================================================
 # 10. Instrument and timeframe attributes
 # ===========================================================================
 

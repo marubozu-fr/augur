@@ -79,7 +79,7 @@ the per-group labels (including data-dependent bucket ranges) live inside each g
 **Family**: `opening_candle`
 **Module**: `stats/opening_candle/continuation.py`
 **Result file**: `results/opening_candle_continuation.json`
-**Status**: To implement
+**Status**: Implemented
 
 ### What it measures
 After the first N-minute candle of the RTH session, how often does the session
@@ -121,16 +121,21 @@ Expected baseline: ~50% for all conditions. Fixed seed for reproducibility.
 - **definition.fr**: "Après la première bougie de N minutes de la session NY, à quelle fréquence la session clôture-t-elle dans la même direction ?"
 
 ### Slices
-- `weekday` — implemented (declared via `slices = ("weekday",)`)
+- `weekday` — day-of-week breakdown (declared via the `"weekday"` shorthand).
+- `close` — where the session **closes relative to the opening candle range**
+  (wick extremes): `above` (close > opening high), `inside` (close within the
+  opening high/low), or `below` (close < opening low). This is a distinct metric,
+  **not** the generic `Close` slicer (which merely splits days into session-green
+  / session-red); it quantifies how far the session travels from the opening
+  candle. Driven by the `close_location` column and the stat-local
+  `_CloseLocation` slicer.
+- `size` — opening-candle **body size** buckets, `|opening_close - opening_open|`,
+  split into equal-frequency quartiles via
+  `SizeBucket(column="opening_body", preset="quartiles", name="size")`. Small vs
+  large opening moves are compared for differing continuation behaviour. (We use
+  data-driven quartiles rather than hardcoded percentage thresholds, per the
+  no-hardcoded-instrument-values rule.)
 
-### Future variants (not in MVP)
-- `by_size` — sliced by candle body size buckets (would add an opening-body-size
-  column to the day table and declare `SizeBucket(...)`)
-- `by_close` — a distinct *metric*, not the generic `Close` slicer (which merely
-  splits days into session-green / session-red). `by_close` measures where the
-  session **closes relative to the opening candle**: e.g. inside the opening
-  candle's range, beyond its close, or back through its open — quantifying how
-  far the session travels from the opening candle, not just its color.
 
 ---
 
