@@ -4317,3 +4317,98 @@ moves to a random row, preserving the countable count exactly.
   (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
 
 
+
+---
+
+## 52. Weekly Open Retracement
+
+**Family**: `weekly_open_retracement`
+**Module**: `stats/weekly_open_retracement/standard.py`
+**Result file**: `results/weekly_open_retracement.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+There is a **weekly opening price** `L`: the `open` of the FIRST RTH bar (09:30)
+of the ISO week. For each resolved week, classify whether the week first moved
+**above or below** `L` (from the first RTH bar's direction), and whether intraday
+RTH price later **retraced back to touch** `L` before the week ended. Reported as
+a 2x2 conditional matrix — P(retraced | opened above), P(not retraced | opened
+above), P(retraced | opened below), P(not retraced | opened below) — plus a
+weekday distribution of *when* the first retracement occurred. The two retrace
+outcomes partition each direction, so they sum to 1.
+
+### Methodology
+1. Filter to RTH bars (`hour*60+minute >= rth_start_min` and `< rth_end_min`).
+   Key each bar to the **Monday** of its ISO week
+   (`date - to_timedelta(date.dayofweek, 'D')`, normalized tz-aware) and index the
+   week table by that Monday date.
+2. **Pending discipline**: the LAST ISO week present is always dropped (it may
+   still be in progress).
+3. **Weekly opening price** `L` = `open` of the chronologically first RTH bar of
+   the week.
+4. Classify the **direction** from that first bar's `close` vs `L` (strict — a
+   doji first bar with `close == L` has no direction and is excluded from every
+   denominator, though still counted in `total_samples`):
+   - **opened_above**: `close > L` (week first moved up).
+   - **opened_below**: `close < L` (week first moved down).
+   A week is **countable** only when it has a direction.
+5. Classify the **retracement** over the RTH bars AFTER the first bar (touching
+   exactly counts):
+   - opened above: **retraced** when a later bar's `low <= L`.
+   - opened below: **retraced** when a later bar's `high >= L`.
+6. **retrace_weekday** = python weekday (0=Mon..4=Fri) of the chronologically
+   first retracing bar (NA when not retraced) — drives the weekday distribution.
+7. **spike_pts** = maximum favorable excursion from `L` (in points) over the
+   window from the first bar through the first retracing bar inclusive (or the
+   whole week when never retraced): opened above → `max(high) - L`; opened below →
+   `L - min(low)`. **spike_pct** = `100 * spike_pts / L`. Both are defined for all
+   countable weeks (NA for doji) and back the size slices.
+
+`total_samples` counts all resolved weeks; each tier-1 row's `total` counts only
+the **countable** weeks carrying that direction.
+
+> **Modeling note**: direction is taken from the first RTH bar's close-vs-open
+> rather than a multi-bar move, so the classification is deterministic and the
+> retracement can occur on the opening Monday itself. The result confirms this:
+> on NQ, retraced weeks revisit `L` predominantly on the same Monday (~91%).
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `opened_above` | `retraced`, `not_retraced` | Yes | Retrace rate given the week first moved up; `total` = opened-above weeks |
+| `opened_below` | `retraced`, `not_retraced` | Yes | Retrace rate given the week first moved down; `total` = opened-below weeks |
+| `retraced` | `monday`..`friday` | Yes | Weekday of the first retracement among all retraced weeks; `total` = retraced weeks |
+
+### Timeframes computed
+- `weekly` (one entry under `instruments.{INSTRUMENT}.weekly`).
+
+### Baseline
+Random null (fixed seed, deterministic; `np.random.default_rng(seed)`). Two
+surrogate tables are stitched:
+- **Tier 1** (`opened_above` / `opened_below`): the `retraced` outcome is
+  **permuted** across countable weeks, preserving the pooled retracement rate
+  while destroying its association with direction — each direction's
+  `baseline_prob` converges to the pooled rate, so the comparison reveals whether
+  up-weeks and down-weeks retrace at *different* rates.
+- **Tier 2** (`retraced`): each retraced week's `retrace_weekday` is replaced by a
+  uniform random draw over Mon..Fri (`baseline_prob ~ 0.2` each) — the null that
+  no weekday is special for the first retracement.
+
+### i18n
+- **title.en**: "Weekly Open Retracement"
+- **title.fr**: "Retracement de l'ouverture hebdomadaire"
+- **definition.en**: "When the first RTH bar of the week closes above or below the weekly opening price, how often does intraday price retrace back to touch that level before the week ends?"
+- **definition.fr**: "Lorsque la première bougie RTH de la semaine clôture au-dessus ou en dessous du prix d'ouverture hebdomadaire, à quelle fréquence le prix intraday revient-il toucher ce niveau avant la fin de la semaine ?"
+
+### Slices
+- `spike_pts` — the "by spike" breakdown in points: quartiles of the maximum
+  excursion away from `L` before the retracement (declared via
+  `SizeBucket(column="spike_pts")`). Reveals P(retrace | spike size).
+- `spike_pct` — the same in percent of the weekly open (declared via
+  `SizeBucket(column="spike_pct")`); `spike_pct` is stored in percent units so the
+  bucket-edge labels are legible.
+
+The "by weekday" variant is handled by the tier-2 `retraced` rows in
+`compute_rows` (the weekday slicer would split by the week's Monday index, which
+is constant, so it is not declared).
+
