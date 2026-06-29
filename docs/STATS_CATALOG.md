@@ -4196,3 +4196,124 @@ the market does on average. Uses `np.random.default_rng(seed)`.
 - `by_spike` — bucket days by the maximum spike **away** from the level before the
   retrace (needs the intraday path, not just the day extremes).
 
+
+---
+
+## 51. Pivot Points
+
+**Family**: `pivot_points`
+**Module**: `stats/pivot_points/standard.py`
+**Result file**: `results/pivot_points.json`
+**Status**: Implemented (standard variant — traditional pivots)
+
+### What it measures
+
+For each resolved trading day, compute classic pivot levels from the PRIOR RTH
+session's High (H), Low (L), and Close (C), then measure three things about the
+CURRENT session:
+
+- **Which levels the session touches** during RTH (independent rates per level).
+- **Which zone the session opens in** (one of the mutually exclusive bands
+  between consecutive levels, plus the two outer regions).
+- **Which zone the session closes in** (same zone structure as the opening).
+
+Two pivot formulas are supported; the standard committed output uses traditional.
+
+### Methodology
+
+1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
+   and per-day RTH extremes (`day_high`, `day_low`) using
+   `build_day_table_with_prior_range`. Add `prev_close = session_close.shift(1)`
+   (shifted over the resolved-only sorted index, skipping any excluded day).
+   The first resolved day has NaN prior values and is excluded from every
+   denominator (pending-sample discipline).
+2. Countable days require `prev_high`, `prev_low`, and `prev_close` all non-NaN
+   AND a strictly positive prior range (`prev_high > prev_low`).
+   `total_samples` counts all resolved days; each row's `total` = countable days.
+3. **Traditional (floor) pivot formulas** (from prior H, L, C; `rng = H - L`):
+   - `PP = (H + L + C) / 3`
+   - `R1 = 2*PP - L` ; `S1 = 2*PP - H`
+   - `R2 = PP + rng` ; `S2 = PP - rng`
+   - `R3 = H + 2*(PP - L)` ; `S3 = L - 2*(H - PP)`
+   Levels ordered low → high: S3, S2, S1, PP, R1, R2, R3 (7 levels, 8 zones).
+4. **Camarilla pivot formulas** (from prior C and rng; `factor = rng * 1.1`):
+   - `Rn = C + factor / divisor` ; `Sn = C - factor / divisor`
+   - divisors: R1/S1=12, R2/S2=6, R3/S3=4, R4/S4=2
+   Levels ordered low → high: S4, S3, S2, S1, R1, R2, R3, R4 (8 levels, 9 zones).
+5. **Tier 1 — `pivot_levels`**: a level L is touched when
+   `day_low <= L <= day_high`. Each level is tested independently; outcomes do
+   NOT partition (a single session can touch multiple levels).
+6. **Tier 2 — `opening_zone`**: classify `session_open` into the zone it falls
+   in. Zone boundaries are half-open `[lo, hi)` ascending; the topmost finite
+   zone is closed at its upper bound (`<= R3` for traditional, `<= R4` for
+   camarilla). Zones partition the countable set.
+7. **Tier 3 — `close_zone`**: same zone classification for `session_close`.
+
+### Conditions & outcomes
+
+#### Traditional — `pivot_levels` (independent rates, do NOT partition)
+
+| Outcome key | Description |
+|---|---|
+| `s3` | Session touched S3 (Support 3) |
+| `s2` | Session touched S2 (Support 2) |
+| `s1` | Session touched S1 (Support 1) |
+| `pp` | Session touched PP (Pivot Point) |
+| `r1` | Session touched R1 (Resistance 1) |
+| `r2` | Session touched R2 (Resistance 2) |
+| `r3` | Session touched R3 (Resistance 3) |
+
+#### Traditional — `opening_zone` and `close_zone` (partition; sum to `total`)
+
+| Outcome key | Price range | Description |
+|---|---|---|
+| `below_s3` | price < S3 | Below Support 3 |
+| `s3_s2` | S3 ≤ price < S2 | S3–S2 band |
+| `s2_s1` | S2 ≤ price < S1 | S2–S1 band |
+| `s1_pp` | S1 ≤ price < PP | S1–PP band |
+| `pp_r1` | PP ≤ price < R1 | PP–R1 band |
+| `r1_r2` | R1 ≤ price < R2 | R1–R2 band |
+| `r2_r3` | R2 ≤ price ≤ R3 | R2–R3 band (closed at top) |
+| `above_r3` | price > R3 | Above Resistance 3 |
+
+Camarilla keys follow the same structure with `cam_` prefix (e.g. `cam_s4`,
+`cam_r4`, `cam_s1_r1`, `cam_above_r4`). See label definitions in the module.
+
+### Parameters
+
+| Parameter | Default | Description |
+|---|---|---|
+| pp_type | `traditional` | Pivot formula: `traditional` or `camarilla` |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+
+- `daily` (the RTH daily candle; a single entry under
+  `instruments.{INSTRUMENT}.daily`).
+
+### Baseline
+
+Random null (fixed seed, deterministic): the prior-day quad (`prev_high`,
+`prev_low`, `prev_close`, `prev_session_green`) is **permuted together** across
+days using a single permutation index. Each session is thus scored against an
+UNRELATED day's pivot levels — the null that temporal adjacency of the prior
+session carries no information. Permuting all four columns jointly preserves the
+internal consistency of each prior day (`prev_low <= prev_high`, `prev_close`
+paired with its own H/L). The lone NaN prior quad (the first resolved day)
+moves to a random row, preserving the countable count exactly.
+
+### i18n
+
+- **title.en**: "Pivot Points"
+- **title.fr**: "Points pivots"
+- **definition.en**: "Classic floor (traditional) and camarilla pivot levels computed from the prior RTH session's High, Low, and Close. Three measurement tiers: (1) pivot_levels — fraction of sessions whose RTH range touches each pivot level (independent rates; a session can touch multiple levels); (2) opening_zone — which band between consecutive levels the session open falls in (mutually exclusive zones that partition every countable day); (3) close_zone — which zone the session close falls in (same partition structure). The standard variant uses traditional (floor) pivots."
+- **definition.fr**: "Niveaux pivots classiques (traditionnels et camarilla) calculés à partir du Plus Haut, Plus Bas et Clôture de la session RTH précédente. Trois niveaux de mesure : (1) pivot_levels — fraction des sessions dont le range RTH touche chaque niveau pivot (taux indépendants ; une session peut toucher plusieurs niveaux) ; (2) opening_zone — dans quelle zone entre deux niveaux consécutifs l'ouverture de session se situe (zones mutuellement exclusives couvrant tous les jours comptables) ; (3) close_zone — dans quelle zone se situe la clôture de session (même structure). La variante standard utilise les pivots traditionnels (floor)."
+
+### Slices
+
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
+  slicer).
+- `prev_candle` — the "by prior close" breakdown: prior session green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+
+
