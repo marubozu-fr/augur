@@ -4092,3 +4092,107 @@ first resolved day) moves to a random row, preserving the countable count exactl
   (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
   asymmetry in fib-level touch rates and opening zones.
 
+
+---
+
+## 50. ICT Opening Retracement
+
+**Family**: `ict_opening_retracement`
+**Module**: `stats/ict_opening_retracement/standard.py`
+**Result file**: `results/ict_opening_retracement.json`
+**Status**: Implemented (standard variant)
+
+### What it measures
+There is an **ICT reference candle level**: the price of a reference candle at a
+configurable reference time (default `00:00` ET — the midnight candle), using one
+of its OHLC prices (default `open`). For each resolved RTH session, classify
+whether the session **opened above or below** that reference level, and whether
+intraday RTH price **retraced back to touch** the level before the session ended.
+Reported as a 2x2 conditional matrix: P(retraced | opened above),
+P(not retraced | opened above), P(retraced | opened below),
+P(not retraced | opened below). The two outcomes partition each direction, so they
+sum to 1.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the same resolution rule as the other daily stats (clean
+   09:30 open and a last RTH bar at or after `session_end - close_tolerance`).
+2. Compute per-day RTH extremes from the same RTH bar filter
+   (`hour*60+minute >= rth_start_min` and `< rth_end_min`):
+   - `day_high` = max of `high` over the day's RTH bars.
+   - `day_low`  = min of `low` over the day's RTH bars.
+   Join these onto the resolved-days index (inner join — only resolved dates).
+3. **Reference level**: from the FULL candle set (the reference time may sit
+   outside RTH), select bars at exactly `reference_time` (`hour*60+minute ==
+   reference_time_min`), index by normalized calendar date, and take the
+   `reference_price` column (`open`/`high`/`low`/`close`). The midnight (`00:00`)
+   bar on calendar date D normalizes to date D, which is the same normalized date
+   as the RTH session that opens at 09:30 on D, so they align by a left-join on the
+   resolved index. A resolved day with no reference bar that date has a NaN
+   reference level and is **not countable** (excluded from denominators, still
+   counted in `total_samples`).
+4. Classify the **direction** from `session_open` vs `reference_level` (strict — an
+   open exactly at the level has no direction and is excluded):
+   - **opened_above**: `session_open > reference_level`.
+   - **opened_below**: `session_open < reference_level`.
+   A day is **countable** only with a reference level present AND a non-zero
+   distance. The distance is `gap_size = abs(session_open - reference_level)`.
+5. Classify the **retracement**: intraday RTH price returns to touch the reference
+   level (touching exactly counts):
+   - opened above: **retraced** when `day_low <= reference_level`.
+   - opened below: **retraced** when `day_high >= reference_level`.
+
+`total_samples` counts all resolved sessions; each row's `total` counts only the
+**countable** sessions (those with a reference level and a non-zero distance)
+carrying that opening direction.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `opened_above` | `retraced`, `not_retraced` | Yes | Retrace rate given the open was above the level; `total` = opened-above days |
+| `opened_below` | `retraced`, `not_retraced` | Yes | Retrace rate given the open was below the level; `total` = opened-below days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| reference_time | "00:00" | `HH:MM` (ET) of the reference candle whose level the open is measured against |
+| reference_price | "open" | Which OHLC price of the reference candle is the level (`open`/`high`/`low`/`close`) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `daily` (the RTH daily candle; a single entry).
+
+### Baseline
+Random null (fixed seed, deterministic): the `retraced` outcome is **permuted**
+across countable days, so the overall retrace rate is preserved but its
+association with the opening direction is destroyed. Each condition's
+`baseline_prob` therefore converges to the pooled retrace rate, and the comparison
+reveals whether opening above and opening below retrace at *different* rates than
+the market does on average. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "ICT Opening Retracement"
+- **title.fr**: "Retracement d'ouverture ICT"
+- **definition.en**: "When a session opens above or below the ICT reference candle level (default the midnight open), how often does intraday price retrace back to that level?"
+- **definition.fr**: "Lorsqu'une session ouvre au-dessus ou en dessous du niveau de la bougie de référence ICT (par défaut l'ouverture de minuit), à quelle fréquence le prix intraday revient-il à ce niveau ?"
+
+### Slices
+- `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
+- `close` — the "by close" breakdown: session close color, green/red (declared via
+  the shared `Close` slicer reading `session_green`).
+- `prev_candle` — the "by prev candle" breakdown: prior session color, green/red
+  (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+- `size_pts` — the "by size" breakdown in points: opening-distance quartiles
+  (declared via `SizeBucket(column="gap_size_pts")`).
+- `size_pct` — the "by size" breakdown in percent of the reference level:
+  opening-distance quartiles (declared via `SizeBucket(column="gap_size_pct")`).
+  `gap_size_pct` is stored in percent units (not a decimal) so the bucket-edge
+  labels are legible.
+
+### Future variants (not in MVP)
+- `by_fill_time` — split retraced days by whether the retrace occurred before/after
+  an intraday cutoff minute (needs the per-day retrace timestamp from the intraday
+  path).
+- `by_spike` — bucket days by the maximum spike **away** from the level before the
+  retrace (needs the intraday path, not just the day extremes).
+
