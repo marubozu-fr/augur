@@ -2395,8 +2395,10 @@ and are deferred to follow-up issues:
 - `by_retracement` — pullback depth into the balance after the break, on single-break
   days only, bucketed at 0.25 / 0.5 / 0.75 of `ib_size`. Implemented as section 54
   (`initial_balance_retracement`).
-- `by_time` — distribution of the first-breakout time (early vs. late).
-- `by_rejection` — contingency of which balance edge formed first vs. which broke first.
+- `by_time` — distribution of the first-breakout time (early vs. late). Implemented
+  as section 55 (`initial_balance_time`).
+- `by_rejection` — contingency of which balance edge formed first vs. which broke
+  first. Implemented as section 56 (`initial_balance_rejection`).
 
 
 ## 30. Power Hour Breakout
@@ -4681,6 +4683,93 @@ whether breakouts cluster earlier (above baseline early) or later than chance. U
 - **title.fr**: "Cassure de l'initial balance — par heure"
 - **definition.en**: "After the initial balance forms, WHEN does price first break above its high or below its low? Reported as the share of sessions breaking early vs late around a configurable threshold, plus the full first-breakout-time histogram."
 - **definition.fr**: "Après la formation de l'initial balance, QUAND le prix casse-t-il pour la première fois au-dessus de son haut ou en-dessous de son bas ? Exprimé comme la proportion des séances cassant tôt ou tard autour d'un seuil configurable, ainsi que l'histogramme complet de l'heure de première cassure."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
+- `close` — by session close color, green/red (shared `Close` slicer).
+- `prev_candle` — by prior session color, green/red (shared `PrevCandle` slicer).
+- `overnight` — by overnight gap direction, open above/below prior close (shared
+  `Overnight` slicer).
+- `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
+- `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
+  0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
+
+
+## 56. Initial Balance Breakout — by Rejection
+
+**Family**: `initial_balance`
+**Module**: `stats/initial_balance/rejection.py`
+**Result file**: `results/initial_balance_rejection.json`
+**Status**: Implemented
+
+### What it measures
+Whether the ORDER in which the initial balance (IB) edges formed predicts the
+direction of the first breakout. It cross-tabulates two sequential events: which IB
+edge (high or low) **formed first** during the IB window, against which IB edge
+**broke first** afterward (high, low, or neither). This is the **by-rejection**
+sibling of section 29 (`initial_balance`, breakout *direction*); it uses a 2×3
+contingency structure rather than the four-outcome partition, with its own
+formation-order and break-order computations.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the shared resolution rule (clean 09:30 open and a last
+   RTH bar within `close_tolerance` of session end).
+2. Compute the **initial balance** from the IB window `[rth_start, rth_start +
+   ib_period)`: `ib_high` = max `high`, `ib_low` = min `low`, `ib_size = ib_high -
+   ib_low`. Inner-join onto resolved days (a day needs a clean IB **and** a
+   non-empty breakout window).
+3. Determine the **formation order**: via `idxmax` / `idxmin` (first matching bar,
+   chronologically sorted), find the earliest bar reaching `ib_high` and the
+   earliest reaching `ib_low`. `formed_high_first` is True when the high's bar
+   precedes the low's. When a single bar holds **both** extremes the order is
+   undetermined (`NaN`) and the day is excluded.
+4. Determine the **break order** over the breakout window `[rth_start + ib_period,
+   rth_end)`: the minute of the first bar breaking the high and the first breaking
+   the low, with **strict** inequalities (touching a level is NOT a break), using
+   the chosen criteria (wick: `high > ib_high` / `low < ib_low`; close: `close >
+   ib_high` / `close < ib_low`). The earlier minute decides `broke_high` vs
+   `broke_low`; if neither side ever breaks the outcome is `neither`; if the **same**
+   bar first-breaks both sides at once the order is undetermined and the day is
+   excluded.
+
+`total_samples` counts all resolved sessions; each row's `total` is the **countable**
+days for its condition (formation order determined, non-empty breakout window, break
+order determined). The three outcomes partition each condition's countable days, so
+their counts sum to that condition's `total`.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `formed_high` | `broke_high`, `broke_low`, `neither` | Yes | Days where the IB high formed first; which edge broke first afterward; `total` = countable days |
+| `formed_low` | `broke_high`, `broke_low`, `neither` | Yes | Days where the IB low formed first; which edge broke first afterward; `total` = countable days |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 30min | Initial-balance length: 30min or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `30min` (initial balance 09:30–10:00).
+- `1h` (initial balance 09:30–10:30, the canonical initial balance).
+
+### Baseline
+Random null (fixed seed, deterministic): the null hypothesis is that formation order
+carries NO information about which edge breaks first. The `formed_high_first` column
+is randomly **permuted** across days, which destroys any association with the break
+outcome while preserving the formation-order marginal exactly; the break outcomes are
+untouched, so their marginal is preserved too. Under this null both conditions
+converge to the overall break-outcome distribution, so the comparison reveals whether
+formation order genuinely shifts the breakout direction. Uses
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Initial Balance Breakout — by Rejection"
+- **title.fr**: "Cassure de l'initial balance — par rejet"
+- **definition.en**: "Does the order in which the initial balance edges form predict the first breakout? Cross-tabulates which edge (high or low) formed first during the initial balance against which edge broke first afterward (high, low, or neither)."
+- **definition.fr**: "L'ordre de formation des bornes de l'initial balance prédit-il la première cassure ? Croise la borne (haut ou bas) formée en premier pendant l'initial balance avec la borne cassée en premier ensuite (haut, bas, ou ni l'un ni l'autre)."
 
 ### Slices
 - `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
