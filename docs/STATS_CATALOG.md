@@ -4417,3 +4417,94 @@ The "by weekday" variant is handled by the tier-2 `retraced` rows in
 `compute_rows` (the weekday slicer would split by the week's Monday index, which
 is constant, so it is not declared).
 
+
+---
+
+## 53. Initial Balance Breakout — Performance
+
+**Family**: `initial_balance`
+**Module**: `stats/initial_balance/performance.py`
+**Result file**: `results/initial_balance_performance.json`
+**Status**: Implemented
+
+### What it measures
+The magnitude of the **first breakout** from the initial balance (IB). After the
+IB forms from the first N minutes of the RTH session, this stat measures how far
+price extends past the IB high or low on its *chronologically first* excursion,
+before trading back into the balance range. This is the **by-performance** sibling
+of section 29 (`initial_balance`, which measures breakout *direction*); it does not
+fit the four-outcome partition and instead uses the magnitude (`value` /
+`value_baseline`) channel. Reported as the average and maximum first-breakout
+extension, in points and as a percent of the session open, under a single `ib`
+condition.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the shared resolution rule (clean 09:30 open and a last
+   RTH bar within `close_tolerance` of session end).
+2. Compute the **initial balance** from the IB window `[rth_start, rth_start +
+   ib_period)`: `ib_high` = max `high`, `ib_low` = min `low`, `ib_size = ib_high -
+   ib_low`. Inner-join onto resolved days (a day needs a clean IB **and** a
+   non-empty breakout window).
+3. In the **breakout window** `[rth_start + ib_period, rth_end)`, locate the first
+   bar that breaks each side, with **strict** inequalities (touching a level is NOT
+   a break), using the chosen criteria:
+   - wick (default): up-break `high > ib_high`; down-break `low < ib_low`.
+   - close: up-break `close > ib_high`; down-break `close < ib_low`.
+4. From each side's first-break bar, walk forward and measure the **maximum
+   extension** past that level during the first excursion, stopping when price
+   trades back into the IB range (re-entry: wick — opposite extreme crosses back
+   inside; close — a bar closes back inside). `up_ext` and `down_ext` are computed
+   independently from their own first-break bar (0.0 if that side never breaks).
+5. The **first breakout direction** is the side whose first-break bar occurs
+   earliest; if both first break on the same bar (wick only), the larger extension
+   wins as a deterministic tiebreak. `extension` is the chosen side's extension;
+   `extension_pct = extension / session_open` (a decimal).
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**countable** sessions — those that broke at least one side of the IB. Sessions
+that never break the IB stay in `total_samples` but are excluded from every
+denominator.
+
+### Conditions & outcomes
+| Condition | Outcomes | Channel | Description |
+|---|---|---|---|
+| `ib` | `mean_extension`, `mean_extension_pct`, `max_extension`, `max_extension_pct` | `value` | Average / maximum first-breakout extension, in points and as a decimal of the session open; `total` = countable sessions |
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 30min | Initial-balance length: 30min or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break / break-back detection: `wick` (intraday extreme) or `close` (bar close) |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `30min` (initial balance 09:30–10:00).
+- `1h` (initial balance 09:30–10:30, the canonical initial balance).
+
+### Baseline
+Random null (fixed seed, deterministic): the null hypothesis is that the
+chronological direction of the first breakout carries no information about the
+extension magnitude beyond a randomly chosen side. For each session a fair coin
+selects `up_ext` or `down_ext` as the baseline extension; sessions that never broke
+keep their `NaN` extension and stay excluded. For a session that broke only one
+side, the unbroken side contributes a `0.0` extension, so the coin sometimes picks
+it — pulling the baseline mean below the actual (which always picks the breaking
+side). Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Initial Balance Breakout — Performance"
+- **title.fr**: "Cassure de l'initial balance — Performance"
+- **definition.en**: "After the initial balance forms, how far does price extend past the balance high or low on its FIRST breakout, before breaking back into the range? Reported as the average and maximum first-breakout extension, in points and as a percentage of the session open."
+- **definition.fr**: "Après la formation de l'initial balance, de combien le prix s'étend-il au-delà du haut ou du bas de la balance lors de sa PREMIÈRE cassure, avant de revenir dans le range ? Exprimé en tant qu'extension moyenne et maximale de la première cassure, en points et en pourcentage de l'ouverture de session."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
+- `close` — by session close color, green/red (shared `Close` slicer).
+- `prev_candle` — by prior session color, green/red (shared `PrevCandle` slicer).
+- `overnight` — by overnight gap direction, open above/below prior close (shared
+  `Overnight` slicer).
+- `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
+- `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
+  0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
+
