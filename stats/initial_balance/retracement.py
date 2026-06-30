@@ -74,7 +74,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, load_config, minute_of_day
-from stats.utils.daily_candles import build_resolved_days
+from stats.initial_balance.common import build_ib_day_base
 
 # ---------------------------------------------------------------------------
 # i18n content
@@ -303,55 +303,30 @@ class InitialBalanceRetracement(BaseStat):
     if candles_df.empty:
       return empty
 
-    resolved = build_resolved_days(
-      candles_df, self.rth_start_min, self.rth_end_min, self.close_tolerance_min
+    base = build_ib_day_base(
+      candles_df,
+      self.rth_start_min,
+      self.ib_end_min,
+      self.rth_end_min,
+      self.close_tolerance_min,
     )
-    if resolved.empty:
+    if base.day.empty:
       return empty
 
-    df = candles_df.copy()
-    df["_mod"] = df["timestamp"].dt.hour * 60 + df["timestamp"].dt.minute
-    df["_date"] = df["timestamp"].dt.normalize()
-
-    # Initial-balance window aggregates: [rth_start, ib_end).
-    ib_mask = (df["_mod"] >= self.rth_start_min) & (df["_mod"] < self.ib_end_min)
-    ib = df[ib_mask]
-    ib_high = ib.groupby("_date")["high"].max().rename("ib_high")
-    ib_low = ib.groupby("_date")["low"].min().rename("ib_low")
-
-    # Breakout-window aggregates: [ib_end, rth_end). The criteria-selected extremes
-    # classify the break direction; close extremes used only with the close criteria.
-    post_mask = (df["_mod"] >= self.ib_end_min) & (df["_mod"] < self.rth_end_min)
-    post = df[post_mask]
+    post = base.post
+    # Breakout-window extremes used to classify the break direction (the criteria-
+    # selected extremes; close extremes used only with the close criteria). Joined
+    # onto the presence-guarded base, so every surviving day has them.
     post_high = post.groupby("_date")["high"].max().rename("post_high")
     post_low = post.groupby("_date")["low"].min().rename("post_low")
     post_close_high = post.groupby("_date")["close"].max().rename("post_close_high")
     post_close_low = post.groupby("_date")["close"].min().rename("post_close_low")
-
-    # Inner join onto resolved: a day survives only with a clean IB AND a non-empty
-    # breakout window.
     day = (
-      resolved.join(ib_high, how="inner")
-      .join(ib_low, how="inner")
-      .join(post_high, how="inner")
-      .join(post_low, how="inner")
-      .join(post_close_high, how="inner")
-      .join(post_close_low, how="inner")
+      base.day.join(post_high)
+      .join(post_low)
+      .join(post_close_high)
+      .join(post_close_low)
     )
-    if day.empty:
-      return empty
-
-    day["ib_size"] = day["ib_high"] - day["ib_low"]
-    # IB size as % of the session open price (price-relative size bucketing).
-    day["ib_size_pct"] = (day["ib_size"] / day["session_open"]) * 100.0
-    day["session_green"] = day["session_close"] >= day["session_open"]
-    # Prior RESOLVED session's color (shift over the resolved-only, sorted index,
-    # so it skips any excluded/early-close day). NaN for the first resolved day.
-    day["prev_session_green"] = day["session_green"].shift(1)
-    # Overnight gap: session open above the prior RESOLVED session's close. NaN for
-    # the first resolved day (no prior close), so it is excluded from the slice.
-    prev_close = day["session_close"].shift(1)
-    day["overnight_green"] = (day["session_open"] > prev_close).where(prev_close.notna())
 
     # Break-direction classification (strict inequality; criteria-selected extremes).
     if self.breakout_criteria == "close":
