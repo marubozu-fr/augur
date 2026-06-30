@@ -4601,3 +4601,94 @@ deeper (above baseline) or shallower (below baseline) than a random pull-back. U
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
 
+
+## 55. Initial Balance Breakout — by Time
+
+**Family**: `initial_balance`
+**Module**: `stats/initial_balance/time.py`
+**Result file**: `results/initial_balance_time.json`
+**Status**: Implemented
+
+### What it measures
+*When* the first breakout of the initial balance (IB) happens within the RTH
+session — the distribution of the **first-breakout time** across the session,
+summarised both as a coarse early/late split around a configurable threshold and as
+a fine-grained time histogram. This is the **by-time** sibling of section 29
+(`initial_balance`, breakout *direction*); it has a different outcome set and its
+own first-breakout-time computation. Sessions that never break either side during
+the breakout window are excluded from every denominator.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the shared resolution rule (clean 09:30 open and a last
+   RTH bar within `close_tolerance` of session end).
+2. Compute the **initial balance** from the IB window `[rth_start, rth_start +
+   ib_period)`: `ib_high` = max `high`, `ib_low` = min `low`, `ib_size = ib_high -
+   ib_low`. Inner-join onto resolved days (a day needs a clean IB **and** a
+   non-empty breakout window).
+3. Over the **breakout window** `[rth_start + ib_period, rth_end)`, find the
+   *chronologically first* bar that breaks **either** side of the IB, irrespective
+   of direction, with **strict** inequalities (touching a level is NOT a break),
+   using the chosen criteria (wick: `high > ib_high` / `low < ib_low`; close:
+   `close > ib_high` / `close < ib_low`). Its minute-of-day is `first_break_mod`.
+4. Classify that time two ways over the **same** countable denominator (sessions
+   that broke at least once): an early/late split at the `early_threshold_min`-th
+   minute from the open (default 150 → 12:00 ET), and a `bin_minutes`-wide histogram
+   spanning `[rth_start, rth_end)`.
+
+`total_samples` counts all resolved sessions; each row's `total` is the **breaking**
+sessions (the denominator). Non-breaking sessions stay in `total_samples` but are
+excluded from every denominator.
+
+### Conditions & outcomes
+| Condition | Outcomes | Channel | Description |
+|---|---|---|---|
+| `timing` | `early`, `late` | `probability` | Share of breaking sessions whose first breakout is before (`early`) vs at/after (`late`) the threshold; a partition of the denominator |
+| `bucket` | `bucket_0`, `bucket_1`, … | `probability` | First-breakout-time histogram: one `bin_minutes`-wide bucket per session window, also a partition of the denominator |
+
+Histogram buckets are aligned to the session open; buckets entirely inside the IB
+window are unreachable and always read zero (kept so the outcome set is identical
+across timeframes). At the default 30-min bin width the threshold is a bucket
+boundary, so `early` / `late` are exactly the sums of the buckets on each side.
+Bucket outcome labels are clock ranges (e.g. `10:00–10:30`) injected at `run()`
+time from the instrument's session times.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 30min | Initial-balance length: 30min or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close) |
+| early_threshold_min | 150 | Minutes from session open separating early from late breakouts |
+| bin_minutes | 30 | Histogram bucket width in minutes |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `30min` (initial balance 09:30–10:00).
+- `1h` (initial balance 09:30–10:30, the canonical initial balance).
+
+### Baseline
+Random null (fixed seed, deterministic): the null hypothesis is that the first
+breakout is equally likely at any minute of the breakout window — its timing carries
+no information. Each breaking session is assigned a uniform random minute-of-day in
+`[ib_end, rth_end)`; non-breaking sessions keep their `NaN` and stay excluded. The
+same counting path then yields the early/late split and histogram a purely uniform
+breakout time would produce. Comparing the actual distribution to this null reveals
+whether breakouts cluster earlier (above baseline early) or later than chance. Uses
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Initial Balance Breakout — by Time"
+- **title.fr**: "Cassure de l'initial balance — par heure"
+- **definition.en**: "After the initial balance forms, WHEN does price first break above its high or below its low? Reported as the share of sessions breaking early vs late around a configurable threshold, plus the full first-breakout-time histogram."
+- **definition.fr**: "Après la formation de l'initial balance, QUAND le prix casse-t-il pour la première fois au-dessus de son haut ou en-dessous de son bas ? Exprimé comme la proportion des séances cassant tôt ou tard autour d'un seuil configurable, ainsi que l'histogramme complet de l'heure de première cassure."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
+- `close` — by session close color, green/red (shared `Close` slicer).
+- `prev_candle` — by prior session color, green/red (shared `PrevCandle` slicer).
+- `overnight` — by overnight gap direction, open above/below prior close (shared
+  `Overnight` slicer).
+- `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
+- `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
+  0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
+
