@@ -2390,9 +2390,11 @@ The slice-friendly extension variants are implemented above as `size_pct`,
 outcome/metric computations (they do not fit the four-outcome breakout partition)
 and are deferred to follow-up issues:
 - `by_performance` — average / maximum extension before price breaks back into the
-  balance (a magnitude metric via the `value` channel).
+  balance (a magnitude metric via the `value` channel). Implemented as section 53
+  (`initial_balance_performance`).
 - `by_retracement` — pullback depth into the balance after the break, on single-break
-  days only, bucketed at 0.25 / 0.5 / 0.75 of `ib_size`.
+  days only, bucketed at 0.25 / 0.5 / 0.75 of `ib_size`. Implemented as section 54
+  (`initial_balance_retracement`).
 - `by_time` — distribution of the first-breakout time (early vs. late).
 - `by_rejection` — contingency of which balance edge formed first vs. which broke first.
 
@@ -4497,6 +4499,97 @@ side). Uses `np.random.default_rng(seed)`.
 - **title.fr**: "Cassure de l'initial balance — Performance"
 - **definition.en**: "After the initial balance forms, how far does price extend past the balance high or low on its FIRST breakout, before breaking back into the range? Reported as the average and maximum first-breakout extension, in points and as a percentage of the session open."
 - **definition.fr**: "Après la formation de l'initial balance, de combien le prix s'étend-il au-delà du haut ou du bas de la balance lors de sa PREMIÈRE cassure, avant de revenir dans le range ? Exprimé en tant qu'extension moyenne et maximale de la première cassure, en points et en pourcentage de l'ouverture de session."
+
+### Slices
+- `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
+- `close` — by session close color, green/red (shared `Close` slicer).
+- `prev_candle` — by prior session color, green/red (shared `PrevCandle` slicer).
+- `overnight` — by overnight gap direction, open above/below prior close (shared
+  `Overnight` slicer).
+- `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
+- `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
+  0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
+
+
+---
+
+## 54. Initial Balance Breakout — Retracement
+
+**Family**: `initial_balance`
+**Module**: `stats/initial_balance/retracement.py`
+**Result file**: `results/initial_balance_retracement.json`
+**Status**: Implemented
+
+### What it measures
+On **single-break days only** — sessions where price breaks exactly one side of the
+initial balance (IB) during the breakout window — how deep price **pulls back into
+the IB range** after the break, expressed as a fraction of IB size. Reported as the
+share of single-break sessions whose retracement reaches at least each configured
+threshold (default 0.25 / 0.50 / 0.75 of IB size). This is the **by-retracement**
+sibling of section 29 (`initial_balance`, breakout *direction*); it has a different
+outcome set and its own retracement computation. Days that break both sides, or
+neither, are excluded from every denominator.
+
+### Methodology
+1. Build the RTH daily candle per resolved session (`session_open`,
+   `session_close`) using the shared resolution rule (clean 09:30 open and a last
+   RTH bar within `close_tolerance` of session end).
+2. Compute the **initial balance** from the IB window `[rth_start, rth_start +
+   ib_period)`: `ib_high` = max `high`, `ib_low` = min `low`, `ib_size = ib_high -
+   ib_low`. Inner-join onto resolved days (a day needs a clean IB **and** a
+   non-empty breakout window).
+3. Classify the breakout direction over the **breakout window** `[rth_start +
+   ib_period, rth_end)` with **strict** inequalities (touching a level is NOT a
+   break), using the chosen criteria (wick: `high > ib_high` / `low < ib_low`;
+   close: `close > ib_high` / `close < ib_low`). A **single-break day** is one that
+   breaks exactly one side (`broke_high` XOR `broke_low`).
+4. On a single-break day, measure the **retracement** from the *chronologically
+   first* break bar onward — the deepest intraday penetration back toward the
+   opposite side, from the broken edge:
+   - up-break: `ib_high - min(low)` over the bars at/after the first up-break bar.
+   - down-break: `max(high) - ib_low` over the bars at/after the first down-break bar.
+   The pull-back is always measured by the intraday extreme (wick), regardless of
+   the break-detection criteria. `depth_frac = retracement / ib_size`, clipped at 0;
+   the held side guarantees `depth_frac <= 1.0`.
+
+`total_samples` counts all resolved sessions; each row's `total` is the
+**single-break** sessions (the denominator). Non-single-break sessions stay in
+`total_samples` but are excluded from every denominator.
+
+### Conditions & outcomes
+| Condition | Outcomes | Channel | Description |
+|---|---|---|---|
+| `single_break` | `retrace_25`, `retrace_50`, `retrace_75` | `probability` | Share of single-break sessions whose retracement reaches ≥25% / 50% / 75% of IB size; outcomes are **nested** (a day hitting 0.75 also hits 0.50 and 0.25), not a partition; `total` = single-break sessions |
+
+The outcome keys track the configured thresholds (`retrace_{int(threshold*100)}`).
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 30min | Initial-balance length: 30min or 1h (emitted as separate timeframe entries) |
+| breakout_criteria | wick | Break detection: `wick` (intraday extreme) or `close` (bar close) |
+| thresholds | (0.25, 0.50, 0.75) | Retracement thresholds as fractions of IB size |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- `30min` (initial balance 09:30–10:00).
+- `1h` (initial balance 09:30–10:30, the canonical initial balance).
+
+### Baseline
+Random null (fixed seed, deterministic): the null hypothesis is that the deepest
+pull-back lands **uniformly at random** within the IB range — the breakout carries
+no information about how far price retraces. Each single-break session is assigned a
+random `depth_frac ~ Uniform(0, 1)`; non-single-break sessions keep their `NaN` and
+stay excluded. The same hit-counting path then yields `P(hit ≥ t) → 1 - t`.
+Comparing the actual hit rate to this null reveals whether real retracements are
+deeper (above baseline) or shallower (below baseline) than a random pull-back. Uses
+`np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Initial Balance Breakout — Retracement"
+- **title.fr**: "Cassure de l'initial balance — Repli"
+- **definition.en**: "On single-break days, after price breaks one side of the initial balance, how deep does it pull back into the balance range? Reported as the share of single-break sessions whose retracement reaches at least 25%, 50%, or 75% of the initial-balance size."
+- **definition.fr**: "Les jours à cassure unique, après que le prix casse un côté de l'initial balance, jusqu'où revient-il dans le range de la balance ? Exprimé comme la proportion des séances à cassure unique dont le repli atteint au moins 25 %, 50 % ou 75 % de la taille de l'initial balance."
 
 ### Slices
 - `weekday` — the "by weekday" breakdown (shared `Weekday` slicer).
