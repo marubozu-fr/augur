@@ -52,6 +52,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -298,6 +299,42 @@ class OpeningRangeBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    Uses the same ``breakout_criteria``-selected extremes and strict-inequality
+    break rule as ``compute_rows`` to assign each countable day to exactly one
+    of the four mutually exclusive outcomes. Only days with a valid opening
+    range and breakout-window extreme are countable (``build_day_table``'s inner
+    joins already exclude everything else, but the notna check mirrors
+    ``compute_rows`` defensively).
+    """
+    if day_table.empty:
+      return []
+
+    high, low = self._break_extremes(day_table)
+    countable = (
+      day_table["orb_high"].notna()
+      & day_table["orb_low"].notna()
+      & high.notna()
+      & low.notna()
+    )
+    sub = day_table[countable]
+    if sub.empty:
+      return []
+
+    above = high[countable] > sub["orb_high"]
+    below = low[countable] < sub["orb_low"]
+    outcomes = np.select(
+      [above & below, above & ~below, below & ~above],
+      ["broke_both", "broke_high", "broke_low"],
+      default="neither",
+    )
+    return [
+      SampleRow(date=ts.strftime("%Y-%m-%d"), condition="orb", outcome=out)
+      for ts, out in zip(sub.index, outcomes)
+    ]
 
   # -------------------------------------------------------------------------
   # Baseline

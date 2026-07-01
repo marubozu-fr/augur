@@ -16,6 +16,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   SliceGroup,
   Slicer,
@@ -305,6 +306,23 @@ class OpeningCandleContinuation(BaseStat):
         )
 
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved day, mirroring ``compute_rows``.
+
+    Each day belongs to exactly one condition (``green_open`` / ``red_open``,
+    from ``opening_green``) and exactly one outcome (``green_close`` /
+    ``red_close``, from ``session_green``), matching the four condition/outcome
+    pairs ``compute_rows`` aggregates for this timeframe's day table.
+    """
+    if day_table.empty:
+      return []
+    conditions = np.where(day_table["opening_green"], "green_open", "red_open")
+    outcomes = np.where(day_table["session_green"], "green_close", "red_close")
+    return [
+      SampleRow(date=ts.strftime("%Y-%m-%d"), condition=cond, outcome=out)
+      for ts, cond, out in zip(day_table.index, conditions, outcomes)
+    ]
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: keep actual opening direction, randomize session direction (p=0.5).

@@ -35,6 +35,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -205,6 +206,42 @@ class PerformanceByWeekday(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring the five outcomes ``compute_rows`` aggregates.
+
+    Every resolved day (all rows are already countable; pending-sample discipline
+    is enforced in ``build_day_table``) yields:
+      - one ``mean_return`` sample carrying that day's ``return_pct`` as ``value``
+        (every day counts toward this outcome);
+      - one ``green_day`` OR ``red_day`` sample (mutually exclusive, no ``value``);
+      - one ``mean_green_move`` sample (only green days) OR ``mean_red_move``
+        sample (only red days), again carrying ``return_pct`` as ``value``.
+    All samples share the single condition ``any_day``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, return_pct, day_green in zip(
+      day_table.index, day_table["return_pct"], day_table["day_green"]
+    ):
+      date_str = ts.strftime("%Y-%m-%d")
+      value = float(return_pct)
+      samples.append(
+        SampleRow(date=date_str, condition=_CONDITION, outcome="mean_return", value=value)
+      )
+      if day_green:
+        samples.append(SampleRow(date=date_str, condition=_CONDITION, outcome="green_day"))
+        samples.append(
+          SampleRow(date=date_str, condition=_CONDITION, outcome="mean_green_move", value=value)
+        )
+      else:
+        samples.append(SampleRow(date=date_str, condition=_CONDITION, outcome="red_day"))
+        samples.append(
+          SampleRow(date=date_str, condition=_CONDITION, outcome="mean_red_move", value=value)
+        )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: each day's return direction is a coin flip.

@@ -54,6 +54,7 @@ from stats.base import (
   I18nString,
   Labels,
   Levels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -306,6 +307,47 @@ class OvernightRangeBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    Single condition ("overnight_range"); each countable day (valid overnight
+    range AND valid RTH extremes under the selected ``breakout_criteria``)
+    contributes exactly one of the four mutually exclusive outcomes
+    (``broke_high``, ``broke_low``, ``broke_both``, ``neither``), reproducing
+    each row's ``count`` and the table's ``total`` directly. This is a
+    probability channel (the four-way partition), not a magnitude one, so
+    ``value`` stays ``None``.
+    """
+    if day_table.empty:
+      return []
+
+    on_high = day_table["on_high"]
+    on_low = day_table["on_low"]
+    high, low = self._break_extremes(day_table)
+
+    countable = on_high.notna() & on_low.notna() & high.notna() & low.notna()
+    if not bool(countable.any()):
+      return []
+
+    sub = day_table[countable]
+    above = high[countable] > on_high[countable]
+    below = low[countable] < on_low[countable]
+
+    samples: list[SampleRow] = []
+    for ts, is_above, is_below in zip(sub.index, above, below):
+      if is_above and is_below:
+        outcome = "broke_both"
+      elif is_above:
+        outcome = "broke_high"
+      elif is_below:
+        outcome = "broke_low"
+      else:
+        outcome = "neither"
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition="overnight_range", outcome=outcome)
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

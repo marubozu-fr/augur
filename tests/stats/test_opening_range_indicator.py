@@ -339,3 +339,62 @@ def test_result_validates_and_writes(tmp_path: Path) -> None:
   assert data["title"]["en"] == "Opening Range Indicator"
   # Re-validate the written payload through the Pydantic model.
   StatRunResult.model_validate(data)
+
+
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per (day, outcome), matching the canonical opening/remaining/share
+  metrics; ``correlation`` samples carry the day's opening_range as its primary value.
+  """
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  expected_openings = [10.0, 20.0, 30.0, 40.0]
+  expected_remainings = [20.0, 40.0, 60.0, 80.0]
+  dates = ["2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"]
+
+  expected: list[tuple[str, str, str, float | None]] = []
+  for date, opening, remaining in zip(dates, expected_openings, expected_remainings):
+    expected.append((date, "opening_range", "mean_opening_range", opening))
+    expected.append((date, "opening_range", "mean_remaining_range", remaining))
+    expected.append((date, "opening_range", "opening_range_share", 0.5))
+    expected.append((date, "opening_range", "correlation", opening))
+
+  actual = [(s.date, s.condition, s.outcome, s.value) for s in samples]
+  assert len(actual) == len(expected)
+  for a, e in zip(actual, expected):
+    assert a[:3] == e[:3]
+    assert a[3] == pytest.approx(e[3])
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """The invariant: sample counts per (condition, outcome) equal compute_rows' count/total."""
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = [s for s in samples if s.condition == r.condition and s.outcome == r.outcome]
+    assert len(matching) == r.count == r.total == 4
+
+
+def test_classify_samples_empty_day_table() -> None:
+  assert _stat().classify_samples(pd.DataFrame(
+    columns=["opening_range", "remaining_range", "session_range", "session_green"]
+  )) == []
+
+
+def test_classify_samples_excludes_pending_day() -> None:
+  """A truncated/unresolved day never enters the day_table, so it has no sample."""
+  stat = _stat()
+  candles = _concat([
+    _make_or_day(date="2024-01-02", orb_high=110, orb_low=90, rest_high=120, rest_low=80),
+    _make_truncated_day("2024-01-03"),
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert "2024-01-03" not in {s.date for s in samples}
+  assert len(samples) == 4  # 1 countable day x 4 outcomes

@@ -57,6 +57,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SliceGroup,
   Slicer,
   StatResultRow,
@@ -313,6 +314,32 @@ class PowerHourContinuation(BaseStat):
           )
         )
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved day, mirroring ``compute_rows``.
+
+    Every row in ``day_table`` is countable (the inner join in
+    ``build_day_table`` already dropped days without a pre-power-hour window or
+    a clean power-hour open). Each day belongs to exactly one condition
+    (``pre_green`` / ``pre_red``, from ``pre_green``) and exactly one outcome
+    (``green`` / ``red``, from ``ph_green``) — the 2x2 matrix is a single
+    partition of countable days, so each day yields exactly one sample.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, is_pre_green, is_ph_green in zip(
+      day_table.index, day_table["pre_green"], day_table["ph_green"]
+    ):
+      date_str = ts.strftime("%Y-%m-%d")
+      condition = "pre_green" if is_pre_green else "pre_red"
+      outcome = "green" if is_ph_green else "red"
+      samples.append(SampleRow(date=date_str, condition=condition, outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

@@ -57,6 +57,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -305,6 +306,44 @@ class OpeningRangeIndicator(BaseStat):
       "opening_range_share": share,
       "correlation": _pearson(opening, remaining),
     }
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day per outcome, mirroring ``compute_rows``.
+
+    ``compute_rows`` reports ``count == total == len(day_table)`` for every one
+    of the four outcomes (magnitude stat: every countable day contributes to
+    every metric's sample size, even when it is excluded from that metric's
+    mean), so every day emits one sample per outcome:
+
+      - ``mean_opening_range``   -- value = day's ``opening_range``.
+      - ``mean_remaining_range`` -- value = day's ``remaining_range``.
+      - ``opening_range_share``  -- value = ``opening_range / session_range``
+        when ``session_range`` is positive, else ``None`` (excluded from the
+        mean but still counted, matching ``_metric_values``).
+      - ``correlation`` -- Pearson r is not decomposable per day. Following the
+        convention documented on ``BaseStat.classify_samples`` for correlation
+        families, the day's ``opening_range`` (the metric's primary series) is
+        stored as the sample value so the sample count still matches
+        ``count``/``total``; full correlation recomputation on a date-filtered
+        subset is deferred to a future iteration.
+    """
+    if day_table.empty:
+      return []
+
+    opening = day_table["opening_range"].astype(float)
+    remaining = day_table["remaining_range"].astype(float)
+    session = day_table["session_range"].astype(float)
+    share = (opening / session).where(session > 0.0)
+
+    samples: list[SampleRow] = []
+    for ts, o, r, s in zip(day_table.index, opening, remaining, share):
+      date = ts.strftime("%Y-%m-%d")
+      s_value = float(s) if pd.notna(s) else None
+      samples.append(SampleRow(date=date, condition=_CONDITION, outcome="mean_opening_range", value=float(o)))
+      samples.append(SampleRow(date=date, condition=_CONDITION, outcome="mean_remaining_range", value=float(r)))
+      samples.append(SampleRow(date=date, condition=_CONDITION, outcome="opening_range_share", value=s_value))
+      samples.append(SampleRow(date=date, condition=_CONDITION, outcome="correlation", value=float(o)))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

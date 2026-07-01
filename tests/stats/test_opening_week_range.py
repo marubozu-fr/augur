@@ -1018,3 +1018,61 @@ def test_i18n_labels_correct_keys() -> None:
   for key, label in {**result.labels.conditions, **result.labels.outcomes}.items():
     assert label.en != "", f"{key}.en empty"
     assert label.fr != "", f"{key}.fr empty"
+
+
+# ===========================================================================
+# 14. classify_samples()
+#
+# Reusing _FOUR_WEEKS (1d, 4 countable weeks, one per outcome; W5 pending):
+#   W1 (2024-01-01): break_high_only
+#   W2 (2024-01-08): break_low_only
+#   W3 (2024-01-15): break_both, seq_high_first=False -> low_first
+#   W4 (2024-01-22): inside
+# W3 emits TWO SampleRows (opening_range + break_both); the others emit ONE.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits opening_range samples for every countable week, plus a
+  break_both sequence sample for the one both-break week."""
+  stat = _stat("1d")
+  day_table = stat.build_day_table(make_candles(_FOUR_WEEKS))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-01", "opening_range", "break_high_only"),
+    ("2024-01-08", "opening_range", "break_low_only"),
+    ("2024-01-15", "opening_range", "break_both"),
+    ("2024-01-15", "break_both", "low_first"),
+    ("2024-01-22", "opening_range", "inside"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count and total."""
+  stat = _stat("1d")
+  day_table = stat.build_day_table(make_candles(_FOUR_WEEKS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+  opening_range_total = sum(1 for s in samples if s.condition == "opening_range")
+  assert opening_range_total == 4
+  break_both_total = sum(1 for s in samples if s.condition == "break_both")
+  assert break_both_total == 1
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat("1d")
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_week() -> None:
+  """The trailing pending week (already dropped by build_day_table) yields no samples."""
+  stat = _stat("1d")
+  day_table = stat.build_day_table(make_candles(_FOUR_WEEKS))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-29" not in sample_dates
+  assert sample_dates == {"2024-01-01", "2024-01-08", "2024-01-15", "2024-01-22"}

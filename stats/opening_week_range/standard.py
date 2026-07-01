@@ -55,6 +55,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -364,6 +365,49 @@ class OpeningWeekRange(BaseStat):
       _make("break_both", "high_first", high_first_n, both_n),
       _make("break_both", "low_first", low_first_n, both_n),
     ]
+
+  def classify_samples(self, week_table: pd.DataFrame) -> list[SampleRow]:
+    """One or two SampleRows per countable week, mirroring ``compute_rows``.
+
+    Every countable week (valid opening range AND non-empty breakout window)
+    emits a ``opening_range`` SampleRow with its four-way outcome. Weeks that
+    are ``break_both`` additionally emit a ``break_both`` SampleRow with the
+    ``high_first`` / ``low_first`` sequence — the nested tier 2 partition,
+    reproducing ``both_n`` as its total. Non-countable weeks (missing opening
+    range or breakout window) contribute nothing.
+    """
+    if week_table.empty:
+      return []
+
+    countable = (
+      week_table["opening_high"].notna()
+      & week_table["opening_low"].notna()
+      & week_table["post_high"].notna()
+      & week_table["post_low"].notna()
+    )
+    if not bool(countable.any()):
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in week_table[countable].iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      broke_high = row["post_high"] > row["opening_high"]
+      broke_low = row["post_low"] < row["opening_low"]
+      if broke_high and broke_low:
+        outcome = "break_both"
+      elif broke_high:
+        outcome = "break_high_only"
+      elif broke_low:
+        outcome = "break_low_only"
+      else:
+        outcome = "inside"
+      samples.append(SampleRow(date=date_str, condition="opening_range", outcome=outcome))
+
+      if broke_high and broke_low:
+        seq_outcome = "high_first" if bool(row["seq_high_first"]) else "low_first"
+        samples.append(SampleRow(date=date_str, condition="break_both", outcome=seq_outcome))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

@@ -943,3 +943,65 @@ def test_stat_invalid_timeframe_raises() -> None:
   """Unsupported timeframe string must raise ValueError."""
   with pytest.raises(ValueError, match="Unsupported timeframe"):
     OpeningCandleContinuation(instrument="NQ", timeframe="5min", config=_TEST_CONFIG)
+
+
+# ===========================================================================
+# 11. classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per day, matching the hand-designed GG/GR/RG/RR pattern."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  day_table = stat.build_day_table(make_candles(_build_spec(15)))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "green_open", "green_close"),
+    ("2024-01-03", "green_open", "green_close"),
+    ("2024-01-04", "green_open", "green_close"),
+    ("2024-01-05", "green_open", "red_close"),
+    ("2024-01-08", "green_open", "red_close"),
+    ("2024-01-09", "red_open", "green_close"),
+    ("2024-01-10", "red_open", "green_close"),
+    ("2024-01-11", "red_open", "green_close"),
+    ("2024-01-12", "red_open", "green_close"),
+    ("2024-01-16", "red_open", "red_close"),
+  ]
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """The invariant: sample counts per (condition, outcome) equal compute_rows' count/total."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  day_table = stat.build_day_table(make_candles(_build_spec(15)))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    matching = [s for s in samples if s.condition == r.condition and s.outcome == r.outcome]
+    assert len(matching) == r.count
+  for cond in ("green_open", "red_open"):
+    cond_total = {r.total for r in rows if r.condition == cond}.pop()
+    assert len([s for s in samples if s.condition == cond]) == cond_total
+
+
+def test_classify_samples_empty_day_table() -> None:
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  assert stat.classify_samples(pd.DataFrame(columns=[
+    "session_open", "session_close", "last_minute",
+    "opening_open", "opening_close", "opening_high", "opening_low",
+    "opening_green", "session_green", "opening_body", "close_location",
+  ])) == []
+
+
+def test_classify_samples_excludes_pending_day() -> None:
+  """A truncated/unresolved day never enters the day_table, so it has no sample."""
+  stat = OpeningCandleContinuation(instrument="NQ", timeframe="15min", config=_TEST_CONFIG)
+  base_df = make_candles(_build_spec(15))
+  truncated = _make_truncated_day("2024-01-17", 15)
+  combined = (
+    pd.concat([base_df, truncated], ignore_index=True)
+    .sort_values("timestamp")
+    .reset_index(drop=True)
+  )
+  day_table = stat.build_day_table(combined)
+  samples = stat.classify_samples(day_table)
+  assert "2024-01-17" not in {s.date for s in samples}
+  assert len(samples) == 10

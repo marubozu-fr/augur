@@ -51,6 +51,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -225,6 +226,56 @@ class OutsideDays(BaseStat):
       _make("bearish", "continuation", int(bear_continuation.sum()), bearish_n),
       _make("bearish", "reversal", int(bear_reversal.sum()), bearish_n),
     ]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One or two SampleRows per countable day, mirroring ``compute_rows``.
+
+    Every countable day (prior resolved day exists, i.e. ``prev_high`` /
+    ``prev_low`` not NaN) yields exactly one tier-1 sample under condition
+    ``outside_open``, whose outcome is ``bullish``, ``bearish``, or the
+    synthetic complement ``neither`` — this preserves the tier-1 denominator
+    (``countable_n``) since ``bullish``/``bearish`` do not partition it alone
+    (most days open inside the prior range).
+
+    Each bullish or bearish day additionally yields exactly one tier-2 sample
+    under condition ``bullish`` or ``bearish``, whose outcome is
+    ``continuation`` or ``reversal`` — a true partition of that outside-open
+    subset.
+
+    Non-countable days (no prior resolved day) contribute nothing.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, session_open, day_high, day_low, prev_high, prev_low in zip(
+      day_table.index,
+      day_table["session_open"],
+      day_table["day_high"],
+      day_table["day_low"],
+      day_table["prev_high"],
+      day_table["prev_low"],
+    ):
+      if pd.isna(prev_high) or pd.isna(prev_low):
+        continue
+
+      date_str = ts.strftime("%Y-%m-%d")
+      bullish = session_open > prev_high
+      bearish = session_open < prev_low
+      tier1_outcome = "bullish" if bullish else ("bearish" if bearish else "neither")
+      samples.append(SampleRow(date=date_str, condition="outside_open", outcome=tier1_outcome))
+
+      if not (bullish or bearish):
+        continue
+
+      if bullish:
+        tier2_outcome = "reversal" if day_low < prev_high else "continuation"
+        samples.append(SampleRow(date=date_str, condition="bullish", outcome=tier2_outcome))
+      else:
+        tier2_outcome = "reversal" if day_high > prev_low else "continuation"
+        samples.append(SampleRow(date=date_str, condition="bearish", outcome=tier2_outcome))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

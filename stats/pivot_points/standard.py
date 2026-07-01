@@ -59,6 +59,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -441,6 +442,114 @@ class PivotPoints(BaseStat):
           rows.append(_make(condition, key, int(mask.sum()), countable_n))
 
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring ``compute_rows``'s three tiers.
+
+    Uses the same countable mask (prior day with ``prev_high > prev_low`` AND a
+    non-NaN ``prev_close``) as ``compute_rows``.
+
+    Tier 1 — ``pivot_levels`` touches are INDEPENDENT: a countable day yields
+    zero, one, or several samples (one per touched level), reproducing each
+    level's touch count exactly.
+
+    Tiers 2 & 3 — ``opening_zone`` and ``close_zone`` are PARTITIONS: every
+    countable day yields exactly one sample per tier, reproducing the zone
+    counts and the shared denominator (``countable_n``).
+    """
+    if day_table.empty:
+      return []
+
+    has_prior = (
+      day_table["prev_high"].notna()
+      & day_table["prev_low"].notna()
+      & day_table["prev_close"].notna()
+    )
+    prior_rng_series = (day_table["prev_high"] - day_table["prev_low"]).where(has_prior)
+    countable = has_prior & (prior_rng_series > 0)
+
+    ct = day_table[countable]
+    if ct.empty:
+      return []
+
+    H = ct["prev_high"].to_numpy(dtype=float)
+    L = ct["prev_low"].to_numpy(dtype=float)
+    C = ct["prev_close"].to_numpy(dtype=float)
+    rng = H - L
+
+    day_high = ct["day_high"].to_numpy(dtype=float)
+    day_low = ct["day_low"].to_numpy(dtype=float)
+    session_open = ct["session_open"].to_numpy(dtype=float)
+    session_close = ct["session_close"].to_numpy(dtype=float)
+
+    dates = [ts.strftime("%Y-%m-%d") for ts in ct.index]
+
+    samples: list[SampleRow] = []
+
+    if self.pp_type == "traditional":
+      PP = (H + L + C) / 3
+      R1 = 2 * PP - L
+      S1 = 2 * PP - H
+      R2 = PP + rng
+      S2 = PP - rng
+      R3 = H + 2 * (PP - L)
+      S3 = L - 2 * (H - PP)
+      level_arrays = (S3, S2, S1, PP, R1, R2, R3)
+      touch_keys = _TRAD_TOUCH_KEYS
+
+      def _zone_masks(price: np.ndarray) -> list[tuple[str, np.ndarray]]:
+        return [
+          ("below_s3", price < S3),
+          ("s3_s2",    (price >= S3) & (price < S2)),
+          ("s2_s1",    (price >= S2) & (price < S1)),
+          ("s1_pp",    (price >= S1) & (price < PP)),
+          ("pp_r1",    (price >= PP) & (price < R1)),
+          ("r1_r2",    (price >= R1) & (price < R2)),
+          ("r2_r3",    (price >= R2) & (price <= R3)),
+          ("above_r3", price > R3),
+        ]
+    else:
+      factor = rng * 1.1
+      R1 = C + factor / 12
+      S1 = C - factor / 12
+      R2 = C + factor / 6
+      S2 = C - factor / 6
+      R3 = C + factor / 4
+      S3 = C - factor / 4
+      R4 = C + factor / 2
+      S4 = C - factor / 2
+      level_arrays = (S4, S3, S2, S1, R1, R2, R3, R4)
+      touch_keys = _CAM_TOUCH_KEYS
+
+      def _zone_masks(price: np.ndarray) -> list[tuple[str, np.ndarray]]:
+        return [
+          ("cam_below_s4", price < S4),
+          ("cam_s4_s3",    (price >= S4) & (price < S3)),
+          ("cam_s3_s2",    (price >= S3) & (price < S2)),
+          ("cam_s2_s1",    (price >= S2) & (price < S1)),
+          ("cam_s1_r1",    (price >= S1) & (price < R1)),
+          ("cam_r1_r2",    (price >= R1) & (price < R2)),
+          ("cam_r2_r3",    (price >= R2) & (price < R3)),
+          ("cam_r3_r4",    (price >= R3) & (price <= R4)),
+          ("cam_above_r4", price > R4),
+        ]
+
+    # ----- Tier 1: level touches (independent, 0..N per day) -----
+    for level_arr, key in zip(level_arrays, touch_keys):
+      touched = (day_low <= level_arr) & (day_high >= level_arr)
+      for pos in np.flatnonzero(touched):
+        samples.append(SampleRow(date=dates[pos], condition="pivot_levels", outcome=key))
+
+    # ----- Tiers 2 & 3: opening zone / close zone (partitions, exactly 1 per day) -----
+    for price, condition in ((session_open, "opening_zone"), (session_close, "close_zone")):
+      for key, mask in _zone_masks(price):
+        for pos in np.flatnonzero(mask):
+          samples.append(SampleRow(date=dates[pos], condition=condition, outcome=key))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

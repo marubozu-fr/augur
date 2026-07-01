@@ -41,6 +41,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -185,6 +186,22 @@ class OpenCloseRange(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved session, mirroring ``compute_rows``.
+
+    Every resolved session belongs to exactly one of the two outcomes
+    (``within`` / ``outside``) that partition the single ``open_close_range``
+    condition, so each day yields exactly one sample.
+    """
+    if day_table.empty:
+      return []
+    within = day_table["oc_move_pct"] <= self.range_percentage
+    outcomes = np.where(within, "within", "outside")
+    return [
+      SampleRow(date=ts.strftime("%Y-%m-%d"), condition=_CONDITION, outcome=out)
+      for ts, out in zip(day_table.index, outcomes)
+    ]
 
   # -------------------------------------------------------------------------
   # Baseline

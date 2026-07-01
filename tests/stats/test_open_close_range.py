@@ -467,3 +467,57 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   result = _stat().compute(_empty_df())
   raw = write_results(result, results_dir=tmp_path).read_text(encoding="utf-8")
   assert "clôture" in raw
+
+
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per session, matching the hand-computed within/outside split."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SESSIONS))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "open_close_range", "within"),
+    ("2024-01-03", "open_close_range", "within"),
+    ("2024-01-04", "open_close_range", "outside"),
+    ("2024-01-05", "open_close_range", "within"),
+    ("2024-01-08", "open_close_range", "outside"),
+    ("2024-01-09", "open_close_range", "within"),
+  ]
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """The invariant: sample counts per (condition, outcome) equal compute_rows' count/total."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SESSIONS))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = [s for s in samples if s.condition == r.condition and s.outcome == r.outcome]
+    assert len(matching) == r.count
+  total_all = len({s.date for s in samples})
+  assert total_all == rows[0].total == 6
+
+
+def test_classify_samples_empty_day_table() -> None:
+  assert _stat().classify_samples(pd.DataFrame(
+    columns=["session_open", "session_close", "oc_move_pct", "session_green"]
+  )) == []
+
+
+def test_classify_samples_excludes_pending_day() -> None:
+  """A truncated/unresolved day never enters the day_table, so it has no sample."""
+  stat = _stat()
+  base_df = make_candles(_SESSIONS)
+  truncated = _make_truncated_day("2024-01-10")
+  combined = (
+    pd.concat([base_df, truncated], ignore_index=True)
+    .sort_values("timestamp")
+    .reset_index(drop=True)
+  )
+  table = stat.build_day_table(combined)
+  samples = stat.classify_samples(table)
+  assert "2024-01-10" not in {s.date for s in samples}
+  assert len(samples) == 6

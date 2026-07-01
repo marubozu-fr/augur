@@ -1007,3 +1007,99 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   # The French definition contains "calculés" (with é).
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# 14. classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One countable day touching PP & R1, opening/closing in the pp_r1 zone.
+
+  Day range [109, 161]: touches PP=110 and R1=160 only (S1=70 < 109, R2=200 > 161).
+  session_open=120 and session_close=130 both land in [PP=110, R1=160) -> pp_r1.
+  """
+  days = [
+    _PRIOR,
+    {"date": _CURRENT_DATE, "open": 120.0, "close": 130.0, "high": 161.0, "low": 109.0},
+  ]
+  stat = _stat("traditional")
+  day_table = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    (_CURRENT_DATE, "pivot_levels", "pp"),
+    (_CURRENT_DATE, "pivot_levels", "r1"),
+    (_CURRENT_DATE, "opening_zone", "pp_r1"),
+    (_CURRENT_DATE, "close_zone", "pp_r1"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_touch_counts() -> None:
+  """Each pivot_levels outcome's sample count equals its compute_rows count."""
+  stat = _stat("traditional")
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for key in _ALL_TRAD_TOUCH:
+    row = next(r for r in rows if r.condition == "pivot_levels" and r.outcome == key)
+    n_samples = len([s for s in samples if s.condition == "pivot_levels" and s.outcome == key])
+    assert n_samples == row.count, f"{key}: samples={n_samples}, expected count={row.count}"
+
+
+def test_classify_samples_matches_compute_rows_zone_counts() -> None:
+  """Each opening_zone / close_zone outcome's sample count equals its compute_rows count."""
+  stat = _stat("traditional")
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for condition in ("opening_zone", "close_zone"):
+    for key in _ALL_TRAD_ZONES:
+      row = next(r for r in rows if r.condition == condition and r.outcome == key)
+      n_samples = len([s for s in samples if s.condition == condition and s.outcome == key])
+      assert n_samples == row.count, f"{condition}/{key}: samples={n_samples}, expected={row.count}"
+
+
+def test_classify_samples_zone_denominators_match_countable_n() -> None:
+  """Total opening_zone / close_zone samples each equal countable_n (touch row total)."""
+  stat = _stat("traditional")
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  countable_n = next(r.total for r in rows if r.condition == "pivot_levels" and r.outcome == "pp")
+  for condition in ("opening_zone", "close_zone"):
+    zone_samples = [s for s in samples if s.condition == condition]
+    assert len(zone_samples) == countable_n
+
+
+def test_classify_samples_camarilla_variant() -> None:
+  """classify_samples mirrors compute_rows for the camarilla pp_type too."""
+  stat = _stat("camarilla")
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for key in _ALL_CAM_TOUCH:
+    row = next(r for r in rows if r.condition == "pivot_levels" and r.outcome == key)
+    n_samples = len([s for s in samples if s.condition == "pivot_levels" and s.outcome == key])
+    assert n_samples == row.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_first_day() -> None:
+  """The first resolved day (NaN prior) yields no samples (not countable)."""
+  days = [
+    _PRIOR,
+    {"date": "2024-01-03", "open": 110.0, "close": 115.0, "high": 120.0, "low": 108.0},
+    {"date": "2024-01-04", "open": 130.0, "close": 135.0, "high": 140.0, "low": 128.0},
+  ]
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert _PRIOR_DATE not in sample_dates
+  assert sample_dates == {"2024-01-03", "2024-01-04"}

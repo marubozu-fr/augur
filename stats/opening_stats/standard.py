@@ -40,6 +40,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -227,6 +228,22 @@ class OpeningStats(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    Single condition ("open"); each day contributes exactly one outcome
+    (``open_location``), so the samples reproduce each row's ``count`` and the
+    table's ``total`` directly.
+    """
+    if day_table.empty:
+      return []
+    samples: list[SampleRow] = []
+    for ts, location in zip(day_table.index, day_table["open_location"]):
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition=_CONDITION, outcome=str(location))
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

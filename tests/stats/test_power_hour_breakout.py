@@ -706,6 +706,57 @@ def test_result_has_expected_slice_dimensions() -> None:
 # JSON round-trip
 # ===========================================================================
 
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per countable day, condition power_hour, matching the
+  canonical 5-day set's outcome per day."""
+  stat = _stat()
+  day_table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "power_hour", "made_high"),
+    ("2024-01-03", "power_hour", "made_low"),
+    ("2024-01-04", "power_hour", "made_both"),
+    ("2024-01-05", "power_hour", "neither"),
+    ("2024-01-08", "power_hour", "neither"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+  assert len(samples) == sum(r.count for r in rows) == 5
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_early_close_day() -> None:
+  """An unresolved (early-close) day never yields a sample."""
+  candles = _concat([
+    _make_ph_day(date="2024-01-02", pre_high=110, pre_low=90, ph_high=115, ph_low=95),
+    _make_early_close_day("2024-01-03"),
+  ])
+  stat = _stat()
+  day_table = stat.build_day_table(candles)
+  samples = stat.classify_samples(day_table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+  assert len(samples) == 1
+
+
 def test_result_validates_and_writes(tmp_path: Path) -> None:
   result = _stat().compute(_canon_candles())
   out = write_results(result, results_dir=tmp_path)

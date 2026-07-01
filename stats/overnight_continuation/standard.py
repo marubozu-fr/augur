@@ -39,6 +39,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -174,6 +175,37 @@ class OvernightContinuation(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    Each day with a prior session close (``prev_session_close`` not NaN)
+    contributes exactly one sample: ``condition`` is its gap color
+    (``gap_green`` / ``gap_red``) and ``outcome`` is its intraday day color
+    (``green`` / ``red``). The 2x2 matrix's four cells are all reproduced
+    directly, and the two outcomes per condition sum to that condition's total.
+    """
+    if day_table.empty:
+      return []
+
+    countable = day_table["prev_session_close"].notna()
+    if not bool(countable.any()):
+      return []
+
+    sub = day_table[countable]
+    gap_is_green = sub["session_open"] >= sub["prev_session_close"]
+    day_green = sub["day_green"].astype(bool)
+
+    samples: list[SampleRow] = []
+    for ts, gap_green, is_green in zip(sub.index, gap_is_green, day_green):
+      samples.append(
+        SampleRow(
+          date=ts.strftime("%Y-%m-%d"),
+          condition="gap_green" if gap_green else "gap_red",
+          outcome="green" if is_green else "red",
+        )
+      )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: randomize intraday day color (p=0.5) to destroy any correlation.

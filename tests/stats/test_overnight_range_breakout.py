@@ -512,3 +512,66 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   raw = written.read_text(encoding="utf-8")
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _SEQ (8 countable days, hand-calculated outcomes above):
+#   2024-01-02 broke_high, 2024-01-03 broke_low, 2024-01-04 broke_both,
+#   2024-01-05 neither, 2024-01-08 broke_high, 2024-01-09 broke_low,
+#   2024-01-10 broke_both, 2024-01-11 neither
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per countable day, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "overnight_range", "broke_high"),
+    ("2024-01-03", "overnight_range", "broke_low"),
+    ("2024-01-04", "overnight_range", "broke_both"),
+    ("2024-01-05", "overnight_range", "neither"),
+    ("2024-01-08", "overnight_range", "broke_high"),
+    ("2024-01-09", "overnight_range", "broke_low"),
+    ("2024-01-10", "overnight_range", "broke_both"),
+    ("2024-01-11", "overnight_range", "neither"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count and total."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+  total = sum(1 for s in samples if s.condition == "overnight_range")
+  assert total == rows[0].total == 8
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_session() -> None:
+  """A trailing truncated (unresolved) session yields no samples."""
+  base_df = make_candles(_SEQ)
+  truncated = _make_truncated_session("2024-01-12")
+  combined = (
+    pd.concat([base_df, truncated], ignore_index=True)
+    .sort_values("timestamp")
+    .reset_index(drop=True)
+  )
+  stat = _stat()
+  day_table = stat.build_day_table(combined)
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-12" not in sample_dates
+  assert len(samples) == 8

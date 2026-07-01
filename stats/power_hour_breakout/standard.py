@@ -54,6 +54,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SliceGroup,
   Slicer,
   StatResultRow,
@@ -314,6 +315,44 @@ class PowerHourBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, condition ``power_hour``, mirroring
+    ``compute_rows``'s four-way partition (``made_high`` / ``made_low`` /
+    ``made_both`` / ``neither``). A day is excluded when it is not countable
+    (NaN pre-power-hour or power-hour extreme) — in practice this should not
+    occur since ``build_day_table`` already drops such days via its inner join,
+    but the check is kept to mirror ``compute_rows`` exactly.
+    """
+    if day_table.empty:
+      return []
+
+    pre_high = day_table["pre_high"]
+    pre_low = day_table["pre_low"]
+    ph_high = day_table["ph_high"]
+    ph_low = day_table["ph_low"]
+
+    countable = pre_high.notna() & pre_low.notna() & ph_high.notna() & ph_low.notna()
+    above = countable & (ph_high > pre_high)
+    below = countable & (ph_low < pre_low)
+
+    outcome = pd.Series(None, index=day_table.index, dtype=object)
+    outcome[above & ~below] = "made_high"
+    outcome[below & ~above] = "made_low"
+    outcome[above & below] = "made_both"
+    outcome[countable & ~above & ~below] = "neither"
+
+    samples: list[SampleRow] = []
+    for ts, out, ok in zip(day_table.index, outcome, countable):
+      if not ok:
+        continue
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition="power_hour", outcome=out)
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

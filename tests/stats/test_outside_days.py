@@ -453,3 +453,74 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   # The French definition contains "précédent" (with é).
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _SEQ (6 resolved days; idx 0 is the anchor, no prior day):
+#   idx 1 (2024-01-03): bullish, continuation
+#   idx 2 (2024-01-04): bullish, reversal
+#   idx 3 (2024-01-05): bearish, continuation
+#   idx 4 (2024-01-08): bearish, reversal
+#   idx 5 (2024-01-09): neither (inside)
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one outside_open sample per countable day, plus a
+  tier-2 sample for each bullish/bearish day."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-03", "outside_open", "bullish"),
+    ("2024-01-03", "bullish", "continuation"),
+    ("2024-01-04", "outside_open", "bullish"),
+    ("2024-01-04", "bullish", "reversal"),
+    ("2024-01-05", "outside_open", "bearish"),
+    ("2024-01-05", "bearish", "continuation"),
+    ("2024-01-08", "outside_open", "bearish"),
+    ("2024-01-08", "bearish", "reversal"),
+    ("2024-01-09", "outside_open", "neither"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count; the
+  outside_open condition's total sample count equals its r.total (all three
+  outcomes, including the synthetic 'neither', are emitted for every countable
+  day)."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+  outside_open_total = sum(1 for s in samples if s.condition == "outside_open")
+  assert outside_open_total == 5
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_first_day_and_pending_day() -> None:
+  """The anchor day (no prior day) and a trailing pending day yield no samples."""
+  base_df = make_candles(_SEQ)
+  truncated = _make_truncated_day("2024-01-10")
+  combined = (
+    pd.concat([base_df, truncated], ignore_index=True)
+    .sort_values("timestamp")
+    .reset_index(drop=True)
+  )
+  stat = _stat()
+  day_table = stat.build_day_table(combined)
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-02" not in sample_dates  # anchor (no prior day)
+  assert "2024-01-10" not in sample_dates  # trailing pending day
+  assert sample_dates == {"2024-01-03", "2024-01-04", "2024-01-05", "2024-01-08", "2024-01-09"}

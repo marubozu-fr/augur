@@ -502,6 +502,103 @@ def test_stat_name() -> None:
   assert _otc_stat().compute(_empty_df()).stat_name == "performance_weekday"
 
 
+# ===========================================================================
+# 8b. classify_samples
+#
+# Reusing _OTC_DAYS (10 days, open_to_close):
+#   2024-01-01 Mon +0.20 (green) | 2024-01-02 Tue -0.20 (red)
+#   2024-01-03 Wed +0.20 (green) | 2024-01-04 Thu +0.20 (green)
+#   2024-01-05 Fri -0.20 (red)   | 2024-01-08 Mon +0.10 (green)
+#   2024-01-09 Tue -0.10 (red)   | 2024-01-10 Wed -0.20 (red)
+#   2024-01-11 Thu +0.20 (green) | 2024-01-12 Fri -0.10 (red)
+# Each day emits: 1 mean_return sample + 1 green_day/red_day sample
+#   + 1 mean_green_move/mean_red_move sample (3 samples per day, 30 total).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits three SampleRows per day, matching the hand-calc."""
+  stat = _otc_stat()
+  day_table = stat.build_day_table(make_candles(_OTC_DAYS))
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2024-01-01", "any_day", "mean_return", 0.20),
+    ("2024-01-01", "any_day", "green_day", None),
+    ("2024-01-01", "any_day", "mean_green_move", 0.20),
+    ("2024-01-02", "any_day", "mean_return", -0.20),
+    ("2024-01-02", "any_day", "red_day", None),
+    ("2024-01-02", "any_day", "mean_red_move", -0.20),
+    ("2024-01-03", "any_day", "mean_return", 0.20),
+    ("2024-01-03", "any_day", "green_day", None),
+    ("2024-01-03", "any_day", "mean_green_move", 0.20),
+    ("2024-01-04", "any_day", "mean_return", 0.20),
+    ("2024-01-04", "any_day", "green_day", None),
+    ("2024-01-04", "any_day", "mean_green_move", 0.20),
+    ("2024-01-05", "any_day", "mean_return", -0.20),
+    ("2024-01-05", "any_day", "red_day", None),
+    ("2024-01-05", "any_day", "mean_red_move", -0.20),
+    ("2024-01-08", "any_day", "mean_return", 0.10),
+    ("2024-01-08", "any_day", "green_day", None),
+    ("2024-01-08", "any_day", "mean_green_move", 0.10),
+    ("2024-01-09", "any_day", "mean_return", -0.10),
+    ("2024-01-09", "any_day", "red_day", None),
+    ("2024-01-09", "any_day", "mean_red_move", -0.10),
+    ("2024-01-10", "any_day", "mean_return", -0.20),
+    ("2024-01-10", "any_day", "red_day", None),
+    ("2024-01-10", "any_day", "mean_red_move", -0.20),
+    ("2024-01-11", "any_day", "mean_return", 0.20),
+    ("2024-01-11", "any_day", "green_day", None),
+    ("2024-01-11", "any_day", "mean_green_move", 0.20),
+    ("2024-01-12", "any_day", "mean_return", -0.10),
+    ("2024-01-12", "any_day", "red_day", None),
+    ("2024-01-12", "any_day", "mean_red_move", -0.10),
+  ]
+  assert len(samples) == len(expected) == 30
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    if value is None:
+      assert s.value is None
+    else:
+      assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _otc_stat()
+  day_table = stat.build_day_table(make_candles(_OTC_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_mean_return_average_matches() -> None:
+  """Mean of mean_return SampleRow values reproduces the overall mean_return."""
+  stat = _otc_stat()
+  day_table = stat.build_day_table(make_candles(_OTC_DAYS))
+  samples = stat.classify_samples(day_table)
+  values = [s.value for s in samples if s.condition == "any_day" and s.outcome == "mean_return"]
+  assert sum(values) / len(values) == pytest.approx(0.01)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _otc_stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_first_close_to_close_day() -> None:
+  """close_to_close excludes the first resolved day (no prior close)."""
+  stat = _ctc_stat()
+  day_table = stat.build_day_table(make_candles(_CTC_DAYS))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-01" not in sample_dates
+  assert sample_dates == {"2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"}
+
+
 def test_write_results_round_trip(tmp_path: Path) -> None:
   result = _otc_stat().compute(make_candles(_OTC_DAYS))
   written = write_results(result, results_dir=tmp_path)

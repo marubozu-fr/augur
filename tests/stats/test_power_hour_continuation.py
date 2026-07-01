@@ -926,6 +926,63 @@ def test_unsupported_timeframe_30min_raises() -> None:
 # StatRunResult validation and JSON round-trip
 # ===========================================================================
 
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per resolved day, matching the 6-day canonical set's matrix cell."""
+  stat = _stat()
+  day_table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "pre_green", "green"),
+    ("2024-01-03", "pre_green", "red"),
+    ("2024-01-04", "pre_green", "green"),
+    ("2024-01-05", "pre_red", "green"),
+    ("2024-01-08", "pre_red", "red"),
+    ("2024-01-09", "pre_red", "red"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count and the
+  matching condition's total sample count equals r.total."""
+  stat = _stat()
+  day_table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+    cond_total = sum(1 for s in samples if s.condition == r.condition)
+    assert cond_total == r.total
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_unresolved_day() -> None:
+  """An unresolved day (missing the 15:15 open bar) never yields a sample."""
+  good_day = _make_cont_day(
+    date="2024-01-02",
+    session_open=100.0, pre_close=110.0,
+    pre_high=110.0, pre_low=90.0,
+    ph_open=95.0, session_close=100.0,
+  )
+  no_ph_open = _make_no_ph_open_bar_day("2024-01-03")
+  combined = _concat([good_day, no_ph_open])
+  stat = _stat()
+  day_table = stat.build_day_table(combined)
+  samples = stat.classify_samples(day_table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+  assert len(samples) == 1
+
+
 def test_compute_returns_valid_stat_run_result() -> None:
   """Pydantic re-validation of the serialized result must not raise."""
   result = _stat().compute(_canon_candles())

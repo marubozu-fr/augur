@@ -401,3 +401,69 @@ def test_result_validates_and_writes(tmp_path: Path) -> None:
   assert data["title"]["en"] == "Opening Range Breakout"
   # Re-validate the written payload through the Pydantic model.
   StatRunResult.model_validate(data)
+
+
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """One SampleRow per countable day, matching the canonical high/low/both/neither set."""
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "orb", "broke_high"),
+    ("2024-01-03", "orb", "broke_low"),
+    ("2024-01-04", "orb", "broke_both"),
+    ("2024-01-05", "orb", "neither"),
+    ("2024-01-08", "orb", "neither"),
+  ]
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """The invariant: sample counts per (condition, outcome) equal compute_rows' count/total."""
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = [s for s in samples if s.condition == r.condition and s.outcome == r.outcome]
+    assert len(matching) == r.count
+  assert len(samples) == rows[0].total == 5
+
+
+def test_classify_samples_empty_day_table() -> None:
+  assert _stat().classify_samples(pd.DataFrame(columns=[
+    "orb_high", "orb_low", "orb_size", "post_high", "post_low",
+    "post_close_high", "post_close_low", "session_green", "prev_session_green",
+  ])) == []
+
+
+def test_classify_samples_excludes_pending_day() -> None:
+  """A truncated/unresolved day never enters the day_table, so it has no sample."""
+  stat = _stat()
+  candles = _concat([
+    _make_orb_day(date="2024-01-02", orb_high=110, orb_low=90, post_high=115, post_low=95),
+    _make_truncated_day("2024-01-03"),
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert "2024-01-03" not in {s.date for s in samples}
+  assert len(samples) == 1
+
+
+def test_classify_samples_respects_breakout_criteria() -> None:
+  """classify_samples must select the same wick/close extremes as compute_rows."""
+  candles = _concat([
+    _make_orb_day(
+      date="2024-01-02", orb_high=110, orb_low=90,
+      post_high=115, post_low=95, post_close_high=100,
+    ),
+  ])
+  wick_stat = _stat(breakout_criteria="wick")
+  close_stat = _stat(breakout_criteria="close")
+  wick_samples = wick_stat.classify_samples(wick_stat.build_day_table(candles))
+  close_samples = close_stat.classify_samples(close_stat.build_day_table(candles))
+  assert wick_samples[0].outcome == "broke_high"
+  assert close_samples[0].outcome == "neither"
