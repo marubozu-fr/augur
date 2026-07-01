@@ -40,6 +40,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SliceGroup,
   Slicer,
   StatResultRow,
@@ -347,6 +348,45 @@ class Seasonality(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-period SampleRows mirroring the five outcomes ``compute_rows`` aggregates.
+
+    Every resolved period (all rows are already countable; pending-sample
+    discipline is enforced in ``build_day_table``) yields:
+      - one ``mean_return`` sample carrying that period's ``return_pct`` as
+        ``value`` (every period counts toward this outcome);
+      - one ``green_period`` OR ``red_period`` sample (mutually exclusive, no
+        ``value``);
+      - one ``mean_green_move`` sample (only green periods) OR
+        ``mean_red_move`` sample (only red periods), again carrying
+        ``return_pct`` as ``value``.
+    All samples share the single condition ``any_period``. ``date`` is the
+    period's index date (its first session date).
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, return_pct, period_green in zip(
+      day_table.index, day_table["return_pct"], day_table["period_green"]
+    ):
+      date_str = ts.strftime("%Y-%m-%d")
+      value = float(return_pct)
+      samples.append(
+        SampleRow(date=date_str, condition=_CONDITION, outcome="mean_return", value=value)
+      )
+      if period_green:
+        samples.append(SampleRow(date=date_str, condition=_CONDITION, outcome="green_period"))
+        samples.append(
+          SampleRow(date=date_str, condition=_CONDITION, outcome="mean_green_move", value=value)
+        )
+      else:
+        samples.append(SampleRow(date=date_str, condition=_CONDITION, outcome="red_period"))
+        samples.append(
+          SampleRow(date=date_str, condition=_CONDITION, outcome="mean_red_move", value=value)
+        )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: each period's return direction is a coin flip.

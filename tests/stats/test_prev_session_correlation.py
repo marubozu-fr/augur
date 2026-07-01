@@ -311,6 +311,74 @@ def test_pending_day_absent_from_day_table() -> None:
 
 
 # ===========================================================================
+# classify_samples()
+# ===========================================================================
+def test_classify_samples_exact_sequence() -> None:
+  """Exact (date, condition, outcome, value) tuples for the 10-day _DAILY_SEQ.
+
+  Sequence recap (see the module-level comment above): col GGRGRRRGRG, idx 0 has
+  no prior session and is excluded from every countable row.
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAILY_SEQ))
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    ("2024-01-02", "prev_green", "green", 1.0),
+    ("2024-01-03", "prev_green", "red", 0.0),
+    ("2024-01-04", "prev_red", "green", 1.0),
+    ("2024-01-05", "prev_green", "red", 0.0),
+    ("2024-01-08", "prev_red", "red", 0.0),
+    ("2024-01-09", "prev_red", "red", 0.0),
+    ("2024-01-10", "prev_red", "green", 1.0),
+    ("2024-01-11", "prev_green", "red", 0.0),
+    ("2024-01-12", "prev_red", "green", 1.0),
+  ]
+  assert [(s.date, s.condition, s.outcome, s.value) for s in samples] == expected
+
+
+def test_classify_samples_consistency_with_compute_rows() -> None:
+  """Every StatResultRow.count equals the matching SampleRow (condition, outcome) tally."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAILY_SEQ))
+  rows = stat.compute_rows(day_table)
+  samples = stat.classify_samples(day_table)
+
+  for row in rows:
+    tally = sum(1 for s in samples if s.condition == row.condition and s.outcome == row.outcome)
+    assert tally == row.count, (row.condition, row.outcome)
+
+  # day_table keeps all 10 resolved sessions; the first has no prior session (NaN
+  # prev_green) and is excluded from samples, matching compute_rows's countable mask.
+  assert day_table.shape[0] == 10
+  assert len(samples) == 9
+
+
+def test_classify_samples_empty_day_table() -> None:
+  stat = _stat()
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_first_session_excluded() -> None:
+  """The first resolved session has no prior color and never produces a sample."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAILY_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert "2024-01-01" not in {s.date for s in samples}
+
+
+def test_classify_samples_embedded_in_compute() -> None:
+  """compute() embeds the same samples in TimeframeResult.samples, sorted by date."""
+  stat = _stat()
+  df = make_candles(_DAILY_SEQ)
+  day_table = stat.build_day_table(df)
+  expected = sorted(stat.classify_samples(day_table), key=lambda s: s.date)
+  result = stat.compute(df)
+  assert result.instruments["NQ"]["daily"].samples == expected
+
+
+# ===========================================================================
 # Edge cases & validation
 # ===========================================================================
 

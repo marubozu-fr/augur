@@ -29,6 +29,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -270,6 +271,28 @@ class SessionRangeByWeekday(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-cycle SampleRows mirroring the three outcomes ``compute_rows`` aggregates.
+
+    Every countable cycle (all rows are already resolved — the inner join in
+    ``build_day_table`` enforces the pending-sample discipline) yields exactly
+    three samples, one per outcome (``mean_asia_range``, ``mean_london_range``,
+    ``mean_ny_range``), each carrying that cycle's session range as ``value``.
+    All samples share the single condition ``any_day``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in zip(day_table.index, day_table.itertuples(index=False)):
+      date_str = ts.strftime("%Y-%m-%d")
+      for out_key, column in _OUTCOMES:
+        value = float(getattr(row, column))
+        samples.append(
+          SampleRow(date=date_str, condition=_CONDITION, outcome=out_key, value=value)
+        )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

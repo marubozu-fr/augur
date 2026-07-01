@@ -863,3 +863,90 @@ def test_weekly_declares_week_of_year_slice() -> None:
   """Weekly instance declares WeekOfYear slicer."""
   stat = _stat("weekly")
   assert stat.slices[0].name == "week_of_year"
+
+
+# ===========================================================================
+# 11. classify_samples
+#
+# Reusing _MONTHLY_DAYS: 3 resolved periods survive pending exclusion.
+#   2024-01-15 (Jan): volume = 121500
+#   2024-02-12 (Feb): volume = 162000
+#   2024-03-11 (Mar): volume = 121500
+# Each period emits exactly one mean_volume sample carrying its volume.
+# ===========================================================================
+
+def test_classify_samples_exact_list_monthly() -> None:
+  """classify_samples emits one SampleRow per resolved period, value = volume."""
+  stat = _stat("monthly")
+  day_table = stat.build_day_table(make_candles(_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2024-01-15", "any_period", "mean_volume", 121500.0),
+    ("2024-02-12", "any_period", "mean_volume", 162000.0),
+    ("2024-03-11", "any_period", "mean_volume", 121500.0),
+  ]
+  assert len(samples) == len(expected) == 3
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_exact_list_weekly() -> None:
+  """Same shape for weekly granularity: one sample per resolved week."""
+  stat = _stat("weekly")
+  day_table = stat.build_day_table(make_candles(_WEEKLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2024-01-15", "any_period", "mean_volume", 121500.0),
+    ("2024-01-22", "any_period", "mean_volume", 162000.0),
+    ("2024-01-29", "any_period", "mean_volume", 121500.0),
+  ]
+  assert len(samples) == len(expected) == 3
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat("monthly")
+  day_table = stat.build_day_table(make_candles(_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_mean_matches_compute_rows_value() -> None:
+  """Mean of mean_volume SampleRow values reproduces the compute_rows() value."""
+  stat = _stat("monthly")
+  day_table = stat.build_day_table(make_candles(_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  row = _row(rows, "mean_volume")
+  values = [
+    s.value for s in samples if s.condition == "any_period" and s.outcome == "mean_volume"
+  ]
+  assert sum(values) / len(values) == pytest.approx(row.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat("monthly")
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_period() -> None:
+  """The most recent (pending) period never yields a SampleRow."""
+  stat = _stat("monthly")
+  day_table = stat.build_day_table(make_candles(_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  # April (2024-04-10) was dropped as pending and must not appear.
+  assert "2024-04-10" not in sample_dates
+  assert sample_dates == {"2024-01-15", "2024-02-12", "2024-03-11"}

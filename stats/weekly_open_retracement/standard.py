@@ -56,6 +56,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -365,6 +366,47 @@ class WeeklyOpenRetracement(BaseStat):
       rows.append(_make("retraced", out_key, count, retraced_total))
 
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-week sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One or two SampleRows per countable week, mirroring ``compute_rows``.
+
+    Every countable week (``direction_up`` not NA) emits a Tier-1 SampleRow
+    whose condition is ``opened_above`` or ``opened_below`` and whose outcome
+    is ``retraced`` or ``not_retraced``. Retraced countable weeks additionally
+    emit a Tier-2 SampleRow with condition ``retraced`` and the weekday
+    (monday..friday) of the first retracing bar. Doji (non-countable) weeks
+    contribute nothing, matching the ``countable`` mask in ``compute_rows``.
+    This stat is purely probability-based, so ``value`` is left None on every
+    row (spike_pts/spike_pct are slice-only columns, never compute_rows
+    outcomes).
+    """
+    if day_table.empty:
+      return []
+
+    countable = day_table["direction_up"].notna()
+    if not bool(countable.any()):
+      return []
+
+    weekday_names = {day_num: key for key, day_num in _WEEKDAY_OUTCOMES}
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table[countable].iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      cond_key = "opened_above" if bool(row["direction_up"]) else "opened_below"
+      retraced = bool(row["retraced"])
+      outcome = "retraced" if retraced else "not_retraced"
+      samples.append(SampleRow(date=date_str, condition=cond_key, outcome=outcome))
+
+      if retraced:
+        day_num = int(row["retrace_weekday"])
+        samples.append(
+          SampleRow(date=date_str, condition="retraced", outcome=weekday_names[day_num])
+        )
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

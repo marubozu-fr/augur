@@ -464,3 +464,90 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   # The French definition contains "précédent" (with é).
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """Exact per-day SampleRows for the 6-day _SEQ fixture (see derivation above).
+
+  idx0 (2024-01-02) is excluded (no prior day). idx1 breaks the high only
+  (green). idx2 breaks the low only (red). idx3 and idx5 break both (green).
+  idx4 breaks neither and contributes nothing.
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-03", "prior_range", "break_high"),
+    ("2024-01-03", "break_high", "green"),
+    ("2024-01-04", "prior_range", "break_low"),
+    ("2024-01-04", "break_low", "red"),
+    ("2024-01-05", "prior_range", "break_high"),
+    ("2024-01-05", "break_high", "green"),
+    ("2024-01-05", "prior_range", "break_low"),
+    ("2024-01-05", "break_low", "green"),
+    ("2024-01-09", "prior_range", "break_high"),
+    ("2024-01-09", "break_high", "green"),
+    ("2024-01-09", "prior_range", "break_low"),
+    ("2024-01-09", "break_low", "green"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_excludes_first_day() -> None:
+  """The first resolved day (no prior day) yields no samples."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-02" not in sample_dates
+
+
+def test_classify_samples_no_break_day_contributes_nothing() -> None:
+  """idx4 (2024-01-08), which breaks neither, produces zero samples."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert not any(s.date == "2024-01-08" for s in samples)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every (condition, outcome), SampleRow count == compute_rows count.
+
+  This is the core invariant: covers tier 1 (independent break rates) and
+  tier 2 (follow-through partitions) over a long, varied synthetic sequence.
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for row in rows:
+    n_samples = len(
+      [s for s in samples if s.condition == row.condition and s.outcome == row.outcome]
+    )
+    assert n_samples == row.count, (
+      f"{row.condition}/{row.outcome}: samples={n_samples}, expected count={row.count}"
+    )
+
+
+def test_classify_samples_tier1_denominator_matches_countable_n() -> None:
+  """Days producing a tier-1 break_high or break_low sample never exceed
+  the countable day count (prior_range's shared total in compute_rows)."""
+  stat = _stat()
+  day_table = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  countable_n = next(
+    r.total for r in rows if r.condition == "prior_range" and r.outcome == "break_high"
+  )
+  tier1_dates = {s.date for s in samples if s.condition == "prior_range"}
+  assert len(tier1_dates) <= countable_n

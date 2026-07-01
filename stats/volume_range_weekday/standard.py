@@ -32,6 +32,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -193,6 +194,33 @@ class VolumeRangeByWeekday(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring the three outcomes ``compute_rows`` aggregates.
+
+    Every resolved day (all rows are already countable; pending-sample discipline
+    is enforced in ``build_day_table``) yields one SampleRow per outcome in
+    ``_OUTCOMES`` — ``mean_volume``, ``mean_range``, ``mean_range_pct`` — each
+    carrying that day's own metric as ``value``. All three outcomes cover every
+    day (they are not mutually exclusive), so each day emits exactly three
+    samples, all under the single condition ``any_day``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      for out_key, column in _OUTCOMES:
+        samples.append(
+          SampleRow(
+            date=date_str,
+            condition=_CONDITION,
+            outcome=out_key,
+            value=float(row[column]),
+          )
+        )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: a random sample of N days drawn from all resolved days.

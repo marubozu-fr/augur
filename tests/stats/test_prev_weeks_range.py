@@ -450,3 +450,90 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   # The French definition contains "précédente" (with é).
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples()
+#
+# Reusing _SEQ (W1..W5 resolved, W6 pending, one countable week per outcome):
+#   W1 (2024-01-01): excluded (no prior week)
+#   W2 (2024-01-08): break_high_only
+#   W3 (2024-01-15): break_low_only
+#   W4 (2024-01-22): break_both, single-bar tiebreak — bullish bar
+#                     (open=100 < close=101) -> low printed first -> low_first
+#   W5 (2024-01-29): inside
+# W4 emits TWO SampleRows (prior_range + break_both); the others emit ONE.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits prior_range samples for every countable week, plus a
+  break_both sequence sample for the one both-break week."""
+  stat = _stat()
+  week_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(week_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-08", "prior_range", "break_high_only"),
+    ("2024-01-15", "prior_range", "break_low_only"),
+    ("2024-01-22", "prior_range", "break_both"),
+    ("2024-01-22", "break_both", "low_first"),
+    ("2024-01-29", "prior_range", "inside"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  week_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(week_table)
+  rows = stat.compute_rows(week_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+  prior_range_total = sum(1 for s in samples if s.condition == "prior_range")
+  assert prior_range_total == 4
+  break_both_total = sum(1 for s in samples if s.condition == "break_both")
+  assert break_both_total == 1
+
+
+def test_classify_samples_high_first_order() -> None:
+  """Sequence tier-2 outcome mirrors the week table's seq_high_first column."""
+  stat = _stat()
+  week_table = stat.build_day_table(_both_break_week(high_at=600, low_at=700))
+  samples = stat.classify_samples(week_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-08", "prior_range", "break_both"),
+    ("2024-01-08", "break_both", "high_first"),
+  ]
+  rows = stat.compute_rows(week_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_low_first_order() -> None:
+  """Low-first sequence order is preserved in the tier-2 sample."""
+  stat = _stat()
+  week_table = stat.build_day_table(_both_break_week(high_at=700, low_at=600))
+  samples = stat.classify_samples(week_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-08", "prior_range", "break_both"),
+    ("2024-01-08", "break_both", "low_first"),
+  ]
+
+
+def test_classify_samples_empty_week_table() -> None:
+  """Empty week_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_first_and_pending_weeks() -> None:
+  """The prior-less first week and the trailing pending week yield no samples."""
+  stat = _stat()
+  week_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(week_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-01" not in sample_dates
+  assert "2024-02-05" not in sample_dates
+  assert sample_dates == {"2024-01-08", "2024-01-15", "2024-01-22", "2024-01-29"}

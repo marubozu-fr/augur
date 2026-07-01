@@ -836,6 +836,110 @@ def test_zero_down_excursion_reversal_zero_for_green() -> None:
 
 
 # ===========================================================================
+# 7b. classify_samples
+#
+# Reusing _DAYS (10 days). Every resolved day is countable under the single
+# "session_reversal_range" condition, so each day yields exactly four
+# SampleRows — one per outcome — carrying that day's raw metric:
+#   mean_reversal / max_reversal         -> value = reversal
+#   mean_reversal_pct / max_reversal_pct -> value = reversal_pct
+# 10 days * 4 outcomes = 40 samples total.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits four SampleRows per day, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+
+  # (date, reversal, reversal_pct) per the module docstring hand-calc table.
+  expected_days = [
+    ("2024-01-01", 12.0, 0.12),
+    ("2024-01-02", 25.0, 0.125),
+    ("2024-01-03", 20.0, 20.0 / 150.0),
+    ("2024-01-04", 18.0, 0.18),
+    ("2024-01-05", 8.0, 0.04),
+    ("2024-01-08", 22.0, 0.22),
+    ("2024-01-09", 35.0, 0.175),
+    ("2024-01-10", 32.0, 32.0 / 150.0),
+    ("2024-01-11", 14.0, 0.14),
+    ("2024-01-12", 38.0, 0.19),
+  ]
+  expected: list[tuple[str, str, str, float]] = []
+  for date, reversal, reversal_pct in expected_days:
+    expected.append((date, "session_reversal_range", "mean_reversal", reversal))
+    expected.append((date, "session_reversal_range", "mean_reversal_pct", reversal_pct))
+    expected.append((date, "session_reversal_range", "max_reversal", reversal))
+    expected.append((date, "session_reversal_range", "max_reversal_pct", reversal_pct))
+
+  assert len(samples) == len(expected) == 40
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_mean_outcomes_average_matches_compute_rows() -> None:
+  """Mean of mean_reversal / mean_reversal_pct SampleRow values matches compute_rows."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = {r.outcome: r for r in stat.compute_rows(day_table)}
+
+  for outcome in ("mean_reversal", "mean_reversal_pct"):
+    values = [s.value for s in samples if s.outcome == outcome]
+    assert sum(values) / len(values) == pytest.approx(rows[outcome].value)
+
+
+def test_classify_samples_max_outcomes_max_matches_compute_rows() -> None:
+  """Max of max_reversal / max_reversal_pct SampleRow values matches compute_rows."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = {r.outcome: r for r in stat.compute_rows(day_table)}
+
+  for outcome in ("max_reversal", "max_reversal_pct"):
+    values = [s.value for s in samples if s.outcome == outcome]
+    assert max(values) == pytest.approx(rows[outcome].value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_single_day() -> None:
+  """A single resolved day yields exactly four samples, one per outcome."""
+  single = [_DAYS[0]]  # 2024-01-01 GREEN, reversal=12, reversal_pct=0.12
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(single))
+  samples = stat.classify_samples(day_table)
+  assert len(samples) == 4
+  by_outcome = {s.outcome: s.value for s in samples}
+  assert by_outcome == {
+    "mean_reversal": pytest.approx(12.0),
+    "mean_reversal_pct": pytest.approx(0.12),
+    "max_reversal": pytest.approx(12.0),
+    "max_reversal_pct": pytest.approx(0.12),
+  }
+  assert {s.date for s in samples} == {"2024-01-01"}
+  assert {s.condition for s in samples} == {"session_reversal_range"}
+
+
+# ===========================================================================
 # 8. End-to-end: StatRunResult validity and write_results round-trip
 # ===========================================================================
 

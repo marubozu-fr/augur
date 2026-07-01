@@ -47,6 +47,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -197,6 +198,57 @@ class PrevDaysRange(BaseStat):
       _make("break_low", "green", int((broke_low & day_green).sum()), low_n),
       _make("break_low", "red", int((broke_low & ~day_green).sum()), low_n),
     ]
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring ``compute_rows``'s two tiers.
+
+    Tier 1 (condition ``prior_range``) — INDEPENDENT break rates: a countable
+    day (a prior resolved day exists, i.e. ``prev_high`` / ``prev_low`` not NaN)
+    yields one sample per break it makes — ``break_high`` if ``day_high >
+    prev_high``, ``break_low`` if ``day_low < prev_low`` — so a day produces 0,
+    1, or 2 tier-1 samples (they do not partition, so a non-breaking day simply
+    contributes nothing to this tier).
+
+    Tier 2 (conditions ``break_high`` / ``break_low``) — directional
+    follow-through: each day that broke the prior high (resp. low) yields
+    exactly one additional sample under that break's condition, ``green`` or
+    ``red`` (``day_green`` from the day table), partitioning that break
+    condition's subset exactly as ``compute_rows`` does.
+
+    Non-countable days (no prior resolved day, e.g. the first resolved day)
+    contribute nothing.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, day_high, day_low, prev_high, prev_low, day_green in zip(
+      day_table.index,
+      day_table["day_high"],
+      day_table["day_low"],
+      day_table["prev_high"],
+      day_table["prev_low"],
+      day_table["day_green"],
+    ):
+      if pd.isna(prev_high) or pd.isna(prev_low):
+        continue
+
+      date_str = ts.strftime("%Y-%m-%d")
+      broke_high = day_high > prev_high
+      broke_low = day_low < prev_low
+      direction = "green" if bool(day_green) else "red"
+
+      if broke_high:
+        samples.append(SampleRow(date=date_str, condition="prior_range", outcome="break_high"))
+        samples.append(SampleRow(date=date_str, condition="break_high", outcome=direction))
+      if broke_low:
+        samples.append(SampleRow(date=date_str, condition="prior_range", outcome="break_low"))
+        samples.append(SampleRow(date=date_str, condition="break_low", outcome=direction))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

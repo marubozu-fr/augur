@@ -735,6 +735,87 @@ def test_unknown_session_raises() -> None:
     )
 
 
+# ===========================================================================
+# 7b. classify_samples
+#
+# Reusing _CYCLES (10 fully-resolved cycles). Each cycle emits exactly three
+# SampleRows — one per outcome (mean_asia_volume, mean_london_volume,
+# mean_ny_volume) — carrying that cycle's session volume as ``value``.
+# 10 cycles * 3 outcomes = 30 samples total.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits three SampleRows per cycle, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  expected = [
+    (date, "any_day", outcome, value)
+    for date, asia_vol, london_vol, ny_vol in _CYCLES
+    for outcome, value in (
+      ("mean_asia_volume", float(asia_vol)),
+      ("mean_london_volume", float(london_vol)),
+      ("mean_ny_volume", float(ny_vol)),
+    )
+  ]
+  assert len(samples) == len(expected) == 30
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_means_match_compute_rows_values() -> None:
+  """Mean of each outcome's SampleRow values reproduces the compute_rows value."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    values = [
+      s.value for s in samples if s.condition == r.condition and s.outcome == r.outcome
+    ]
+    assert sum(values) / len(values) == pytest.approx(r.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_cycle() -> None:
+  """A cycle with an unresolved session never appears among the SampleRows."""
+  good = _full_cycle("2024-01-02", 1000, 2000, 3000)
+  base = pd.Timestamp("2024-01-03", tz=_NY)
+  truncated = (
+    _asia_bars("2024-01-03", 2000)
+    + _london_bars("2024-01-03", 4000)
+    + [
+      _bar(base.replace(hour=9, minute=30), 100),   # clean open
+      _bar(base.replace(hour=9, minute=50), 100),   # last bar offset=20 < 390
+    ]
+  )
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles([good, truncated]))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert sample_dates == {"2024-01-02"}
+  assert len(samples) == 3
+
+
 def test_write_results_round_trip(tmp_path: Path) -> None:
   """write_results serialises to JSON; the file round-trips through StatRunResult."""
   result = _stat().compute(_make_all_cycles())

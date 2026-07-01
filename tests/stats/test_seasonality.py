@@ -493,6 +493,116 @@ def test_labels_dimensions_contains_month_of_year() -> None:
 # 9. write_results round-trip
 # ===========================================================================
 
+# ===========================================================================
+# 8b. classify_samples
+#
+# Reusing _OTC_MONTHLY_DAYS (6 monthly periods, open_to_close):
+#   2023-01-16 Jan +0.20 (green) | 2023-02-15 Feb -0.20 (red)
+#   2023-03-15 Mar +0.10 (green) | 2024-01-16 Jan +0.10 (green)
+#   2024-02-15 Feb -0.10 (red)   | 2024-03-15 Mar -0.20 (red)
+# Each period emits: 1 mean_return sample + 1 green_period/red_period sample
+#   + 1 mean_green_move/mean_red_move sample (3 samples per period, 18 total).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits three SampleRows per period, matching the hand-calc."""
+  stat = _otc()
+  day_table = stat.build_day_table(make_candles(_OTC_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2023-01-16", "any_period", "mean_return", 0.20),
+    ("2023-01-16", "any_period", "green_period", None),
+    ("2023-01-16", "any_period", "mean_green_move", 0.20),
+    ("2023-02-15", "any_period", "mean_return", -0.20),
+    ("2023-02-15", "any_period", "red_period", None),
+    ("2023-02-15", "any_period", "mean_red_move", -0.20),
+    ("2023-03-15", "any_period", "mean_return", 0.10),
+    ("2023-03-15", "any_period", "green_period", None),
+    ("2023-03-15", "any_period", "mean_green_move", 0.10),
+    ("2024-01-16", "any_period", "mean_return", 0.10),
+    ("2024-01-16", "any_period", "green_period", None),
+    ("2024-01-16", "any_period", "mean_green_move", 0.10),
+    ("2024-02-15", "any_period", "mean_return", -0.10),
+    ("2024-02-15", "any_period", "red_period", None),
+    ("2024-02-15", "any_period", "mean_red_move", -0.10),
+    ("2024-03-15", "any_period", "mean_return", -0.20),
+    ("2024-03-15", "any_period", "red_period", None),
+    ("2024-03-15", "any_period", "mean_red_move", -0.20),
+  ]
+  assert len(samples) == len(expected) == 18
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    if value is None:
+      assert s.value is None
+    else:
+      assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _otc()
+  day_table = stat.build_day_table(make_candles(_OTC_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_mean_return_average_matches() -> None:
+  """Mean of mean_return SampleRow values reproduces the overall mean_return."""
+  stat = _otc()
+  day_table = stat.build_day_table(make_candles(_OTC_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  expected = _row(rows, "mean_return").value
+  values = [
+    s.value for s in samples if s.condition == "any_period" and s.outcome == "mean_return"
+  ]
+  assert sum(values) / len(values) == pytest.approx(expected)
+
+
+def test_classify_samples_mean_green_red_move_average_matches() -> None:
+  """Mean of mean_green_move / mean_red_move SampleRow values matches compute_rows."""
+  stat = _otc()
+  day_table = stat.build_day_table(make_candles(_OTC_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for outcome in ("mean_green_move", "mean_red_move"):
+    expected = _row(rows, outcome).value
+    values = [
+      s.value for s in samples if s.condition == "any_period" and s.outcome == outcome
+    ]
+    assert sum(values) / len(values) == pytest.approx(expected)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _otc()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_first_close_to_close_period() -> None:
+  """close_to_close excludes the first resolved period (no prior close)."""
+  stat = _ctc()
+  day_table = stat.build_day_table(make_candles(_CTC_MONTHLY_DAYS))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2023-01-16" not in sample_dates
+  assert sample_dates == {"2023-02-15", "2023-03-15", "2024-01-16", "2024-02-15"}
+
+
+def test_classify_samples_sorted_by_date_in_compute() -> None:
+  """compute() sorts samples ascending by date."""
+  result = _otc().compute(make_candles(_OTC_MONTHLY_DAYS))
+  samples = result.instruments["NQ"]["monthly"].samples
+  dates = [s.date for s in samples]
+  assert dates == sorted(dates)
+  assert len(samples) == 18
+
+
 def test_stat_name() -> None:
   assert _otc().compute(_empty_df()).stat_name == "seasonality"
 

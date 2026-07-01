@@ -411,6 +411,103 @@ def test_weekday_slice_count_and_total() -> None:
 
 
 # ===========================================================================
+# 3b. classify_samples
+#
+# Reusing _DAYS (10 days). Each day emits exactly 3 SampleRows, one per
+# outcome (mean_volume, mean_range, mean_range_pct), carrying that day's own
+# metric as value. All three outcomes cover every day (not mutually
+# exclusive), so 10 days x 3 outcomes = 30 samples total.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits three SampleRows per day, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2024-01-01", "any_day", "mean_volume", 40500.0),
+    ("2024-01-01", "any_day", "mean_range", 20.0),
+    ("2024-01-01", "any_day", "mean_range_pct", 0.20),
+    ("2024-01-02", "any_day", "mean_volume", 81000.0),
+    ("2024-01-02", "any_day", "mean_range", 40.0),
+    ("2024-01-02", "any_day", "mean_range_pct", 0.20),
+    ("2024-01-03", "any_day", "mean_volume", 60750.0),
+    ("2024-01-03", "any_day", "mean_range", 30.0),
+    ("2024-01-03", "any_day", "mean_range_pct", 0.20),
+    ("2024-01-04", "any_day", "mean_volume", 40500.0),
+    ("2024-01-04", "any_day", "mean_range", 30.0),
+    ("2024-01-04", "any_day", "mean_range_pct", 0.30),
+    ("2024-01-05", "any_day", "mean_volume", 20250.0),
+    ("2024-01-05", "any_day", "mean_range", 20.0),
+    ("2024-01-05", "any_day", "mean_range_pct", 0.10),
+    ("2024-01-08", "any_day", "mean_volume", 81000.0),
+    ("2024-01-08", "any_day", "mean_range", 40.0),
+    ("2024-01-08", "any_day", "mean_range_pct", 0.40),
+    ("2024-01-09", "any_day", "mean_volume", 40500.0),
+    ("2024-01-09", "any_day", "mean_range", 60.0),
+    ("2024-01-09", "any_day", "mean_range_pct", 0.30),
+    ("2024-01-10", "any_day", "mean_volume", 81000.0),
+    ("2024-01-10", "any_day", "mean_range", 60.0),
+    ("2024-01-10", "any_day", "mean_range_pct", 0.40),
+    ("2024-01-11", "any_day", "mean_volume", 121500.0),
+    ("2024-01-11", "any_day", "mean_range", 20.0),
+    ("2024-01-11", "any_day", "mean_range_pct", 0.20),
+    ("2024-01-12", "any_day", "mean_volume", 60750.0),
+    ("2024-01-12", "any_day", "mean_range", 80.0),
+    ("2024-01-12", "any_day", "mean_range_pct", 0.40),
+  ]
+  assert len(samples) == len(expected) == 30
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_means_match_compute_rows() -> None:
+  """Mean of each outcome's SampleRow values reproduces the compute_rows metric."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_DAYS))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    values = [
+      s.value for s in samples if s.condition == r.condition and s.outcome == r.outcome
+    ]
+    assert sum(values) / len(values) == pytest.approx(r.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_truncated_day() -> None:
+  """A truncated (unresolved) day never yields a SampleRow."""
+  base_df = make_candles(_DAYS)
+  trunc = _make_truncated_day("2024-01-15")
+  df = pd.concat([base_df, trunc], ignore_index=True).sort_values("timestamp").reset_index(drop=True)
+  stat = _stat()
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-15" not in sample_dates
+  assert len(samples) == 30
+
+
+# ===========================================================================
 # 4. Baseline: overall permutation property (N sampled from N == identity)
 # ===========================================================================
 

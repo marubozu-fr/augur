@@ -652,6 +652,111 @@ def test_single_cycle_values_correct() -> None:
 
 
 # ===========================================================================
+# 6b. classify_samples
+#
+# Reusing _CYCLES (10 fully-resolved cycles):
+#   Each cycle emits exactly 3 samples (mean_asia_range, mean_london_range,
+#   mean_ny_range), all under condition any_day, carrying that cycle's session
+#   range as value (30 samples total).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits three SampleRows per cycle, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  expected = [
+    ("2024-01-02", "any_day", "mean_asia_range", 10.0),
+    ("2024-01-02", "any_day", "mean_london_range", 20.0),
+    ("2024-01-02", "any_day", "mean_ny_range", 30.0),
+    ("2024-01-03", "any_day", "mean_asia_range", 20.0),
+    ("2024-01-03", "any_day", "mean_london_range", 30.0),
+    ("2024-01-03", "any_day", "mean_ny_range", 40.0),
+    ("2024-01-04", "any_day", "mean_asia_range", 30.0),
+    ("2024-01-04", "any_day", "mean_london_range", 40.0),
+    ("2024-01-04", "any_day", "mean_ny_range", 50.0),
+    ("2024-01-05", "any_day", "mean_asia_range", 40.0),
+    ("2024-01-05", "any_day", "mean_london_range", 50.0),
+    ("2024-01-05", "any_day", "mean_ny_range", 60.0),
+    ("2024-01-08", "any_day", "mean_asia_range", 50.0),
+    ("2024-01-08", "any_day", "mean_london_range", 60.0),
+    ("2024-01-08", "any_day", "mean_ny_range", 70.0),
+    ("2024-01-09", "any_day", "mean_asia_range", 20.0),
+    ("2024-01-09", "any_day", "mean_london_range", 40.0),
+    ("2024-01-09", "any_day", "mean_ny_range", 60.0),
+    ("2024-01-10", "any_day", "mean_asia_range", 30.0),
+    ("2024-01-10", "any_day", "mean_london_range", 50.0),
+    ("2024-01-10", "any_day", "mean_ny_range", 70.0),
+    ("2024-01-11", "any_day", "mean_asia_range", 40.0),
+    ("2024-01-11", "any_day", "mean_london_range", 60.0),
+    ("2024-01-11", "any_day", "mean_ny_range", 80.0),
+    ("2024-01-12", "any_day", "mean_asia_range", 50.0),
+    ("2024-01-12", "any_day", "mean_london_range", 70.0),
+    ("2024-01-12", "any_day", "mean_ny_range", 90.0),
+    ("2024-01-15", "any_day", "mean_asia_range", 60.0),
+    ("2024-01-15", "any_day", "mean_london_range", 80.0),
+    ("2024-01-15", "any_day", "mean_ny_range", 100.0),
+  ]
+  assert len(samples) == len(expected) == 30
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_means_match_compute_rows_values() -> None:
+  """Mean of each outcome's SampleRow values reproduces the compute_rows magnitude."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_all_cycles())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    values = [s.value for s in samples if s.condition == r.condition and s.outcome == r.outcome]
+    assert sum(values) / len(values) == pytest.approx(r.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_cycle() -> None:
+  """A cycle with a truncated session (not resolved) yields no samples for that date.
+
+  Reuses the truncated-NY scenario: cycle 2024-01-03 is dropped by the inner
+  join, so classify_samples must not emit any sample dated 2024-01-03.
+  """
+  good = _full_cycle("2024-01-02", 110, 100, 130, 110, 150, 120)
+  base = pd.Timestamp("2024-01-03", tz=_NY)
+  truncated = (
+    _asia_bars("2024-01-03", 120, 100)
+    + _london_bars("2024-01-03", 140, 110)
+    + [
+      _bar(base.replace(hour=9, minute=30), 100, 100.25, 99.75, 100),
+      _bar(base.replace(hour=9, minute=50), 100, 100.25, 99.75, 100),
+    ]
+  )
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles([good, truncated]))
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert sample_dates == {"2024-01-02"}
+
+
+# ===========================================================================
 # 7. Metadata, validation, and serialisation
 # ===========================================================================
 

@@ -39,6 +39,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   StatRunResult,
   TimeframeResult,
@@ -223,6 +224,30 @@ class VolumeTrends(BaseStat):
         value=mean_volume,
         value_baseline=bl.value if bl else None,
       )
+    ]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved period, mirroring the single ``mean_volume``
+    outcome ``compute_rows()`` averages.
+
+    Each row of ``day_table`` is one resolved period (month or week); every
+    period contributes exactly one sample under the single ``any_period``
+    condition, carrying that period's summed RTH volume in ``value`` (the
+    same per-period figure ``compute_rows()`` averages into ``mean_volume``).
+    The sample's ``date`` is the period's first session date, matching the
+    table's index.
+    """
+    if day_table.empty:
+      return []
+
+    return [
+      SampleRow(
+        date=ts.strftime("%Y-%m-%d"),
+        condition=_CONDITION,
+        outcome=_OUTCOME,
+        value=float(volume),
+      )
+      for ts, volume in zip(day_table.index, day_table["volume"])
     ]
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:

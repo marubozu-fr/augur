@@ -1004,3 +1004,115 @@ def test_write_results_has_both_slice_dimensions(tmp_path: Path) -> None:
   raw = json.loads(written.read_text(encoding="utf-8"))
   slices = raw["instruments"]["NQ"]["weekly"]["slices"]
   assert set(slices.keys()) == {"spike_pts", "spike_pct"}
+
+
+# ===========================================================================
+# 13. classify_samples()
+# ===========================================================================
+
+def test_classify_samples_exact_per_week_rows() -> None:
+  """_MAIN_SEQ: 4 countable weeks -> 4 tier-1 samples + 2 tier-2 samples (W2, W4).
+
+  W1 (Jan1, above, not retraced): tier-1 (opened_above, not_retraced) only.
+  W2 (Jan8, above, retraced Mon): tier-1 (opened_above, retraced) + tier-2 (retraced, monday).
+  W3 (Jan15, below, not retraced): tier-1 (opened_below, not_retraced) only.
+  W4 (Jan22, below, retraced Tue): tier-1 (opened_below, retraced) + tier-2 (retraced, tuesday).
+  W5 (Jan29, doji): no samples at all (non-countable).
+  """
+  stat = _stat()
+  week_table = stat.build_week_table(make_candles(_MAIN_SEQ))
+  samples = stat.classify_samples(week_table)
+
+  by_date = {}
+  for s in samples:
+    by_date.setdefault(s.date, []).append((s.condition, s.outcome))
+
+  assert by_date["2024-01-01"] == [("opened_above", "not_retraced")]
+  assert by_date["2024-01-08"] == [
+    ("opened_above", "retraced"),
+    ("retraced", "monday"),
+  ]
+  assert by_date["2024-01-15"] == [("opened_below", "not_retraced")]
+  assert by_date["2024-01-22"] == [
+    ("opened_below", "retraced"),
+    ("retraced", "tuesday"),
+  ]
+  assert "2024-01-29" not in by_date  # doji week excluded entirely
+
+
+def test_classify_samples_value_is_none_for_all_rows() -> None:
+  """This stat is purely probability-based: every SampleRow.value is None."""
+  stat = _stat()
+  week_table = stat.build_week_table(make_candles(_MAIN_SEQ))
+  samples = stat.classify_samples(week_table)
+  assert len(samples) > 0
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_empty_table_returns_empty_list() -> None:
+  """Empty week_table -> no samples."""
+  stat = _stat()
+  assert stat.classify_samples(pd.DataFrame(columns=stat.build_week_table(_empty_df()).columns)) == []
+
+
+def test_classify_samples_count_matches_compute_rows_tier1() -> None:
+  """SampleRow count per (condition, outcome) == compute_rows count, for tier 1."""
+  stat = _stat()
+  candles = make_candles(_MAIN_SEQ)
+  week_table = stat.build_week_table(candles)
+  samples = stat.classify_samples(week_table)
+  result = stat.compute(candles)
+
+  for cond in ("opened_above", "opened_below"):
+    for outcome in ("retraced", "not_retraced"):
+      expected = _row(result, cond, outcome).count
+      actual = sum(1 for s in samples if s.condition == cond and s.outcome == outcome)
+      assert actual == expected, f"{cond}/{outcome}: expected {expected}, got {actual}"
+
+
+def test_classify_samples_count_matches_compute_rows_tier2() -> None:
+  """SampleRow count per weekday outcome == compute_rows count, for tier 2."""
+  stat = _stat()
+  candles = make_candles(_MAIN_SEQ)
+  week_table = stat.build_week_table(candles)
+  samples = stat.classify_samples(week_table)
+  result = stat.compute(candles)
+
+  for outcome in ("monday", "tuesday", "wednesday", "thursday", "friday"):
+    expected = _row(result, "retraced", outcome).count
+    actual = sum(1 for s in samples if s.condition == "retraced" and s.outcome == outcome)
+    assert actual == expected, f"retraced/{outcome}: expected {expected}, got {actual}"
+
+
+def test_classify_samples_count_matches_compute_rows_on_larger_fixture() -> None:
+  """Consistency invariant holds on the 8-week alternating fixture too."""
+  stat = _stat()
+  candles = _make_alternating_weeks(8)
+  week_table = stat.build_week_table(candles)
+  samples = stat.classify_samples(week_table)
+  result = stat.compute(candles)
+
+  for r in result.instruments["NQ"]["weekly"].results:
+    actual = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert actual == r.count, f"{r.condition}/{r.outcome}: expected {r.count}, got {actual}"
+
+
+def test_classify_samples_sorted_by_date_in_compute() -> None:
+  """compute() stores samples sorted by date ascending."""
+  result = _stat().compute(make_candles(_MAIN_SEQ))
+  dates = [s.date for s in _tf(result).samples]
+  assert dates == sorted(dates)
+
+
+def test_classify_samples_doji_week_produces_no_samples() -> None:
+  """The doji week (2024-01-29) never appears as a sample date."""
+  result = _stat().compute(make_candles(_MAIN_SEQ))
+  dates = {s.date for s in _tf(result).samples}
+  assert "2024-01-29" not in dates
+
+
+def test_classify_samples_pending_week_never_included() -> None:
+  """The pending week (2024-02-05) never appears as a sample date."""
+  result = _stat().compute(make_candles(_MAIN_SEQ))
+  dates = {s.date for s in _tf(result).samples}
+  assert "2024-02-05" not in dates

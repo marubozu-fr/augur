@@ -698,6 +698,130 @@ def test_zero_dist_classified_as_down() -> None:
 
 
 # ===========================================================================
+# 8b. classify_samples
+#
+# sma_performance events (runs) span multiple days, so the natural sample unit
+# is the qualified run, not the individual day. Each qualified run emits 4
+# SampleRows (avg_duration, max_duration, avg_travel, max_travel), dated on
+# the run's LAST session.
+#
+# Reusing the period=2, min_duration=1 dataset from section 1 (_MAIN_CLOSES):
+#   Run0 up:3   -> positions 0,1,2   (FIRST → excluded)
+#   Run1 down:2 -> positions 3,4     -> end index 4, travel=8
+#   Run2 up:2   -> positions 5,6     -> end index 6, travel=18
+#   Run3 down:2 -> positions 7,8     -> end index 8, travel=9
+#   Run4 up:3   -> positions 9,10,11 (LAST → excluded)
+#
+# Confirmed & qualified (min_duration=1): Run1, Run2, Run3.
+# Total samples = 3 runs x 4 outcomes = 12.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits 4 SampleRows per qualified run, dated on its last session."""
+  stat = _stat()  # period=2, min_duration=1
+  df = make_candles_from_closes(_MAIN_CLOSES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+
+  date_run1 = day_table.index[4].strftime("%Y-%m-%d")  # Run1 down:2, travel=8
+  date_run2 = day_table.index[6].strftime("%Y-%m-%d")  # Run2 up:2, travel=18
+  date_run3 = day_table.index[8].strftime("%Y-%m-%d")  # Run3 down:2, travel=9
+
+  expected = [
+    (date_run1, "cross_down", "avg_duration", 2.0),
+    (date_run1, "cross_down", "max_duration", 2.0),
+    (date_run1, "cross_down", "avg_travel", 8.0),
+    (date_run1, "cross_down", "max_travel", 8.0),
+    (date_run2, "cross_up", "avg_duration", 2.0),
+    (date_run2, "cross_up", "max_duration", 2.0),
+    (date_run2, "cross_up", "avg_travel", 18.0),
+    (date_run2, "cross_up", "max_travel", 18.0),
+    (date_run3, "cross_down", "avg_duration", 2.0),
+    (date_run3, "cross_down", "max_duration", 2.0),
+    (date_run3, "cross_down", "avg_travel", 9.0),
+    (date_run3, "cross_down", "max_travel", 9.0),
+  ]
+  assert len(samples) == len(expected) == 12
+  for s, (date, condition, outcome, value) in zip(samples, expected):
+    assert s.date == date
+    assert s.condition == condition
+    assert s.outcome == outcome
+    assert s.value == pytest.approx(value)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles_from_closes(_MAIN_CLOSES))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_avg_outcomes_mean_matches_compute_rows() -> None:
+  """Mean of avg_duration/avg_travel SampleRow values reproduces the compute_rows value."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles_from_closes(_MAIN_CLOSES))
+  samples = stat.classify_samples(day_table)
+  rows = {(r.condition, r.outcome): r for r in stat.compute_rows(day_table)}
+  for condition in ("cross_up", "cross_down"):
+    for outcome in ("avg_duration", "avg_travel"):
+      values = [s.value for s in samples if s.condition == condition and s.outcome == outcome]
+      assert values, f"no samples for {condition}/{outcome}"
+      assert sum(values) / len(values) == pytest.approx(rows[(condition, outcome)].value)
+
+
+def test_classify_samples_max_outcomes_max_matches_compute_rows() -> None:
+  """Max of max_duration/max_travel SampleRow values reproduces the compute_rows value."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles_from_closes(_MAIN_CLOSES))
+  samples = stat.classify_samples(day_table)
+  rows = {(r.condition, r.outcome): r for r in stat.compute_rows(day_table)}
+  for condition in ("cross_up", "cross_down"):
+    for outcome in ("max_duration", "max_travel"):
+      values = [s.value for s in samples if s.condition == condition and s.outcome == outcome]
+      assert values, f"no samples for {condition}/{outcome}"
+      assert max(values) == pytest.approx(rows[(condition, outcome)].value)
+
+
+def test_classify_samples_excludes_first_and_last_run() -> None:
+  """First (no prior regime) and last (pending) runs never produce samples."""
+  stat = _stat(min_duration=1)
+  df = make_candles_from_closes(_PENDING_LAST_CLOSES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+  # Only the confirmed up:10 run qualifies; down:2 (first) and down:1 (last)
+  # are excluded even though down:1 would otherwise satisfy min_duration=1.
+  assert len(samples) == 4
+  assert all(s.condition == "cross_up" for s in samples)
+  assert all(s.value == pytest.approx(10.0) for s in samples)
+
+
+def test_classify_samples_respects_min_duration_filter() -> None:
+  """Runs shorter than min_duration produce no samples, mirroring compute_rows."""
+  stat = _stat(min_duration=3)
+  day_table = stat.build_day_table(make_candles_from_closes(_MAIN_CLOSES))
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_only_two_runs_means_no_samples() -> None:
+  """With exactly 2 runs, confirmed=[] (first and last both excluded) -> no samples."""
+  dist = [10.0] * 5 + [-10.0] * 3
+  closes = closes_from_dist(dist)
+  stat = _stat(min_duration=1)
+  day_table = stat.build_day_table(make_candles_from_closes(closes))
+  assert stat.classify_samples(day_table) == []
+
+
+# ===========================================================================
 # 9. stat_name, slices, no-op slicing, defaults
 # ===========================================================================
 

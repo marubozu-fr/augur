@@ -51,6 +51,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -272,6 +273,58 @@ class SMAPerformance(BaseStat):
     result.extend(_aggregate(up_runs, "cross_up"))
     result.extend(_aggregate(down_runs, "cross_down"))
     return result
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow set per qualified cross-event run, mirroring ``compute_rows``.
+
+    Confirmed cross events (``all_runs[1:-1]``) filtered by ``min_duration`` are
+    the same qualified runs ``compute_rows`` aggregates — a run, not a single
+    day, is the natural sample unit here (duration/travel are properties of the
+    whole move). Each qualified run emits 4 SampleRows, one per outcome, all
+    dated on the run's LAST session (the last day the move persisted before the
+    opposite-regime run that confirmed it). ``avg_duration`` and
+    ``max_duration`` both carry the run's ``duration`` as ``value``;
+    ``avg_travel`` and ``max_travel`` both carry its ``travel`` — the
+    aggregation method (mean vs. max) differs only at the ``compute_rows``
+    level, not per sample. ``condition`` is ``cross_up``/``cross_down`` from
+    the run's regime.
+    """
+    if day_table.empty:
+      return []
+
+    all_runs = self._extract_runs(day_table["dist"])
+    if len(all_runs) < 3:
+      return []
+
+    # Each run's last-session position, via cumulative durations, so the
+    # confirmed slice (all_runs[1:-1]) can be dated consistently with
+    # compute_rows' chronological ordering.
+    end_indices: list[int] = []
+    cursor = 0
+    for r in all_runs:
+      cursor += r["duration"]
+      end_indices.append(cursor - 1)
+
+    confirmed_runs = all_runs[1:-1]
+    confirmed_end_indices = end_indices[1:-1]
+
+    samples: list[SampleRow] = []
+    for run, end_idx in zip(confirmed_runs, confirmed_end_indices):
+      if run["duration"] < self.min_duration:
+        continue
+      condition = "cross_up" if run["regime"] == "up" else "cross_down"
+      date_str = day_table.index[end_idx].strftime("%Y-%m-%d")
+      duration = float(run["duration"])
+      travel = float(run["travel"])
+      for outcome in ("avg_duration", "max_duration"):
+        samples.append(
+          SampleRow(date=date_str, condition=condition, outcome=outcome, value=duration)
+        )
+      for outcome in ("avg_travel", "max_travel"):
+        samples.append(
+          SampleRow(date=date_str, condition=condition, outcome=outcome, value=travel)
+        )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline destroying serial autocorrelation.

@@ -46,6 +46,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -240,6 +241,38 @@ class SessionReversalRange(BaseStat):
         )
       )
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring the four outcomes ``compute_rows`` aggregates.
+
+    Every resolved session is countable under the single ``session_reversal_range``
+    condition (no warm-up window), so each day yields exactly four SampleRows —
+    one per outcome in ``_OUTCOMES`` — each carrying that day's raw metric
+    (``reversal`` for ``mean_reversal`` / ``max_reversal``, ``reversal_pct`` for
+    ``mean_reversal_pct`` / ``max_reversal_pct``) in ``value``. ``compute_rows``
+    reduces these same per-day values with ``mean`` or ``max`` depending on the
+    outcome; re-aggregating a date-filtered subset of these samples with the
+    matching reducer reproduces the corresponding ``StatResultRow.value``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      for out_key, column, _agg in _OUTCOMES:
+        samples.append(
+          SampleRow(
+            date=date_str,
+            condition=_CONDITION,
+            outcome=out_key,
+            value=float(row[column]),
+          )
+        )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

@@ -51,6 +51,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -240,6 +241,51 @@ class PrevWeeksRange(BaseStat):
       _make("break_both", "high_first", high_first_n, both_n),
       _make("break_both", "low_first", low_first_n, both_n),
     ]
+
+  def classify_samples(self, week_table: pd.DataFrame) -> list[SampleRow]:
+    """One or two SampleRows per countable week, mirroring ``compute_rows``.
+
+    Every countable week (a prior resolved week exists, i.e. ``prev_high`` /
+    ``prev_low`` not NaN) yields exactly one tier-1 sample under condition
+    ``prior_range``, whose outcome is the four-way partition of that week
+    against the prior week's range: ``break_high_only`` / ``break_low_only`` /
+    ``break_both`` / ``inside``.
+
+    Each ``break_both`` week additionally yields exactly one tier-2 sample
+    under condition ``break_both``, whose outcome (``high_first`` /
+    ``low_first``) mirrors the week table's ``seq_high_first`` column — the
+    same column ``compute_rows`` reads, so no sequence logic is recomputed
+    here.
+
+    Non-countable weeks (no prior resolved week) contribute nothing.
+    """
+    if week_table.empty:
+      return []
+
+    countable = week_table["prev_high"].notna() & week_table["prev_low"].notna()
+    if not bool(countable.any()):
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in week_table[countable].iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      broke_high = row["week_high"] > row["prev_high"]
+      broke_low = row["week_low"] < row["prev_low"]
+      if broke_high and broke_low:
+        outcome = "break_both"
+      elif broke_high:
+        outcome = "break_high_only"
+      elif broke_low:
+        outcome = "break_low_only"
+      else:
+        outcome = "inside"
+      samples.append(SampleRow(date=date_str, condition="prior_range", outcome=outcome))
+
+      if broke_high and broke_low:
+        seq_outcome = "high_first" if bool(row["seq_high_first"]) else "low_first"
+        samples.append(SampleRow(date=date_str, condition="break_both", outcome=seq_outcome))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

@@ -29,6 +29,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -261,6 +262,34 @@ class SessionVolumeByWeekday(BaseStat):
         )
       )
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Per-day SampleRows mirroring the three outcomes ``compute_rows`` averages.
+
+    Every countable cycle (all rows are already resolved — the inner join in
+    ``build_day_table`` enforces pending-sample discipline) yields exactly one
+    SampleRow per outcome, carrying that cycle's session volume as ``value``.
+    All samples share the single condition ``any_day``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      for out_key, column in _OUTCOMES:
+        samples.append(
+          SampleRow(
+            date=date_str,
+            condition=_CONDITION,
+            outcome=out_key,
+            value=float(row[column]),
+          )
+        )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

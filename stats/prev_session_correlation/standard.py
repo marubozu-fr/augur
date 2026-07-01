@@ -37,6 +37,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -179,6 +180,51 @@ class PrevSessionCorrelation(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable session, mirroring ``compute_rows``'s classification.
+
+    ``condition`` is the prior session's color (``prev_green``/``prev_red``);
+    ``outcome`` is the current session's color (``green``/``red``) — the same
+    pairing ``compute_rows`` aggregates into the 2x2 matrix. Sessions with no
+    prior session (``prev_green`` is NaN — the first usable session) are excluded,
+    matching ``compute_rows``'s countable mask.
+
+    SPECIAL — correlation family (see ``BaseStat.classify_samples`` docstring):
+    this stat and ``market_session_correlation`` report a conditional-probability
+    matrix rather than a literal Pearson r, but both are named/treated as
+    "correlation" families. ``value`` stores the current session's color as a
+    float (1.0 green / 0.0 red) — the "y" side of the boolean pairing whose "x"
+    side is ``condition``. A future iteration could decode (x, y) pairs from
+    (condition, value) to recompute a full Pearson/point-biserial r over a
+    date-filtered subset of days; that recomputation itself is deferred.
+    """
+    if day_table.empty:
+      return []
+
+    prev_green = day_table["prev_green"]
+    countable = prev_green.notna()
+    if not countable.any():
+      return []
+
+    countable_session = day_table.loc[countable, "session_green"].astype(bool)
+    countable_prev = prev_green[countable] == 1.0
+
+    samples: list[SampleRow] = []
+    for ts, prev_is_green, session_is_green in zip(
+      countable_prev.index, countable_prev, countable_session
+    ):
+      condition = "prev_green" if prev_is_green else "prev_red"
+      outcome = "green" if session_is_green else "red"
+      samples.append(
+        SampleRow(
+          date=ts.strftime("%Y-%m-%d"),
+          condition=condition,
+          outcome=outcome,
+          value=1.0 if session_is_green else 0.0,
+        )
+      )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: independent green/red colors (p=0.5) destroy any correlation.
