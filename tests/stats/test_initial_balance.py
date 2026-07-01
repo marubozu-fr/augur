@@ -474,6 +474,58 @@ def test_levels_slice_buckets_by_extension_multiple() -> None:
 
 
 # ===========================================================================
+# classify_samples
+# ===========================================================================
+def test_classify_samples_matches_compute_rows() -> None:
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  # Exact expected list: one SampleRow per countable day, mirroring _CANON.
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "ib", "broke_high"),
+    ("2024-01-03", "ib", "broke_low"),
+    ("2024-01-04", "ib", "broke_both"),
+    ("2024-01-05", "ib", "neither"),
+    ("2024-01-08", "ib", "neither"),
+  ]
+
+
+def test_classify_samples_invariant_matches_compute_rows_counts() -> None:
+  stat = _stat()
+  table = stat.build_day_table(_canon_candles())
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert matching == r.count
+
+
+def test_classify_samples_empty_table_yields_empty_list() -> None:
+  stat = _stat()
+  assert stat.classify_samples(_empty_df()) == []
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_unresolved_day() -> None:
+  candles = _concat([
+    _make_ib_day(date="2024-01-02", ib_high=110, ib_low=90, post_high=115, post_low=95),
+    _make_truncated_day("2024-01-03"),
+  ])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert [s.date for s in samples] == ["2024-01-02"]
+
+
+def test_classify_samples_included_in_compute_result() -> None:
+  result = _stat().compute(_canon_candles())
+  tf = result.instruments["NQ"]["30min"]
+  assert len(tf.samples) == 5
+  assert [s.date for s in tf.samples] == sorted(s.date for s in tf.samples)
+
+
+# ===========================================================================
 # JSON round-trip
 # ===========================================================================
 def test_result_validates_and_writes(tmp_path: Path) -> None:

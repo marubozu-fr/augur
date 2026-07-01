@@ -24,7 +24,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from stats.base import StatResultRow, StatRunResult, write_results
+from stats.base import SampleRow, StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
 from stats.ict_opening_retracement.standard import IctOpeningRetracement
 
@@ -1073,3 +1073,83 @@ def test_i18n_labels_dimensions_contain_declared_slicers() -> None:
   }
   for key, i18n in result.labels.dimensions.items():
     assert i18n.en != "", f"dimensions[{key}].en empty"
+
+
+# ===========================================================================
+# 9. classify_samples() — per-day condition/outcome classification
+#
+# Each countable day (gap_size_pts not NaN) belongs to exactly ONE
+# (condition, outcome) pair: condition from `opened_above`, outcome from
+# `retraced`. Non-countable days (zero direction, or no reference bar) are
+# excluded, mirroring compute_rows' `countable` mask exactly.
+# ===========================================================================
+
+def test_classify_samples_exact_list_on_seq() -> None:
+  """_SEQ: 7 countable days (idx 0-6), each yields exactly one SampleRow.
+
+  idx 7 (zero direction) is excluded. Expected (date, condition, outcome):
+    2024-01-02: opened_above, not_retraced
+    2024-01-03: opened_above, retraced
+    2024-01-04: opened_below, not_retraced
+    2024-01-05: opened_below, retraced
+    2024-01-08: opened_above, retraced
+    2024-01-09: opened_below, retraced
+    2024-01-10: opened_above, not_retraced
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    SampleRow(date="2024-01-02", condition="opened_above", outcome="not_retraced"),
+    SampleRow(date="2024-01-03", condition="opened_above", outcome="retraced"),
+    SampleRow(date="2024-01-04", condition="opened_below", outcome="not_retraced"),
+    SampleRow(date="2024-01-05", condition="opened_below", outcome="retraced"),
+    SampleRow(date="2024-01-08", condition="opened_above", outcome="retraced"),
+    SampleRow(date="2024-01-09", condition="opened_below", outcome="retraced"),
+    SampleRow(date="2024-01-10", condition="opened_above", outcome="not_retraced"),
+  ]
+  actual = sorted(samples, key=lambda s: s.date)
+  assert actual == expected
+
+
+def test_classify_samples_consistency_with_compute_rows() -> None:
+  """Count of SampleRows matching each row's (condition, outcome) == row.count."""
+  stat = _stat()
+  df = make_candles(_SEQ)
+  day_table = stat.build_day_table(df)
+  rows = stat.compute_rows(day_table, baseline_rows=None)
+  samples = stat.classify_samples(day_table)
+
+  for row in rows:
+    matching = sum(
+      1 for s in samples if s.condition == row.condition and s.outcome == row.outcome
+    )
+    assert matching == row.count, (
+      f"{row.condition}/{row.outcome}: samples={matching}, row.count={row.count}"
+    )
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _stat()
+  assert stat.classify_samples(stat.build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_non_countable_days() -> None:
+  """Zero-direction and no-reference-bar days produce no SampleRow.
+
+  _NO_REF_DAYS: Day B has no midnight bar (reference_level=NaN, not
+  countable) -> only Day A and Day C yield samples (2 total, not 3).
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_NO_REF_DAYS))
+  samples = stat.classify_samples(day_table)
+  assert len(samples) == 2
+  assert {s.date for s in samples} == {"2024-02-01", "2024-02-05"}
+
+  # _SEQ idx 7 (zero direction, 2024-01-11) must also be excluded.
+  seq_day_table = stat.build_day_table(make_candles(_SEQ))
+  seq_samples = stat.classify_samples(seq_day_table)
+  assert len(seq_samples) == 7
+  assert "2024-01-11" not in {s.date for s in seq_samples}

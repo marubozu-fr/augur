@@ -30,7 +30,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from stats.base import StatRunResult, write_results
+from stats.base import SampleRow, StatRunResult, write_results
 from stats.nfp_performance.standard import NFPPerformance, load_nfp_release_dates
 from tests.stats.range_helpers import (
   _TEST_CONFIG,
@@ -771,3 +771,94 @@ def test_i18n_labels_all_have_en_and_fr() -> None:
     for key, i18n in mapping.items():
       assert i18n.en != "", f"{key}.en is empty"
       assert i18n.fr != "", f"{key}.fr is empty"
+
+
+# ===========================================================================
+# 13. classify_samples()
+#
+# Reuses the green/red dataset (3 events, all windows resolved) from section 5:
+#   2024-01-04 (i=2): pre=+0.02 (green), nfp=0.0 (green), post=1/102 (green)
+#   2024-01-08 (i=4): pre=3/102 (green), nfp=-2/105 (red), post=0.0 (green)
+#   2024-01-11 (i=7): pre=-2/105 (red), nfp=-2/103 (red), post=0.0 (green)
+# ===========================================================================
+
+def test_classify_samples_exact_rows() -> None:
+  """classify_samples() emits exactly the 9 expected SampleRows."""
+  df = make_candles_from_closes(_GR_CLOSES)
+  stat = _stat(_GR_NFP_DATES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    SampleRow(date="2024-01-04", condition="pre_announcement", outcome="green", value=0.02),
+    SampleRow(date="2024-01-04", condition="nfp_day", outcome="green", value=0.0),
+    SampleRow(date="2024-01-04", condition="post_announcement", outcome="green", value=1 / 102),
+    SampleRow(date="2024-01-08", condition="pre_announcement", outcome="green", value=3 / 102),
+    SampleRow(date="2024-01-08", condition="nfp_day", outcome="red", value=-2 / 105),
+    SampleRow(date="2024-01-08", condition="post_announcement", outcome="green", value=0.0),
+    SampleRow(date="2024-01-11", condition="pre_announcement", outcome="red", value=-2 / 105),
+    SampleRow(date="2024-01-11", condition="nfp_day", outcome="red", value=-2 / 103),
+    SampleRow(date="2024-01-11", condition="post_announcement", outcome="green", value=0.0),
+  ]
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows_green_red_counts() -> None:
+  """Per-window green/red sample counts equal compute_rows()'s count."""
+  df = make_candles_from_closes(_GR_CLOSES)
+  stat = _stat(_GR_NFP_DATES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+
+  for condition in _EXPECTED_CONDITIONS:
+    for outcome in ("green", "red"):
+      n_samples = sum(1 for s in samples if s.condition == condition and s.outcome == outcome)
+      row = _find_row(rows, condition, outcome)
+      assert n_samples == row.count
+
+
+def test_classify_samples_matches_compute_rows_mean_return() -> None:
+  """Per-condition sample count/mean reconstruct the mean_return row."""
+  df = make_candles_from_closes(_GR_CLOSES)
+  stat = _stat(_GR_NFP_DATES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+
+  for condition in _EXPECTED_CONDITIONS:
+    cond_values = [s.value for s in samples if s.condition == condition]
+    mr = _find_row(rows, condition, "mean_return")
+    assert len(cond_values) == mr.total
+    assert sum(cond_values) / len(cond_values) == pytest.approx(mr.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _stat([])
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_skips_pending_window() -> None:
+  """A NaN (pending) window observation produces no sample for that window.
+
+  Position 1 (2024-01-03) is too early for the pre window (i=1 < pre=2), so
+  pre_return is NaN there; nfp and post are resolved.
+  """
+  df = make_candles_from_closes(_PENDING_CLOSES)
+  stat = _stat(_PENDING_NFP_DATES)
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+
+  pending_date = "2024-01-03"
+  conditions_on_date = {s.condition for s in samples if s.date == pending_date}
+  assert "pre_announcement" not in conditions_on_date
+  assert "nfp_day" in conditions_on_date
+  assert "post_announcement" in conditions_on_date

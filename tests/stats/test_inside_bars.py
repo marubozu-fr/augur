@@ -524,6 +524,101 @@ def test_pending_day_absent_from_day_table() -> None:
 
 
 # ===========================================================================
+# classify_samples()
+# ===========================================================================
+
+
+def test_classify_samples_exact_rows() -> None:
+  """Exact (date, condition, outcome) samples for the 7-day ``_SEQ`` fixture.
+
+  idx 0 (2024-01-02) has no prior day -> not countable -> no samples.
+  idx 5 (2024-01-09) opens outside -> tier-1 ``outside`` sample only, no tier-2.
+  All other countable days yield one tier-1 ``inside`` sample plus one tier-2
+  breakout-direction sample.
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+
+  tier1 = {(s.date, s.outcome) for s in samples if s.condition == "inside_open"}
+  tier2 = {(s.date, s.outcome) for s in samples if s.condition == "inside"}
+
+  assert tier1 == {
+    ("2024-01-03", "inside"),
+    ("2024-01-04", "inside"),
+    ("2024-01-05", "inside"),
+    ("2024-01-08", "inside"),
+    ("2024-01-09", "outside"),
+    ("2024-01-10", "inside"),
+  }
+  assert tier2 == {
+    ("2024-01-03", "broke_high"),
+    ("2024-01-04", "broke_low"),
+    ("2024-01-05", "broke_both"),
+    ("2024-01-08", "contained"),
+    ("2024-01-10", "contained"),
+  }
+  assert all(s.value is None for s in samples)
+  assert not any(s.date == "2024-01-02" for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every row from ``compute_rows``, matching samples reproduce count/total.
+
+  Tier-1's ``total`` is reproduced by counting all ``inside_open`` samples
+  (both ``inside`` and its ``outside`` complement); tier-2 rows have no
+  complement outcome, so their ``total`` is reproduced by counting all
+  ``inside`` samples of any of the four breakout outcomes.
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+
+  for row in rows:
+    matching = [s for s in samples if s.condition == row.condition and s.outcome == row.outcome]
+    assert len(matching) == row.count, (row.condition, row.outcome, len(matching), row.count)
+
+  inside_open_samples = [s for s in samples if s.condition == "inside_open"]
+  inside_open_row = _row(stat.compute(make_candles(_SEQ)), "inside_open", "inside")
+  assert len(inside_open_samples) == inside_open_row.total
+
+  inside_samples = [s for s in samples if s.condition == "inside"]
+  inside_row = _row(stat.compute(make_candles(_SEQ)), "inside", "contained")
+  assert len(inside_samples) == inside_row.total
+
+
+def test_classify_samples_empty_day_table_returns_empty_list() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_pending_day_excluded() -> None:
+  """A truncated (unresolved) day never appears in classify_samples output."""
+  stat = _stat()
+  base_df = make_candles(_SEQ)
+  truncated = _make_truncated_day("2024-01-11")
+  combined = (
+    pd.concat([base_df, truncated], ignore_index=True)
+    .sort_values("timestamp")
+    .reset_index(drop=True)
+  )
+  day_table = stat.build_day_table(combined)
+  samples = stat.classify_samples(day_table)
+  assert all(s.date != "2024-01-11" for s in samples)
+
+
+def test_classify_samples_first_day_excluded() -> None:
+  """The anchor day (no prior resolved day) contributes no samples at all."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+  assert not any(s.date == "2024-01-02" for s in samples)
+
+
+# ===========================================================================
 # Edge cases & validation
 # ===========================================================================
 

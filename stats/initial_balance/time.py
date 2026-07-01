@@ -66,6 +66,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -372,6 +373,34 @@ class InitialBalanceTime(BaseStat):
       rows.append(_make(_CONDITION_BUCKET, key, count, total))
 
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Two SampleRows per countable day, mirroring compute_rows' two partitions
+    (``timing`` early/late and ``bucket`` histogram) over the same denominator:
+    sessions whose ``first_break_mod`` is not NaN.
+    """
+    if day_table.empty:
+      return []
+
+    mod = day_table["first_break_mod"]
+    countable = mod.notna()
+    if not bool(countable.any()):
+      return []
+
+    dates = np.array(day_table.index[countable].strftime("%Y-%m-%d"))
+    mod_ct = mod[countable].to_numpy()
+
+    samples: list[SampleRow] = []
+    timing = np.where(mod_ct < self.threshold_mod, "early", "late")
+    for date, outcome in zip(dates, timing):
+      samples.append(SampleRow(date=date, condition=_CONDITION_TIMING, outcome=outcome))
+
+    for key, lo, hi in self.buckets:
+      in_bucket = (mod_ct >= lo) & (mod_ct < hi)
+      for date in dates[in_bucket]:
+        samples.append(SampleRow(date=date, condition=_CONDITION_BUCKET, outcome=key))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

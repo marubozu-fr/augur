@@ -488,3 +488,92 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   raw = written.read_text(encoding="utf-8")
   assert "é" in raw  # "Séries" / "période"
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples()
+# ===========================================================================
+
+def test_classify_samples_exact_daily_sequence() -> None:
+  """Exact (date, condition, outcome) tuples for the daily sequence GGRGRRRGRG.
+
+  next: G R G R R R G R G -  (idx 9 has no next → excluded)
+  idx0 G next G -> continue | idx1 G next R -> break
+  idx2 R next G -> break    | idx3 G next R -> break
+  idx4 R next R -> continue | idx5 R next R -> continue
+  idx6 R next G -> break    | idx7 G next R -> break
+  idx8 R next G -> break    | idx9 excluded (no next)
+  """
+  stat = _daily()
+  day_table = stat.build_day_table(make_candles(_DAILY_SEQ))
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    ("2024-01-01", "green", "continue"),
+    ("2024-01-02", "green", "break"),
+    ("2024-01-03", "red", "break"),
+    ("2024-01-04", "green", "break"),
+    ("2024-01-05", "red", "continue"),
+    ("2024-01-08", "red", "continue"),
+    ("2024-01-09", "red", "break"),
+    ("2024-01-10", "green", "break"),
+    ("2024-01-11", "red", "break"),
+  ]
+  assert [(s.date, s.condition, s.outcome) for s in samples] == expected
+  assert all(s.value is None for s in samples)
+  assert "2024-01-12" not in {s.date for s in samples}  # last period excluded
+
+
+def test_classify_samples_consistency_with_compute_rows() -> None:
+  """Every StatResultRow.count equals the matching SampleRow (condition, outcome) tally."""
+  stat = _daily()
+  day_table = stat.build_day_table(make_candles(_DAILY_SEQ))
+  rows = stat.compute_rows(day_table)
+  samples = stat.classify_samples(day_table)
+
+  for row in rows:
+    tally = sum(1 for s in samples if s.condition == row.condition and s.outcome == row.outcome)
+    assert tally == row.count, (row.condition, row.outcome)
+
+  # Total countable samples across both conditions/outcomes matches sum of totals
+  # of one outcome per condition (continue + break = total per condition).
+  green_total = next(r.total for r in rows if r.condition == "green" and r.outcome == "continue")
+  red_total = next(r.total for r in rows if r.condition == "red" and r.outcome == "continue")
+  assert len(samples) == green_total + red_total
+
+
+def test_classify_samples_empty_day_table() -> None:
+  stat = _daily()
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_single_period_no_countable() -> None:
+  """One resolved period has no next -> not countable -> no samples."""
+  stat = _daily()
+  day_table = stat.build_day_table(make_candles([_green("2024-03-01")]))
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_pending_day_excluded() -> None:
+  """A truncated (unresolved) day never appears in the day_table, so it can never
+  produce a sample."""
+  stat = _daily()
+  day_table = stat.build_day_table(_make_truncated_day("2024-01-15"))
+  samples = stat.classify_samples(day_table)
+  assert samples == []
+  assert "2024-01-15" not in {s.date for s in samples}
+
+
+def test_classify_samples_embedded_in_compute() -> None:
+  """compute() embeds the same samples in TimeframeResult.samples, sorted by date."""
+  stat = _daily()
+  df = make_candles(_DAILY_SEQ)
+  day_table = stat.build_day_table(df)
+  expected = sorted(stat.classify_samples(day_table), key=lambda s: s.date)
+
+  result = stat.compute(df)
+  actual = result.instruments["NQ"]["daily"].samples
+  assert [(s.date, s.condition, s.outcome) for s in actual] == [
+    (s.date, s.condition, s.outcome) for s in expected
+  ]

@@ -41,6 +41,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -280,6 +281,52 @@ class MarketSessionCorrelation(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable cycle, mirroring ``compute_rows``'s classification.
+
+    ``condition`` is session 1's color (``s1_green``/``s1_red``); ``outcome`` is
+    session 2's color (``green``/``red``) — the same pairing ``compute_rows``
+    aggregates into the 2x2 matrix. Cycles missing either color (should not
+    occur once ``build_day_table``'s inner join has run, but guarded
+    defensively here) are excluded.
+
+    SPECIAL — correlation family (see ``BaseStat.classify_samples`` docstring):
+    this stat and ``prev_session_correlation`` report a conditional-probability
+    matrix rather than a literal Pearson r, but both are named/treated as
+    "correlation" families. ``value`` stores session 2's color as a float (1.0
+    green / 0.0 red) — the "y" side of the boolean pairing whose "x" side is
+    ``condition``. A future iteration could decode (x, y) pairs from
+    (condition, value) to recompute a full Pearson/point-biserial r over a
+    date-filtered subset of days; that recomputation itself is deferred.
+    """
+    if day_table.empty:
+      return []
+
+    s1_green = day_table["s1_green"]
+    s2_green = day_table["s2_green"]
+    countable = s1_green.notna() & s2_green.notna()
+    if not countable.any():
+      return []
+
+    countable_s1 = s1_green[countable].astype(bool)
+    countable_s2 = s2_green[countable].astype(bool)
+
+    samples: list[SampleRow] = []
+    for ts, s1_is_green, s2_is_green in zip(
+      countable_s1.index, countable_s1, countable_s2
+    ):
+      condition = "s1_green" if s1_is_green else "s1_red"
+      outcome = "green" if s2_is_green else "red"
+      samples.append(
+        SampleRow(
+          date=ts.strftime("%Y-%m-%d"),
+          condition=condition,
+          outcome=outcome,
+          value=1.0 if s2_is_green else 0.0,
+        )
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

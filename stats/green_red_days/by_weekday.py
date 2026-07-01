@@ -26,6 +26,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -161,6 +162,22 @@ class GreenRedDaysByWeekday(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved day (condition ``any_day``), mirroring
+    ``compute_rows``. Every row in the day table is countable (pending days are
+    already excluded by ``build_day_table``). ``value`` is left ``None``: this
+    is a probability partition, not a magnitude family.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, day_green in zip(day_table.index, day_table["day_green"]):
+      date_str = ts.strftime("%Y-%m-%d")
+      outcome = "green_day" if day_green else "red_day"
+      samples.append(SampleRow(date=date_str, condition=_CONDITION, outcome=outcome))
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: randomize each day's direction (p=0.5).

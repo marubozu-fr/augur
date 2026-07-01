@@ -762,6 +762,78 @@ def test_empty_input_row_conditions_and_outcomes_still_correct() -> None:
 
 
 # ===========================================================================
+# 8b. classify_samples
+# ===========================================================================
+
+def test_classify_samples_matches_compute_rows() -> None:
+  # Mirrors test_contingency_both_conditions_sum_to_total: 2 formed_high days
+  # (broke_high, neither) + 2 formed_low days (broke_low, neither).
+  stat = _stat()
+  candles = _concat([
+    _make_split_ib_day("2024-01-02", high_first=True, post_events={601: (115.0, 100.0, 100.0)}),
+    _make_split_ib_day("2024-01-03", high_first=True),  # neither
+    _make_split_ib_day("2024-01-04", high_first=False, post_events={601: (100.0, 85.0, 100.0)}),
+    _make_split_ib_day("2024-01-05", high_first=False),  # neither
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "formed_high", "broke_high"),
+    ("2024-01-03", "formed_high", "neither"),
+    ("2024-01-04", "formed_low", "broke_low"),
+    ("2024-01-05", "formed_low", "neither"),
+  ]
+
+
+def test_classify_samples_invariant_matches_compute_rows_counts() -> None:
+  stat = _stat()
+  candles = _concat([
+    _make_split_ib_day("2024-01-02", high_first=True, post_events={601: (115.0, 100.0, 100.0)}),
+    _make_split_ib_day("2024-01-03", high_first=True, post_events={601: (100.0, 85.0, 100.0)}),
+    _make_split_ib_day("2024-01-04", high_first=False, post_events={601: (100.0, 85.0, 100.0)}),
+    _make_split_ib_day("2024-01-05", high_first=False),
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert matching == r.count
+
+
+def test_classify_samples_empty_table_yields_empty_list() -> None:
+  stat = _stat()
+  assert stat.classify_samples(_empty_df()) == []
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_undetermined_and_tied_and_unresolved_days() -> None:
+  candles = _concat([
+    _make_split_ib_day("2024-01-02", high_first=True, post_events={601: (115.0, 100.0, 100.0)}),
+    _make_day("2024-01-03"),  # single bar holds both extremes -> formation undetermined
+    _make_split_ib_day("2024-01-04", high_first=True, post_events={
+      601: (115.0, 85.0, 100.0),  # breaks both sides at the same minute -> tie
+    }),
+    _make_truncated_day("2024-01-05"),
+  ])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+
+
+def test_classify_samples_included_in_compute_result() -> None:
+  candles = _concat([
+    _make_split_ib_day("2024-01-02", high_first=True, post_events={601: (115.0, 100.0, 100.0)}),
+    _make_split_ib_day("2024-01-03", high_first=False),
+  ])
+  result = _stat().compute(candles)
+  tf = result.instruments["NQ"]["30min"]
+  assert len(tf.samples) == 2
+
+
+# ===========================================================================
 # 9. Pydantic validation + JSON round-trip
 # ===========================================================================
 

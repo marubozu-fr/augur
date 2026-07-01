@@ -1042,3 +1042,120 @@ def test_valid_timeframe_30min_n_buckets() -> None:
   stat = IntradayVolumeRange(instrument="NQ", config=cfg, timeframe="30min")
   # ceil(405/30) = ceil(13.5) = 14
   assert stat.n_buckets == 14
+
+
+# ===========================================================================
+# 16. classify_samples()
+# ===========================================================================
+
+def test_classify_samples_bucket_0930_mean_volume_exact() -> None:
+  """Bucket "0930" mean_volume samples: one per day, exact date + value."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(day_table)
+
+  matching = sorted(
+    (s.date, s.value) for s in samples if s.condition == "0930" and s.outcome == "mean_volume"
+  )
+  expected = sorted([
+    ("2024-01-08", float(_VOL_A_B0)),  # 1500.0
+    ("2024-01-09", float(_VOL_B_B0)),  # 4500.0
+    ("2024-01-10", float(_VOL_C_B0)),  # 7500.0
+  ])
+  assert matching == pytest.approx(expected, rel=1e-9)
+
+
+def test_classify_samples_bucket_0945_mean_range_pct_exact() -> None:
+  """Bucket "0945" mean_range_pct samples: one per day, exact date + value."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(day_table)
+
+  by_date = {
+    s.date: s.value
+    for s in samples
+    if s.condition == "0945" and s.outcome == "mean_range_pct"
+  }
+  assert by_date == pytest.approx({
+    "2024-01-08": _PCT_A_B1,
+    "2024-01-09": _PCT_B_B1,
+    "2024-01-10": _PCT_C_B1,
+  })
+
+
+def test_classify_samples_condition_field_matches_bucket_key() -> None:
+  """Every emitted sample's condition is a bucket key registered in labels."""
+  stat = _stat()
+  result = stat.compute(_make_three_days())
+  for s in result.instruments["NQ"]["15min"].samples:
+    assert s.condition in result.labels.conditions
+
+
+def test_classify_samples_consistency_with_compute_rows() -> None:
+  """Invariant: per (condition, outcome), sample count == r.count and sample
+  value mean == r.value, for every row in the overall result (all 27 buckets).
+  """
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_days())
+  rows = stat.compute_rows(day_table)
+  samples = stat.classify_samples(day_table)
+
+  by_key: dict[tuple[str, str], list[float]] = {}
+  for s in samples:
+    by_key.setdefault((s.condition, s.outcome), []).append(s.value)
+
+  for r in rows:
+    values = by_key.get((r.condition, r.outcome), [])
+    assert len(values) == r.count, (
+      f"({r.condition},{r.outcome}): sample count={len(values)} != r.count={r.count}"
+    )
+    if r.count > 0:
+      assert sum(values) / len(values) == pytest.approx(r.value)
+
+
+def test_classify_samples_consistency_via_compute() -> None:
+  """Same invariant, exercised through the public compute() entry point."""
+  result = _stat().compute(_make_three_days())
+  tf = _tf(result)
+
+  by_key: dict[tuple[str, str], list[float]] = {}
+  for s in tf.samples:
+    by_key.setdefault((s.condition, s.outcome), []).append(s.value)
+
+  for r in tf.results:
+    values = by_key.get((r.condition, r.outcome), [])
+    assert len(values) == r.count
+    if r.count > 0:
+      assert sum(values) / len(values) == pytest.approx(r.value)
+
+
+def test_classify_samples_empty_dataframe_returns_empty_list() -> None:
+  """Empty candles -> classify_samples returns []."""
+  stat = _stat()
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_empty_surfaced_in_compute_result() -> None:
+  """Empty candles -> the top-level result's samples list is empty."""
+  result = _stat().compute(_empty_df())
+  assert _tf(result).samples == []
+
+
+def test_classify_samples_excludes_truncated_day() -> None:
+  """A truncated (pending) day contributes no samples for any bucket."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_days_with_truncated())
+  samples = stat.classify_samples(day_table)
+  assert all(s.date != "2024-01-15" for s in samples)
+
+
+def test_classify_samples_truncated_day_bucket_count_unchanged() -> None:
+  """Bucket "0930" mean_volume still has exactly 3 samples with the truncated
+  day appended (it does not participate)."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_days_with_truncated())
+  samples = stat.classify_samples(day_table)
+  matching = [s for s in samples if s.condition == "0930" and s.outcome == "mean_volume"]
+  assert len(matching) == 3
+  assert {s.date for s in matching} == {"2024-01-08", "2024-01-09", "2024-01-10"}

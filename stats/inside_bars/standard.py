@@ -52,6 +52,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -228,6 +229,65 @@ class InsideBars(BaseStat):
       _make("inside", "broke_both", int(broke_both.sum()), inside_n),
       _make("inside", "contained", int(contained.sum()), inside_n),
     ]
+
+  # -------------------------------------------------------------------------
+  # Per-day classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One or two SampleRows per countable day, mirroring ``compute_rows``.
+
+    Every countable day (prior resolved day exists, i.e. ``prev_high`` /
+    ``prev_low`` not NaN) yields exactly one tier-1 sample under condition
+    ``inside_open``, outcome ``inside`` or its complement ``outside`` — this
+    preserves the tier-1 denominator (``countable_n``) alongside its
+    numerator (``inside_n``).
+
+    Additionally, each of those days that opened inside also yields exactly
+    one tier-2 sample under condition ``inside``, whose outcome is exactly one
+    of ``broke_high`` / ``broke_low`` / ``broke_both`` / ``contained`` — the
+    four mutually exclusive, exhaustive outcomes already partition the inside
+    set, so no complement outcome is needed there.
+
+    Non-countable days (no prior resolved day) contribute nothing.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, session_open, day_high, day_low, prev_high, prev_low in zip(
+      day_table.index,
+      day_table["session_open"],
+      day_table["day_high"],
+      day_table["day_low"],
+      day_table["prev_high"],
+      day_table["prev_low"],
+    ):
+      if pd.isna(prev_high) or pd.isna(prev_low):
+        continue
+
+      date_str = ts.strftime("%Y-%m-%d")
+      inside = prev_low <= session_open <= prev_high
+      samples.append(
+        SampleRow(
+          date=date_str,
+          condition="inside_open",
+          outcome="inside" if inside else "outside",
+        )
+      )
+      if not inside:
+        continue
+
+      if day_high > prev_high and day_low < prev_low:
+        outcome = "broke_both"
+      elif day_high > prev_high:
+        outcome = "broke_high"
+      elif day_low < prev_low:
+        outcome = "broke_low"
+      else:
+        outcome = "contained"
+      samples.append(SampleRow(date=date_str, condition="inside", outcome=outcome))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

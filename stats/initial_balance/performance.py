@@ -66,6 +66,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -503,6 +504,33 @@ class InitialBalancePerformance(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Four SampleRows per countable day (one per magnitude outcome), mirroring
+    compute_rows' four columns. Countable sessions are those where price broke at
+    least one side of the IB (``extension`` not NaN). ``mean_extension`` and
+    ``max_extension`` both carry the day's raw ``extension`` (points), while
+    ``mean_extension_pct`` / ``max_extension_pct`` carry ``extension_pct``, so the
+    API can recompute either aggregate (mean or max) over a date-filtered subset.
+    """
+    if day_table.empty:
+      return []
+
+    countable = day_table["extension"].notna()
+    if not bool(countable.any()):
+      return []
+
+    ct = day_table[countable]
+    dates = np.array(ct.index.strftime("%Y-%m-%d"))
+
+    samples: list[SampleRow] = []
+    for out_key, column, _agg in _OUTCOMES:
+      values = ct[column].to_numpy(dtype=float)
+      for date, value in zip(dates, values):
+        samples.append(
+          SampleRow(date=date, condition=_CONDITION, outcome=out_key, value=float(value))
+        )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

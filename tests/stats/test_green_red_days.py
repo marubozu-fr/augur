@@ -532,3 +532,67 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   raw = written.read_text(encoding="utf-8")
   assert "clôture" in raw
   assert "\\u00f4" not in raw
+
+
+# ===========================================================================
+# 9. classify_samples
+#
+# Reusing _CTC_DAYS (close_to_close dataset, first day excluded):
+#   2024-01-02: G, 2024-01-03: R, 2024-01-04: G, 2024-01-05: R
+# Each countable day emits ONE SampleRow (condition="any_day").
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per countable day, matching the hand-calc."""
+  stat = _ctc_stat()
+  table = stat.build_day_table(make_candles(_CTC_DAYS))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "any_day", "green_day"),
+    ("2024-01-03", "any_day", "red_day"),
+    ("2024-01-04", "any_day", "green_day"),
+    ("2024-01-05", "any_day", "red_day"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _ctc_stat()
+  table = stat.build_day_table(make_candles(_CTC_DAYS))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _ctc_stat()
+  assert stat.classify_samples(pd.DataFrame(columns=["day_green"])) == []
+
+
+def test_classify_samples_excludes_pending_day() -> None:
+  """A truncated (unresolved) day must not appear in classify_samples output."""
+  stat = _otc_stat()
+  base_df = make_candles(_OTC_DAYS)
+  truncated = _make_truncated_day("2024-01-15")
+  df = pd.concat([base_df, truncated], ignore_index=True).sort_values("timestamp").reset_index(drop=True)
+
+  table = stat.build_day_table(df)
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+
+  assert "2024-01-15" not in sample_dates
+  assert len(samples) == 10
+
+
+def test_classify_samples_excludes_first_day_close_to_close() -> None:
+  """close_to_close mode: the first resolved day (no prior close) has no SampleRow."""
+  stat = _ctc_stat()
+  table = stat.build_day_table(make_candles(_CTC_DAYS))
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-01" not in sample_dates
+  assert len(samples) == 4

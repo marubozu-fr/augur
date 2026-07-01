@@ -41,6 +41,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -330,6 +331,38 @@ class IntradayRangeWindow(BaseStat):
         )
       )
     return rows
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved day, per outcome, mirroring ``compute_rows``.
+
+    A day counts only when both its ``range`` and ``range_pct`` are valid (the
+    same pairing ``compute_rows`` relies on). Each such day emits eight
+    ``SampleRow``s — one per outcome in ``_OUTCOMES`` — carrying that day's raw
+    per-day metric (``range`` for the four ``range_*`` outcomes, ``range_pct``
+    for the four ``range_pct_*`` outcomes) as ``value``. The outcome's
+    aggregate (avg/max/min/median) is applied across days by the caller, not
+    here, so all four outcomes sharing a metric carry the identical per-day
+    value.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      rng_val = row["range"]
+      pct_val = row["range_pct"]
+      if pd.isna(rng_val) or pd.isna(pct_val):
+        continue
+      date = ts.strftime("%Y-%m-%d")
+      for out_key, metric, _, _ in _OUTCOMES:
+        value = float(rng_val) if metric == "range" else float(pct_val)
+        samples.append(
+          SampleRow(date=date, condition=self.window_key, outcome=out_key, value=value)
+        )
+    return samples
 
 
 # ---------------------------------------------------------------------------

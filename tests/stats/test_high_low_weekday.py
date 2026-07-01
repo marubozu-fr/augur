@@ -736,6 +736,71 @@ def test_data_range_reflects_resolved_weeks() -> None:
 
 
 # ===========================================================================
+# 8b. classify_samples
+#
+# Reusing _make_three_weeks() (3 resolved weeks + 1 trailing pending week):
+#   2024-01-01: high=monday,    low=tuesday,   high_close=wednesday, low_close=friday
+#   2024-01-08: high=thursday,  low=wednesday, high_close=thursday,  low_close=friday
+#   2024-01-15: high=tuesday,   low=tuesday,   high_close=tuesday,   low_close=monday
+# Each resolved week emits FOUR SampleRows (one per condition).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits four SampleRows per resolved week, matching the hand-calc."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_weeks())
+  samples = stat.classify_samples(day_table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-01", "weekly_high", "monday"),
+    ("2024-01-01", "weekly_low", "tuesday"),
+    ("2024-01-01", "weekly_high_close", "wednesday"),
+    ("2024-01-01", "weekly_low_close", "friday"),
+    ("2024-01-08", "weekly_high", "thursday"),
+    ("2024-01-08", "weekly_low", "wednesday"),
+    ("2024-01-08", "weekly_high_close", "thursday"),
+    ("2024-01-08", "weekly_low_close", "friday"),
+    ("2024-01-15", "weekly_high", "tuesday"),
+    ("2024-01-15", "weekly_low", "tuesday"),
+    ("2024-01-15", "weekly_high_close", "tuesday"),
+    ("2024-01-15", "weekly_low_close", "monday"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  day_table = stat.build_day_table(_make_three_weeks())
+  samples = stat.classify_samples(day_table)
+  rows = stat.compute_rows(day_table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(_stat().build_day_table(_empty_df())) == []
+
+
+def test_classify_samples_excludes_pending_week() -> None:
+  """The trailing pending ISO week (already dropped by build_day_table) yields no samples."""
+  frames = []
+  for specs in (_W1, _W2):
+    for date, o, c, h, day_lo in specs:
+      frames.append(_make_day(date, o, c, h, day_lo))
+  df = _concat_days(frames)
+  stat = _stat()
+  # W2 here is the trailing pending week (only W1 remains after the drop).
+  day_table = stat.build_day_table(df)
+  samples = stat.classify_samples(day_table)
+  sample_dates = {s.date for s in samples}
+  assert sample_dates == {"2024-01-01"}
+  assert len(samples) == 4  # one week x four conditions
+
+
+# ===========================================================================
 # 9. write_results round-trip
 # ===========================================================================
 

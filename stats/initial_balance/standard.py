@@ -58,6 +58,7 @@ from stats.base import (
   I18nString,
   Labels,
   Levels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -312,6 +313,34 @@ class InitialBalanceBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring compute_rows' four-way breakout
+    partition. Days missing an IB or a breakout-window extreme are excluded
+    (not countable), matching the ``countable`` mask used there.
+    """
+    if day_table.empty:
+      return []
+
+    ib_high = day_table["ib_high"]
+    ib_low = day_table["ib_low"]
+    high, low = self._break_extremes(day_table)
+
+    countable = ib_high.notna() & ib_low.notna() & high.notna() & low.notna()
+    if not bool(countable.any()):
+      return []
+
+    above = (high > ib_high).to_numpy()
+    below = (low < ib_low).to_numpy()
+    outcome = np.select(
+      [above & below, above & ~below, below & ~above],
+      ["broke_both", "broke_high", "broke_low"],
+      default="neither",
+    )
+
+    dates = np.array(day_table.index.strftime("%Y-%m-%d"))
+    idx = np.flatnonzero(countable.to_numpy())
+    return [SampleRow(date=dates[i], condition="ib", outcome=outcome[i]) for i in idx]
 
   # -------------------------------------------------------------------------
   # Baseline

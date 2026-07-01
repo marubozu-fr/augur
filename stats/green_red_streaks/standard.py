@@ -38,6 +38,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   StatRunResult,
   TimeframeResult,
@@ -243,6 +244,39 @@ class GreenRedStreaks(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable period, mirroring ``compute_rows``.
+
+    A period is countable when it has a following resolved period (``next_green``
+    not NaN); the last period in the sequence (no next period) is excluded, as
+    is the whole table when there is no following period at all. ``condition``
+    is ``green``/``red`` from ``period_green``; ``outcome`` is ``continue`` when
+    the next period shares the current period's color, ``break`` otherwise.
+    """
+    if day_table.empty:
+      return []
+
+    period_green = day_table["period_green"].astype(bool)
+    next_green = day_table["next_green"]
+    countable = next_green.notna()
+    if not countable.any():
+      return []
+
+    countable_green = period_green[countable]
+    countable_next_is_green = next_green[countable] == 1.0
+
+    samples: list[SampleRow] = []
+    for ts, is_green, next_is_green in zip(
+      countable_green.index, countable_green, countable_next_is_green
+    ):
+      condition = "green" if is_green else "red"
+      next_same = next_is_green if is_green else not next_is_green
+      outcome = "continue" if next_same else "break"
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition=condition, outcome=outcome)
+      )
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: independent green/red colors (p=0.5) destroy any streak.

@@ -59,6 +59,7 @@ from stats.base import (
   Labels,
   Levels,
   Rejection,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -349,6 +350,40 @@ class MarketSessionBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable cycle, condition ``session1_range``, mirroring
+    ``compute_rows``'s four-way partition (``broke_high`` / ``broke_low`` /
+    ``broke_both`` / ``neither``). A cycle is excluded when it is not
+    countable (NaN session 1 or session 2 extreme) — in practice this should
+    not occur since ``build_day_table`` already drops unresolved cycles via
+    its inner join, but the check is kept to mirror ``compute_rows`` exactly.
+    """
+    if day_table.empty:
+      return []
+
+    s1_high = day_table["s1_high"]
+    s1_low = day_table["s1_low"]
+    high, low = self._break_extremes(day_table)
+
+    countable = s1_high.notna() & s1_low.notna() & high.notna() & low.notna()
+    above = countable & (high > s1_high)
+    below = countable & (low < s1_low)
+
+    outcome = pd.Series(None, index=day_table.index, dtype=object)
+    outcome[above & ~below] = "broke_high"
+    outcome[below & ~above] = "broke_low"
+    outcome[above & below] = "broke_both"
+    outcome[countable & ~above & ~below] = "neither"
+
+    samples: list[SampleRow] = []
+    for ts, out, ok in zip(day_table.index, outcome, countable):
+      if not ok:
+        continue
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition="session1_range", outcome=out)
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

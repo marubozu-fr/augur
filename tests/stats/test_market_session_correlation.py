@@ -401,6 +401,74 @@ def test_missing_session1_excluded() -> None:
 
 
 # ===========================================================================
+# classify_samples()
+# ===========================================================================
+def test_classify_samples_exact_sequence() -> None:
+  """Exact (date, condition, outcome, value) tuples for the 8-cycle _SEQ."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    ("2024-01-01", "s1_green", "green", 1.0),
+    ("2024-01-02", "s1_green", "green", 1.0),
+    ("2024-01-03", "s1_green", "green", 1.0),
+    ("2024-01-04", "s1_green", "red", 0.0),
+    ("2024-01-05", "s1_red", "green", 1.0),
+    ("2024-01-08", "s1_red", "green", 1.0),
+    ("2024-01-09", "s1_red", "red", 0.0),
+    ("2024-01-10", "s1_red", "red", 0.0),
+  ]
+  assert [(s.date, s.condition, s.outcome, s.value) for s in samples] == expected
+
+
+def test_classify_samples_consistency_with_compute_rows() -> None:
+  """Every StatResultRow.count equals the matching SampleRow (condition, outcome) tally."""
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(_SEQ))
+  rows = stat.compute_rows(day_table)
+  samples = stat.classify_samples(day_table)
+
+  for row in rows:
+    tally = sum(1 for s in samples if s.condition == row.condition and s.outcome == row.outcome)
+    assert tally == row.count, (row.condition, row.outcome)
+
+  assert len(samples) == day_table.shape[0] == 8
+
+
+def test_classify_samples_empty_day_table() -> None:
+  stat = _stat()
+  day_table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_pending_session2_excluded() -> None:
+  """A cycle whose session 2 is unresolved never appears in the day_table (the
+  inner join in ``build_day_table`` drops it), so it can never produce a sample."""
+  base = pd.Timestamp("2024-01-03", tz=_NY)
+  truncated = _london_bars("2024-01-03", 100, 120) + [
+    _bar(base.replace(hour=9, minute=30), 100, 100, 100, 100),
+    _bar(base.replace(hour=9, minute=50), 100, 100, 100, 100),
+  ]
+  cycles = [_cycle("2024-01-02", 100, 120, 100, 120), truncated]
+  stat = _stat()
+  day_table = stat.build_day_table(make_candles(cycles))
+  samples = stat.classify_samples(day_table)
+  assert len(samples) == 1
+  assert "2024-01-03" not in {s.date for s in samples}
+
+
+def test_classify_samples_embedded_in_compute() -> None:
+  """compute() embeds the same samples in TimeframeResult.samples, sorted by date."""
+  stat = _stat()
+  df = make_candles(_SEQ)
+  day_table = stat.build_day_table(df)
+  expected = sorted(stat.classify_samples(day_table), key=lambda s: s.date)
+  result = stat.compute(df)
+  assert result.instruments["NQ"]["daily"].samples == expected
+
+
+# ===========================================================================
 # Edge cases & validation
 # ===========================================================================
 def _empty_df() -> pd.DataFrame:

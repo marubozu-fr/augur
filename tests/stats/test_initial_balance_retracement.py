@@ -535,6 +535,86 @@ def test_size_slice_buckets_by_ib_size() -> None:
 
 
 # ===========================================================================
+# classify_samples
+# ===========================================================================
+def test_classify_samples_matches_compute_rows() -> None:
+  # Three single-break days at fracs 0.25, 0.50, 0.75 (mirrors
+  # test_nested_threshold_hit_counts).
+  stat = _stat()
+  candles = _concat([
+    _up_day("2024-01-02", retrace_low=105.0),      # 0.25
+    _up_day("2024-01-03", retrace_low=100.0),      # 0.50
+    _down_day("2024-01-04", retrace_high=105.0),   # 0.75
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  # Nested outcomes: only the reached thresholds emit a sample per day. The
+  # implementation groups by threshold (in ascending order) then by date;
+  # ``compute()`` re-sorts by date before writing results.
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "single_break", "retrace_25"),
+    ("2024-01-03", "single_break", "retrace_25"),
+    ("2024-01-04", "single_break", "retrace_25"),
+    ("2024-01-03", "single_break", "retrace_50"),
+    ("2024-01-04", "single_break", "retrace_50"),
+    ("2024-01-04", "single_break", "retrace_75"),
+  ]
+
+
+def test_classify_samples_invariant_matches_compute_rows_counts() -> None:
+  stat = _stat()
+  candles = _concat([
+    _up_day("2024-01-02", retrace_low=105.0),
+    _up_day("2024-01-03", retrace_low=100.0),
+    _down_day("2024-01-04", retrace_high=105.0),
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert matching == r.count
+
+
+def test_classify_samples_empty_table_yields_empty_list() -> None:
+  stat = _stat()
+  assert stat.classify_samples(_empty_df()) == []
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_non_single_break_and_unresolved_days() -> None:
+  candles = _concat([
+    _up_day("2024-01-02", retrace_low=100.0),
+    _make_day("2024-01-03", base_price=100.0),  # no break -> not single-break
+    _make_truncated_day("2024-01-04"),
+  ])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+
+
+def test_classify_samples_no_value_populated() -> None:
+  # Retracement is a probability channel (nested thresholds), not a magnitude
+  # one: SampleRow.value stays None.
+  candles = _concat([_up_day("2024-01-02", retrace_low=100.0)])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert samples
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_included_in_compute_result() -> None:
+  candles = _concat([_up_day("2024-01-02", retrace_low=100.0)])
+  result = _stat().compute(candles)
+  tf = result.instruments["NQ"]["30min"]
+  # Default thresholds (0.25, 0.50, 0.75); depth 0.50 hits the first two.
+  assert len(tf.samples) == 2
+
+
+# ===========================================================================
 # JSON round-trip
 # ===========================================================================
 def test_result_validates_and_writes(tmp_path: Path) -> None:

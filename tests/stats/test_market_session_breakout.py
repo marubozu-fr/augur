@@ -327,6 +327,65 @@ def test_missing_session1_excluded():
 
 
 # ===========================================================================
+# classify_samples
+#
+# Reusing _SEQ: one countable cycle per calendar date, in date order:
+#   2024-01-02 broke_high, 2024-01-03 broke_low, 2024-01-04 broke_both,
+#   2024-01-05 neither, 2024-01-08 broke_high, 2024-01-09 broke_low,
+#   2024-01-10 broke_both, 2024-01-11 neither.
+# Each countable cycle emits exactly ONE SampleRow (single ``session1_range``
+# condition, mutually exclusive outcomes).
+# ===========================================================================
+def test_classify_samples_exact_list():
+  """classify_samples emits one SampleRow per countable cycle, matching the hand-calc."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "session1_range", "broke_high"),
+    ("2024-01-03", "session1_range", "broke_low"),
+    ("2024-01-04", "session1_range", "broke_both"),
+    ("2024-01-05", "session1_range", "neither"),
+    ("2024-01-08", "session1_range", "broke_high"),
+    ("2024-01-09", "session1_range", "broke_low"),
+    ("2024-01-10", "session1_range", "broke_both"),
+    ("2024-01-11", "session1_range", "neither"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts():
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table():
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(pd.DataFrame(columns=["s1_high", "s1_low", "s2_high", "s2_low"])) == []
+
+
+def test_classify_samples_excludes_noncountable_cycle():
+  """A cycle missing session 1 (dropped by the inner join) produces no SampleRow."""
+  cycles = [
+    _cycle("2024-01-02", 110, 90, 115, 95),
+    _ny_bars("2024-01-03", 115, 95),
+  ]
+  stat = _stat()
+  table = stat.build_day_table(make_candles(cycles))
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-03" not in sample_dates
+  assert sample_dates == {"2024-01-02"}
+
+
+# ===========================================================================
 # Baseline
 # ===========================================================================
 def test_baseline_is_reproducible():

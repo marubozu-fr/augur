@@ -42,6 +42,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   Weekday,
   _ColorSlicer,
@@ -276,6 +277,37 @@ class IntradayTiming(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Two SampleRows per resolved day (intraday_high, intraday_low), mirroring
+    ``compute_rows``. Every row in the day table is countable (pending/early-close
+    days are already excluded by ``build_day_table``/``build_resolved_days``).
+    Probability-only stat: ``value`` is left None.
+    """
+    if day_table.empty:
+      return []
+
+    bucket_key = dict(self._bucket_order)
+    samples: list[SampleRow] = []
+    for ts, high_bucket, low_bucket in zip(
+      day_table.index, day_table["high_bucket"], day_table["low_bucket"]
+    ):
+      date_str = ts.strftime("%Y-%m-%d")
+      samples.append(
+        SampleRow(
+          date=date_str,
+          condition="intraday_high",
+          outcome=bucket_key[int(high_bucket)],
+        )
+      )
+      samples.append(
+        SampleRow(
+          date=date_str,
+          condition="intraday_low",
+          outcome=bucket_key[int(low_bucket)],
+        )
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

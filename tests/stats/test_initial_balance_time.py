@@ -414,6 +414,72 @@ def test_close_slice_splits_by_session_colour() -> None:
 
 
 # ===========================================================================
+# classify_samples
+# ===========================================================================
+def test_classify_samples_matches_compute_rows() -> None:
+  stat = _stat()
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),  # 10:00 early
+    _make_day("2024-01-03", events={715: (115.0, 100.0, 100.0)}),         # 11:55 early
+    _make_day("2024-01-04", events={_THRESHOLD: (115.0, 100.0, 100.0)}),  # 12:00 late
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  # Two rows per countable day: one under 'timing', one under 'bucket'. The
+  # implementation emits every 'timing' row (date order) before every 'bucket'
+  # row (bucket order); ``compute()`` re-sorts by date before writing results.
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "timing", "early"),
+    ("2024-01-03", "timing", "early"),
+    ("2024-01-04", "timing", "late"),
+    ("2024-01-02", "bucket", "bucket_1"),
+    ("2024-01-03", "bucket", "bucket_4"),
+    ("2024-01-04", "bucket", "bucket_5"),
+  ]
+
+
+def test_classify_samples_invariant_matches_compute_rows_counts() -> None:
+  stat = _stat()
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),
+    _make_day("2024-01-03", events={715: (115.0, 100.0, 100.0)}),
+    _make_day("2024-01-04", events={_THRESHOLD: (115.0, 100.0, 100.0)}),
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    matching = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert matching == r.count
+
+
+def test_classify_samples_empty_table_yields_empty_list() -> None:
+  stat = _stat()
+  assert stat.classify_samples(_empty_df()) == []
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_non_breaking_and_unresolved_days() -> None:
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),
+    _make_day("2024-01-03"),  # never breaks
+    _make_truncated_day("2024-01-04"),
+  ])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+
+
+def test_classify_samples_included_in_compute_result() -> None:
+  candles = _concat([_make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)})])
+  result = _stat().compute(candles)
+  tf = result.instruments["NQ"]["30min"]
+  assert len(tf.samples) == 2  # one 'timing' + one 'bucket' row
+
+
+# ===========================================================================
 # JSON round-trip
 # ===========================================================================
 def test_result_validates_and_writes(tmp_path: Path) -> None:

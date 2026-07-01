@@ -459,6 +459,83 @@ def test_size_slice_buckets_by_ib_size() -> None:
 
 
 # ===========================================================================
+# classify_samples
+# ===========================================================================
+def test_classify_samples_matches_compute_rows() -> None:
+  # Mirrors test_mean_and_max_aggregation: three up-only sessions, ext 5/10/15.
+  stat = _stat()
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),  # 5
+    _make_day("2024-01-03", events={_IB_END_30: (120.0, 100.0, 100.0)}),  # 10
+    _make_day("2024-01-04", events={_IB_END_30: (125.0, 100.0, 100.0)}),  # 15
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  # Four SampleRows per day (one per magnitude outcome), grouped by outcome key.
+  assert [(s.date, s.condition, s.outcome, s.value) for s in samples] == [
+    ("2024-01-02", "ib", "mean_extension", 5.0),
+    ("2024-01-03", "ib", "mean_extension", 10.0),
+    ("2024-01-04", "ib", "mean_extension", 15.0),
+    ("2024-01-02", "ib", "mean_extension_pct", 0.05),
+    ("2024-01-03", "ib", "mean_extension_pct", 0.10),
+    ("2024-01-04", "ib", "mean_extension_pct", 0.15),
+    ("2024-01-02", "ib", "max_extension", 5.0),
+    ("2024-01-03", "ib", "max_extension", 10.0),
+    ("2024-01-04", "ib", "max_extension", 15.0),
+    ("2024-01-02", "ib", "max_extension_pct", 0.05),
+    ("2024-01-03", "ib", "max_extension_pct", 0.10),
+    ("2024-01-04", "ib", "max_extension_pct", 0.15),
+  ]
+
+
+def test_classify_samples_value_reproduces_row_aggregate() -> None:
+  stat = _stat()
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),  # 5
+    _make_day("2024-01-03", events={_IB_END_30: (120.0, 100.0, 100.0)}),  # 10
+    _make_day("2024-01-04", events={_IB_END_30: (125.0, 100.0, 100.0)}),  # 15
+  ])
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  rows = {r.outcome: r for r in stat.compute_rows(table)}
+
+  mean_vals = [s.value for s in samples if s.outcome == "mean_extension"]
+  assert sum(mean_vals) / len(mean_vals) == pytest.approx(rows["mean_extension"].value)
+  max_vals = [s.value for s in samples if s.outcome == "max_extension"]
+  assert max(max_vals) == pytest.approx(rows["max_extension"].value)
+
+  matching = sum(1 for s in samples if s.condition == "ib" and s.outcome == "mean_extension")
+  assert matching == rows["mean_extension"].count
+
+
+def test_classify_samples_empty_table_yields_empty_list() -> None:
+  stat = _stat()
+  assert stat.classify_samples(_empty_df()) == []
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_non_breaking_and_unresolved_days() -> None:
+  candles = _concat([
+    _make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)}),
+    _make_day("2024-01-03"),  # never breaks
+    _make_truncated_day("2024-01-04"),
+  ])
+  stat = _stat()
+  table = stat.build_day_table(candles)
+  samples = stat.classify_samples(table)
+  assert {s.date for s in samples} == {"2024-01-02"}
+
+
+def test_classify_samples_included_in_compute_result() -> None:
+  candles = _concat([_make_day("2024-01-02", events={_IB_END_30: (115.0, 100.0, 100.0)})])
+  result = _stat().compute(candles)
+  tf = result.instruments["NQ"]["30min"]
+  # One countable day * four magnitude outcomes.
+  assert len(tf.samples) == 4
+
+
+# ===========================================================================
 # JSON round-trip
 # ===========================================================================
 def test_result_validates_and_writes(tmp_path: Path) -> None:

@@ -57,6 +57,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   StatRunResult,
   TimeframeResult,
@@ -277,6 +278,37 @@ class MarketOpenVolume(BaseStat):
     shuffled["rest_volume"] = valid["rest_volume"].to_numpy()[perm]
 
     return self.compute_rows(shuffled, baseline_rows=None)
+
+  # -------------------------------------------------------------------------
+  # Per-day sample classification
+  # -------------------------------------------------------------------------
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per resolved day with both volume quantities valid.
+
+    Mirrors the ``valid = day_table[["open_volume", "rest_volume"]].dropna()``
+    filter in ``compute_rows``: only days where both columns are non-NaN are
+    countable, so the emitted sample count matches the row's ``count``/``total``.
+
+    ``value`` stores the day's ``open_volume`` — the primary per-day quantity
+    the stat is named after. This is a correlation stat, so its reported
+    ``value`` (Pearson r) is an aggregate over paired (open_volume,
+    rest_volume) series, not a per-day quantity; full Pearson r recomputation
+    over a date-filtered subset would require both series paired per day and
+    is deferred to a future iteration.
+    """
+    if day_table.empty:
+      return []
+
+    valid = day_table[["open_volume", "rest_volume"]].dropna()
+    return [
+      SampleRow(
+        date=ts.strftime("%Y-%m-%d"),
+        condition=_CONDITION,
+        outcome=_OUTCOME,
+        value=float(row["open_volume"]),
+      )
+      for ts, row in valid.iterrows()
+    ]
 
 
 # ---------------------------------------------------------------------------

@@ -44,6 +44,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -324,6 +325,33 @@ class IntradayVolumeRange(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (day, bucket, outcome) with a non-NaN metric that day.
+
+    Mirrors ``compute_rows``'s classification exactly: only buckets present in
+    the day table (``_present_buckets``) are considered, and within each bucket
+    only the days whose metric is not NaN contribute — the same days
+    ``compute_rows`` counts in ``n`` and averages into ``value``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for i, bucket_key in self._present_buckets(day_table):
+      for out_key, prefix, _ in _OUTCOMES:
+        series = day_table[f"{prefix}_{i}"]
+        for ts, val in series.items():
+          if pd.notna(val):
+            samples.append(
+              SampleRow(
+                date=ts.strftime("%Y-%m-%d"),
+                condition=bucket_key,
+                outcome=out_key,
+                value=float(val),
+              )
+            )
+    return samples
 
 
 # ---------------------------------------------------------------------------

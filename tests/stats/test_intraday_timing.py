@@ -1090,3 +1090,70 @@ def test_invalid_timeframe_raises() -> None:
   """IntradayTiming with unknown timeframe raises ValueError."""
   with pytest.raises(ValueError, match="Unknown timeframe"):
     IntradayTiming(instrument="NQ", config=_TEST_CONFIG, timeframe="2h")
+
+
+# ===========================================================================
+# 17. classify_samples
+#
+# Reusing _DAY_SPECS (see the multi-day dataset comment above):
+#   2024-01-08: high_bucket=1 "0945", low_bucket=2 "1000"
+#   2024-01-09: high_bucket=5 "1045", low_bucket=1 "0945"
+#   2024-01-10: high_bucket=26 "1600", low_bucket=2 "1000"
+#   2024-01-11: high_bucket=1 "0945", low_bucket=26 "1600"
+#   2024-01-12: high_bucket=2 "1000", low_bucket=1 "0945"
+# Each resolved day emits TWO SampleRows (intraday_high, intraday_low).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits two SampleRows per resolved day, matching the hand-calc."""
+  stat = _stat("15min")
+  table = stat.build_day_table(_make_five_days())
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-08", "intraday_high", "0945"),
+    ("2024-01-08", "intraday_low", "1000"),
+    ("2024-01-09", "intraday_high", "1045"),
+    ("2024-01-09", "intraday_low", "0945"),
+    ("2024-01-10", "intraday_high", "1600"),
+    ("2024-01-10", "intraday_low", "1000"),
+    ("2024-01-11", "intraday_high", "0945"),
+    ("2024-01-11", "intraday_low", "1600"),
+    ("2024-01-12", "intraday_high", "1000"),
+    ("2024-01-12", "intraday_low", "0945"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat("15min")
+  table = stat.build_day_table(_make_five_days())
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat("15min")
+  assert stat.classify_samples(pd.DataFrame(columns=["high_bucket", "low_bucket"])) == []
+
+
+def test_classify_samples_empty_df_via_build_day_table() -> None:
+  """Empty raw input -> build_day_table + classify_samples returns []."""
+  stat = _stat("15min")
+  table = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(table) == []
+
+
+def test_classify_samples_excludes_unresolved_day() -> None:
+  """Unresolved (early-close) day is dropped by build_day_table, so it produces no SampleRow."""
+  stat = _stat("15min")
+  table = stat.build_day_table(_make_five_days_with_unresolved())
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-15" not in sample_dates
+  assert len(sample_dates) == 5
+  assert len(samples) == 10

@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from stats.base import StatRunResult, write_results
+from stats.base import SampleRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
 from stats.intraday_range_window.standard import IntradayRangeWindow
 
@@ -327,6 +327,81 @@ def test_write_and_reload_roundtrip(tmp_path: Path):
   assert set(reloaded.labels.outcomes) == set(_OUTCOME_KEYS)
   tf = reloaded.instruments["NQ"]["0930-1030"]
   assert tf.data_range == ["2026-01-05", "2026-01-06"]
+
+
+# ---------------------------------------------------------------------------
+# classify_samples()
+# ---------------------------------------------------------------------------
+_AGG_FUNCS = {"avg": np.mean, "max": np.max, "min": np.min, "median": np.median}
+
+
+def test_classify_samples_exact_rows():
+  # Single flat day: open=100, high=105, low=95 -> range=10, pct=0.1.
+  candles = _candles(_make_day("2026-01-05", open_=100.0, high=105.0, low=95.0))
+  stat = IntradayRangeWindow("NQ", _TEST_CONFIG)
+  day_table = stat.build_day_table(candles)
+  samples = stat.classify_samples(day_table)
+
+  expected = [
+    SampleRow(date="2026-01-05", condition="0930-1030", outcome=out, value=val)
+    for out, val in (
+      ("range_avg", 10.0), ("range_max", 10.0), ("range_min", 10.0), ("range_median", 10.0),
+      ("range_pct_avg", 0.1), ("range_pct_max", 0.1), ("range_pct_min", 0.1), ("range_pct_median", 0.1),
+    )
+  ]
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows():
+  # 3 days: ranges 10 / 20 / 30, pct 0.1 / 0.2 / 0.3 (see test_aggregates_over_multiple_days).
+  candles = _candles(
+    _make_day("2026-01-05", open_=100.0, high=105.0, low=95.0),
+    _make_day("2026-01-06", open_=100.0, high=115.0, low=95.0),
+    _make_day("2026-01-07", open_=100.0, high=125.0, low=95.0),
+  )
+  stat = IntradayRangeWindow("NQ", _TEST_CONFIG)
+  day_table = stat.build_day_table(candles)
+  samples = stat.classify_samples(day_table)
+  rows_by_outcome = _rows_by_outcome(stat.compute_rows(day_table))
+
+  for out_key in _OUTCOME_KEYS:
+    values = [s.value for s in samples if s.outcome == out_key]
+    row = rows_by_outcome[out_key]
+    assert len(values) == row.total
+    agg = out_key.rsplit("_", 1)[-1]
+    assert _AGG_FUNCS[agg](values) == pytest.approx(row.value)
+
+
+def test_classify_samples_empty_day_table():
+  empty = pd.DataFrame(columns=["timestamp", "open", "high", "low", "close", "volume"])
+  stat = IntradayRangeWindow("NQ", _TEST_CONFIG)
+  day_table = stat.build_day_table(empty)
+  assert stat.classify_samples(day_table) == []
+
+
+def test_classify_samples_excludes_pending_window():
+  # Second day is resolved but every bar inside the window is missing, so its
+  # actual range/pct are NaN — it must NOT produce any samples.
+  good = _make_day("2026-01-05", open_=100.0, high=110.0, low=95.0)
+  missing = _make_day("2026-01-06", open_=100.0, high=120.0, low=95.0)
+  missing = missing[(missing["timestamp"].dt.hour * 60 + missing["timestamp"].dt.minute)
+                    .lt(600) | (missing["timestamp"].dt.hour * 60
+                                + missing["timestamp"].dt.minute).gt(660)]
+  candles = _candles(good, missing)
+
+  stat = IntradayRangeWindow("NQ", _TEST_CONFIG, start_window="10:00", end_window="11:00")
+  day_table = stat.build_day_table(candles)
+  samples = stat.classify_samples(day_table)
+
+  assert len(samples) == 8
+  assert {s.date for s in samples} == {"2026-01-05"}
+  assert {s.outcome for s in samples} == set(_OUTCOME_KEYS)
 
 
 def test_metric_independence_from_numpy_warnings():

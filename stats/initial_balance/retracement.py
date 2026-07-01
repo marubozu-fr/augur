@@ -67,6 +67,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -417,6 +418,32 @@ class InitialBalanceRetracement(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (countable day, threshold reached), mirroring compute_rows'
+    nested threshold hit-rate outcomes. Countable days are single-break sessions
+    (``depth_frac`` not NaN). Outcomes are NESTED, not a partition, so a day
+    contributes zero, one, or several samples depending on how many thresholds its
+    ``depth_frac`` reaches — never a ``value`` (this is a probability channel, not
+    a magnitude one).
+    """
+    if day_table.empty:
+      return []
+
+    depth = pd.to_numeric(day_table["depth_frac"], errors="coerce")
+    countable = depth.notna()
+    if not bool(countable.any()):
+      return []
+
+    dates = np.array(day_table.index[countable].strftime("%Y-%m-%d"))
+    depth_ct = depth[countable].to_numpy()
+
+    samples: list[SampleRow] = []
+    for t in self.thresholds:
+      outcome = _outcome_key(t)
+      for date in dates[depth_ct >= t]:
+        samples.append(SampleRow(date=date, condition=_CONDITION, outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

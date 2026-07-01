@@ -34,6 +34,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   _ColorSlicer,
   _WEEKDAYS,
@@ -82,6 +83,9 @@ _LABELS = Labels(
 
 # Ordered list of (int, key) for weekday iteration.
 _WEEKDAY_ORDER: list[tuple[int, str]] = [(num, key) for num, key, _, _ in _WEEKDAYS]
+
+# Maps a weekday int (0=Monday .. 6=Sunday) to its outcome key.
+_WEEKDAY_KEY_BY_NUM: dict[int, str] = {num: key for num, key in _WEEKDAY_ORDER}
 
 
 # ---------------------------------------------------------------------------
@@ -292,6 +296,28 @@ class HighLowWeekday(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Four SampleRows per resolved week, mirroring ``compute_rows``.
+
+    ``build_day_table`` already excludes the final (pending) ISO week and any
+    week whose days are unresolved, so every row of ``day_table`` is countable.
+    Each week contributes exactly one weekday outcome per condition: the
+    ``date`` carried by each ``SampleRow`` is the week's first session date
+    (the day_table's index), so the API can re-slice by weekday after
+    reloading these samples for an arbitrary date range.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date_str = ts.strftime("%Y-%m-%d")
+      for cond_key, _ in _CONDITIONS:
+        col = _CONDITION_COLUMN[cond_key]
+        outcome = _WEEKDAY_KEY_BY_NUM[int(row[col])]
+        samples.append(SampleRow(date=date_str, condition=cond_key, outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

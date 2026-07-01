@@ -50,6 +50,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -298,6 +299,36 @@ class IctOpeningRetracement(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    Each countable day (``gap_size_pts`` not NaN) belongs to exactly one
+    condition (``opened_above`` / ``opened_below``, from the ``opened_above``
+    column) and exactly one outcome (``retraced`` / ``not_retraced``, from the
+    ``retraced`` column) — the two dimensions form a single 2x2 partition of
+    countable days, so each day yields exactly one sample. Non-countable days
+    (zero direction or missing reference bar) are excluded, matching the
+    ``countable`` mask in ``compute_rows``.
+    """
+    if day_table.empty:
+      return []
+
+    countable = day_table["gap_size_pts"].notna()
+    ct = day_table[countable]
+    if ct.empty:
+      return []
+
+    opened_above = ct["opened_above"].astype(bool)
+    retraced = ct["retraced"].astype(bool)
+
+    samples: list[SampleRow] = []
+    for ts, is_above, is_retraced in zip(ct.index, opened_above, retraced):
+      date_str = ts.strftime("%Y-%m-%d")
+      condition = "opened_above" if is_above else "opened_below"
+      outcome = "retraced" if is_retraced else "not_retraced"
+      samples.append(SampleRow(date=date_str, condition=condition, outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

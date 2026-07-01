@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from stats.base import StatResultRow, StatRunResult, write_results
+from stats.base import SampleRow, StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
 from stats.market_open_volume.standard import MarketOpenVolume
 
@@ -897,3 +897,77 @@ def test_baseline_n_equals_count() -> None:
   r = _tf(result, "1h").results[0]
   # The baseline is computed from the same valid rows
   assert r.baseline_n == r.count
+
+
+# ===========================================================================
+# 12. classify_samples()
+#
+# Reuses the three-day positively-correlated dataset (1h timeframe):
+#   Day A 2024-01-08: open_volume=600
+#   Day B 2024-01-09: open_volume=1200
+#   Day C 2024-01-10: open_volume=1800
+# ===========================================================================
+
+def test_classify_samples_exact_rows() -> None:
+  """classify_samples() emits exactly the 3 expected SampleRows."""
+  stat = _stat("1h")
+  dt = stat.build_day_table(_make_pos_corr_days_1h())
+  samples = stat.classify_samples(dt)
+
+  expected = [
+    SampleRow(date="2024-01-08", condition="any_day", outcome="correlation", value=float(_OV_A_1H)),
+    SampleRow(date="2024-01-09", condition="any_day", outcome="correlation", value=float(_OV_B_1H)),
+    SampleRow(date="2024-01-10", condition="any_day", outcome="correlation", value=float(_OV_C_1H)),
+  ]
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows_count_and_values() -> None:
+  """Sample count equals the row's N; sample values reproduce open_volume."""
+  stat = _stat("1h")
+  dt = stat.build_day_table(_make_pos_corr_days_1h())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+  row = _row(rows, "any_day", "correlation")
+
+  assert len(samples) == row.total
+  valid = dt[["open_volume", "rest_volume"]].dropna()
+  got_values = sorted(s.value for s in samples)
+  want_values = sorted(float(v) for v in valid["open_volume"])
+  assert got_values == pytest.approx(want_values)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _stat("1h")
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_excludes_row_with_nan_column() -> None:
+  """A day with a NaN in either volume column is excluded (non-countable).
+
+  Mirrors ``compute_rows``' ``valid = day_table[[...]].dropna()`` filter:
+  only days with both ``open_volume`` and ``rest_volume`` non-NaN are
+  countable and thus classified.
+  """
+  stat = _stat("1h")
+  dt = pd.DataFrame(
+    {
+      "open_volume": [600.0, 1200.0, float("nan")],
+      "rest_volume": [1725.0, float("nan"), 5175.0],
+    },
+    index=pd.DatetimeIndex(["2024-01-08", "2024-01-09", "2024-01-10"]),
+  )
+  samples = stat.classify_samples(dt)
+  assert len(samples) == 1
+  assert samples[0].date == "2024-01-08"
+  assert samples[0].condition == "any_day"
+  assert samples[0].outcome == "correlation"
+  assert samples[0].value == pytest.approx(600.0)

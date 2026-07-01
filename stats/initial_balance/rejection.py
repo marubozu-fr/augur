@@ -72,6 +72,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   StatRunResult,
@@ -398,6 +399,38 @@ class InitialBalanceRejection(BaseStat):
         count = int((cond_mask & outcome_masks[out]).sum())
         rows.append(_make(cond, out, count, total))
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring compute_rows' 2x3 contingency:
+    the condition is which IB edge formed first (``formed_high`` / ``formed_low``)
+    and the outcome is which edge broke first afterward (``broke_high`` /
+    ``broke_low`` / ``neither``). A day is countable only when both the formation
+    order and the break order are determined (see ``_classify``).
+    """
+    if day_table.empty:
+      return []
+
+    countable, outcome_masks = self._classify(day_table)
+    if not bool(countable.any()):
+      return []
+
+    formed_high = day_table["formed_high_first"].fillna(False).astype(bool).to_numpy()
+    cond = np.where(formed_high, _CONDITION_FORMED_HIGH, _CONDITION_FORMED_LOW)
+    outcome = np.select(
+      [
+        outcome_masks["broke_high"].to_numpy(),
+        outcome_masks["broke_low"].to_numpy(),
+        outcome_masks["neither"].to_numpy(),
+      ],
+      ["broke_high", "broke_low", "neither"],
+      default="neither",
+    )
+
+    dates = np.array(day_table.index.strftime("%Y-%m-%d"))
+    idx = np.flatnonzero(countable.to_numpy())
+    return [
+      SampleRow(date=dates[i], condition=cond[i], outcome=outcome[i]) for i in idx
+    ]
 
   # -------------------------------------------------------------------------
   # Baseline
