@@ -966,3 +966,139 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   # The French definition contains "précédente" (with é).
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# 10. classify_samples()
+# ===========================================================================
+
+def test_classify_samples_exact_rows_single_countable_day() -> None:
+  """One countable day touching L500 & L382, opening in zone 382_500.
+
+  Day band [149, 162]: touches L382=161.8 and L500=150 only.
+  session_open=155 → open_frac=(200-155)/100=0.45 → 382_500.
+  """
+  days = [
+    _PRIOR_GREEN,
+    {"date": _CURRENT_DATE, "open": 155.0, "close": 156.0, "high": 162.0, "low": 149.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(dt)
+
+  fib_samples = {(s.date, s.outcome) for s in samples if s.condition == "fib_levels"}
+  assert fib_samples == {
+    (_CURRENT_DATE, "touch_382"),
+    (_CURRENT_DATE, "touch_500"),
+  }
+
+  zone_samples = [s for s in samples if s.condition == "opening_zone"]
+  assert len(zone_samples) == 1
+  assert zone_samples[0].date == _CURRENT_DATE
+  assert zone_samples[0].outcome == "382_500"
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_multi_touch_day_yields_multiple_fib_samples() -> None:
+  """A day touching all 7 levels yields 7 fib_levels samples (multi-touch)."""
+  days = [
+    _PRIOR_GREEN,
+    {"date": _CURRENT_DATE, "open": 150.0, "close": 155.0, "high": 201.0, "low": 99.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(dt)
+  fib_samples = [s for s in samples if s.condition == "fib_levels"]
+  assert len(fib_samples) == 7
+  outcomes = {s.outcome for s in fib_samples}
+  assert outcomes == {
+    "touch_0", "touch_236", "touch_382", "touch_500", "touch_618", "touch_786", "touch_100",
+  }
+
+
+def test_classify_samples_opening_zone_is_a_partition() -> None:
+  """Every countable day yields exactly one opening_zone sample."""
+  days = [
+    {"date": "2024-01-02", "open": 100.0, "close": 200.0, "high": 200.0, "low": 100.0},
+    {"date": "2024-01-03", "open": 165.0, "close": 168.0, "high": 174.0, "low": 162.0},
+    {"date": "2024-01-04", "open": 150.0, "close": 155.0, "high": 160.0, "low": 148.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(dt)
+  zone_samples = [s for s in samples if s.condition == "opening_zone"]
+  # 2 countable days (01-03, 01-04) → 1 zone sample each.
+  assert len(zone_samples) == 2
+  assert {s.date for s in zone_samples} == {"2024-01-03", "2024-01-04"}
+
+
+def test_classify_samples_matches_compute_rows_touch_counts() -> None:
+  """Each fib_levels outcome's sample count equals its compute_rows count."""
+  stat = _stat()
+  dt = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  for key in ("touch_0", "touch_236", "touch_382", "touch_500", "touch_618", "touch_786", "touch_100"):
+    row = next(r for r in rows if r.condition == "fib_levels" and r.outcome == key)
+    n_samples = len([s for s in samples if s.condition == "fib_levels" and s.outcome == key])
+    assert n_samples == row.count, f"{key}: samples={n_samples}, expected count={row.count}"
+
+
+def test_classify_samples_matches_compute_rows_zone_counts() -> None:
+  """Each opening_zone outcome's sample count equals its compute_rows count."""
+  stat = _stat()
+  dt = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  for key in _ALL_ZONE_KEYS:
+    row = next(r for r in rows if r.condition == "opening_zone" and r.outcome == key)
+    n_samples = len([s for s in samples if s.condition == "opening_zone" and s.outcome == key])
+    assert n_samples == row.count, f"{key}: samples={n_samples}, expected count={row.count}"
+
+
+def test_classify_samples_zone_denominator_matches_countable_n() -> None:
+  """Total opening_zone samples equals the countable_n (touch row total)."""
+  stat = _stat()
+  dt = stat.build_day_table(_long_seq())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+  countable_n = next(r.total for r in rows if r.condition == "fib_levels" and r.outcome == "touch_0")
+  zone_samples = [s for s in samples if s.condition == "opening_zone"]
+  assert len(zone_samples) == countable_n
+
+
+def test_classify_samples_first_day_excluded() -> None:
+  """The first resolved day (no prior) contributes no fib_levels or opening_zone sample."""
+  days = [
+    {"date": "2024-01-02", "open": 100.0, "close": 200.0, "high": 200.0, "low": 100.0},
+    {"date": "2024-01-03", "open": 165.0, "close": 168.0, "high": 174.0, "low": 162.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(dt)
+  assert all(s.date != "2024-01-02" for s in samples)
+
+
+def test_classify_samples_zero_range_prior_day_excluded() -> None:
+  """A day whose prior has zero range is not countable → contributes no sample."""
+  days = [
+    {"date": "2024-01-02", "open": 100.0, "close": 100.0, "high": 100.0, "low": 100.0},
+    {"date": "2024-01-03", "open": 150.0, "close": 155.0, "high": 160.0, "low": 148.0},
+    {"date": "2024-01-04", "open": 155.0, "close": 158.0, "high": 162.0, "low": 153.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(days))
+  samples = stat.classify_samples(dt)
+  # Day 1 (01-03) has a zero-range prior (Day 0) → excluded.
+  assert all(s.date != "2024-01-03" for s in samples)
+  # Day 2 (01-04) has a valid prior (Day 1, rng=12) → countable.
+  assert any(s.date == "2024-01-04" for s in samples)
+
+
+def test_classify_samples_empty_day_table_returns_empty_list() -> None:
+  """Empty day_table → classify_samples returns []."""
+  stat = _stat()
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []

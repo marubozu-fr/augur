@@ -565,3 +565,48 @@ def test_write_results_utf8_literals(tmp_path: Path) -> None:
   raw = write_results(result, results_dir=tmp_path).read_text(encoding="utf-8")
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# 15. classify_samples
+#
+# _MIXED_DF: one bullish/filled FVG on 2024-01-02 (_BULL_FILL), one
+# bearish/not-filled FVG on 2024-01-03 (_BEAR_NOFILL).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per FVG event, matching the hand-calc."""
+  stat = _stat()
+  table = stat.build_day_table(_MIXED_DF)
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "bullish", "filled"),
+    ("2024-01-03", "bearish", "not_filled"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  table = stat.build_day_table(_MIXED_DF)
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(pd.DataFrame(columns=["direction", "gap_size_pct", "filled"])) == []
+
+
+def test_classify_samples_excludes_pending_event() -> None:
+  """A pending FVG (c3 = last session candle) is excluded from build_day_table,
+  so classify_samples emits no SampleRow for that session."""
+  stat = _stat()
+  table = stat.build_day_table(_make_session("2024-01-02", _PENDING))
+  assert table.empty
+  assert stat.classify_samples(table) == []

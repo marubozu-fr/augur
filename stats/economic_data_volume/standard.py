@@ -39,6 +39,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -314,6 +315,32 @@ class EconomicDataVolume(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (condition, day) where the day matches that condition.
+
+    A day matching several conditions (e.g. a CPI day is also an any_event day)
+    yields one sample per matching condition, mirroring how ``compute_rows``
+    counts it under each.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for cond_key, col in _CONDITIONS:
+      if col not in day_table.columns:
+        continue
+      sub = day_table[day_table[col].astype(bool)]
+      for ts, row in sub.iterrows():
+        samples.append(
+          SampleRow(
+            date=ts.strftime("%Y-%m-%d"),
+            condition=cond_key,
+            outcome=_OUTCOME,
+            value=float(row["volume"]),
+          )
+        )
+    return samples
 
 
 # ---------------------------------------------------------------------------

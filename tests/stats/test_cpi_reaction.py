@@ -849,3 +849,60 @@ def test_compute_result_validates_as_stat_run_result() -> None:
   assert revalidated.stat_name == "cpi_reaction"
   rows = revalidated.instruments["NQ"]["daily"].results
   assert len(rows) == 4
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _build_8day_df / _CPI_DATES_8 (see the 8-day matrix table above).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per qualifying CPI day, matching the hand-calc."""
+  stat = _stat(_CPI_DATES_8)
+  table = stat.build_day_table(_build_8day_df())
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "reaction_green", "green"),
+    ("2024-01-03", "reaction_green", "green"),
+    ("2024-01-04", "reaction_green", "green"),
+    ("2024-01-05", "reaction_green", "red"),
+    ("2024-01-08", "reaction_green", "red"),
+    ("2024-01-09", "reaction_red", "green"),
+    ("2024-01-10", "reaction_red", "red"),
+    ("2024-01-11", "reaction_red", "red"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat(_CPI_DATES_8)
+  table = stat.build_day_table(_build_8day_df())
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat(_CPI_DATES_8)
+  assert stat.classify_samples(pd.DataFrame(columns=["reaction_green", "day_green"])) == []
+
+
+def test_classify_samples_excludes_non_qualifying_day() -> None:
+  """A CPI day missing the reaction open bar is dropped by build_day_table,
+  so classify_samples emits no SampleRow for it."""
+  bad_date = "2024-02-01"
+  stat = _stat(["2024-01-02", bad_date])
+  df = _make_candles([
+    _make_cpi_day("2024-01-02", 100.0, 110.0, 100.0, 115.0),
+    _make_missing_reaction_open_day(bad_date),
+  ])
+  table = stat.build_day_table(df)
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert bad_date not in sample_dates
+  assert "2024-01-02" in sample_dates

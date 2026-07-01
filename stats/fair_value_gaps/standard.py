@@ -65,6 +65,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -353,6 +354,24 @@ class FairValueGaps(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per FVG event, mirroring ``compute_rows``.
+
+    Every row in the event table is countable (pending events are already
+    excluded by ``build_day_table``); a session with multiple FVG events
+    contributes multiple SampleRows sharing the same date.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, direction, filled in zip(
+      day_table.index, day_table["direction"], day_table["filled"]
+    ):
+      outcome = "filled" if bool(filled) else "not_filled"
+      samples.append(SampleRow(date=ts.strftime("%Y-%m-%d"), condition=str(direction), outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

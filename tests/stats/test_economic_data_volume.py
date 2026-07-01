@@ -40,9 +40,13 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from stats.base import StatResultRow, StatRunResult, write_results
+from stats.base import SampleRow, StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
-from stats.economic_data_volume.standard import EconomicDataVolume, load_gdp_release_dates
+from stats.economic_data_volume.standard import (
+  _CONDITIONS,
+  EconomicDataVolume,
+  load_gdp_release_dates,
+)
 
 # ---------------------------------------------------------------------------
 # Minimal InstrumentConfig — does not depend on NQ.yaml
@@ -891,3 +895,72 @@ def test_compute_result_validates_as_stat_run_result() -> None:
   assert revalidated.stat_name == "economic_data_volume"
   rows = revalidated.instruments["NQ"]["daily"].results
   assert len(rows) == 6
+
+
+# ===========================================================================
+# 11. classify_samples()
+#
+# Reuses the main 4-resolved-day dataset:
+#   Day A 2024-01-02: CPI+FOMC, volume=3000
+#   Day B 2024-01-03: NFP,       volume=2000
+#   Day C 2024-01-04: GDP,       volume=4000
+#   Day D 2024-01-05: non-event, volume=1000
+# ===========================================================================
+
+def test_classify_samples_exact_rows() -> None:
+  """classify_samples() emits exactly the 8 expected SampleRows."""
+  stat = _build_main_stat()
+  dt = stat.build_day_table(_build_main_candles())
+  samples = stat.classify_samples(dt)
+
+  expected = [
+    SampleRow(date="2024-01-02", condition="cpi_day", outcome="mean_volume", value=3000.0),
+    SampleRow(date="2024-01-02", condition="fomc_day", outcome="mean_volume", value=3000.0),
+    SampleRow(date="2024-01-03", condition="nfp_day", outcome="mean_volume", value=2000.0),
+    SampleRow(date="2024-01-04", condition="gdp_day", outcome="mean_volume", value=4000.0),
+    SampleRow(date="2024-01-02", condition="any_event_day", outcome="mean_volume", value=3000.0),
+    SampleRow(date="2024-01-03", condition="any_event_day", outcome="mean_volume", value=2000.0),
+    SampleRow(date="2024-01-04", condition="any_event_day", outcome="mean_volume", value=4000.0),
+    SampleRow(date="2024-01-05", condition="non_event_day", outcome="mean_volume", value=1000.0),
+  ]
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows() -> None:
+  """Per-condition sample count/mean reconstruct the mean_volume row."""
+  stat = _build_main_stat()
+  dt = stat.build_day_table(_build_main_candles())
+  samples = stat.classify_samples(dt)
+  result = stat.compute(_build_main_candles())
+
+  for cond_key, _ in _CONDITIONS:
+    values = [s.value for s in samples if s.condition == cond_key]
+    row = _row(result, cond_key)
+    assert len(values) == row.total
+    if values:
+      assert sum(values) / len(values) == pytest.approx(row.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _build_main_stat()
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_excludes_unresolved_day() -> None:
+  """An unresolved (pending) day never contributes a sample to any condition.
+
+  Day E (2024-01-08) is truncated (last RTH bar at mod 590 < 960) and is
+  dropped entirely by build_day_table, so classify_samples never sees it.
+  """
+  stat = _build_main_stat()
+  dt = stat.build_day_table(_build_main_candles())
+  samples = stat.classify_samples(dt)
+  assert all(s.date != "2024-01-08" for s in samples)

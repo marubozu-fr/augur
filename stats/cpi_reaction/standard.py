@@ -41,6 +41,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -275,6 +276,24 @@ class CPIReaction(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per qualifying CPI release date, mirroring ``compute_rows``.
+
+    Every row in the day table is countable (non-qualifying dates are already
+    excluded by ``build_day_table``).
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, reaction_green, day_green in zip(
+      day_table.index, day_table["reaction_green"], day_table["day_green"]
+    ):
+      condition = "reaction_green" if bool(reaction_green) else "reaction_red"
+      outcome = "green" if bool(day_green) else "red"
+      samples.append(SampleRow(date=ts.strftime("%Y-%m-%d"), condition=condition, outcome=outcome))
+    return samples
 
   def baseline_rows(self, day_table: pd.DataFrame, seed: int) -> list[StatResultRow]:
     """Random baseline: randomize RTH day color (p=0.5) to destroy any correlation.

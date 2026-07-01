@@ -45,7 +45,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from stats.base import StatResultRow, StatRunResult, write_results
+from stats.base import SampleRow, StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
 from stats.fomc_intraday.standard import FOMCIntraday
 
@@ -967,3 +967,101 @@ def test_compute_result_validates_as_stat_run_result() -> None:
   assert revalidated.stat_name == "fomc_intraday"
   rows = revalidated.instruments["NQ"]["daily"].results
   assert len(rows) == _N_ROWS
+
+
+# ===========================================================================
+# 11. classify_samples()
+#
+# Reuses the 3-day dataset (see section 1): only i0930 and i1400 have bars,
+# every other interval is NaN across all days, so only those two intervals
+# produce samples (3 days x 2 intervals x 3 metrics = 18 samples).
+#
+#   Day 1 (2024-03-20): i0930 pct=+0.10 dollar=+10  vol=2000
+#                        i1400 pct=+0.20 dollar=+20  vol=1000
+#   Day 2 (2024-05-01): i0930 pct=-0.10 dollar=-20  vol=4000
+#                        i1400 pct=-0.10 dollar=-10  vol=1200
+#   Day 3 (2024-07-31): i0930 pct=0.00  dollar=0    vol=3000
+#                        i1400 pct=0.00  dollar=0    vol=1400
+# ===========================================================================
+
+def test_classify_samples_exact_rows() -> None:
+  """classify_samples() emits exactly the 18 expected SampleRows."""
+  stat = _stat(_FOMC_DATES_3)
+  dt = stat.build_day_table(_build_3day_df())
+  samples = stat.classify_samples(dt)
+
+  def _rows_for(date: str, pct: float, dollar: float, vol: float, key: str) -> list[SampleRow]:
+    return [
+      SampleRow(date=date, condition=key, outcome="pct_change", value=pct),
+      SampleRow(date=date, condition=key, outcome="dollar_change", value=dollar),
+      SampleRow(date=date, condition=key, outcome="volume", value=vol),
+    ]
+
+  expected = (
+    _rows_for("2024-03-20", 0.10, 10.0, 2000.0, "i0930")
+    + _rows_for("2024-03-20", 0.20, 20.0, 1000.0, "i1400")
+    + _rows_for("2024-05-01", -0.10, -20.0, 4000.0, "i0930")
+    + _rows_for("2024-05-01", -0.10, -10.0, 1200.0, "i1400")
+    + _rows_for("2024-07-31", 0.0, 0.0, 3000.0, "i0930")
+    + _rows_for("2024-07-31", 0.0, 0.0, 1400.0, "i1400")
+  )
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows() -> None:
+  """Per-(interval, metric) samples reconstruct total, mean, and count(>=0)."""
+  stat = _stat(_FOMC_DATES_3)
+  dt = stat.build_day_table(_build_3day_df())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  for key in ("i0930", "i1400"):
+    for outcome in ("pct_change", "dollar_change", "volume"):
+      values = [s.value for s in samples if s.condition == key and s.outcome == outcome]
+      row = next(r for r in rows if r.condition == key and r.outcome == outcome)
+      assert len(values) == row.total
+      assert sum(values) / len(values) == pytest.approx(row.value)
+      if outcome == "volume":
+        assert row.count == row.total
+      else:
+        assert sum(1 for v in values if v >= 0) == row.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _stat([])
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_skips_missing_interval_bar() -> None:
+  """A day missing an interval's open bar produces no sample for that interval.
+
+  Reuses the "thin day" fixture: 2024-03-20 has no bar at i0945's start minute,
+  so it contributes to i0930 but not to i0945; 2024-03-19 is a full day and
+  contributes to both.
+  """
+  stat = _stat(["2024-03-19", "2024-03-20"])
+  dt = stat.build_day_table(_build_missing_interval_df())
+  samples = stat.classify_samples(dt)
+
+  thin_day_i0945 = [
+    s for s in samples if s.date == "2024-03-20" and s.condition == "i0945"
+  ]
+  assert thin_day_i0945 == []
+
+  thin_day_i0930 = [
+    s for s in samples if s.date == "2024-03-20" and s.condition == "i0930"
+  ]
+  assert len(thin_day_i0930) == 3  # pct, dollar, volume all present
+
+  full_day_i0945 = [
+    s for s in samples if s.date == "2024-03-19" and s.condition == "i0945"
+  ]
+  assert len(full_day_i0945) == 3

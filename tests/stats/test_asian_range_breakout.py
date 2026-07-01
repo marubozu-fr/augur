@@ -650,3 +650,78 @@ def test_write_results_french_accent_literal(tmp_path: Path) -> None:
   raw = written.read_text(encoding="utf-8")
   assert "é" in raw
   assert "\\u00e9" not in raw
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _SEQ (see the 4-outcome partition table above): all 8 days are
+# countable (resolved RTH day + prior Asian range).
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per countable day, matching the hand-calc."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "asian_range", "broke_high"),
+    ("2024-01-03", "asian_range", "broke_low"),
+    ("2024-01-04", "asian_range", "broke_both"),
+    ("2024-01-05", "asian_range", "neither"),
+    ("2024-01-08", "asian_range", "broke_high"),
+    ("2024-01-09", "asian_range", "broke_low"),
+    ("2024-01-10", "asian_range", "broke_both"),
+    ("2024-01-11", "asian_range", "neither"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(_empty_df().iloc[:0]) == []
+  assert stat.classify_samples(pd.DataFrame()) == []
+
+
+def test_classify_samples_excludes_noncountable_day() -> None:
+  """A day with a NaN Asian range (non-countable) produces no SampleRow.
+
+  ``build_day_table`` always inner-joins away such days, so this constructs
+  the table manually to directly exercise the ``countable`` mask that
+  ``classify_samples`` shares with ``compute_rows``.
+  """
+  stat = _stat()
+  index = pd.DatetimeIndex(
+    [pd.Timestamp("2024-02-01", tz=_NY), pd.Timestamp("2024-02-02", tz=_NY)]
+  )
+  table = pd.DataFrame(
+    {
+      "ar_high": [110.0, float("nan")],
+      "ar_low": [90.0, 90.0],
+      "day_high": [115.0, 115.0],
+      "day_low": [95.0, 95.0],
+      "day_close_high": [115.0, 115.0],
+      "day_close_low": [95.0, 95.0],
+    },
+    index=index,
+  )
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-02-01", "asian_range", "broke_high"),
+  ]
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count

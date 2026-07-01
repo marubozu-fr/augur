@@ -59,7 +59,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from stats.base import BaseStat, StatResultRow, write_results
+from stats.base import BaseStat, SampleRow, StatResultRow, write_results
 from stats.config import InstrumentConfig, load_config, minute_of_day
 from stats.utils.daily_candles import build_resolved_days
 
@@ -250,6 +250,33 @@ class EventPerformanceStat(BaseStat):
         values[mask] = signs * np.abs(values[mask])
       tmp[column] = values
     return self.compute_rows(tmp, baseline_rows=None)
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per non-pending window observation, mirroring ``compute_rows``.
+
+    Each event row contributes up to three samples (one per window), skipping
+    windows whose return is NaN (pending). The ``mean_return`` row that
+    ``compute_rows`` emits is a derived aggregate over the green/red samples,
+    not a sample outcome itself.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date = ts.strftime("%Y-%m-%d")
+      for condition, column in self.windows:
+        ret = row[column]
+        if pd.notna(ret):
+          samples.append(
+            SampleRow(
+              date=date,
+              condition=condition,
+              outcome="green" if ret >= 0 else "red",
+              value=float(ret),
+            )
+          )
+    return samples
 
 
 # ---------------------------------------------------------------------------

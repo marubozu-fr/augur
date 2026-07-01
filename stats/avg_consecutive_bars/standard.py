@@ -27,6 +27,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -339,6 +340,22 @@ class AvgConsecutiveBars(BaseStat):
         value_baseline=None,
       ),
     ]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (day, color) with a non-NaN max streak that day."""
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date = ts.strftime("%Y-%m-%d")
+      green = row["max_green_streak"]
+      if pd.notna(green):
+        samples.append(SampleRow(date=date, condition="green", outcome=_OUTCOME_KEY, value=float(green)))
+      red = row["max_red_streak"]
+      if pd.notna(red):
+        samples.append(SampleRow(date=date, condition="red", outcome=_OUTCOME_KEY, value=float(red)))
+    return samples
 
 
 # ---------------------------------------------------------------------------

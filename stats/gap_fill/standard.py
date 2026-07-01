@@ -44,6 +44,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -263,6 +264,24 @@ class GapFill(BaseStat):
           )
         )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable (gapped) day, mirroring ``compute_rows``."""
+    if day_table.empty:
+      return []
+
+    countable = day_table["gap_size_pts"].notna()
+    gap_up = day_table["gap_up"].astype(bool)
+    filled = day_table["filled"].astype(bool)
+
+    samples: list[SampleRow] = []
+    for ts in day_table.index:
+      if not countable.loc[ts]:
+        continue
+      condition = "gap_up" if gap_up.loc[ts] else "gap_down"
+      outcome = "filled" if filled.loc[ts] else "not_filled"
+      samples.append(SampleRow(date=ts.strftime("%Y-%m-%d"), condition=condition, outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

@@ -58,6 +58,7 @@ from stats.base import (
   I18nString,
   Labels,
   Levels,
+  SampleRow,
   SizeBucket,
   StatResultRow,
   write_results,
@@ -311,6 +312,36 @@ class AsianRangeBreakout(BaseStat):
     }
 
     return [_make(out, counts[out], total) for out in _OUTCOMES]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``."""
+    if day_table.empty:
+      return []
+
+    ar_high = day_table["ar_high"]
+    ar_low = day_table["ar_low"]
+    high, low = self._break_extremes(day_table)
+
+    countable = ar_high.notna() & ar_low.notna() & high.notna() & low.notna()
+    above = countable & (high > ar_high)
+    below = countable & (low < ar_low)
+
+    samples: list[SampleRow] = []
+    for ts in day_table.index:
+      if not countable.loc[ts]:
+        continue
+      is_above = bool(above.loc[ts])
+      is_below = bool(below.loc[ts])
+      if is_above and is_below:
+        outcome = "broke_both"
+      elif is_above:
+        outcome = "broke_high"
+      elif is_below:
+        outcome = "broke_low"
+      else:
+        outcome = "neither"
+      samples.append(SampleRow(date=ts.strftime("%Y-%m-%d"), condition="asian_range", outcome=outcome))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

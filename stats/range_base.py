@@ -26,7 +26,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from stats.base import BaseStat, StatResultRow, write_results
+from stats.base import BaseStat, SampleRow, StatResultRow, write_results
 from stats.config import InstrumentConfig, load_config, minute_of_day
 
 
@@ -121,6 +121,29 @@ class RangeExceedanceStat(BaseStat):
       _make(cond, "exceeded", exceeded_n, countable_n),
       _make(cond, "respected", respected_n, countable_n),
     ]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day, mirroring ``compute_rows``.
+
+    A day is countable when ``ref_col`` is non-NaN and positive, matching the
+    ``countable`` mask in ``compute_rows``.
+    """
+    if day_table.empty or self.ref_col not in day_table or self.range_col not in day_table:
+      return []
+
+    ref = day_table[self.ref_col]
+    rng = day_table[self.range_col]
+    countable = ref.notna() & (ref > 0)
+
+    samples: list[SampleRow] = []
+    for ts, is_countable in countable.items():
+      if not is_countable:
+        continue
+      outcome = "exceeded" if rng.loc[ts] > ref.loc[ts] else "respected"
+      samples.append(
+        SampleRow(date=ts.strftime("%Y-%m-%d"), condition=self.condition_key, outcome=outcome)
+      )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

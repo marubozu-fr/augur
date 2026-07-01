@@ -794,3 +794,55 @@ def test_true_range_is_always_gte_plain_range() -> None:
       f"TR < plain range at {date}: TR={table.loc[date, 'true_range']}, "
       f"range={plain_range.loc[date]}"
     )
+
+
+# ===========================================================================
+# classify_samples
+#
+# period=3, _7_SESSIONS (see table at top of file):
+#   idx 0-2 (2024-01-02, 03, 04): NaN atr → not countable, no SampleRow.
+#   idx 3 (2024-01-05): TR=51, atr=7.667   → 51 > 7.667?  Yes → exceeded
+#   idx 4 (2024-01-08): TR=2,  atr=21.333  → 2  > 21.333? No  → respected
+#   idx 5 (2024-01-09): TR=52, atr=18.333  → 52 > 18.333? Yes → exceeded
+#   idx 6 (2024-01-10): TR=2,  atr=35.0    → 2  > 35.0?   No  → respected
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per countable day, matching the hand-calc."""
+  stat = _stat(period=3)
+  table = stat.build_day_table(make_candles(_7_SESSIONS))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-05", "atr", "exceeded"),
+    ("2024-01-08", "atr", "respected"),
+    ("2024-01-09", "atr", "exceeded"),
+    ("2024-01-10", "atr", "respected"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat(period=3)
+  table = stat.build_day_table(make_candles(_7_SESSIONS))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat(period=3)
+  assert stat.classify_samples(pd.DataFrame(columns=["true_range", "atr"])) == []
+
+
+def test_classify_samples_excludes_noncountable_warmup_days() -> None:
+  """The warm-up (NaN atr) days produce no SampleRow."""
+  stat = _stat(period=3)
+  table = stat.build_day_table(make_candles(_7_SESSIONS))
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  for d in ("2024-01-02", "2024-01-03", "2024-01-04"):
+    assert d not in sample_dates

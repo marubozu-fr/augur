@@ -57,6 +57,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -319,6 +320,71 @@ class FibonacciLevels(BaseStat):
       rows.append(_make("opening_zone", key, int(mask.sum()), countable_n))
 
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day per touched level (tier 1) plus one per
+    countable day for its opening zone (tier 2).
+
+    Tier 1 — ``fib_levels`` touches are INDEPENDENT: a countable day may yield
+    zero, one, or several samples (one per touched level), reproducing each
+    level's touch count.
+
+    Tier 2 — ``opening_zone`` is a PARTITION: every countable day yields
+    exactly one sample, reproducing the zone counts and the denominator.
+    """
+    if day_table.empty:
+      return []
+
+    has_prior = day_table["prev_high"].notna() & day_table["prev_low"].notna()
+    prior_rng_series = (day_table["prev_high"] - day_table["prev_low"]).where(has_prior)
+    countable = has_prior & (prior_rng_series > 0)
+
+    ct = day_table[countable]
+    if ct.empty:
+      return []
+
+    prev_high = ct["prev_high"].to_numpy(dtype=float)
+    prev_low = ct["prev_low"].to_numpy(dtype=float)
+    rng_ = prev_high - prev_low
+
+    green = ct["prev_session_green"].fillna(False).to_numpy(dtype=bool)
+
+    day_high = ct["day_high"].to_numpy(dtype=float)
+    day_low = ct["day_low"].to_numpy(dtype=float)
+    session_open = ct["session_open"].to_numpy(dtype=float)
+
+    dates = [ts.strftime("%Y-%m-%d") for ts in ct.index]
+
+    samples: list[SampleRow] = []
+
+    # ----- Tier 1: level touches (independent, 0..7 per day) -----
+    for frac, key in zip(_FIB_FRACS, _TOUCH_KEYS):
+      level = np.where(green, prev_high - frac * rng_, prev_low + frac * rng_)
+      touched = (day_low <= level) & (day_high >= level)
+      for pos in np.flatnonzero(touched):
+        samples.append(SampleRow(date=dates[pos], condition="fib_levels", outcome=key))
+
+    # ----- Tier 2: opening zone (partition, exactly 1 per day) -----
+    open_frac = np.where(
+      green,
+      (prev_high - session_open) / rng_,
+      (session_open - prev_low) / rng_,
+    )
+    zone_masks: list[tuple[str, np.ndarray]] = [
+      ("below_0",   open_frac < 0.0),
+      ("0_236",     (open_frac >= 0.0) & (open_frac < 0.236)),
+      ("236_382",   (open_frac >= 0.236) & (open_frac < 0.382)),
+      ("382_500",   (open_frac >= 0.382) & (open_frac < 0.5)),
+      ("500_618",   (open_frac >= 0.5) & (open_frac < 0.618)),
+      ("618_786",   (open_frac >= 0.618) & (open_frac < 0.786)),
+      ("786_100",   (open_frac >= 0.786) & (open_frac <= 1.0)),
+      ("above_100", open_frac > 1.0),
+    ]
+    for key, mask in zone_masks:
+      for pos in np.flatnonzero(mask):
+        samples.append(SampleRow(date=dates[pos], condition="opening_zone", outcome=key))
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

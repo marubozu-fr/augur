@@ -37,6 +37,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   Slicer,
   SliceGroup,
   StatResultRow,
@@ -410,6 +411,25 @@ class FOMCIntraday(BaseStat):
         tmp[col] = values
 
     return self.compute_rows(tmp, baseline_rows=None)
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (day, interval, metric) with a non-NaN observation.
+
+    ``condition`` is the interval key (e.g. "i0930") and ``outcome`` is the
+    metric key (pct_change / dollar_change / volume), matching ``compute_rows``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, row in day_table.iterrows():
+      date = ts.strftime("%Y-%m-%d")
+      for key in self._interval_keys:
+        for outcome, col_prefix in _METRICS:
+          val = row[f"{col_prefix}{key}"]
+          if pd.notna(val):
+            samples.append(SampleRow(date=date, condition=key, outcome=outcome, value=float(val)))
+    return samples
 
 
 # ---------------------------------------------------------------------------

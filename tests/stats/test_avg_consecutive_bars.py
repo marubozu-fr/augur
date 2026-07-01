@@ -50,7 +50,7 @@ import pandas as pd
 import pytest
 
 from stats.avg_consecutive_bars.standard import AvgConsecutiveBars, _longest_run
-from stats.base import StatResultRow, StatRunResult, write_results
+from stats.base import SampleRow, StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session
 
 # ---------------------------------------------------------------------------
@@ -1036,3 +1036,82 @@ def test_write_results_french_accent_preserved(tmp_path: Path) -> None:
   raw_text = written.read_text(encoding="utf-8")
   # The French definition contains accented characters (é, è, etc.)
   assert "\\u00e9" not in raw_text, "French é stored as unicode escape instead of literal"
+
+
+# ===========================================================================
+# 11. classify_samples()
+#
+# Reuses the three-day base dataset (see module docstring):
+#   Day A 2024-01-08: max_green=3, max_red=1
+#   Day B 2024-01-09: max_green=1, max_red=2
+#   Day C 2024-01-10: max_green=2, max_red=4
+# ===========================================================================
+
+def test_classify_samples_exact_rows() -> None:
+  """classify_samples() emits exactly the 6 expected SampleRows."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+
+  expected = [
+    SampleRow(date="2024-01-08", condition="green", outcome="max_streak", value=3.0),
+    SampleRow(date="2024-01-08", condition="red", outcome="max_streak", value=1.0),
+    SampleRow(date="2024-01-09", condition="green", outcome="max_streak", value=1.0),
+    SampleRow(date="2024-01-09", condition="red", outcome="max_streak", value=2.0),
+    SampleRow(date="2024-01-10", condition="green", outcome="max_streak", value=2.0),
+    SampleRow(date="2024-01-10", condition="red", outcome="max_streak", value=4.0),
+  ]
+
+  assert len(samples) == len(expected)
+  for got, want in zip(samples, expected):
+    assert got.date == want.date
+    assert got.condition == want.condition
+    assert got.outcome == want.outcome
+    assert got.value == pytest.approx(want.value)
+
+
+def test_classify_samples_matches_compute_rows() -> None:
+  """Per-condition sample count/mean reconstruct the max_streak row."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  for condition in ("green", "red"):
+    values = [s.value for s in samples if s.condition == condition]
+    row = _row(rows, condition)
+    assert len(values) == row.total
+    assert sum(values) / len(values) == pytest.approx(row.value)
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> []."""
+  stat = _stat()
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_skips_nan_column_independently() -> None:
+  """A NaN in one streak column produces no sample for that condition only.
+
+  ``build_day_table`` currently drops a day entirely if either streak column is
+  NaN, but ``classify_samples`` must still honor per-column NaN independently
+  (defensive against future per-color pending columns).
+  """
+  stat = _stat()
+  dt = pd.DataFrame(
+    {
+      "max_green_streak": [3.0, np.nan],
+      "max_red_streak": [np.nan, 4.0],
+      "bar_colors": [None, None],
+    },
+    index=pd.DatetimeIndex(["2024-01-08", "2024-01-09"]),
+  )
+  samples = stat.classify_samples(dt)
+  assert len(samples) == 2
+  assert samples[0].date == "2024-01-08"
+  assert samples[0].condition == "green"
+  assert samples[0].value == pytest.approx(3.0)
+  assert samples[1].date == "2024-01-09"
+  assert samples[1].condition == "red"
+  assert samples[1].value == pytest.approx(4.0)

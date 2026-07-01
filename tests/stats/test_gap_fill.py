@@ -901,3 +901,55 @@ def test_i18n_labels_dimensions_contain_declared_slicers() -> None:
   assert set(result.labels.dimensions.keys()) >= {"weekday", "close", "prev_candle", "size_pts", "size_pct"}
   for key, i18n in result.labels.dimensions.items():
     assert i18n.en != "", f"dimensions[{key}].en empty"
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _SEQ (see the core matrix table above): idx 0 (2024-01-02) has no
+# prior close and is not countable; idx 1-8 each carry a gap and a fill
+# outcome.
+# ===========================================================================
+
+def test_classify_samples_exact_list() -> None:
+  """classify_samples emits one SampleRow per countable (gapped) day."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-03", "gap_up", "filled"),
+    ("2024-01-04", "gap_up", "not_filled"),
+    ("2024-01-05", "gap_down", "filled"),
+    ("2024-01-08", "gap_up", "filled"),
+    ("2024-01-09", "gap_down", "not_filled"),
+    ("2024-01-10", "gap_up", "filled"),
+    ("2024-01-11", "gap_down", "filled"),
+    ("2024-01-12", "gap_up", "not_filled"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table() -> None:
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(pd.DataFrame(columns=["gap_size_pts", "gap_up", "filled"])) == []
+
+
+def test_classify_samples_excludes_noncountable_first_day() -> None:
+  """The first resolved day (no prior close, no gap) produces no SampleRow."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-02" not in sample_dates

@@ -50,6 +50,7 @@ from stats.base import (
   Close,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -400,6 +401,23 @@ class DailyHighLowSession(BaseStat):
     for sess in self.sessions:
       rows.append(_make("daily_low", sess, int((low_col == sess).sum()), total))
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Two SampleRows per countable cycle (daily_high, daily_low), mirroring
+    ``compute_rows``. Every row in the day table is countable (non-countable
+    cycles are already excluded by ``build_day_table``).
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for ts, high_session, low_session in zip(
+      day_table.index, day_table["high_session"], day_table["low_session"]
+    ):
+      date_str = ts.strftime("%Y-%m-%d")
+      samples.append(SampleRow(date=date_str, condition="daily_high", outcome=str(high_session)))
+      samples.append(SampleRow(date=date_str, condition="daily_low", outcome=str(low_session)))
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

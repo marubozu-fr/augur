@@ -46,6 +46,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -272,6 +273,29 @@ class CandleBodyRatio(BaseStat):
         )
       )
     return rows
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per (day, present bucket) contributing observation.
+
+    Mirrors ``compute_rows``: for every present bucket, every contributing day
+    (non-NaN ``body_{i}``) yields a sample whose outcome is ``large_body`` or
+    ``not_large_body``. The "large_body" samples reproduce each row's ``count``;
+    the total samples per bucket reproduce its ``total``.
+    """
+    if day_table.empty:
+      return []
+
+    samples: list[SampleRow] = []
+    for i, bucket_key in self._present_buckets(day_table):
+      series = day_table[f"body_{i}"]
+      for ts, flag in series.items():
+        if pd.isna(flag):
+          continue
+        outcome = "large_body" if bool(flag) else "not_large_body"
+        samples.append(
+          SampleRow(date=ts.strftime("%Y-%m-%d"), condition=bucket_key, outcome=outcome)
+        )
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

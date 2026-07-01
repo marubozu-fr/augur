@@ -73,6 +73,7 @@ from stats.base import (
   BaseStat,
   I18nString,
   Labels,
+  SampleRow,
   StatResultRow,
   write_results,
 )
@@ -348,6 +349,67 @@ class EngulfingCandles(BaseStat):
       mag_row("bearish", "avg_continuation", bear_avg, bear_res_n),
       mag_row("bearish", "max_continuation", bear_max, bear_res_n),
     ]
+
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """One SampleRow per countable day (tier 1) plus magnitude samples (tier 2).
+
+    Tier 1 — for every countable day (a prior resolved day exists), a sample
+    with condition ``engulfing`` and outcome ``bullish`` / ``bearish`` /
+    ``neither``, mirroring the frequency rows.
+
+    Tier 2 — for every RESOLVED bullish/bearish pattern day, two samples
+    (``avg_continuation`` and ``max_continuation``) carrying ``cont_pct`` as
+    ``value``, so their mean/max reproduce the magnitude rows.
+    """
+    if day_table.empty:
+      return []
+
+    open_ = day_table["session_open"].to_numpy(dtype=float)
+    close = day_table["session_close"].to_numpy(dtype=float)
+    prev_open = day_table["prev_open"].to_numpy(dtype=float)
+    prev_close = day_table["prev_close"].to_numpy(dtype=float)
+    cont = day_table["cont_pct"].to_numpy(dtype=float)
+    resolved = day_table["cont_resolved"].to_numpy(dtype=bool)
+
+    countable = np.isfinite(prev_open) & np.isfinite(prev_close)
+    is_green = close >= open_
+    prev_green = prev_close >= prev_open
+
+    curr_top = np.maximum(open_, close)
+    curr_bot = np.minimum(open_, close)
+    prev_top = np.maximum(prev_open, prev_close)
+    prev_bot = np.minimum(prev_open, prev_close)
+    engulfs = countable & (curr_top >= prev_top) & (curr_bot <= prev_bot)
+
+    bullish = engulfs & is_green & ~prev_green
+    bearish = engulfs & ~is_green & prev_green
+
+    samples: list[SampleRow] = []
+    for pos, ts in enumerate(day_table.index):
+      date = ts.strftime("%Y-%m-%d")
+
+      # Tier 1 — engulfing frequency.
+      if countable[pos]:
+        if bullish[pos]:
+          outcome = "bullish"
+        elif bearish[pos]:
+          outcome = "bearish"
+        else:
+          outcome = "neither"
+        samples.append(SampleRow(date=date, condition="engulfing", outcome=outcome))
+
+      # Tier 2 — continuation magnitude over resolved patterns only.
+      if (bullish[pos] or bearish[pos]) and resolved[pos]:
+        direction = "bullish" if bullish[pos] else "bearish"
+        value = float(cont[pos])
+        samples.append(
+          SampleRow(date=date, condition=direction, outcome="avg_continuation", value=value)
+        )
+        samples.append(
+          SampleRow(date=date, condition=direction, outcome="max_continuation", value=value)
+        )
+
+    return samples
 
   # -------------------------------------------------------------------------
   # Baseline

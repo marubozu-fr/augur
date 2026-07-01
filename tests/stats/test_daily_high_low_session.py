@@ -706,3 +706,60 @@ def test_empty_input_no_crash_on_slices():
   assert "candle" in slices
   assert len(slices["weekday"].groups) == 0
   assert len(slices["candle"].groups) == 0
+
+
+# ===========================================================================
+# classify_samples
+#
+# Reusing _THREE_CYCLES (see the attribution table above):
+#   2024-01-02: high_session=asia,   low_session=ny
+#   2024-01-03: high_session=london, low_session=london
+#   2024-01-04: high_session=ny,     low_session=ny
+# Each countable cycle emits TWO SampleRows (daily_high, daily_low).
+# ===========================================================================
+
+def test_classify_samples_exact_list():
+  """classify_samples emits two SampleRows per countable cycle, matching the hand-calc."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_THREE_CYCLES))
+  samples = stat.classify_samples(table)
+  assert [(s.date, s.condition, s.outcome) for s in samples] == [
+    ("2024-01-02", "daily_high", "asia"),
+    ("2024-01-02", "daily_low", "ny"),
+    ("2024-01-03", "daily_high", "london"),
+    ("2024-01-03", "daily_low", "london"),
+    ("2024-01-04", "daily_high", "ny"),
+    ("2024-01-04", "daily_low", "ny"),
+  ]
+  assert all(s.value is None for s in samples)
+
+
+def test_classify_samples_matches_compute_rows_counts():
+  """For every StatResultRow, the matching SampleRow count equals r.count."""
+  stat = _stat()
+  table = stat.build_day_table(make_candles(_THREE_CYCLES))
+  samples = stat.classify_samples(table)
+  rows = stat.compute_rows(table)
+  for r in rows:
+    n = sum(1 for s in samples if s.condition == r.condition and s.outcome == r.outcome)
+    assert n == r.count
+
+
+def test_classify_samples_empty_day_table():
+  """Empty day_table -> classify_samples returns []."""
+  stat = _stat()
+  assert stat.classify_samples(pd.DataFrame(columns=["high_session", "low_session"])) == []
+
+
+def test_classify_samples_excludes_noncountable_cycle():
+  """A cycle missing a session (dropped by the inner join) produces no SampleRow."""
+  cycles = [
+    _full_cycle("2024-01-02", asia_h=110, asia_l=90, lon_h=105, lon_l=85, ny_h=115, ny_l=80),
+    _london_bars("2024-01-03", 105, 85) + _ny_bars("2024-01-03", 110, 80),
+  ]
+  stat = _stat()
+  table = stat.build_day_table(make_candles(cycles))
+  samples = stat.classify_samples(table)
+  sample_dates = {s.date for s in samples}
+  assert "2024-01-03" not in sample_dates
+  assert "2024-01-02" in sample_dates

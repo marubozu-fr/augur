@@ -1240,3 +1240,79 @@ def test_data_range_spans_first_to_last_day() -> None:
 def test_total_samples_equals_resolved_day_count() -> None:
   """Three resolved sessions → total_samples == 3."""
   assert _tf(_stat().compute(_make_three_days())).total_samples == 3
+
+
+# ===========================================================================
+# 18. classify_samples()
+# ===========================================================================
+
+def test_classify_samples_bucket_0930_exact_rows() -> None:
+  """Bucket '0930': large on A, C; not large on B → 3 exact SampleRows."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+  bucket_0930 = [s for s in samples if s.condition == "0930"]
+  by_date = {s.date: s.outcome for s in bucket_0930}
+  assert by_date == {
+    "2024-01-08": "large_body",       # Day A: ratio=0.80
+    "2024-01-09": "not_large_body",   # Day B: ratio=0.30
+    "2024-01-10": "large_body",       # Day C: ratio=0.90
+  }
+  assert all(s.value is None for s in bucket_0930)
+
+
+def test_classify_samples_bucket_0945_exact_rows() -> None:
+  """Bucket '0945': large on B only; not large on A, C."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+  bucket_0945 = [s for s in samples if s.condition == "0945"]
+  by_date = {s.date: s.outcome for s in bucket_0945}
+  assert by_date == {
+    "2024-01-08": "not_large_body",
+    "2024-01-09": "large_body",
+    "2024-01-10": "not_large_body",
+  }
+
+
+def test_classify_samples_matches_compute_rows_counts() -> None:
+  """For every present bucket: #large_body samples == row.count, total samples == row.total."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  for row in rows:
+    bucket_samples = [s for s in samples if s.condition == row.condition]
+    large_samples = [s for s in bucket_samples if s.outcome == "large_body"]
+    assert len(large_samples) == row.count, (
+      f"bucket {row.condition}: large samples={len(large_samples)}, expected count={row.count}"
+    )
+    assert len(bucket_samples) == row.total, (
+      f"bucket {row.condition}: total samples={len(bucket_samples)}, expected total={row.total}"
+    )
+
+
+def test_classify_samples_empty_day_table_returns_empty_list() -> None:
+  """Empty day_table → classify_samples returns []."""
+  stat = _stat()
+  dt = stat.build_day_table(_empty_df())
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_truncated_day_contributes_no_samples() -> None:
+  """A truncated (unresolved) day never appears in classify_samples output."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days_with_truncated())
+  samples = stat.classify_samples(dt)
+  assert all(s.date != "2024-01-15" for s in samples)
+
+
+def test_classify_samples_neutral_bucket_all_not_large() -> None:
+  """A neutral bucket (ratio=0.0 < 0.5) yields 3 'not_large_body' samples, no 'large_body'."""
+  stat = _stat()
+  dt = stat.build_day_table(_make_three_days())
+  samples = stat.classify_samples(dt)
+  bucket_2 = [s for s in samples if s.condition == "1000"]
+  assert len(bucket_2) == 3
+  assert all(s.outcome == "not_large_body" for s in bucket_2)

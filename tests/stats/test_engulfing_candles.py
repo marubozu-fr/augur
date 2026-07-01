@@ -320,3 +320,142 @@ def test_write_results_round_trip(tmp_path: Path) -> None:
   assert data["stat_name"] == "engulfing_candles"
   loaded = StatRunResult.model_validate(data)
   assert loaded.instruments["NQ"]["daily"].total_samples == 6
+
+
+# ===========================================================================
+# classify_samples()
+# ===========================================================================
+
+def test_classify_samples_tier1_exact_rows() -> None:
+  """Tier 1: one 'engulfing' sample per countable day (idx 1..5), exact outcomes.
+
+  idx 1 (01-03) bullish, idx 3 (01-05) bearish, idx 2/4/5 neither.
+  idx 0 (01-02) is not countable (no prior) → no tier-1 sample.
+  """
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(dt)
+  tier1 = {s.date: s.outcome for s in samples if s.condition == "engulfing"}
+  assert tier1 == {
+    "2024-01-03": "bullish",
+    "2024-01-04": "neither",
+    "2024-01-05": "bearish",
+    "2024-01-08": "neither",
+    "2024-01-09": "neither",
+  }
+  assert "2024-01-02" not in tier1
+
+
+def test_classify_samples_tier2_exact_rows() -> None:
+  """Tier 2: bullish/bearish magnitude samples carry the hand-calculated cont_pct."""
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(dt)
+
+  bull_avg = [s for s in samples if s.condition == "bullish" and s.outcome == "avg_continuation"]
+  bull_max = [s for s in samples if s.condition == "bullish" and s.outcome == "max_continuation"]
+  bear_avg = [s for s in samples if s.condition == "bearish" and s.outcome == "avg_continuation"]
+  bear_max = [s for s in samples if s.condition == "bearish" and s.outcome == "max_continuation"]
+
+  assert len(bull_avg) == 1 and bull_avg[0].date == "2024-01-03"
+  assert bull_avg[0].value == pytest.approx(_BULL_CONT)
+  assert len(bull_max) == 1 and bull_max[0].value == pytest.approx(_BULL_CONT)
+
+  assert len(bear_avg) == 1 and bear_avg[0].date == "2024-01-05"
+  assert bear_avg[0].value == pytest.approx(_BEAR_CONT)
+  assert len(bear_max) == 1 and bear_max[0].value == pytest.approx(_BEAR_CONT)
+
+
+def test_classify_samples_matches_compute_rows() -> None:
+  """Consistency: tier1 counts and tier2 mean/max match compute_rows exactly."""
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+
+  def row(cond: str, out: str) -> StatResultRow:
+    return next(r for r in rows if r.condition == cond and r.outcome == out)
+
+  bullish_freq = row("engulfing", "bullish")
+  bearish_freq = row("engulfing", "bearish")
+  tier1_bullish = [s for s in samples if s.condition == "engulfing" and s.outcome == "bullish"]
+  tier1_bearish = [s for s in samples if s.condition == "engulfing" and s.outcome == "bearish"]
+  assert len(tier1_bullish) == bullish_freq.count
+  assert len(tier1_bearish) == bearish_freq.count
+
+  for direction in ("bullish", "bearish"):
+    avg_row = row(direction, "avg_continuation")
+    max_row = row(direction, "max_continuation")
+    avg_samples = [
+      s for s in samples if s.condition == direction and s.outcome == "avg_continuation"
+    ]
+    max_samples = [
+      s for s in samples if s.condition == direction and s.outcome == "max_continuation"
+    ]
+    assert len(avg_samples) == avg_row.total
+    assert len(max_samples) == max_row.total
+    if avg_row.total > 0:
+      values = [s.value for s in avg_samples]
+      assert sum(values) / len(values) == pytest.approx(avg_row.value)
+      max_values = [s.value for s in max_samples]
+      assert max(max_values) == pytest.approx(max_row.value)
+
+
+def test_classify_samples_multi_pattern_mean_and_max_match() -> None:
+  """With two bullish patterns of different continuation, samples reproduce avg and max."""
+  seq = [
+    {"date": "2024-01-02", "open": 100.0, "close": 95.0, "high": 101.0, "low": 94.0},
+    {"date": "2024-01-03", "open": 94.0, "close": 101.0, "high": 101.0, "low": 94.0},
+    {"date": "2024-01-04", "open": 101.0, "close": 96.0, "high": 102.0, "low": 95.0},
+    {"date": "2024-01-05", "open": 95.0, "close": 103.0, "high": 103.0, "low": 95.0},
+    {"date": "2024-01-08", "open": 120.0, "close": 118.0, "high": 121.0, "low": 90.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(seq))
+  samples = stat.classify_samples(dt)
+  rows = stat.compute_rows(dt)
+  avg_row = next(r for r in rows if r.condition == "bullish" and r.outcome == "avg_continuation")
+  max_row = next(r for r in rows if r.condition == "bullish" and r.outcome == "max_continuation")
+
+  avg_samples = [
+    s for s in samples if s.condition == "bullish" and s.outcome == "avg_continuation"
+  ]
+  max_samples = [
+    s for s in samples if s.condition == "bullish" and s.outcome == "max_continuation"
+  ]
+  assert len(avg_samples) == 2 == avg_row.total
+  assert sum(s.value for s in avg_samples) / 2 == pytest.approx(avg_row.value)
+  assert max(s.value for s in max_samples) == pytest.approx(max_row.value)
+
+
+def test_classify_samples_pending_pattern_excluded_from_tier2() -> None:
+  """A pending (never-invalidated) engulfing yields a tier-1 sample but no tier-2 samples."""
+  seq = [
+    {"date": "2024-01-02", "open": 100.0, "close": 95.0, "high": 101.0, "low": 94.0},
+    {"date": "2024-01-03", "open": 94.0, "close": 101.0, "high": 101.0, "low": 94.0},
+  ]
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(seq))
+  samples = stat.classify_samples(dt)
+  tier1 = [s for s in samples if s.condition == "engulfing"]
+  assert len(tier1) == 1
+  assert tier1[0].outcome == "bullish"
+  tier2 = [s for s in samples if s.condition in ("bullish", "bearish")]
+  assert tier2 == []
+
+
+def test_classify_samples_empty_day_table_returns_empty_list() -> None:
+  """Empty day_table → classify_samples returns []."""
+  stat = _stat()
+  empty = pd.DataFrame(columns=["timestamp", "open", "high", "low", "close", "volume"])
+  empty["timestamp"] = pd.to_datetime(empty["timestamp"], utc=True)
+  dt = stat.build_day_table(empty)
+  assert stat.classify_samples(dt) == []
+
+
+def test_classify_samples_first_day_no_prior_excluded() -> None:
+  """The first resolved day (no prior) contributes no tier-1 or tier-2 sample."""
+  stat = _stat()
+  dt = stat.build_day_table(make_candles(_SEQ))
+  samples = stat.classify_samples(dt)
+  assert all(s.date != "2024-01-02" for s in samples)
