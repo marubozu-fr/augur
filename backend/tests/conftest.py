@@ -16,6 +16,7 @@ from backend.app.services.auth import hash_password
 from stats.base import (
   I18nString,
   Labels,
+  SampleRow,
   SliceGroupResult,
   SliceResult,
   StatResultRow,
@@ -135,6 +136,44 @@ def make_sliced_stat_run_result(
       conditions={"cond_a": I18nString(en="Condition A", fr="Condition A")},
       outcomes={"out_x": I18nString(en="Outcome X", fr="Résultat X")},
       dimensions={"weekday": I18nString(en="Day of week", fr="Jour de la semaine")},
+    ),
+    instruments={instrument: {timeframe: tf_result}},
+  )
+
+
+def make_sampled_stat_run_result(
+  stat_name: str,
+  instrument: str = "NQ",
+  timeframe: str = "1h",
+  samples: list[SampleRow] | None = None,
+  results: list[StatResultRow] | None = None,
+  data_range: list[str] | None = None,
+) -> StatRunResult:
+  """Build a StatRunResult whose TimeframeResult carries per-day samples.
+
+  Unlike ``make_stat_run_result``, ``TimeframeResult.samples`` is populated so
+  date-range filtering (issue #179) has real data to filter and reaggregate.
+  ``total_samples`` is derived from the number of distinct sample dates.
+  """
+  if samples is None:
+    samples = []
+  if results is None:
+    results = [make_result_row()]
+  if data_range is None:
+    data_range = ["2023-01-02", "2023-12-29"]
+  tf_result = TimeframeResult(
+    data_range=data_range,
+    total_samples=len({s.date for s in samples}),
+    results=results,
+    samples=samples,
+  )
+  return StatRunResult(
+    stat_name=stat_name,
+    title=I18nString(en=f"{stat_name} title", fr=f"{stat_name} titre"),
+    definition=I18nString(en=f"{stat_name} def", fr=f"{stat_name} déf"),
+    labels=Labels(
+      conditions={"cond_a": I18nString(en="Condition A", fr="Condition A")},
+      outcomes={"out_x": I18nString(en="Outcome X", fr="Résultat X")},
     ),
     instruments={instrument: {timeframe: tf_result}},
   )

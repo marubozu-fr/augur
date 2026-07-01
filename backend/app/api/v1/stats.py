@@ -24,6 +24,11 @@ from backend.app.services.stats_api import (
   narrow_to_instrument,
   narrow_to_timeframe,
 )
+from backend.app.services.stats_date_filter import (
+  build_filtered_timeframe_result,
+  has_undeclared_agg_metadata,
+  validate_date_params,
+)
 from stats.base import StatRunResult, TimeframeResult
 
 router = APIRouter(prefix="/api/v1", dependencies=[Depends(require_api_key)])
@@ -131,6 +136,8 @@ def get_stat_timeframe(
   timeframe: str,
   response: Response,
   slice: str | None = Query(default=None, description="Narrow results to a single slice dimension"),
+  start: str | None = Query(default=None, description="Filter samples from this ISO date (YYYY-MM-DD), inclusive"),
+  end: str | None = Query(default=None, description="Filter samples up to this ISO date (YYYY-MM-DD), inclusive"),
   loader: StatsLoader = Depends(get_stats_loader),
 ) -> ApiResponse[TimeframeResult]:
   """Return the TimeframeResult for a specific family/instrument/timeframe combination.
@@ -138,14 +145,32 @@ def get_stat_timeframe(
   Slice filtering applies: when ?slice= is provided, the returned
   TimeframeResult.slices dict contains only the requested dimension.
 
+  Date-range filtering applies when ?start= and/or ?end= are provided: results
+  are reaggregated from the family's per-day samples over that range. Absent
+  both params, behavior is unchanged.
+
   Returns 404 if the family, instrument, or timeframe is not found
   (the error message identifies which level was missing).
   Returns 400 if the requested slice dimension is not declared by this family.
+  Returns 400 if ?slice= is combined with date filtering (unsupported in this MVP).
+  Returns 400 if start/end are not valid ISO dates, or start is after end.
+  Returns 400 if date filtering is requested but this family has no samples,
+  or has magnitude rows missing their `agg` metadata.
   """
   full = loader.get(family)
   if full is None:
     response.status_code = 404
     return ApiResponse(error=f"Stat family '{family}' not found")
+
+  # Date filtering drops slices (build_filtered_timeframe_result returns
+  # slices={}), so combining it with ?slice= cannot produce a sliced view in
+  # this MVP. Reject the combination explicitly rather than silently returning
+  # empty slices.
+  if (start is not None or end is not None) and slice is not None:
+    response.status_code = 400
+    return ApiResponse(
+      error="Slice filtering is not available when using date range filtering."
+    )
 
   if slice is not None:
     if not is_declared_slice(full, slice):
@@ -167,6 +192,33 @@ def get_stat_timeframe(
     return ApiResponse(
       error=f"Timeframe '{timeframe}' not found for instrument '{instrument}' in stat family '{family}'"
     )
+
+  if start is not None or end is not None:
+    date_error = validate_date_params(start, end)
+    if date_error is not None:
+      response.status_code = 400
+      return ApiResponse(error=date_error)
+
+    if not tf_result.samples:
+      response.status_code = 400
+      return ApiResponse(
+        error=(
+          "Date filtering is not available for this stat family. "
+          "Results must be regenerated with samples support."
+        )
+      )
+
+    # See has_undeclared_agg_metadata() docstring: a magnitude row with no agg
+    # is only rejected here if some sample actually carries a value for it —
+    # otherwise it's the non-decomposable case (e.g. Pearson r), which
+    # build_filtered_timeframe_result() handles by yielding value=None.
+    if has_undeclared_agg_metadata(tf_result.results, tf_result.samples):
+      response.status_code = 400
+      return ApiResponse(
+        error="Date filtering requires result metadata (agg field). Results must be regenerated."
+      )
+
+    tf_result = build_filtered_timeframe_result(tf_result, start, end)
 
   if slice is not None:
     tf_result = apply_slice_tf(tf_result, slice)
