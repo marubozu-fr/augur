@@ -65,12 +65,32 @@ class SliceResult(BaseModel):
   groups: dict[str, SliceGroupResult]
 
 
+class SampleRow(BaseModel):
+  """One resolved day's condition/outcome classification.
+
+  Carries the same classification ``compute_rows()`` aggregates, but per day, so
+  the API can re-aggregate the top-level result over an arbitrary date range
+  without reloading the Parquet data. ``value`` is populated only for magnitude
+  stats (rows whose ``probability`` is the ``0.0`` sentinel) so their mean can be
+  recomputed over a date-filtered subset.
+  """
+
+  date: str  # YYYY-MM-DD (session date from the day_table index)
+  condition: str
+  outcome: str
+  value: float | None = None
+
+
 class TimeframeResult(BaseModel):
   data_range: list[str]  # [min_date, max_date] as "YYYY-MM-DD", empty if no samples
   total_samples: int
   results: list[StatResultRow]
   # Sliced breakdowns, keyed by slicer name. Empty when a stat declares no slices.
   slices: dict[str, SliceResult] = {}
+  # Per-day classifications for date-range re-aggregation, sorted by date
+  # ascending. Empty for families that have not overridden ``classify_samples``;
+  # the default keeps existing result JSON (which lacks this field) valid.
+  samples: list[SampleRow] = []
 
 
 class StatRunResult(BaseModel):
@@ -458,6 +478,22 @@ class BaseStat(ABC):
     """Convenience: build the day table and compute the random baseline."""
     return self.baseline_rows(self.build_day_table(candles_df), seed)
 
+  def classify_samples(self, day_table: pd.DataFrame) -> list[SampleRow]:
+    """Return one SampleRow per resolved day in the day_table.
+
+    Each row carries the condition/outcome classification that
+    ``compute_rows()`` would aggregate. For magnitude stats, also populate
+    ``value`` so the API can recompute the mean over a date-filtered subset.
+
+    The framework default returns no samples, keeping existing result JSON valid
+    and every concrete family instantiable. A family opts into date-range
+    re-aggregation by overriding this. The two correlation families
+    (``market_session_correlation``, ``prev_session_correlation``) need special
+    handling: store the primary value in ``value``; full Pearson r recomputation
+    on a subset is deferred to a future iteration.
+    """
+    return []
+
   def _slice_results(
     self, day_table: pd.DataFrame, seed: int
   ) -> tuple[dict[str, SliceResult], dict[str, I18nString]]:
@@ -485,6 +521,7 @@ class BaseStat(ABC):
     baseline = self.baseline_rows(day_table, seed)
     rows = self.compute_rows(day_table, baseline_rows=baseline)
     slice_results, dimension_labels = self._slice_results(day_table, seed)
+    samples = sorted(self.classify_samples(day_table), key=lambda s: s.date)
 
     if len(day_table) > 0:
       dates = day_table.index
@@ -497,6 +534,7 @@ class BaseStat(ABC):
       total_samples=len(day_table),
       results=rows,
       slices=slice_results,
+      samples=samples,
     )
 
     labels = self.labels.model_copy(deep=True)
