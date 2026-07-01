@@ -102,6 +102,14 @@ _LABELS = Labels(
 _CONDITIONS = ("cross_up", "cross_down")
 _OUTCOMES = ("avg_duration", "max_duration", "avg_travel", "max_travel")
 
+# Outcome -> aggregation function name, for the `agg` field.
+_AGG_BY_OUTCOME = {
+  "avg_duration": "mean",
+  "max_duration": "max",
+  "avg_travel": "mean",
+  "max_travel": "max",
+}
+
 
 class SMAPerformance(BaseStat):
   """SMA cross duration and travel magnitude stat (daily timeframe)."""
@@ -265,6 +273,7 @@ class SMAPerformance(BaseStat):
             baseline_n=bl.total if bl else 0,
             value=value,
             value_baseline=bl.value if bl else None,
+            agg=_AGG_BY_OUTCOME[outcome],
           )
         )
       return rows

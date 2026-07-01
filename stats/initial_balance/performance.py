@@ -501,6 +501,7 @@ class InitialBalancePerformance(BaseStat):
           baseline_n=bl.total if bl else 0,
           value=value,
           value_baseline=bl.value if bl else None,
+          agg=agg,
         )
       )
     return rows

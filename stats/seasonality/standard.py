@@ -322,17 +322,18 @@ class Seasonality(BaseStat):
     mean_green = float(returns[green_mask].mean()) if green_count > 0 else 0.0
     mean_red = float(returns[~green_mask].mean()) if red_count > 0 else 0.0
 
-    # (outcome, count, probability, value) — value is None for probability rows.
-    specs: list[tuple[str, int, float, float | None]] = [
-      ("mean_return", total, 0.0, mean_return),
-      ("green_period", green_count, green_count / total if total > 0 else 0.0, None),
-      ("red_period", red_count, red_count / total if total > 0 else 0.0, None),
-      ("mean_green_move", green_count, 0.0, mean_green),
-      ("mean_red_move", red_count, 0.0, mean_red),
+    # (outcome, count, probability, value, agg) — value/agg are None for
+    # probability rows.
+    specs: list[tuple[str, int, float, float | None, str | None]] = [
+      ("mean_return", total, 0.0, mean_return, "mean"),
+      ("green_period", green_count, green_count / total if total > 0 else 0.0, None, None),
+      ("red_period", red_count, red_count / total if total > 0 else 0.0, None, None),
+      ("mean_green_move", green_count, 0.0, mean_green, "mean"),
+      ("mean_red_move", red_count, 0.0, mean_red, "mean"),
     ]
 
     rows: list[StatResultRow] = []
-    for out_key, count, probability, value in specs:
+    for out_key, count, probability, value, agg in specs:
       bl = baseline_map.get((_CONDITION, out_key))
       rows.append(
         StatResultRow(
@@ -345,6 +346,7 @@ class Seasonality(BaseStat):
           baseline_n=bl.total if bl else 0,
           value=value,
           value_baseline=(bl.value if bl else None) if value is not None else None,
+          agg=agg,
         )
       )
     return rows

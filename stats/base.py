@@ -13,6 +13,7 @@ import tempfile
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 import pandas as pd
 from pydantic import BaseModel, ValidationError
@@ -38,6 +39,10 @@ class StatResultRow(BaseModel):
   # metric and `value_baseline` with its random-baseline counterpart.
   value: float | None = None
   value_baseline: float | None = None
+  # Aggregation function used to compute `value`, so the API's reaggregate()
+  # service knows which function to reapply over a date-filtered subset.
+  # None for probability rows and for non-decomposable magnitude rows (Pearson r).
+  agg: Literal["mean", "max", "min", "median"] | None = None
 
 
 class Labels(BaseModel):

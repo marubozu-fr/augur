@@ -68,6 +68,9 @@ _AGG = {
   "median": np.median,
 }
 
+# Aggregate suffix -> StatResultRow.agg field value ("avg" means the mean).
+_AGG_FIELD = {"avg": "mean", "max": "max", "min": "min", "median": "median"}
+
 _RANGE_LABELS: dict[str, I18nString] = {
   "avg": I18nString(en="Average range (points)", fr="Amplitude moyenne (points)"),
   "max": I18nString(en="Maximum range (points)", fr="Amplitude maximale (points)"),
@@ -270,6 +273,7 @@ class IntradayRangeWindow(BaseStat):
           baseline_n=bl.total if bl else 0,
           value=value,
           value_baseline=bl.value if bl else None,
+          agg=_AGG_FIELD[agg],
         )
       )
     return rows

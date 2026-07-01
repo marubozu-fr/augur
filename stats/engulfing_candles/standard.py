@@ -276,6 +276,9 @@ class EngulfingCandles(BaseStat):
         baseline_n=bl.total if bl else 0,
       )
 
+    # Outcome -> aggregation function name, for the `agg` field.
+    _AGG_BY_OUTCOME = {"avg_continuation": "mean", "max_continuation": "max"}
+
     def mag_row(condition: str, outcome: str, value: float | None, n: int) -> StatResultRow:
       bl = baseline_map.get((condition, outcome))
       return StatResultRow(
@@ -288,6 +291,7 @@ class EngulfingCandles(BaseStat):
         baseline_n=bl.total if bl else 0,
         value=value,
         value_baseline=bl.value if bl else None,
+        agg=_AGG_BY_OUTCOME[outcome],
       )
 
     if day_table.empty:

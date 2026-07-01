@@ -191,6 +191,7 @@ class VolumeRangeByWeekday(BaseStat):
           baseline_n=bl.total if bl else 0,
           value=mean_value,
           value_baseline=bl.value if bl else None,
+          agg="mean",
         )
       )
     return rows

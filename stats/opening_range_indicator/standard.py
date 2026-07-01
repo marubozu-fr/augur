@@ -114,6 +114,15 @@ _OUTCOMES: tuple[str, ...] = (
   "correlation",
 )
 
+# Outcome -> aggregation function name, for the `agg` field. `correlation` is a
+# Pearson r (non-decomposable), so it stays None.
+_AGG_BY_OUTCOME: dict[str, str | None] = {
+  "mean_opening_range": "mean",
+  "mean_remaining_range": "mean",
+  "opening_range_share": "mean",
+  "correlation": None,
+}
+
 # ---------------------------------------------------------------------------
 # Timeframe string → opening-range window length in minutes
 # ---------------------------------------------------------------------------
@@ -279,6 +288,7 @@ class OpeningRangeIndicator(BaseStat):
           baseline_n=bl.total if bl else 0,
           value=values[out_key],
           value_baseline=bl.value if bl else None,
+          agg=_AGG_BY_OUTCOME[out_key],
         )
       )
     return rows

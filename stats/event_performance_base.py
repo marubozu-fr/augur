@@ -207,13 +207,14 @@ class EventPerformanceStat(BaseStat):
       red_count = total - green_count
       mean_return = float(vals.mean()) if total > 0 else 0.0
 
-      # (outcome, count, probability, value) -- value is None for probability rows.
-      specs: list[tuple[str, int, float, float | None]] = [
-        ("mean_return", total, 0.0, mean_return),
-        ("green", green_count, green_count / total if total > 0 else 0.0, None),
-        ("red", red_count, red_count / total if total > 0 else 0.0, None),
+      # (outcome, count, probability, value, agg) -- value/agg are None for
+      # probability rows.
+      specs: list[tuple[str, int, float, float | None, str | None]] = [
+        ("mean_return", total, 0.0, mean_return, "mean"),
+        ("green", green_count, green_count / total if total > 0 else 0.0, None, None),
+        ("red", red_count, red_count / total if total > 0 else 0.0, None, None),
       ]
-      for out_key, count, probability, value in specs:
+      for out_key, count, probability, value, agg in specs:
         bl = baseline_map.get((condition, out_key))
         rows.append(
           StatResultRow(
@@ -226,6 +227,7 @@ class EventPerformanceStat(BaseStat):
             baseline_n=bl.total if bl else 0,
             value=value,
             value_baseline=(bl.value if bl else None) if value is not None else None,
+            agg=agg,
           )
         )
     return rows

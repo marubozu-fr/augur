@@ -383,6 +383,7 @@ class FOMCIntraday(BaseStat):
             value_baseline=(
               (bl.value if bl else None) if outcome != "volume" else None
             ),
+            agg="mean",
           )
         )
     return rows
