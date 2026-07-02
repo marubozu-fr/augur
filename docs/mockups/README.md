@@ -13,9 +13,9 @@ The token system established here (in `styles.css`) is the starting point for it
 
 | File                     | What it shows |
 | ------------------------ | ------------- |
-| `index.html`             | The dashboard in the app shell (sidebar + header + main), **populated state**: metric strip, search/filter toolbar, and a 16-card grid (one card per real stat family). |
+| `index.html`             | The dashboard in the app shell (sidebar + header + main), **populated state**: metric strip, a search / category-filter / **instrument-selector** toolbar, and a 16-card grid (one card per real stat family). |
 | `dashboard-states.html`  | The dashboard **loading** state (skeleton cards + spinner) and two **empty** states (no results at all, and no search match), as clearly labeled sections on one page. |
-| `stat-detail.html`       | The **stat detail page** (Issue #117): page header + metadata strip, timeframe tab selector, documentation panel, a **probability** results table (Opening Candle Continuation, NQ 15min) and a visually distinct **magnitude** results block (Opening Range Indicator, NQ 15min), plus collapsible `<details>` slice sections by weekday / close color / size bucket. |
+| `stat-detail.html`       | The **stat detail page** (Issue #117): page header + metadata strip, a unified **filter bar** (instrument selector · timeframe · period presets · custom date-range popover · charts toggle), documentation panel, a **probability** results table (Opening Candle Continuation, NQ 15min) and a visually distinct **magnitude** results block (Opening Range Indicator, NQ 15min), plus collapsible `<details>` slice sections by weekday / close color / size bucket. |
 | `stat-detail.css`        | Page-specific styles for `stat-detail.html`. Extends `styles.css` (reuses every token); adds the panel surface, data tables, probability bars, magnitude value blocks, and collapsible slice groups. |
 | `styles.css`             | Shared stylesheet. All design tokens are CSS custom properties (`:root`) — colors, typography, spacing scale, radii, elevation, layout dimensions. |
 | `README.md`              | This file. |
@@ -33,6 +33,13 @@ Open any `*.html` file directly in a browser. `index.html` and
   below 900px via media query.
 - **Collapsible slices**: the stat detail page uses native `<details>` /
   `<summary>` elements for slice dimensions — expand/collapse with zero JS.
+- **Filter bar & date picker**: the stat detail filter bar has an instrument
+  `<select>`, timeframe/period segmented chips (shared `.filter-group` /
+  `.filter-chip`), a **Charts** switch, and a **custom date-range popover**
+  built with `<details>` / `<summary>` — two side-by-side month calendars with a
+  highlighted start→end range, shown open so the calendar design is reviewable.
+  The **instrument selector** is a shared component reused on the dashboard
+  toolbar and the stat-detail filter bar (styles in `styles.css`).
 - **Hover states**: nav items, cards, buttons, table rows, and inputs (focus
   ring) all have hover/focus styling for the frontend to replicate.
 

@@ -91,21 +91,365 @@
 }
 
 /* ==========================================================================
-   Timeframe tab selector (reuses filter-group / filter-chip semantics)
+   Filter bar (replaces the former .tf-selector)
+   Unified page toolbar grouping instrument, timeframe, period presets and the
+   charts toggle. Reads left -> right with subtle vertical separators between
+   logical groups; period presets wrap onto a second row. Reuses the shared
+   .filter-group / .filter-chip segmented pattern for timeframe + period.
    ========================================================================== */
 
-.tf-selector {
+.filter-bar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
 }
 
-.tf-label {
+.filter-bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Second row (stat-specific filters) divided from the global row above */
+.filter-bar-row.is-period {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.filter-bar-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-bar-label {
   font-size: var(--fs-xs);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-text-dim);
+}
+
+.filter-bar-spacer {
+  flex: 1;
+}
+
+/* Subtle vertical rule separating logical groups */
+.filter-bar-sep {
+  align-self: stretch;
+  width: 1px;
+  min-height: 22px;
+  background-color: var(--color-border);
+}
+
+/* Denser variant of the segmented control for the 10-preset period row */
+.filter-group-compact .filter-chip {
+  padding: var(--space-1) var(--space-2);
+}
+
+/* ----- Charts toggle (switch) ----- */
+.charts-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.charts-toggle-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+}
+
+.charts-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.charts-switch {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-3);
+  border: 1px solid var(--color-border-strong);
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.charts-switch::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.charts-toggle input:checked + .charts-switch {
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.charts-toggle input:checked + .charts-switch::after {
+  transform: translateX(16px);
+  background-color: var(--color-accent-hover);
+}
+
+.charts-toggle input:focus-visible + .charts-switch {
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+/* ==========================================================================
+   Custom date-range popover (details/summary -- zero JS)
+   Two side-by-side month calendars with a highlighted start -> end range
+   (range fill + selected endpoints).
+   ========================================================================== */
+
+.date-popover {
+  position: relative;
+}
+
+.date-popover-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 30px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.date-popover-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.date-popover-trigger:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.date-popover[open] .date-popover-trigger {
+  color: var(--color-accent-hover);
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.date-popover-icon {
+  font-size: 11px;
+  color: var(--color-text-dim);
+}
+
+.date-popover[open] .date-popover-icon {
+  color: var(--color-accent-hover);
+}
+
+.date-popover-caret {
+  font-size: 9px;
+  transition: transform 0.12s ease;
+}
+
+.date-popover[open] .date-popover-caret {
+  transform: rotate(180deg);
+}
+
+.date-popover-panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.date-popover-body {
+  display: flex;
+  gap: var(--space-4);
+}
+
+/* Two months side by side */
+.date-calendars {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.cal {
+  width: 210px;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.cal-title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.cal-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.cal-nav:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.cal-nav.is-hidden {
+  visibility: hidden;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.cal-dow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dim);
+}
+
+.cal-day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-sm);
+}
+
+.cal-day:hover {
+  background-color: var(--color-surface-3);
+}
+
+.cal-day.is-empty {
+  pointer-events: none;
+}
+
+/* Continuous in-range fill */
+.cal-day.in-range {
+  background-color: var(--color-accent-soft);
+  border-radius: 0;
+}
+
+/* Selected endpoints */
+.cal-day.range-start,
+.cal-day.range-end {
+  background-color: var(--color-accent);
+  color: #fff;
+  font-weight: var(--fw-semibold);
+}
+
+.cal-day.range-start {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.cal-day.range-end {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Footer: current range + actions */
+.date-popover-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.date-range-display {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.date-range-display .num {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+}
+
+.date-popover-actions {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.date-btn {
+  height: 30px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.date-btn-ghost {
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-muted);
+}
+
+.date-btn-ghost:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.date-btn-primary {
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+}
+
+.date-btn-primary:hover {
+  background-color: rgba(76, 141, 255, 0.22);
 }
 
 /* ==========================================================================

@@ -177,15 +177,200 @@
           </div>
         </div>
 
-        <!-- ============== 2. Timeframe selector ============== -->
-        <div class="tf-selector">
-          <span class="tf-label">Timeframe</span>
-          <div class="filter-group">
-            <button class="filter-chip active" type="button">15min</button>
-            <button class="filter-chip" type="button">30min</button>
-            <button class="filter-chip" type="button">1h</button>
+        <!-- ============== 2. Filter bar (global: instrument · period | stat-specific: timeframe · charts) ============== -->
+        <div class="filter-bar">
+          <!-- Row 1 (global): instrument · period presets · custom range -->
+          <div class="filter-bar-row">
+            <div class="filter-bar-group">
+              <span class="filter-bar-label">Instrument</span>
+              <span class="instrument-select">
+                <span class="instrument-select-icon" aria-hidden="true">&#9670;</span>
+                <select aria-label="Instrument">
+                  <option>NQ</option>
+                  <option>ES</option>
+                  <option>CL</option>
+                </select>
+                <span class="instrument-select-caret" aria-hidden="true">&#9662;</span>
+              </span>
+            </div>
+
+            <span class="filter-bar-sep" aria-hidden="true"></span>
+
+            <span class="filter-bar-label">Period</span>
+            <!-- "All" (no filter, full dataset) sits alone before the durations -->
+            <div class="filter-group filter-group-compact">
+              <button class="filter-chip active" type="button">All</button>
+            </div>
+
+            <span class="filter-bar-sep" aria-hidden="true"></span>
+
+            <div class="filter-group filter-group-compact">
+              <button class="filter-chip" type="button">1m</button>
+              <button class="filter-chip" type="button">3m</button>
+              <button class="filter-chip" type="button">6m</button>
+              <button class="filter-chip" type="button">YTD</button>
+              <button class="filter-chip" type="button">1yr</button>
+              <button class="filter-chip" type="button">2yr</button>
+              <button class="filter-chip" type="button">3yr</button>
+              <button class="filter-chip" type="button">5yr</button>
+              <button class="filter-chip" type="button">10yr</button>
+            </div>
+
+            <span class="filter-bar-sep" aria-hidden="true"></span>
+
+            <!-- Custom range: details/summary popover (shown open for review) -->
+            <details class="date-popover" open>
+              <summary class="date-popover-trigger">
+                <span class="date-popover-icon" aria-hidden="true">&#9638;</span>
+                <span>Custom</span>
+                <span class="date-popover-caret" aria-hidden="true">&#9662;</span>
+              </summary>
+              <div class="date-popover-panel">
+                <div class="date-popover-body">
+                  <!-- Two side-by-side month calendars with the selected range -->
+                  <div class="date-calendars">
+                    <div class="cal">
+                      <div class="cal-head">
+                        <button class="cal-nav" type="button" aria-label="Previous month">&lsaquo;</button>
+                        <span class="cal-title">March 2026</span>
+                        <span class="cal-nav is-hidden" aria-hidden="true">&rsaquo;</span>
+                      </div>
+                      <div class="cal-grid">
+                        <span class="cal-dow">Su</span>
+                        <span class="cal-dow">Mo</span>
+                        <span class="cal-dow">Tu</span>
+                        <span class="cal-dow">We</span>
+                        <span class="cal-dow">Th</span>
+                        <span class="cal-dow">Fr</span>
+                        <span class="cal-dow">Sa</span>
+                        <button class="cal-day" type="button">1</button>
+                        <button class="cal-day" type="button">2</button>
+                        <button class="cal-day" type="button">3</button>
+                        <button class="cal-day" type="button">4</button>
+                        <button class="cal-day" type="button">5</button>
+                        <button class="cal-day" type="button">6</button>
+                        <button class="cal-day" type="button">7</button>
+                        <button class="cal-day" type="button">8</button>
+                        <button class="cal-day" type="button">9</button>
+                        <button class="cal-day range-start" type="button">10</button>
+                        <button class="cal-day in-range" type="button">11</button>
+                        <button class="cal-day in-range" type="button">12</button>
+                        <button class="cal-day in-range" type="button">13</button>
+                        <button class="cal-day in-range" type="button">14</button>
+                        <button class="cal-day in-range" type="button">15</button>
+                        <button class="cal-day in-range" type="button">16</button>
+                        <button class="cal-day in-range" type="button">17</button>
+                        <button class="cal-day in-range" type="button">18</button>
+                        <button class="cal-day in-range" type="button">19</button>
+                        <button class="cal-day in-range" type="button">20</button>
+                        <button class="cal-day in-range" type="button">21</button>
+                        <button class="cal-day in-range" type="button">22</button>
+                        <button class="cal-day in-range" type="button">23</button>
+                        <button class="cal-day in-range" type="button">24</button>
+                        <button class="cal-day in-range" type="button">25</button>
+                        <button class="cal-day in-range" type="button">26</button>
+                        <button class="cal-day in-range" type="button">27</button>
+                        <button class="cal-day in-range" type="button">28</button>
+                        <button class="cal-day in-range" type="button">29</button>
+                        <button class="cal-day in-range" type="button">30</button>
+                        <button class="cal-day in-range" type="button">31</button>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                      </div>
+                    </div>
+                    <div class="cal">
+                      <div class="cal-head">
+                        <span class="cal-nav is-hidden" aria-hidden="true">&lsaquo;</span>
+                        <span class="cal-title">April 2026</span>
+                        <button class="cal-nav" type="button" aria-label="Next month">&rsaquo;</button>
+                      </div>
+                      <div class="cal-grid">
+                        <span class="cal-dow">Su</span>
+                        <span class="cal-dow">Mo</span>
+                        <span class="cal-dow">Tu</span>
+                        <span class="cal-dow">We</span>
+                        <span class="cal-dow">Th</span>
+                        <span class="cal-dow">Fr</span>
+                        <span class="cal-dow">Sa</span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <button class="cal-day in-range" type="button">1</button>
+                        <button class="cal-day in-range" type="button">2</button>
+                        <button class="cal-day in-range" type="button">3</button>
+                        <button class="cal-day in-range" type="button">4</button>
+                        <button class="cal-day in-range" type="button">5</button>
+                        <button class="cal-day in-range" type="button">6</button>
+                        <button class="cal-day in-range" type="button">7</button>
+                        <button class="cal-day in-range" type="button">8</button>
+                        <button class="cal-day in-range" type="button">9</button>
+                        <button class="cal-day in-range" type="button">10</button>
+                        <button class="cal-day in-range" type="button">11</button>
+                        <button class="cal-day in-range" type="button">12</button>
+                        <button class="cal-day in-range" type="button">13</button>
+                        <button class="cal-day in-range" type="button">14</button>
+                        <button class="cal-day in-range" type="button">15</button>
+                        <button class="cal-day in-range" type="button">16</button>
+                        <button class="cal-day in-range" type="button">17</button>
+                        <button class="cal-day range-end" type="button">18</button>
+                        <button class="cal-day" type="button">19</button>
+                        <button class="cal-day" type="button">20</button>
+                        <button class="cal-day" type="button">21</button>
+                        <button class="cal-day" type="button">22</button>
+                        <button class="cal-day" type="button">23</button>
+                        <button class="cal-day" type="button">24</button>
+                        <button class="cal-day" type="button">25</button>
+                        <button class="cal-day" type="button">26</button>
+                        <button class="cal-day" type="button">27</button>
+                        <button class="cal-day" type="button">28</button>
+                        <button class="cal-day" type="button">29</button>
+                        <button class="cal-day" type="button">30</button>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                        <span class="cal-day is-empty" aria-hidden="true"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="date-popover-foot">
+                  <span class="date-range-display">
+                    <span class="num">2026-03-10</span> &rarr;
+                    <span class="num">2026-04-18</span>
+                  </span>
+                  <div class="date-popover-actions">
+                    <button class="date-btn date-btn-ghost" type="button">Cancel</button>
+                    <button class="date-btn date-btn-primary" type="button">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </details>
           </div>
-          <span class="result-count">Showing NQ · 15min</span>
+
+          <!-- Row 2 (stat-specific): timeframe · context · charts toggle -->
+          <div class="filter-bar-row is-period">
+            <div class="filter-bar-group">
+              <span class="filter-bar-label">Timeframe</span>
+              <div class="filter-group">
+                <button class="filter-chip active" type="button">15min</button>
+                <button class="filter-chip" type="button">30min</button>
+                <button class="filter-chip" type="button">1h</button>
+              </div>
+            </div>
+
+            <span class="filter-bar-spacer"></span>
+
+            <span class="result-count">NQ · 15min · 4,332 samples</span>
+
+            <span class="filter-bar-sep" aria-hidden="true"></span>
+
+            <label class="charts-toggle">
+              <span class="charts-toggle-label">Charts</span>
+              <input type="checkbox" checked />
+              <span class="charts-switch" aria-hidden="true"></span>
+            </label>
+          </div>
         </div>
 
         <!-- ============== 3. Documentation ============== -->
