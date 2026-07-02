@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import {
-  Accordion,
-  Alert,
-  SegmentedControl,
-  Skeleton,
-  Switch,
-} from '@mantine/core'
+import { Accordion, Alert, Box, LoadingOverlay, Skeleton } from '@mantine/core'
 import { IconAlertCircle, IconArrowLeft, IconChartBar, IconRefresh } from '@tabler/icons-react'
 import { useStatDetail } from '../hooks/useStatDetail'
+import { useTimeframeResult } from '../hooks/useTimeframeResult'
+import { InstrumentSelect } from '../components/InstrumentSelect'
+import { DateRangePopover } from '../components/DateRangePopover'
 import { MagnitudeBarChart } from '../components/charts/MagnitudeBarChart'
 import { ProbabilityBarChart } from '../components/charts/ProbabilityBarChart'
 import { SliceGroupedBarChart } from '../components/charts/SliceGroupedBarChart'
+import {
+  computePresetRange,
+  DURATION_PRESETS,
+  PRESET_LABELS,
+  type PeriodPreset,
+} from '../utils/periodPresets'
 import type {
   Labels,
   SliceResult,
@@ -336,6 +339,155 @@ function ResultsSection({ tfResult, labels, showCharts }: ResultsSectionProps) {
 }
 
 // ---------------------------------------------------------------------------
+// Period filter bar — global row (instrument + period) + stat-specific row
+// (timeframe + context + charts toggle). Mirrors docs/mockups/stat-detail.html.
+// ---------------------------------------------------------------------------
+
+/** Parse an ISO "YYYY-MM-DD" string to a local Date, or undefined if absent. */
+function parseISODate(iso: string | undefined): Date | undefined {
+  if (!iso) return undefined
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d) return undefined
+  return new Date(y, m - 1, d)
+}
+
+interface FilterBarProps {
+  instruments: string[]
+  timeframes: string[]
+  effectiveInstrument: string
+  effectiveTimeframe: string
+  onTimeframeChange: (tf: string) => void
+  period: PeriodPreset
+  onPeriodChange: (p: PeriodPreset) => void
+  customRange: [string | null, string | null]
+  onCustomApply: (start: string, end: string) => void
+  dataRange: string[] | undefined
+  contextSamples: number | null
+  showCharts: boolean
+  onShowChartsChange: (v: boolean) => void
+}
+
+function FilterBar({
+  instruments,
+  timeframes,
+  effectiveInstrument,
+  effectiveTimeframe,
+  onTimeframeChange,
+  period,
+  onPeriodChange,
+  customRange,
+  onCustomApply,
+  dataRange,
+  contextSamples,
+  showCharts,
+  onShowChartsChange,
+}: FilterBarProps) {
+  const chipClass = (active: boolean) =>
+    `${styles.filterChip} ${active ? styles.filterChipActive : ''}`
+
+  const contextLabel = [
+    effectiveInstrument,
+    effectiveTimeframe,
+    contextSamples !== null
+      ? `${intFormat.format(contextSamples)} samples`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(' · ')
+
+  return (
+    <div className={styles.filterBar}>
+      {/* Row 1 — global filters: instrument + period presets + custom range */}
+      <div className={styles.filterBarRow}>
+        {instruments.length > 0 && (
+          <div className={styles.filterBarGroup}>
+            <span className={styles.filterBarLabel}>Instrument</span>
+            <InstrumentSelect />
+          </div>
+        )}
+
+        <span className={styles.filterBarSep} aria-hidden="true" />
+
+        <span className={styles.filterBarLabel}>Period</span>
+        {/* "All" (no filter, full dataset) sits alone before the durations */}
+        <div className={styles.filterGroupCompact}>
+          <button
+            type="button"
+            className={chipClass(period === 'all')}
+            onClick={() => onPeriodChange('all')}
+          >
+            {PRESET_LABELS.all}
+          </button>
+        </div>
+
+        <span className={styles.filterBarSep} aria-hidden="true" />
+
+        <div className={styles.filterGroupCompact}>
+          {DURATION_PRESETS.map((preset) => (
+            <button
+              key={preset}
+              type="button"
+              className={chipClass(period === preset)}
+              onClick={() => onPeriodChange(preset)}
+            >
+              {PRESET_LABELS[preset]}
+            </button>
+          ))}
+        </div>
+
+        <span className={styles.filterBarSep} aria-hidden="true" />
+
+        <DateRangePopover
+          active={period === 'custom'}
+          value={customRange}
+          minDate={parseISODate(dataRange?.[0])}
+          maxDate={parseISODate(dataRange?.[1])}
+          onApply={onCustomApply}
+        />
+      </div>
+
+      {/* Row 2 — stat-specific filters: timeframe + context + charts toggle */}
+      <div className={`${styles.filterBarRow} ${styles.filterBarRowStat}`}>
+        <div className={styles.filterBarGroup}>
+          <span className={styles.filterBarLabel}>Timeframe</span>
+          <div className={styles.filterGroup}>
+            {timeframes.map((tf) => (
+              <button
+                key={tf}
+                type="button"
+                className={chipClass(tf === effectiveTimeframe)}
+                onClick={() => onTimeframeChange(tf)}
+              >
+                {tf}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <span className={styles.filterBarSpacer} />
+
+        <span className={styles.resultCount}>{contextLabel}</span>
+
+        <span className={styles.filterBarSep} aria-hidden="true" />
+
+        <label className={styles.chartsToggle}>
+          <span className={styles.chartsToggleLabel}>
+            <IconChartBar size={12} />
+            Charts
+          </span>
+          <input
+            type="checkbox"
+            checked={showCharts}
+            onChange={(e) => onShowChartsChange(e.currentTarget.checked)}
+          />
+          <span className={styles.chartsSwitch} aria-hidden="true" />
+        </label>
+      </div>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // StatDetailPage — main page component
 // ---------------------------------------------------------------------------
 
@@ -343,12 +495,19 @@ export function StatDetailPage() {
   const { instrument, family } = useParams<{ instrument: string; family: string }>()
   const { detail, loading, error, reload } = useStatDetail(family)
 
-  // Instrument comes from the URL — the header Select navigates to a new prefix.
-  // Timeframe selection is local to this page.
+  // Instrument comes from the URL — the filter-bar Select navigates to a new
+  // prefix. Timeframe selection is local to this page.
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('')
 
   // Chart visibility toggle — charts visible by default
   const [showCharts, setShowCharts] = useState<boolean>(true)
+
+  // Period filter — local state, resets on navigation (instrument/timeframe).
+  const [period, setPeriod] = useState<PeriodPreset>('all')
+  const [customRange, setCustomRange] = useState<[string | null, string | null]>([
+    null,
+    null,
+  ])
 
   // Derive selector options once detail is loaded
   const instruments = detail
@@ -372,11 +531,50 @@ export function StatDetailPage() {
       ? selectedTimeframe
       : timeframes[0] ?? ''
 
-  const tfResult: TimeframeResult | null =
+  // The full, pre-computed result for the current instrument/timeframe. Serves
+  // the "All" period directly and anchors period-preset date math.
+  const baseTf: TimeframeResult | null =
     detail && effectiveInstrument && effectiveTimeframe
       ? (detail.result.instruments[effectiveInstrument]?.[effectiveTimeframe] ??
         null)
       : null
+
+  // Period persists across instrument and timeframe changes (it only resets on
+  // navigation, when the component unmounts/remounts). Duration presets
+  // recompute their dates against the new data_range[1] below, preserving the
+  // user's intent ("last 3 months"); a Custom absolute range carries over as-is
+  // and the empty state covers a context with no data in that window.
+  const filterActive = period !== 'all'
+  const dataEnd = baseTf?.data_range[1]
+
+  let start: string | null = null
+  let end: string | null = null
+  if (period === 'custom') {
+    ;[start, end] = customRange
+  } else if (filterActive) {
+    const range = computePresetRange(period, dataEnd)
+    if (range) {
+      start = range.start
+      end = range.end
+    }
+  }
+
+  const {
+    result: filteredTf,
+    loading: filterLoading,
+    error: filterError,
+  } = useTimeframeResult(family, effectiveInstrument, effectiveTimeframe, start, end)
+
+  // The result feeding the tables/charts/strip: full when "All", filtered
+  // otherwise (null while a filtered fetch is in flight).
+  const tfResult: TimeframeResult | null = filterActive ? filteredTf : baseTf
+  // Keep the metric strip populated during a filtered refetch.
+  const displayTf = tfResult ?? baseTf
+
+  function handleCustomApply(rangeStart: string, rangeEnd: string) {
+    setCustomRange([rangeStart, rangeEnd])
+    setPeriod('custom')
+  }
 
   // ---------------------------------------------------------------------------
   // Loading state
@@ -448,17 +646,17 @@ export function StatDetailPage() {
       </div>
 
       {/* ===== Metadata metric strip ===== */}
-      {tfResult && (
+      {displayTf && (
         <div className={styles.metricStrip}>
           <div className={styles.metric}>
             <span className={styles.metricValue}>
-              {tfResult.data_range[0] ?? '—'} → {tfResult.data_range[1] ?? '—'}
+              {displayTf.data_range[0] ?? '—'} → {displayTf.data_range[1] ?? '—'}
             </span>
             <span className={styles.metricLabel}>Date range</span>
           </div>
           <div className={styles.metric}>
             <span className={styles.metricValue}>
-              {intFormat.format(tfResult.total_samples)}
+              {intFormat.format(displayTf.total_samples)}
             </span>
             <span className={styles.metricLabel}>Total samples</span>
           </div>
@@ -471,30 +669,23 @@ export function StatDetailPage() {
         </div>
       )}
 
-      {/* ===== Timeframe selector ===== */}
-      {/* Instrument is chosen globally from the app shell header. */}
+      {/* ===== Unified filter bar (instrument · period | timeframe · charts) ===== */}
       {instruments.length > 0 && (
-        <div className={styles.selectorBar}>
-          <span className={styles.selectorLabel}>Timeframe</span>
-          <SegmentedControl
-            size="xs"
-            value={effectiveTimeframe}
-            onChange={setSelectedTimeframe}
-            data={timeframes}
-          />
-          <span className={styles.selectorDivider} />
-          <Switch
-            size="xs"
-            checked={showCharts}
-            onChange={(e) => setShowCharts(e.currentTarget.checked)}
-            label={
-              <span className={styles.chartToggleLabel}>
-                <IconChartBar size={12} />
-                Charts
-              </span>
-            }
-          />
-        </div>
+        <FilterBar
+          instruments={instruments}
+          timeframes={timeframes}
+          effectiveInstrument={effectiveInstrument}
+          effectiveTimeframe={effectiveTimeframe}
+          onTimeframeChange={setSelectedTimeframe}
+          period={period}
+          onPeriodChange={setPeriod}
+          customRange={customRange}
+          onCustomApply={handleCustomApply}
+          dataRange={baseTf?.data_range}
+          contextSamples={displayTf?.total_samples ?? null}
+          showCharts={showCharts}
+          onShowChartsChange={setShowCharts}
+        />
       )}
 
       {/* ===== Documentation panel ===== */}
@@ -520,22 +711,50 @@ export function StatDetailPage() {
       </div>
 
       {/* ===== Results panel ===== */}
-      {tfResult && (
-        <ResultsSection
-          tfResult={tfResult}
-          labels={result.labels}
-          showCharts={showCharts}
+      {/* A filtered fetch may be in flight (overlay), have failed (alert), or
+          have returned zero samples for the chosen window (empty state). */}
+      <Box pos="relative" mih={filterActive ? 120 : undefined}>
+        <LoadingOverlay
+          visible={filterActive && filterLoading}
+          overlayProps={{ blur: 1 }}
         />
-      )}
+        {filterActive && filterError ? (
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            color="red"
+            variant="light"
+            title="Failed to load filtered result"
+          >
+            <p className={styles.alertMessage}>{filterError}</p>
+          </Alert>
+        ) : tfResult && tfResult.total_samples === 0 ? (
+          <div className={styles.panel}>
+            <p className={styles.emptyPeriod}>
+              No data available for this period.
+            </p>
+          </div>
+        ) : tfResult ? (
+          <ResultsSection
+            tfResult={tfResult}
+            labels={result.labels}
+            showCharts={showCharts}
+          />
+        ) : null}
+      </Box>
 
       {/* ===== Slices ===== */}
-      {tfResult && Object.keys(tfResult.slices).length > 0 && (
-        <SlicesSection
-          slices={tfResult.slices}
-          labels={result.labels}
-          showCharts={showCharts}
-        />
-      )}
+      {/* Hidden while a date filter is active: the backend returns no slices
+          for reaggregated results, and combining slices with a range is
+          unsupported. */}
+      {!filterActive &&
+        tfResult &&
+        Object.keys(tfResult.slices).length > 0 && (
+          <SlicesSection
+            slices={tfResult.slices}
+            labels={result.labels}
+            showCharts={showCharts}
+          />
+        )}
     </div>
   )
 }

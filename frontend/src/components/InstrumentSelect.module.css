@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Instrument selector (shared: dashboard toolbar + stat-detail filter bar)
+   Gold-toned control matching the NQ instrument accent. Native <select> for
+   accessibility; custom caret + leading glyph for polish.
+   Mirrors docs/mockups/styles.css .instrument-select.
+   ========================================================================== */
+
+.instrumentSelect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--color-instrument);
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.instrumentSelect select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 34px;
+  padding: 0 26px 0 28px;
+  background-color: var(--color-instrument-soft);
+  border: 1px solid var(--color-instrument-border);
+  border-radius: var(--radius-md);
+  color: var(--color-instrument);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.instrumentSelect select:hover {
+  background-color: rgba(201, 162, 39, 0.22);
+}
+
+.instrumentSelect select:disabled {
+  cursor: default;
+}
+
+.instrumentSelect select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-instrument-soft);
+}
+
+.caret {
+  position: absolute;
+  right: var(--space-3);
+  color: var(--color-instrument);
+  font-size: 9px;
+  pointer-events: none;
+}
+
+/* Native option list renders in the OS palette; keep it dark-friendly. */
+.instrumentSelect option {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+}

@@ -10,6 +10,7 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import { useShellContext } from '../hooks/useShellContext'
+import { InstrumentSelect } from '../components/InstrumentSelect'
 import type { StatFamilyMeta } from '../types/stats'
 import {
   familyHasInstrument,
@@ -182,6 +183,7 @@ export function DashboardPage() {
                 aria-label="Search stat families"
               />
             </div>
+            <InstrumentSelect />
             <div className={styles.toolbarSpacer} />
             <span className={styles.resultCount}>
               {query.trim() === ''

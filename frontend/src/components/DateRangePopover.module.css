@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Custom date-range popover — trigger + footer.
+   Mirrors docs/mockups/stat-detail.css .date-popover* (the calendar body is
+   Mantine's DatePicker, themed via the dark Mantine provider).
+   ========================================================================== */
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 30px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.trigger:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.triggerActive,
+.triggerActive:hover {
+  color: var(--color-accent-hover);
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.triggerIcon {
+  font-size: 11px;
+  color: var(--color-text-dim);
+}
+
+.triggerActive .triggerIcon {
+  color: var(--color-accent-hover);
+}
+
+.triggerCaret {
+  font-size: 9px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.rangeDisplay {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.rangeNum {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.actions {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.btnGhost,
+.btnPrimary {
+  height: 30px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnGhost {
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-muted);
+}
+
+.btnGhost:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.btnPrimary {
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background-color: rgba(76, 141, 255, 0.22);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

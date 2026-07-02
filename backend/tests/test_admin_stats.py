@@ -19,7 +19,12 @@ from backend.app.core.stats_loader import StatsLoader
 from backend.app.main import create_app
 from backend.app.repositories import users as users_repo
 from backend.app.services.auth import hash_password
-from backend.tests.conftest import make_stat_run_result, write_stat_result
+from backend.tests.conftest import (
+  make_sampled_stat_run_result,
+  make_stat_run_result,
+  write_stat_result,
+)
+from stats.base import SampleRow, StatResultRow
 
 
 @pytest.fixture()
@@ -140,3 +145,171 @@ def test_get_stat_returns_404_for_unknown_family(
   body = response.json()
   assert body["data"] is None
   assert "not found" in body["error"].lower()
+
+
+# ---------------------------------------------------------------------------
+# GET /admin/stats/{family}/{instrument}/{timeframe} — date-range filter
+# The backoffice period filter cannot send an X-API-Key, so it uses this
+# session-authenticated counterpart to the /api/v1 timeframe endpoint.
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture()
+def sampled_stats_client(tmp_path: Path) -> tuple[TestClient, Path]:
+  """Authenticated client backed by a family carrying per-day samples.
+
+  10 samples, one per month Jan-Oct 2023, all condition 'cond_a'. Outcome
+  alternates green (odd months) / red (even months) so date filtering has
+  real (condition, outcome) pairs to reaggregate.
+  """
+  results_dir = tmp_path / "results"
+  results_dir.mkdir()
+  samples = [
+    SampleRow(
+      date=f"2023-{month:02d}-01",
+      condition="cond_a",
+      outcome="green" if month % 2 else "red",
+    )
+    for month in range(1, 11)
+  ]
+  results = [
+    StatResultRow(
+      condition="cond_a", outcome="green", count=5, total=10,
+      probability=0.5, baseline_prob=0.5, baseline_n=10,
+    ),
+    StatResultRow(
+      condition="cond_a", outcome="red", count=5, total=10,
+      probability=0.5, baseline_prob=0.5, baseline_n=10,
+    ),
+  ]
+  write_stat_result(
+    make_sampled_stat_run_result(
+      "sampled_stat",
+      samples=samples,
+      results=results,
+      data_range=["2023-01-01", "2023-10-01"],
+    ),
+    results_dir,
+  )
+  loader = StatsLoader(results_dir=results_dir)
+  loader.load_all()
+
+  tmp_db = tmp_path / "test.db"
+  init_db(tmp_db)
+  users_repo.create_user("admin_user", hash_password("admin_pass"), "admin", tmp_db)
+  settings.db_path = tmp_db
+
+  app = create_app()
+  app.dependency_overrides[get_stats_loader] = lambda: loader
+  client = TestClient(app)
+  resp = client.post("/auth/login", json={"username": "admin_user", "password": "admin_pass"})
+  assert resp.status_code == 200, f"Login failed: {resp.json()}"
+
+  yield client, results_dir
+
+  settings.db_path = Path(__file__).resolve().parents[3] / "backend" / "db" / "augur.db"
+
+
+def test_get_timeframe_without_filter_returns_full_result(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """Without ?start/?end the stored TimeframeResult is returned unchanged."""
+  client, _ = sampled_stats_client
+  response = client.get("/admin/stats/sampled_stat/NQ/1h")
+
+  assert response.status_code == 200
+  body = response.json()
+  assert body["error"] is None
+  assert body["data"]["total_samples"] == 10
+  assert body["data"]["data_range"] == ["2023-01-01", "2023-10-01"]
+
+
+def test_get_timeframe_date_filter_reaggregates(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """?start/?end narrows the sample window and reaggregates totals."""
+  client, _ = sampled_stats_client
+  # Jan-Mar 2023: 3 samples (green, red, green).
+  response = client.get(
+    "/admin/stats/sampled_stat/NQ/1h?start=2023-01-01&end=2023-03-31"
+  )
+
+  assert response.status_code == 200
+  body = response.json()
+  assert body["error"] is None
+  assert body["data"]["total_samples"] == 3
+  # Date filtering drops slices in this MVP.
+  assert body["data"]["slices"] == {}
+
+
+def test_get_timeframe_malformed_start_returns_400(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """A non-ISO ?start value is rejected with 400."""
+  client, _ = sampled_stats_client
+  response = client.get("/admin/stats/sampled_stat/NQ/1h?start=not-a-date")
+
+  assert response.status_code == 400
+  assert response.json()["data"] is None
+
+
+def test_get_timeframe_start_after_end_returns_400(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """start later than end is rejected with 400."""
+  client, _ = sampled_stats_client
+  response = client.get(
+    "/admin/stats/sampled_stat/NQ/1h?start=2023-06-01&end=2023-01-01"
+  )
+
+  assert response.status_code == 400
+  assert response.json()["data"] is None
+
+
+def test_get_timeframe_date_filter_without_samples_returns_400(
+  stats_client: tuple[TestClient, StatsLoader, Path],
+) -> None:
+  """Filtering a family that carries no samples returns a 400 with guidance."""
+  client, _, _ = stats_client
+  response = client.get("/admin/stats/alpha_stat/NQ/1h?start=2023-01-01")
+
+  assert response.status_code == 400
+  assert "regenerated" in response.json()["error"].lower()
+
+
+def test_get_timeframe_unknown_instrument_returns_404(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """An instrument absent from the family yields 404."""
+  client, _ = sampled_stats_client
+  response = client.get("/admin/stats/sampled_stat/ES/1h")
+
+  assert response.status_code == 404
+  assert response.json()["data"] is None
+
+
+def test_get_timeframe_unknown_timeframe_returns_404(
+  sampled_stats_client: tuple[TestClient, Path],
+) -> None:
+  """A timeframe absent for the instrument yields 404."""
+  client, _ = sampled_stats_client
+  response = client.get("/admin/stats/sampled_stat/NQ/5m")
+
+  assert response.status_code == 404
+  assert response.json()["data"] is None
+
+
+def test_get_timeframe_requires_authentication(tmp_path: Path) -> None:
+  """Without a session cookie the endpoint returns 401."""
+  results_dir = tmp_path / "results"
+  results_dir.mkdir()
+  write_stat_result(make_stat_run_result("alpha_stat"), results_dir)
+  loader = StatsLoader(results_dir=results_dir)
+  loader.load_all()
+
+  app = create_app()
+  app.dependency_overrides[get_stats_loader] = lambda: loader
+  client = TestClient(app)
+  response = client.get("/admin/stats/alpha_stat/NQ/1h")
+
+  assert response.status_code == 401

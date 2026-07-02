@@ -3,7 +3,6 @@ import {
   AppShell,
   Burger,
   ActionIcon,
-  Select,
   Skeleton,
   Alert,
   Tooltip,
@@ -24,7 +23,6 @@ import {
   Navigate,
   Outlet,
   useLocation,
-  useNavigate,
   useParams,
 } from 'react-router-dom'
 import { useStatFamilies } from '../hooks/useStatFamilies'
@@ -39,7 +37,6 @@ export function ShellPage() {
   const { families, loading, error, reload } = statFamilies
   const { user, logout } = useAuth()
   const location = useLocation()
-  const navigate = useNavigate()
 
   // Instrument comes from the URL when a :instrument/* route is matched.
   // In a layout route, useParams sees params from descendant matches too.
@@ -68,18 +65,6 @@ export function ShellPage() {
         to={`/${defaultInstrument}${rest}${location.search}`}
       />
     )
-  }
-
-  function handleInstrumentChange(next: string | null) {
-    if (next === null) return
-    if (urlInstrument) {
-      // On an instrument-scoped page: swap the instrument prefix, keep the rest.
-      const rest = location.pathname.slice(('/' + urlInstrument).length)
-      navigate(`/${next}${rest}${location.search}`)
-    } else {
-      // On an instrument-agnostic page (system-status, api-keys): go to stats.
-      navigate(`/${next}/stats`)
-    }
   }
 
   async function handleLogout() {
@@ -120,22 +105,6 @@ export function ShellPage() {
             <span className={styles.brandText}>Augur</span>
           </div>
           <div className={styles.headerSpacer} />
-          {instruments.length > 0 && (
-            <div className={styles.instrumentSelector}>
-              <span className={styles.instrumentLabel}>Instrument</span>
-              <Select
-                size="xs"
-                data={instruments}
-                value={selectedInstrument || null}
-                onChange={handleInstrumentChange}
-                aria-label="Select instrument"
-                disabled={instruments.length === 1}
-                searchable={false}
-                clearable={false}
-                className={styles.instrumentSelect}
-              />
-            </div>
-          )}
           <div className={styles.headerStatus}>
             <div
               className={`${styles.statusDot} ${
