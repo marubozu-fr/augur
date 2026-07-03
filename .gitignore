@@ -42,3 +42,4 @@ node_modules/
 frontend/dist/
 quotes/
 migrate.py
+results/intraday_volume_range.json
