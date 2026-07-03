@@ -148,7 +148,7 @@ augur/
 cd augur && source .venv/bin/activate
 
 # Run a specific stat
-python -m stats.opening_candle.continuation --instrument NQ
+python -m stats.opening_candle.standard --instrument NQ
 
 # Generate Pine Script
 python -m pinescript.generator --instrument NQ --output output/augur_nq.pine

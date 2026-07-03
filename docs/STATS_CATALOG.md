@@ -77,7 +77,7 @@ the per-group labels (including data-dependent bucket ranges) live inside each g
 ## 1. Opening Candle Continuation
 
 **Family**: `opening_candle`
-**Module**: `stats/opening_candle/continuation.py`
+**Module**: `stats/opening_candle/standard.py`
 **Result file**: `results/opening_candle_continuation.json`
 **Status**: Implemented
 

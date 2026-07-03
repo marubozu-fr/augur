@@ -1,4 +1,4 @@
-"""Tests for stats.opening_candle.continuation.
+"""Tests for stats.opening_candle.standard.
 
 All data is synthetic — no real market files required.
 Expected values are hand-calculated before each assertion.
@@ -12,7 +12,7 @@ import pytest
 
 from stats.base import StatResultRow, StatRunResult, write_results
 from stats.config import InstrumentConfig, Session, load_config, minute_of_day
-from stats.opening_candle.continuation import OpeningCandleContinuation
+from stats.opening_candle.standard import OpeningCandleContinuation
 
 # ---------------------------------------------------------------------------
 # Minimal InstrumentConfig used by all tests (does not depend on NQ.yaml)

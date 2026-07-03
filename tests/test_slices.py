@@ -40,7 +40,7 @@ from stats.base import (
   write_results,
 )
 from stats.config import InstrumentConfig, Session
-from stats.opening_candle.continuation import OpeningCandleContinuation, _CloseLocation
+from stats.opening_candle.standard import OpeningCandleContinuation, _CloseLocation
 
 # ---------------------------------------------------------------------------
 # Shared test infrastructure
@@ -1498,7 +1498,7 @@ def test_weekday_slice_write_results_round_trip(tmp_path: Path) -> None:
 # ===========================================================================
 
 class TestCloseLocation:
-  """Tests for stats.opening_candle.continuation._CloseLocation."""
+  """Tests for stats.opening_candle.standard._CloseLocation."""
 
   def test_name(self) -> None:
     """The dimension name is 'close'."""

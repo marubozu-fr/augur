@@ -136,7 +136,7 @@ Run a stat module as `python -m stats.<family>.<variant> --instrument NQ`. Most
 families expose a `standard` variant; some have named variants. For example:
 
 ```bash
-python -m stats.opening_candle.continuation --instrument NQ
+python -m stats.opening_candle.standard --instrument NQ
 python -m stats.fair_value_gaps.standard --instrument NQ
 ```
 
