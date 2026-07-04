@@ -4781,3 +4781,89 @@ formation order genuinely shifts the breakout direction. Uses
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
 
+
+---
+
+## 57. Opening Candle Extreme Reclaim
+
+**Family**: `opening_candle_extreme_reclaim`
+**Module**: `stats/opening_candle/extreme_reclaim.py`
+**Result file**: `results/opening_candle_extreme_reclaim.json`
+**Status**: Implemented
+
+### What it measures
+After the opening candle closes, does the session reclaim the candle's **high**,
+its **low**, **both** (and in what order), or **neither**? A pure 5-way
+probability partition per condition — no tradable layer, no magnitude channel.
+It reuses the v1 (`opening_candle_continuation`) day-table construction and adds
+a scan of the post-candle outcome window.
+
+### Methodology
+1. Build the v1 per-day table: opening candle OHLC (grid-aligned, `floor(rth_start
+   / tf) * tf`), session open/close, and the resolution filter (clean 09:30 open,
+   last RTH bar within `close_tolerance` of session end).
+2. Classify the opening candle as **green** (close >= open) or **red** (close <
+   open). **Doji** (`close == open`) days have no direction and are excluded
+   entirely — dropped from the day table so they never enter any count, slice, or
+   sample.
+3. Scan the 1-min bars in the **outcome window** `[candle_open + tf, rth_end)`
+   (excludes the opening candle itself, same window as the reverted v2):
+   - `reclaims_high` — at least one bar has `high >= opening_high`.
+   - `reclaims_low` — at least one bar has `low <= opening_low`.
+   - When both are reclaimed, compare the minute-of-day of the first high touch vs
+     the first low touch to decide the order. A same-bar double touch (the bar's
+     range spans the whole opening candle — extremely rare) is classified as
+     `high_first` by tiebreak convention.
+4. Classify each day into exactly one of the five outcomes below.
+
+### Conditions & outcomes
+| Condition | Outcomes | Partition? | Description |
+|---|---|---|---|
+| `green_open` | `high_only`, `low_only`, `high_first`, `low_first`, `neither` | Yes | Green opening candle; the five outcomes partition its non-doji days |
+| `red_open` | `high_only`, `low_only`, `high_first`, `low_first`, `neither` | Yes | Red opening candle; same 5-way partition |
+
+Outcome definitions: `high_only` = reclaims high, never low; `low_only` =
+reclaims low, never high; `high_first` = reclaims both, high touched first;
+`low_first` = reclaims both, low touched first; `neither` = reclaims neither.
+
+Derived aggregates the frontend can compute from the partition:
+`P(reclaims high) = high_only + high_first + low_first`,
+`P(reclaims low) = low_only + high_first + low_first`,
+`P(reclaims both) = high_first + low_first`.
+
+### Parameters
+| Parameter | Default | Description |
+|---|---|---|
+| timeframe | 15min | Opening candle duration: 15min, 30min, or 1h |
+| close_tolerance_min | 15 | Minutes before session end still considered a full close |
+
+### Timeframes computed
+- 15min (opening candle 09:30–09:45; outcome window 09:45–16:15).
+- 30min (opening candle 09:30–10:00; outcome window 10:00–16:15).
+- 1h (opening candle 09:00–10:00; outcome window 10:00–16:15).
+
+### Baseline
+Random null (fixed seed, deterministic): two independent fair coins per day —
+P(high touched) = P(low touched) = 0.5; when both are touched the order is a
+third fair coin. Expected baseline: `high_only` 25%, `low_only` 25%, `high_first`
+12.5%, `low_first` 12.5%, `neither` 25%. Uses `np.random.default_rng(seed)`.
+
+### i18n
+- **title.en**: "Opening Candle Extreme Reclaim"
+- **title.fr**: "Reclaim des extrêmes de la bougie d'ouverture"
+- **definition.en**: "After the opening candle closes, does the session reclaim the candle's high, low, both (and in what order), or neither?"
+- **definition.fr**: "Après la clôture de la bougie d'ouverture, la session reclaime-t-elle le high, le low, les deux (et dans quel ordre), ou aucun ?"
+
+### Slices
+Inherited verbatim from `opening_candle_continuation` (v1):
+- `weekday` — day-of-week breakdown (shared `Weekday` slicer).
+- `close` — where the session **closes relative to the opening candle range**
+  (`above` / `inside` / `below`), via the stat-local `_CloseLocation` slicer.
+- `size` — opening-candle **body size** quartiles, `|opening_close -
+  opening_open|` (`SizeBucket(column="opening_body", preset="quartiles")`).
+
+### Control values (NQ, 2008→2026)
+- 1h green (N=2268): `P(reclaims high)` = high_only + high_first + low_first ≈
+  **87.1%** — matches the exploration script's aggregate reclaim rate.
+- 1h red (N=2042): `P(reclaims low)` = low_only + high_first + low_first ≈
+  **83.3%**.
