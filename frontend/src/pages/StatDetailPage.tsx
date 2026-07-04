@@ -9,7 +9,6 @@ import { DateRangePopover } from '../components/DateRangePopover'
 import { MagnitudeBarChart } from '../components/charts/MagnitudeBarChart'
 import { ProbabilityBarChart } from '../components/charts/ProbabilityBarChart'
 import { SliceGroupedBarChart } from '../components/charts/SliceGroupedBarChart'
-import { TradablePanel } from '../components/TradablePanel'
 import {
   computePresetRange,
   DURATION_PRESETS,
@@ -754,19 +753,6 @@ export function StatDetailPage() {
             slices={tfResult.slices}
             labels={result.labels}
             showCharts={showCharts}
-          />
-        )}
-
-      {/* ===== Tradable layer (v2+ stats) ===== */}
-      {/* Rendered only when the result carries a non-empty tradable block. The
-          backend returns tradable: null for period-filtered results (no
-          reaggregation yet), so the panel simply hides under an active filter. */}
-      {tfResult &&
-        tfResult.tradable &&
-        Object.keys(tfResult.tradable).length > 0 && (
-          <TradablePanel
-            tradable={tfResult.tradable}
-            labels={result.labels}
           />
         )}
     </div>
