@@ -84,69 +84,6 @@ class SampleRow(BaseModel):
   condition: str
   outcome: str
   value: float | None = None
-  # Tradable enrichment (v2+ stats): per-day anchored magnitudes so the API can
-  # re-aggregate the tradable layer over a date range. All None for probability
-  # stats and for days excluded from the tradable layer (e.g. doji).
-  anchor_price: float | None = None
-  close_price: float | None = None
-  mfe_pts: float | None = None
-  mae_pts: float | None = None
-
-
-class TpLadderLevel(BaseModel):
-  """One take-profit level on the adaptive MFE ladder."""
-
-  level_x_range: float  # multiplier applied to the median range (0.25, 0.5, ...)
-  level_pts: float      # absolute level in points
-  prob: float           # P(MFE >= level_pts)
-  n: int                # total non-doji days evaluated for this condition
-
-
-class ConditionalMae(BaseModel):
-  """Drawdown before first touch of a TP level (stop-placement metric).
-
-  Expressed as a fraction of the anchor price so drawdowns from different price
-  regimes (e.g. NQ@1400 vs NQ@28000) are comparable.
-  """
-
-  level_pts: float     # TP level in points (matches the tp_ladder level)
-  mae_pct_p50: float   # median MAE before first touch, fraction of anchor
-  mae_pct_p75: float   # p75 MAE before first touch, fraction of anchor
-
-
-class MaeResult(BaseModel):
-  """Maximum adverse excursion distribution for one condition."""
-
-  p50: float  # MAE p50 in points
-  p75: float  # MAE p75 in points
-  p90: float  # MAE p90 in points
-  conditional: list[ConditionalMae]
-
-
-class TradableMeta(BaseModel):
-  """Provenance for a tradable-layer block."""
-
-  anchor: str               # e.g. "condition_candle_close"
-  outcome_window: str       # e.g. "anchor→16:15"
-  overlap_free: bool        # True when the outcome window excludes the condition window
-  excluded_days: list[str]  # YYYY-MM-DD dates excluded from tradable (doji, etc.)
-
-
-class TradableResult(BaseModel):
-  """Tradable layer for one condition: residual, TP ladder, and drawdown.
-
-  Anchored after the condition candle closes so it measures only the tradable
-  residual, not the self-counting overlap of the base stat.
-  """
-
-  win_rate: float
-  remaining_mean_pts: float
-  remaining_median_pts: float
-  remaining_mean_pct: float
-  n: int
-  tp_ladder: list[TpLadderLevel]
-  mae: MaeResult
-  meta: TradableMeta
 
 
 class TimeframeResult(BaseModel):
@@ -159,9 +96,6 @@ class TimeframeResult(BaseModel):
   # ascending. Empty for families that have not overridden ``classify_samples``;
   # the default keeps existing result JSON (which lacks this field) valid.
   samples: list[SampleRow] = []
-  # Tradable layer keyed by condition (v2+ stats). None for probability-only
-  # families, keeping existing result JSON valid.
-  tradable: dict[str, TradableResult] | None = None
 
 
 class StatRunResult(BaseModel):
