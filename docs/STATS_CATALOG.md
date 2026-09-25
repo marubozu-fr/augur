@@ -136,7 +136,6 @@ Expected baseline: ~50% for all conditions. Fixed seed for reproducibility.
   data-driven quartiles rather than hardcoded percentage thresholds, per the
   no-hardcoded-instrument-values rule.)
 
-
 ---
 
 ## 2. Green & Red Days by Weekday
@@ -187,7 +186,6 @@ Expected baseline: ~50% for both green and red. Fixed seed for reproducibility.
 
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
-
 
 ---
 
@@ -255,7 +253,6 @@ current color. Expected baseline: ~50% for every row. Fixed seed for reproducibi
 
 ### Slices
 - None. The streaks stat declares `slices = ()`.
-
 
 ---
 
@@ -325,7 +322,6 @@ overall, with a fixed seed for reproducibility.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
-
 ---
 
 ## 5. Previous Session Correlation
@@ -385,7 +381,6 @@ prior one. Expected baseline: ~50% for every row. Fixed seed for reproducibility
 
 ### Slices
 - None. The prev-session-correlation stat declares `slices = ()`.
-
 
 ---
 
@@ -452,7 +447,6 @@ seed for reproducibility.
 ### Future variants (not in MVP)
 - `by_weekday` — the gap→intraday matrix sliced per weekday (would declare
   `slices = ("weekday",)`).
-
 
 ---
 
@@ -525,7 +519,6 @@ slice group as well as overall, with a fixed seed for reproducibility.
 
 Both slicers are module-local (`stats/seasonality/standard.py`); they read the
 period table's DatetimeIndex and are not shared in `stats/base.py`.
-
 
 ---
 
@@ -613,7 +606,6 @@ computed per slice group as well as overall.
   weeks and red weeks. Delivers the "by weekly candle color" breakdown for free
   via the framework.
 
-
 ---
 
 ## 9. Volume & Range by Weekday
@@ -692,7 +684,6 @@ for the overall result the sample is a permutation of the full table, so its
 
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
-
 
 ---
 
@@ -777,7 +768,6 @@ permutation of the full table, so its `value_baseline` equals the overall `value
 Both slicers are reused from the Seasonality family
 (`stats/seasonality/standard.py`); they read the period table's DatetimeIndex.
 
-
 ---
 
 ## 11. Previous Day's Range
@@ -861,7 +851,6 @@ Random null with two independent randomizations (fixed seed, deterministic):
   **closed outside** the broken level (close beyond prior high/low) versus **back
   inside** the prior range, rather than the green/red session direction used here.
 
-
 ---
 
 ## 12. Previous Week's Range
@@ -941,7 +930,6 @@ None. The standard report has no secondary breakdowns.
 - `by_open` — split weeks by their open above/below the prior week's midpoint.
 - `by_outside_close` — split by whether the week **closed outside** the broken
   level versus back inside the prior range.
-
 
 ---
 
@@ -1033,7 +1021,6 @@ price can re-enter it), which makes the strong real-data reversal rate the signa
 - `by_spike` — maximum extension reached before a reversal.
 - `by_time` — whether the reversal occurred before/after an intraday cutoff.
 
-
 ## 14. Inside Bars
 
 **Family**: `inside_bars`
@@ -1115,7 +1102,6 @@ zero — which makes the strong real-data inside-open rate the signal.
 - `by_breakout` — outcome classification refinements on the breakout move.
 - `by_open` — split by open above/below the prior midpoint.
 - `by_prev_day_size` — bucket inside days by the prior range relative to ADR.
-
 
 ---
 
@@ -1202,7 +1188,6 @@ rate collapses toward zero — which makes the real-data engulfing rate the sign
 - `by_rr` — risk-reward follow-through buckets.
 - `by_size` — body size as a percent of open, bucketed.
 
-
 ---
 
 ## 16. Average Daily Range (ADR)
@@ -1278,7 +1263,6 @@ likely to be above as below any given range value.
   metrics (e.g. average ADR utilisation per weekday).
 - `by_streak` — how often the exceeded / respected outcome repeats on consecutive
   sessions.
-
 
 ---
 
@@ -1369,7 +1353,6 @@ likely to be above as below any given true-range value.
 - `by_weekday` — a dedicated weekday variant (the weekday breakdown is already
   available via the declared `weekday` slice).
 
-
 ---
 
 ## 18. Open to Close Range
@@ -1440,7 +1423,6 @@ an artifact of the band width.
   metrics.
 - `by_streak` — how often the within / outside outcome repeats on consecutive
   sessions.
-
 
 ---
 
@@ -1520,7 +1502,6 @@ every slice (including the green-only / red-only `close` groups).
 - `by_weekday` — the per-weekday reversal magnitude is already available via the
   declared `weekday` slice; a dedicated variant could expose additional per-day
   detail.
-
 
 ---
 
@@ -1613,7 +1594,6 @@ side of the SMA rather than an artifact of the distance distribution.
 - Percent-based travel (excursion as a fraction of price) alongside the point
   metric, mirroring the dual point/percent reporting of other magnitude stats.
 
-
 ---
 
 ## 21. CPI Performance
@@ -1687,7 +1667,6 @@ tendency around CPI rather than an artifact of the return distribution.
 - None. CPI releases are scattered across the calendar and each window spans
   several sessions, so the per-day slicers (weekday, close color, …) do not
   apply; `slices = ()`.
-
 
 ---
 
@@ -1763,8 +1742,6 @@ tendency around NFP rather than an artifact of the return distribution.
   several sessions, so the per-day slicers (weekday, close color, …) do not
   apply; `slices = ()`.
 
-
-
 ## 23. FOMC Performance
 
 **Family**: `fomc_performance`
@@ -1838,7 +1815,6 @@ distribution.
 - None. FOMC decisions are scattered across the calendar and each window spans
   several sessions, so the per-day slicers (weekday, close color, …) do not
   apply; `slices = ()`.
-
 
 ---
 
@@ -1938,7 +1914,6 @@ that fills well above half the time. Uses `np.random.default_rng(seed)`.
 - `by_spike` — bucket days by the maximum spike **against** the gap direction
   before the fill (needs the intraday path, not just the day extremes).
 
-
 ---
 
 ## 25. Opening Range Breakout
@@ -2030,7 +2005,6 @@ the comparison reveals whether the opening range breaks **up** more often than
 - `by_retracement` — pullback depth after the break.
 - `by_time` — breakout before/after an intraday threshold.
 
-
 ---
 
 ## 26. Opening Range Indicator
@@ -2114,7 +2088,6 @@ hypothesis-tested). Uses `np.random.default_rng(seed)`.
 - `size` — the "by size" breakdown: opening-range size quartiles (declared via
   `SizeBucket(column="opening_range")`); each bucket's `mean_remaining_range` makes
   the relationship visible directly.
-
 
 ---
 
@@ -2207,7 +2180,6 @@ overall.
   the prior range, for days that open outside it.
 - `by_size` — bucket open-distance-from-range for above/below days.
 
-
 ---
 
 ## 28. Opening Week Range
@@ -2266,6 +2238,7 @@ is fixed by each timeframe entry.
 
 ### Timeframes computed
 - `1d` (opening window = first 1 session of the week).
+- `2d` (opening window = first 2 sessions of the week, the default).
 
 ### Baseline
 Random null, computed per tier (fixed seed, deterministic):
@@ -2282,13 +2255,12 @@ Random null, computed per tier (fixed seed, deterministic):
 
 ### Slices
 - `size` — the "by size" breakdown: opening-week-range size quartiles (declared
-  `week_range_size` parameter.
+  via `SizeBucket(column="opening_size")`).
 
 ### Future variants (not in MVP)
 - `by_levels` — extension in multiples of the opening-week range beyond the
   broken level.
 - `by_retracement` — pullback depth after the break.
-
 
 ---
 
@@ -2377,6 +2349,7 @@ the comparison reveals whether the initial balance breaks **up** more often than
   (declared via `SizeBucket(column="ib_size")`).
 - `size_pct` — the "by size (% of price)" breakdown: initial-balance size as a
   percentage of the session open, in preset bands (<0.2%, 0.2–0.4%, 0.4–0.6%,
+  0.6–0.9%, >0.9%) (declared via
   `SizeBucket(column="ib_size_pct", buckets=[…])`).
 - `overnight` — the "by overnight session" breakdown: overnight gap direction, the
   session open above (green) / below (red) the prior session's close (declared via
@@ -2387,6 +2360,7 @@ the comparison reveals whether the initial balance breaks **up** more often than
 
 ### Extension variants (slices added by the IB extensions issue #36)
 The slice-friendly extension variants are implemented above as `size_pct`,
+`overnight`, and `levels`. The remaining "by …" variants need their own
 outcome/metric computations (they do not fit the four-outcome breakout partition)
 and are deferred to follow-up issues:
 - `by_performance` — average / maximum extension before price breaks back into the
@@ -2399,7 +2373,6 @@ and are deferred to follow-up issues:
   as section 55 (`initial_balance_time`).
 - `by_rejection` — contingency of which balance edge formed first vs. which broke
   first. Implemented as section 56 (`initial_balance_rejection`).
-
 
 ## 30. Power Hour Breakout
 
@@ -2485,7 +2458,6 @@ makes a new high **up** more often than **down** beyond a coin flip. Uses
   pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
   (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
 
-
 ## 31. Power Hour Continuation
 
 **Family**: `power_hour_continuation`
@@ -2561,7 +2533,6 @@ direction beyond a coin flip. Uses `np.random.default_rng(seed)`.
 - `open` — the "by open" breakdown: where the power-hour open falls relative to the
   pre-power-hour range midpoint, the upper half (`above`) or lower half (`below`)
   (declared via the `PowerHourOpen` slicer reading `ph_open_above`).
-
 
 ---
 
@@ -2642,7 +2613,6 @@ overall.
   as a custom `SessionColor` slicer (subclass of `_ColorSlicer`) splitting on
   `session_green`. A single run yields the overall (`all`) result plus the green
   and red breakdowns.
-
 
 ---
 
@@ -2729,7 +2699,6 @@ baseline is computed per slice group as well as overall.
 
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
-
 
 ---
 
@@ -2821,7 +2790,6 @@ as well as overall.
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via `slices = ("weekday",)`).
 
-
 ---
 
 ## 35. Market Open Volume
@@ -2897,7 +2865,6 @@ deterministic output.
 
 ### Slices
 - None (`slices = ()`).
-
 
 ---
 
@@ -2987,7 +2954,6 @@ the comparison reveals whether the overnight range breaks **up** more often than
 - `levels` — the "by levels" breakdown: how far the breakout extended past the
   overnight range, in multiples of `on_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
   declared via `Levels(ref="on_size", ext="extension")`).
-
 
 ## 37. Market Session Breakout
 
@@ -3082,7 +3048,6 @@ converge to their shared mean and the comparison reveals whether session 2 break
   `high_first` / `low_first` (declared via the shared `Rejection` slicer reading
   `high_first`); cycles with an undetermined order are excluded.
 
-
 ---
 
 ## 38. Fair Value Gaps
@@ -3170,6 +3135,7 @@ the permutation baseline is the correct direction-agnostic null. Uses
 - `weekday` — the "by weekday" breakdown (declared via the shared `Weekday`
   slicer; reads `index.dayofweek` on the event table — same session date → same
   weekday for all FVGs within a session).
+- `size` — the "by gap size" breakdown using fixed preset edges on
   `gap_size_pct` (`SizeBucket(column="gap_size_pct", buckets=[0.0, 0.024, 0.049,
   0.089, 0.149, 0.25, inf], name="size")`). The six buckets are: 0–0.024 %,
   0.025–0.049 %, 0.05–0.089 %, 0.09–0.149 %, 0.15–0.25 %, >0.25 %.
@@ -3182,7 +3148,6 @@ the permutation baseline is the correct direction-agnostic null. Uses
   to show how fill rate degrades as the threshold tightens.
 - `by_gap_age` — how many candles after formation the gap is finally filled (a
   magnitude stat using the bucket offset to fill).
-
 
 ---
 
@@ -3261,7 +3226,6 @@ green/red), so session 2's color is independent of session 1's. Expected baselin
 - `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
 - `size` — the "by size" breakdown: session-1-range size quartiles (declared via
   `SizeBucket(column="s1_size")`).
-
 
 ---
 
@@ -3353,7 +3317,6 @@ Uses `np.random.default_rng(seed)`.
   or red. Declared via the module-local `_DailyCandle` slicer, a subclass of
   the public `Close` slicer reading the `day_green` boolean column.
 
-
 ---
 
 ## 41. Session Range by Weekday
@@ -3437,7 +3400,6 @@ the overall `value`.
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
 
-
 ---
 
 ## 42. Session Volume by Weekday
@@ -3519,7 +3481,6 @@ the overall `value`.
 
 ### Slices
 - `weekday` — implemented (declared via `slices = ("weekday",)`)
-
 
 ---
 
@@ -3604,7 +3565,6 @@ immediate market response to the Fed's rate decision. Each interval reports its
 average % change, average $ change, and average volume, both overall (all FOMC
 days) and per reaction group.
 
-
 ### Methodology
 1. **Interval grid**: the RTH session `[rth_start_min, rth_end_min)` is split
    into consecutive 15-minute intervals (`range(rth_start, rth_end, 15)`). For
@@ -3674,7 +3634,7 @@ Interval condition labels are generated dynamically from the grid (e.g. `i0930`
   reaction split; the top-level results cover all FOMC days aggregated.
 
 ### Future variants (not in MVP)
-- `by_individual_days` — per-date breakdown of each FOMC day's intraday profile
+- `by_individual_days` — per-date breakdown of each FOMC day's intraday profile.
 
 ---
 
@@ -3744,7 +3704,6 @@ day count. Draws are sequential over the fixed condition order with
 ### Slices
 - None. Releases are scattered across the calendar, so the per-day slicers
   (weekday, close color, …) do not apply; `slices = ()`.
-
 
 ## 46. Asian Range Breakout
 
@@ -3836,7 +3795,6 @@ the comparison reveals whether the Asian range breaks **up** more often than
   Asian range, in multiples of `ar_size` (<0.5x, 0.5–1x, 1–1.5x, 1.5–2x, >=2x;
   declared via `Levels(ref="ar_size", ext="extension")`).
 
-
 ---
 
 ## 47. Candle Body Ratio
@@ -3918,7 +3876,6 @@ is computed per slice group as well as overall.
 ### Slices
 - `weekday` — the "by weekday" breakdown (declared via the shared `Weekday` slicer).
 
-
 ---
 
 ## 48. Average Consecutive Bars
@@ -3997,7 +3954,6 @@ momentum). Days are iterated in stable chronological order for reproducibility.
 ### Slices
 None.
 
-
 ---
 
 ## 49. Fibonacci Retracement Levels
@@ -4022,6 +3978,7 @@ The prior candle's direction determines the anchor orientation:
   f=0 → prev_low, f=1 → prev_high.
 
 The `prev_candle` slice naturally exposes the green/red asymmetry in fib-level
+behavior.
 
 ### Methodology
 1. Build the RTH daily candle per resolved day (`session_open`, `session_close`)
@@ -4099,8 +4056,8 @@ first resolved day) moves to a random row, preserving the countable count exactl
   slicer).
 - `prev_candle` — the "by prior close" breakdown: prior session green/red
   (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
+  This is the primary slice for this stat, revealing the green/red
   asymmetry in fib-level touch rates and opening zones.
-
 
 ---
 
@@ -4204,7 +4161,6 @@ the market does on average. Uses `np.random.default_rng(seed)`.
   path).
 - `by_spike` — bucket days by the maximum spike **away** from the level before the
   retrace (needs the intraday path, not just the day extremes).
-
 
 ---
 
@@ -4325,8 +4281,6 @@ moves to a random row, preserving the countable count exactly.
 - `prev_candle` — the "by prior close" breakdown: prior session green/red
   (declared via the shared `PrevCandle` slicer reading `prev_session_green`).
 
-
-
 ---
 
 ## 52. Weekly Open Retracement
@@ -4421,7 +4375,6 @@ The "by weekday" variant is handled by the tier-2 `retraced` rows in
 `compute_rows` (the weekday slicer would split by the week's Monday index, which
 is constant, so it is not declared).
 
-
 ---
 
 ## 53. Initial Balance Breakout — Performance
@@ -4511,7 +4464,6 @@ side). Uses `np.random.default_rng(seed)`.
 - `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
-
 
 ---
 
@@ -4603,7 +4555,6 @@ deeper (above baseline) or shallower (below baseline) than a random pull-back. U
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
 
-
 ## 55. Initial Balance Breakout — by Time
 
 **Family**: `initial_balance`
@@ -4694,7 +4645,6 @@ whether breakouts cluster earlier (above baseline early) or later than chance. U
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
 
-
 ## 56. Initial Balance Breakout — by Rejection
 
 **Family**: `initial_balance`
@@ -4780,7 +4730,6 @@ formation order genuinely shifts the breakout direction. Uses
 - `size` — by IB size quartiles, absolute points (`SizeBucket(column="ib_size")`).
 - `size_pct` — by IB size as a percent of price, preset bands (<0.2%, 0.2–0.4%,
   0.4–0.6%, 0.6–0.9%, >0.9%) (`SizeBucket(column="ib_size_pct", buckets=[…])`).
-
 
 ---
 

@@ -15,8 +15,9 @@ the RTH ``[day_low, day_high]`` interval.
 
 This is a **magnitude** stat (like ``volume_range_weekday``): every outcome
 carries its metric in ``StatResultRow.value`` (and its random baseline in
-``value_baseline``); the ``probability`` channel is left at ``0.0``. Faithful to
-**maximum**, each in **points** and in **percent** of the session open:
+``value_baseline``); the ``probability`` channel is left at ``0.0``. The reversal
+range is reported as both an **average** and a **maximum**, each in **points**
+and in **percent** of the session open:
 
   - ``mean_reversal``     — average reversal range in points.
   - ``mean_reversal_pct`` — average reversal range as a decimal of the open
@@ -31,6 +32,7 @@ Declared slices:
 
   - ``weekday`` — the "by weekday" breakdown.
   - ``close``   — the "by session color" breakdown (green / red), the central
+                  green-vs-red split of this stat.
 """
 
 from __future__ import annotations

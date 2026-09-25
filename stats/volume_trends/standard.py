@@ -20,6 +20,7 @@ the ordinary ``probability`` channel is left at ``0.0``.
 
 Pending-sample discipline: the most recent period is **excluded**. Data typically
 ends mid-month/mid-week, so that period's total is incomplete and would skew the
+average downward. Resolved days
 already drop the final incomplete trading day upstream.
 
 The two granularities are merged into a single result file under

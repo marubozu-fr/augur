@@ -40,6 +40,7 @@ prints its high first (``high_first``), a bullish bar its low first
 (``low_first``).
 
 Results are computed for two opening lengths, each emitted as its own timeframe
+entry: 1d (first 1 session) and 2d (first 2 sessions, the default).
 """
 
 from __future__ import annotations

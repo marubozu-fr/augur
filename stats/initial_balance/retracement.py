@@ -152,6 +152,7 @@ class InitialBalanceRetracement(BaseStat):
     "prev_candle",
     "overnight",
     SizeBucket(column="ib_size", preset="quartiles", name="size"),
+    # IB size as % of price, in preset bands (<0.2%, 0.2–0.4%, 0.4–0.6%,
     # 0.6–0.9%, >0.9%); upper edge is open (inf).
     SizeBucket(
       column="ib_size_pct",
