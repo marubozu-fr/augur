@@ -89,8 +89,10 @@ the stats against your own Parquet data — see `python -m
 stats.<family>.<variant> --instrument NQ` below.
 
 ```bash
-# Python environment
-cd augur && source .venv/bin/activate
+# Python environment (creates .venv with runtime + dev dependencies)
+cd augur
+uv sync --extra dev
+source .venv/bin/activate
 
 # Build the frontend (installs deps + Vite build into frontend/dist/)
 make build
@@ -211,13 +213,13 @@ python -m pinescript.generator --instrument NQ --output output/augur_nq.pine
 
 ```bash
 # Stats engine + backend tests (SQLite path)
-uv run pytest
+uv run --extra dev pytest
 
 # Backend only
-cd backend && uv run pytest
+cd backend && uv run --extra dev pytest
 
 # Lint (Python)
-uv run ruff check .
+uv run --extra dev ruff check .
 
 # Frontend lint + type check
 cd frontend && pnpm lint && pnpm tsc --noEmit
