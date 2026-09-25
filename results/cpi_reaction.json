@@ -1,0 +1,156 @@
+{
+  "stat_name": "cpi_reaction",
+  "title": {
+    "en": "CPI Reaction",
+    "fr": "Réaction CPI"
+  },
+  "definition": {
+    "en": "On CPI release dates, given the initial reaction candle's direction (08:30–09:30 ET move after the release), how often does the RTH day close in the same direction?",
+    "fr": "Les jours de publication du CPI, selon la direction de la bougie de réaction initiale (mouvement 08:30–09:30 ET après la publication), à quelle fréquence la séance RTH clôture-t-elle dans la même direction ?"
+  },
+  "labels": {
+    "conditions": {
+      "reaction_green": {
+        "en": "Green reaction (up)",
+        "fr": "Réaction verte (hausse)"
+      },
+      "reaction_red": {
+        "en": "Red reaction (down)",
+        "fr": "Réaction rouge (baisse)"
+      }
+    },
+    "outcomes": {
+      "green": {
+        "en": "Green day (up)",
+        "fr": "Jour vert (hausse)"
+      },
+      "red": {
+        "en": "Red day (down)",
+        "fr": "Jour rouge (baisse)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-16",
+          "2026-04-10"
+        ],
+        "total_samples": 204,
+        "results": [
+          {
+            "condition": "reaction_green",
+            "outcome": "green",
+            "count": 76,
+            "total": 120,
+            "probability": 0.6333333333333333,
+            "baseline_prob": 0.525,
+            "baseline_n": 120,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_green",
+            "outcome": "red",
+            "count": 44,
+            "total": 120,
+            "probability": 0.36666666666666664,
+            "baseline_prob": 0.475,
+            "baseline_n": 120,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_red",
+            "outcome": "green",
+            "count": 41,
+            "total": 84,
+            "probability": 0.4880952380952381,
+            "baseline_prob": 0.47619047619047616,
+            "baseline_n": 84,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_red",
+            "outcome": "red",
+            "count": 43,
+            "total": 84,
+            "probability": 0.5119047619047619,
+            "baseline_prob": 0.5238095238095238,
+            "baseline_n": 84,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-16",
+          "2026-06-10"
+        ],
+        "total_samples": 207,
+        "results": [
+          {
+            "condition": "reaction_green",
+            "outcome": "green",
+            "count": 71,
+            "total": 125,
+            "probability": 0.568,
+            "baseline_prob": 0.512,
+            "baseline_n": 125,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_green",
+            "outcome": "red",
+            "count": 54,
+            "total": 125,
+            "probability": 0.432,
+            "baseline_prob": 0.488,
+            "baseline_n": 125,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_red",
+            "outcome": "green",
+            "count": 41,
+            "total": 82,
+            "probability": 0.5,
+            "baseline_prob": 0.4878048780487805,
+            "baseline_n": 82,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "reaction_red",
+            "outcome": "red",
+            "count": 41,
+            "total": 82,
+            "probability": 0.5,
+            "baseline_prob": 0.5121951219512195,
+            "baseline_n": 82,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

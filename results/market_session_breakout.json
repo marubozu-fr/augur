@@ -1,0 +1,2043 @@
+{
+  "stat_name": "market_session_breakout",
+  "title": {
+    "en": "Market Session Breakout",
+    "fr": "Cassure de session de marché"
+  },
+  "definition": {
+    "en": "Comparing a second market session's high and low to the range a first market session formed, how often does price break above the first session's high only, below its low only, both sides, or neither during the second session?",
+    "fr": "En comparant le plus haut et le plus bas d'une deuxième session de marché au range formé par une première session, à quelle fréquence le prix casse-t-il au-dessus du plus haut de la première session uniquement, en-dessous de son plus bas uniquement, des deux côtés, ou ni l'un ni l'autre pendant la deuxième session ?"
+  },
+  "labels": {
+    "conditions": {
+      "session1_range": {
+        "en": "Session 1 range",
+        "fr": "Range de la session 1"
+      }
+    },
+    "outcomes": {
+      "broke_high": {
+        "en": "Broke above session 1 high only",
+        "fr": "Cassure au-dessus du plus haut de la session 1 uniquement"
+      },
+      "broke_low": {
+        "en": "Broke below session 1 low only",
+        "fr": "Cassure en-dessous du plus bas de la session 1 uniquement"
+      },
+      "broke_both": {
+        "en": "Broke both sides",
+        "fr": "Cassure des deux côtés"
+      },
+      "neither": {
+        "en": "Stayed within the session 1 range",
+        "fr": "Resté dans le range de la session 1"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "levels": {
+        "en": "Extension level",
+        "fr": "Niveau d'extension"
+      },
+      "rejection": {
+        "en": "First extreme of the range",
+        "fr": "Premier extrême du range"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4306,
+        "results": [
+          {
+            "condition": "session1_range",
+            "outcome": "broke_high",
+            "count": 1389,
+            "total": 4306,
+            "probability": 0.3225731537389689,
+            "baseline_prob": 0.30283325592196936,
+            "baseline_n": 4306,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "broke_low",
+            "count": 1182,
+            "total": 4306,
+            "probability": 0.2745006967022759,
+            "baseline_prob": 0.2940083604273107,
+            "baseline_n": 4306,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "broke_both",
+            "count": 1680,
+            "total": 4306,
+            "probability": 0.3901532745006967,
+            "baseline_prob": 0.3906177426846261,
+            "baseline_n": 4306,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "neither",
+            "count": 55,
+            "total": 4306,
+            "probability": 0.012772875058058523,
+            "baseline_prob": 0.012540640966093822,
+            "baseline_n": 4306,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 810,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 290,
+                    "total": 810,
+                    "probability": 0.35802469135802467,
+                    "baseline_prob": 0.3074074074074074,
+                    "baseline_n": 810,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 181,
+                    "total": 810,
+                    "probability": 0.2234567901234568,
+                    "baseline_prob": 0.27530864197530863,
+                    "baseline_n": 810,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 333,
+                    "total": 810,
+                    "probability": 0.4111111111111111,
+                    "baseline_prob": 0.4111111111111111,
+                    "baseline_n": 810,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 810,
+                    "probability": 0.007407407407407408,
+                    "baseline_prob": 0.006172839506172839,
+                    "baseline_n": 810,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 892,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 277,
+                    "total": 892,
+                    "probability": 0.31053811659192826,
+                    "baseline_prob": 0.3038116591928251,
+                    "baseline_n": 892,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 239,
+                    "total": 892,
+                    "probability": 0.2679372197309417,
+                    "baseline_prob": 0.273542600896861,
+                    "baseline_n": 892,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 371,
+                    "total": 892,
+                    "probability": 0.41591928251121074,
+                    "baseline_prob": 0.4170403587443946,
+                    "baseline_n": 892,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 892,
+                    "probability": 0.005605381165919282,
+                    "baseline_prob": 0.005605381165919282,
+                    "baseline_n": 892,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 886,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 275,
+                    "total": 886,
+                    "probability": 0.31038374717832956,
+                    "baseline_prob": 0.2742663656884876,
+                    "baseline_n": 886,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 235,
+                    "total": 886,
+                    "probability": 0.2652370203160271,
+                    "baseline_prob": 0.29909706546275394,
+                    "baseline_n": 886,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 366,
+                    "total": 886,
+                    "probability": 0.41309255079006774,
+                    "baseline_prob": 0.4153498871331828,
+                    "baseline_n": 886,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 886,
+                    "probability": 0.011286681715575621,
+                    "baseline_prob": 0.011286681715575621,
+                    "baseline_n": 886,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 869,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 273,
+                    "total": 869,
+                    "probability": 0.3141542002301496,
+                    "baseline_prob": 0.31070195627157654,
+                    "baseline_n": 869,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 275,
+                    "total": 869,
+                    "probability": 0.31645569620253167,
+                    "baseline_prob": 0.3187571921749137,
+                    "baseline_n": 869,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 311,
+                    "total": 869,
+                    "probability": 0.3578826237054085,
+                    "baseline_prob": 0.35903337169159955,
+                    "baseline_n": 869,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 869,
+                    "probability": 0.011507479861910242,
+                    "baseline_prob": 0.011507479861910242,
+                    "baseline_n": 869,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 849,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 274,
+                    "total": 849,
+                    "probability": 0.32273262661955243,
+                    "baseline_prob": 0.29917550058892817,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 252,
+                    "total": 849,
+                    "probability": 0.2968197879858657,
+                    "baseline_prob": 0.32037691401649,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 299,
+                    "total": 849,
+                    "probability": 0.35217903415783275,
+                    "baseline_prob": 0.35217903415783275,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 24,
+                    "total": 849,
+                    "probability": 0.028268551236749116,
+                    "baseline_prob": 0.028268551236749116,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "s1_size bin 1 (-0.00–19.43]",
+                  "fr": "s1_size tranche 1 (-0.00–19.43]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 294,
+                    "total": 1077,
+                    "probability": 0.27298050139275765,
+                    "baseline_prob": 0.2479108635097493,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 245,
+                    "total": 1077,
+                    "probability": 0.22748375116063138,
+                    "baseline_prob": 0.2488393686165274,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 538,
+                    "total": 1077,
+                    "probability": 0.49953574744661094,
+                    "baseline_prob": 0.5032497678737233,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1077,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "s1_size bin 2 (19.43–39.18]",
+                  "fr": "s1_size tranche 2 (19.43–39.18]"
+                },
+                "total_samples": 1076,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 352,
+                    "total": 1076,
+                    "probability": 0.3271375464684015,
+                    "baseline_prob": 0.3131970260223048,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 319,
+                    "total": 1076,
+                    "probability": 0.29646840148698883,
+                    "baseline_prob": 0.30947955390334575,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 392,
+                    "total": 1076,
+                    "probability": 0.3643122676579926,
+                    "baseline_prob": 0.36617100371747213,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 1076,
+                    "probability": 0.012081784386617101,
+                    "baseline_prob": 0.011152416356877323,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "s1_size bin 3 (39.18–105.94]",
+                  "fr": "s1_size tranche 3 (39.18–105.94]"
+                },
+                "total_samples": 1076,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 359,
+                    "total": 1076,
+                    "probability": 0.3336431226765799,
+                    "baseline_prob": 0.3066914498141264,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 288,
+                    "total": 1076,
+                    "probability": 0.26765799256505574,
+                    "baseline_prob": 0.29460966542750927,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 413,
+                    "total": 1076,
+                    "probability": 0.38382899628252787,
+                    "baseline_prob": 0.38382899628252787,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 16,
+                    "total": 1076,
+                    "probability": 0.01486988847583643,
+                    "baseline_prob": 0.01486988847583643,
+                    "baseline_n": 1076,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "s1_size bin 4 (105.94–990.50]",
+                  "fr": "s1_size tranche 4 (105.94–990.50]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 384,
+                    "total": 1077,
+                    "probability": 0.3565459610027855,
+                    "baseline_prob": 0.30919220055710306,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 330,
+                    "total": 1077,
+                    "probability": 0.3064066852367688,
+                    "baseline_prob": 0.35376044568245124,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 337,
+                    "total": 1077,
+                    "probability": 0.3129062209842154,
+                    "baseline_prob": 0.3129062209842154,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 26,
+                    "total": 1077,
+                    "probability": 0.02414113277623027,
+                    "baseline_prob": 0.02414113277623027,
+                    "baseline_n": 1077,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "levels": {
+            "dimension": "levels",
+            "groups": {
+              "0_0_5x": {
+                "label": {
+                  "en": "0–0.5x",
+                  "fr": "0–0.5x"
+                },
+                "total_samples": 913,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 298,
+                    "total": 913,
+                    "probability": 0.3263964950711939,
+                    "baseline_prob": 0.2858707557502738,
+                    "baseline_n": 913,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 237,
+                    "total": 913,
+                    "probability": 0.25958378970427165,
+                    "baseline_prob": 0.29791894852135814,
+                    "baseline_n": 913,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 323,
+                    "total": 913,
+                    "probability": 0.3537787513691128,
+                    "baseline_prob": 0.3559693318729463,
+                    "baseline_n": 913,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 55,
+                    "total": 913,
+                    "probability": 0.060240963855421686,
+                    "baseline_prob": 0.060240963855421686,
+                    "baseline_n": 913,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "0_5_1x": {
+                "label": {
+                  "en": "0.5–1x",
+                  "fr": "0.5–1x"
+                },
+                "total_samples": 1199,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 374,
+                    "total": 1199,
+                    "probability": 0.3119266055045872,
+                    "baseline_prob": 0.25604670558799,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 284,
+                    "total": 1199,
+                    "probability": 0.23686405337781485,
+                    "baseline_prob": 0.2919099249374479,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 541,
+                    "total": 1199,
+                    "probability": 0.451209341117598,
+                    "baseline_prob": 0.45204336947456214,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1199,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_1_5x": {
+                "label": {
+                  "en": "1–1.5x",
+                  "fr": "1–1.5x"
+                },
+                "total_samples": 859,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 305,
+                    "total": 859,
+                    "probability": 0.3550640279394645,
+                    "baseline_prob": 0.31664726426076834,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 210,
+                    "total": 859,
+                    "probability": 0.24447031431897556,
+                    "baseline_prob": 0.2828870779976717,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 344,
+                    "total": 859,
+                    "probability": 0.40046565774155995,
+                    "baseline_prob": 0.40046565774155995,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_5_2x": {
+                "label": {
+                  "en": "1.5–2x",
+                  "fr": "1.5–2x"
+                },
+                "total_samples": 526,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 176,
+                    "total": 526,
+                    "probability": 0.33460076045627374,
+                    "baseline_prob": 0.29277566539923955,
+                    "baseline_n": 526,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 153,
+                    "total": 526,
+                    "probability": 0.2908745247148289,
+                    "baseline_prob": 0.33079847908745247,
+                    "baseline_n": 526,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 197,
+                    "total": 526,
+                    "probability": 0.3745247148288973,
+                    "baseline_prob": 0.376425855513308,
+                    "baseline_n": 526,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 526,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 526,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "ge_2x": {
+                "label": {
+                  "en": ">=2x",
+                  "fr": ">=2x"
+                },
+                "total_samples": 808,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 236,
+                    "total": 808,
+                    "probability": 0.29207920792079206,
+                    "baseline_prob": 0.30445544554455445,
+                    "baseline_n": 808,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 298,
+                    "total": 808,
+                    "probability": 0.3688118811881188,
+                    "baseline_prob": 0.3564356435643564,
+                    "baseline_n": 808,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 274,
+                    "total": 808,
+                    "probability": 0.33910891089108913,
+                    "baseline_prob": 0.33910891089108913,
+                    "baseline_n": 808,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 808,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 808,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "rejection": {
+            "dimension": "rejection",
+            "groups": {
+              "high_first": {
+                "label": {
+                  "en": "High formed first",
+                  "fr": "Plus haut formé en premier"
+                },
+                "total_samples": 1982,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 403,
+                    "total": 1982,
+                    "probability": 0.20332996972754794,
+                    "baseline_prob": 0.29112008072653883,
+                    "baseline_n": 1982,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 765,
+                    "total": 1982,
+                    "probability": 0.38597376387487387,
+                    "baseline_prob": 0.2966700302724521,
+                    "baseline_n": 1982,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 784,
+                    "total": 1982,
+                    "probability": 0.3955600403632694,
+                    "baseline_prob": 0.3975782038345106,
+                    "baseline_n": 1982,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 30,
+                    "total": 1982,
+                    "probability": 0.015136226034308779,
+                    "baseline_prob": 0.014631685166498487,
+                    "baseline_n": 1982,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "low_first": {
+                "label": {
+                  "en": "Low formed first",
+                  "fr": "Plus bas formé en premier"
+                },
+                "total_samples": 2319,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 985,
+                    "total": 2319,
+                    "probability": 0.4247520482966796,
+                    "baseline_prob": 0.3053040103492885,
+                    "baseline_n": 2319,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 416,
+                    "total": 2319,
+                    "probability": 0.17938766709788703,
+                    "baseline_prob": 0.29840448469167746,
+                    "baseline_n": 2319,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 894,
+                    "total": 2319,
+                    "probability": 0.3855109961190168,
+                    "baseline_prob": 0.3859422164726175,
+                    "baseline_n": 2319,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 24,
+                    "total": 2319,
+                    "probability": 0.01034928848641656,
+                    "baseline_prob": 0.01034928848641656,
+                    "baseline_n": 2319,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4348,
+        "results": [
+          {
+            "condition": "session1_range",
+            "outcome": "broke_high",
+            "count": 1530,
+            "total": 4348,
+            "probability": 0.3518859245630175,
+            "baseline_prob": 0.32888684452621897,
+            "baseline_n": 4348,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "broke_low",
+            "count": 1316,
+            "total": 4348,
+            "probability": 0.30266789328426863,
+            "baseline_prob": 0.32428702851885927,
+            "baseline_n": 4348,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "broke_both",
+            "count": 1402,
+            "total": 4348,
+            "probability": 0.3224471021159154,
+            "baseline_prob": 0.3247470101195952,
+            "baseline_n": 4348,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "session1_range",
+            "outcome": "neither",
+            "count": 100,
+            "total": 4348,
+            "probability": 0.022999080036798528,
+            "baseline_prob": 0.02207911683532659,
+            "baseline_n": 4348,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 817,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 324,
+                    "total": 817,
+                    "probability": 0.39657282741738065,
+                    "baseline_prob": 0.3574051407588739,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 222,
+                    "total": 817,
+                    "probability": 0.2717258261933905,
+                    "baseline_prob": 0.30966952264381886,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 255,
+                    "total": 817,
+                    "probability": 0.31211750305997554,
+                    "baseline_prob": 0.31334149326805383,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 16,
+                    "total": 817,
+                    "probability": 0.019583843329253364,
+                    "baseline_prob": 0.019583843329253364,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 899,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 312,
+                    "total": 899,
+                    "probability": 0.3470522803114572,
+                    "baseline_prob": 0.3325917686318131,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 281,
+                    "total": 899,
+                    "probability": 0.3125695216907675,
+                    "baseline_prob": 0.3248053392658509,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 295,
+                    "total": 899,
+                    "probability": 0.3281423804226919,
+                    "baseline_prob": 0.3325917686318131,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 11,
+                    "total": 899,
+                    "probability": 0.012235817575083427,
+                    "baseline_prob": 0.010011123470522803,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 894,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 282,
+                    "total": 894,
+                    "probability": 0.31543624161073824,
+                    "baseline_prob": 0.2975391498881432,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 253,
+                    "total": 894,
+                    "probability": 0.2829977628635347,
+                    "baseline_prob": 0.30089485458612975,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 337,
+                    "total": 894,
+                    "probability": 0.3769574944071588,
+                    "baseline_prob": 0.3769574944071588,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 22,
+                    "total": 894,
+                    "probability": 0.024608501118568233,
+                    "baseline_prob": 0.024608501118568233,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 879,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 291,
+                    "total": 879,
+                    "probability": 0.3310580204778157,
+                    "baseline_prob": 0.3242320819112628,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 278,
+                    "total": 879,
+                    "probability": 0.3162684869169511,
+                    "baseline_prob": 0.3185437997724687,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 289,
+                    "total": 879,
+                    "probability": 0.32878270762229805,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 21,
+                    "total": 879,
+                    "probability": 0.023890784982935155,
+                    "baseline_prob": 0.023890784982935155,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 859,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 321,
+                    "total": 859,
+                    "probability": 0.37369033760186265,
+                    "baseline_prob": 0.320139697322468,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 282,
+                    "total": 859,
+                    "probability": 0.32828870779976715,
+                    "baseline_prob": 0.3830034924330617,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 226,
+                    "total": 859,
+                    "probability": 0.2630966239813737,
+                    "baseline_prob": 0.2630966239813737,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 30,
+                    "total": 859,
+                    "probability": 0.034924330616996506,
+                    "baseline_prob": 0.033760186263096625,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "s1_size bin 1 (-0.00–8.57]",
+                  "fr": "s1_size tranche 1 (-0.00–8.57]"
+                },
+                "total_samples": 1087,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 339,
+                    "total": 1087,
+                    "probability": 0.31186752529898804,
+                    "baseline_prob": 0.30082796688132474,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 295,
+                    "total": 1087,
+                    "probability": 0.27138914443422263,
+                    "baseline_prob": 0.2750689972401104,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 446,
+                    "total": 1087,
+                    "probability": 0.41030358785648574,
+                    "baseline_prob": 0.41766329346826125,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 1087,
+                    "probability": 0.006439742410303588,
+                    "baseline_prob": 0.006439742410303588,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "s1_size bin 2 (8.57–14.20]",
+                  "fr": "s1_size tranche 2 (8.57–14.20]"
+                },
+                "total_samples": 1087,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 385,
+                    "total": 1087,
+                    "probability": 0.35418583256669733,
+                    "baseline_prob": 0.33026678932842685,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 332,
+                    "total": 1087,
+                    "probability": 0.30542778288868444,
+                    "baseline_prob": 0.32842686292548295,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 346,
+                    "total": 1087,
+                    "probability": 0.31830726770929163,
+                    "baseline_prob": 0.3219871205151794,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 24,
+                    "total": 1087,
+                    "probability": 0.02207911683532659,
+                    "baseline_prob": 0.019319227230910764,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "s1_size bin 3 (14.20–25.90]",
+                  "fr": "s1_size tranche 3 (14.20–25.90]"
+                },
+                "total_samples": 1087,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 406,
+                    "total": 1087,
+                    "probability": 0.3735050597976081,
+                    "baseline_prob": 0.34774609015639374,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 335,
+                    "total": 1087,
+                    "probability": 0.30818767249310025,
+                    "baseline_prob": 0.33026678932842685,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 314,
+                    "total": 1087,
+                    "probability": 0.2888684452621895,
+                    "baseline_prob": 0.29254829806807725,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 32,
+                    "total": 1087,
+                    "probability": 0.029438822447102116,
+                    "baseline_prob": 0.029438822447102116,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "s1_size bin 4 (25.90–264.50]",
+                  "fr": "s1_size tranche 4 (25.90–264.50]"
+                },
+                "total_samples": 1087,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 400,
+                    "total": 1087,
+                    "probability": 0.36798528058877644,
+                    "baseline_prob": 0.3468261269549218,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 354,
+                    "total": 1087,
+                    "probability": 0.32566697332106714,
+                    "baseline_prob": 0.3468261269549218,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 296,
+                    "total": 1087,
+                    "probability": 0.27230910763569455,
+                    "baseline_prob": 0.27230910763569455,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 37,
+                    "total": 1087,
+                    "probability": 0.03403863845446182,
+                    "baseline_prob": 0.03403863845446182,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "levels": {
+            "dimension": "levels",
+            "groups": {
+              "0_0_5x": {
+                "label": {
+                  "en": "0–0.5x",
+                  "fr": "0–0.5x"
+                },
+                "total_samples": 1222,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 430,
+                    "total": 1222,
+                    "probability": 0.3518821603927987,
+                    "baseline_prob": 0.31014729950900166,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 348,
+                    "total": 1222,
+                    "probability": 0.28477905073649756,
+                    "baseline_prob": 0.32405891980360063,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 344,
+                    "total": 1222,
+                    "probability": 0.281505728314239,
+                    "baseline_prob": 0.2855973813420622,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 100,
+                    "total": 1222,
+                    "probability": 0.08183306055646482,
+                    "baseline_prob": 0.08019639934533551,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "0_5_1x": {
+                "label": {
+                  "en": "0.5–1x",
+                  "fr": "0.5–1x"
+                },
+                "total_samples": 1282,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 447,
+                    "total": 1282,
+                    "probability": 0.3486739469578783,
+                    "baseline_prob": 0.30655226209048364,
+                    "baseline_n": 1282,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 370,
+                    "total": 1282,
+                    "probability": 0.28861154446177845,
+                    "baseline_prob": 0.32761310452418096,
+                    "baseline_n": 1282,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 465,
+                    "total": 1282,
+                    "probability": 0.3627145085803432,
+                    "baseline_prob": 0.3658346333853354,
+                    "baseline_n": 1282,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1282,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1282,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_1_5x": {
+                "label": {
+                  "en": "1–1.5x",
+                  "fr": "1–1.5x"
+                },
+                "total_samples": 781,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 305,
+                    "total": 781,
+                    "probability": 0.3905249679897567,
+                    "baseline_prob": 0.3393085787451985,
+                    "baseline_n": 781,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 214,
+                    "total": 781,
+                    "probability": 0.2740076824583867,
+                    "baseline_prob": 0.323943661971831,
+                    "baseline_n": 781,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 262,
+                    "total": 781,
+                    "probability": 0.3354673495518566,
+                    "baseline_prob": 0.33674775928297057,
+                    "baseline_n": 781,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 781,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 781,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_5_2x": {
+                "label": {
+                  "en": "1.5–2x",
+                  "fr": "1.5–2x"
+                },
+                "total_samples": 477,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 177,
+                    "total": 477,
+                    "probability": 0.3710691823899371,
+                    "baseline_prob": 0.33962264150943394,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 147,
+                    "total": 477,
+                    "probability": 0.3081761006289308,
+                    "baseline_prob": 0.33542976939203356,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 153,
+                    "total": 477,
+                    "probability": 0.32075471698113206,
+                    "baseline_prob": 0.3249475890985325,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 477,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "ge_2x": {
+                "label": {
+                  "en": ">=2x",
+                  "fr": ">=2x"
+                },
+                "total_samples": 584,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 171,
+                    "total": 584,
+                    "probability": 0.2928082191780822,
+                    "baseline_prob": 0.3407534246575342,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 236,
+                    "total": 584,
+                    "probability": 0.4041095890410959,
+                    "baseline_prob": 0.3561643835616438,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 177,
+                    "total": 584,
+                    "probability": 0.3030821917808219,
+                    "baseline_prob": 0.3030821917808219,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 584,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "rejection": {
+            "dimension": "rejection",
+            "groups": {
+              "high_first": {
+                "label": {
+                  "en": "High formed first",
+                  "fr": "Plus haut formé en premier"
+                },
+                "total_samples": 2028,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 448,
+                    "total": 2028,
+                    "probability": 0.22090729783037474,
+                    "baseline_prob": 0.3254437869822485,
+                    "baseline_n": 2028,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 881,
+                    "total": 2028,
+                    "probability": 0.4344181459566075,
+                    "baseline_prob": 0.32840236686390534,
+                    "baseline_n": 2028,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 646,
+                    "total": 2028,
+                    "probability": 0.3185404339250493,
+                    "baseline_prob": 0.3210059171597633,
+                    "baseline_n": 2028,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 53,
+                    "total": 2028,
+                    "probability": 0.026134122287968443,
+                    "baseline_prob": 0.02514792899408284,
+                    "baseline_n": 2028,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "low_first": {
+                "label": {
+                  "en": "Low formed first",
+                  "fr": "Plus bas formé en premier"
+                },
+                "total_samples": 2315,
+                "results": [
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_high",
+                    "count": 1081,
+                    "total": 2315,
+                    "probability": 0.46695464362850975,
+                    "baseline_prob": 0.3304535637149028,
+                    "baseline_n": 2315,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_low",
+                    "count": 434,
+                    "total": 2315,
+                    "probability": 0.1874730021598272,
+                    "baseline_prob": 0.32181425485961124,
+                    "baseline_n": 2315,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "broke_both",
+                    "count": 753,
+                    "total": 2315,
+                    "probability": 0.3252699784017279,
+                    "baseline_prob": 0.32742980561555074,
+                    "baseline_n": 2315,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "session1_range",
+                    "outcome": "neither",
+                    "count": 47,
+                    "total": 2315,
+                    "probability": 0.020302375809935207,
+                    "baseline_prob": 0.020302375809935207,
+                    "baseline_n": 2315,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

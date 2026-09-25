@@ -1,0 +1,156 @@
+{
+  "stat_name": "overnight_continuation",
+  "title": {
+    "en": "Overnight Continuation",
+    "fr": "Continuation overnight"
+  },
+  "definition": {
+    "en": "Given the overnight gap's direction (today's open vs the prior session's close), how often does the day close in the same direction (intraday)?",
+    "fr": "Selon la direction du gap overnight (ouverture du jour vs clôture de la session précédente), à quelle fréquence le jour clôture-t-il dans la même direction (intraday) ?"
+  },
+  "labels": {
+    "conditions": {
+      "gap_green": {
+        "en": "Green overnight gap (up)",
+        "fr": "Gap overnight vert (hausse)"
+      },
+      "gap_red": {
+        "en": "Red overnight gap (down)",
+        "fr": "Gap overnight rouge (baisse)"
+      }
+    },
+    "outcomes": {
+      "green": {
+        "en": "Green day (up)",
+        "fr": "Jour vert (hausse)"
+      },
+      "red": {
+        "en": "Red day (down)",
+        "fr": "Jour rouge (baisse)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "gap_green",
+            "outcome": "green",
+            "count": 1345,
+            "total": 2465,
+            "probability": 0.5456389452332657,
+            "baseline_prob": 0.48356997971602433,
+            "baseline_n": 2465,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_green",
+            "outcome": "red",
+            "count": 1120,
+            "total": 2465,
+            "probability": 0.4543610547667343,
+            "baseline_prob": 0.5164300202839757,
+            "baseline_n": 2465,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_red",
+            "outcome": "green",
+            "count": 1039,
+            "total": 1866,
+            "probability": 0.5568060021436227,
+            "baseline_prob": 0.5080385852090032,
+            "baseline_n": 1866,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_red",
+            "outcome": "red",
+            "count": 827,
+            "total": 1866,
+            "probability": 0.44319399785637725,
+            "baseline_prob": 0.4919614147909968,
+            "baseline_n": 1866,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "gap_green",
+            "outcome": "green",
+            "count": 1318,
+            "total": 2419,
+            "probability": 0.5448532451426209,
+            "baseline_prob": 0.4940057875155023,
+            "baseline_n": 2419,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_green",
+            "outcome": "red",
+            "count": 1101,
+            "total": 2419,
+            "probability": 0.4551467548573791,
+            "baseline_prob": 0.5059942124844977,
+            "baseline_n": 2419,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_red",
+            "outcome": "green",
+            "count": 1092,
+            "total": 1941,
+            "probability": 0.5625965996908809,
+            "baseline_prob": 0.4945904173106646,
+            "baseline_n": 1941,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_red",
+            "outcome": "red",
+            "count": 849,
+            "total": 1941,
+            "probability": 0.437403400309119,
+            "baseline_prob": 0.5054095826893354,
+            "baseline_n": 1941,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

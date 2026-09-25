@@ -1,0 +1,2167 @@
+{
+  "stat_name": "ict_opening_retracement",
+  "title": {
+    "en": "ICT Opening Retracement",
+    "fr": "Retracement d'ouverture ICT"
+  },
+  "definition": {
+    "en": "When a session opens above or below the ICT reference candle level (default the midnight open), how often does intraday price retrace back to that level?",
+    "fr": "Lorsqu'une session ouvre au-dessus ou en dessous du niveau de la bougie de référence ICT (par défaut l'ouverture de minuit), à quelle fréquence le prix intraday revient-il à ce niveau ?"
+  },
+  "labels": {
+    "conditions": {
+      "opened_above": {
+        "en": "Opened above",
+        "fr": "Ouverture au-dessus"
+      },
+      "opened_below": {
+        "en": "Opened below",
+        "fr": "Ouverture en dessous"
+      }
+    },
+    "outcomes": {
+      "retraced": {
+        "en": "Retraced",
+        "fr": "Retracé"
+      },
+      "not_retraced": {
+        "en": "Not retraced",
+        "fr": "Non retracé"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "size_pts": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "size_pct": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "opened_above",
+            "outcome": "retraced",
+            "count": 1409,
+            "total": 2090,
+            "probability": 0.6741626794258373,
+            "baseline_prob": 0.6933014354066985,
+            "baseline_n": 2090,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_above",
+            "outcome": "not_retraced",
+            "count": 681,
+            "total": 2090,
+            "probability": 0.3258373205741627,
+            "baseline_prob": 0.3066985645933014,
+            "baseline_n": 2090,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_below",
+            "outcome": "retraced",
+            "count": 1257,
+            "total": 1748,
+            "probability": 0.7191075514874142,
+            "baseline_prob": 0.6962242562929062,
+            "baseline_n": 1748,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_below",
+            "outcome": "not_retraced",
+            "count": 491,
+            "total": 1748,
+            "probability": 0.2808924485125858,
+            "baseline_prob": 0.3037757437070938,
+            "baseline_n": 1748,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 246,
+                    "total": 404,
+                    "probability": 0.6089108910891089,
+                    "baseline_prob": 0.6658415841584159,
+                    "baseline_n": 404,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 158,
+                    "total": 404,
+                    "probability": 0.3910891089108911,
+                    "baseline_prob": 0.3341584158415842,
+                    "baseline_n": 404,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 230,
+                    "total": 322,
+                    "probability": 0.7142857142857143,
+                    "baseline_prob": 0.6428571428571429,
+                    "baseline_n": 322,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 92,
+                    "total": 322,
+                    "probability": 0.2857142857142857,
+                    "baseline_prob": 0.35714285714285715,
+                    "baseline_n": 322,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 278,
+                    "total": 408,
+                    "probability": 0.6813725490196079,
+                    "baseline_prob": 0.6691176470588235,
+                    "baseline_n": 408,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 130,
+                    "total": 408,
+                    "probability": 0.31862745098039214,
+                    "baseline_prob": 0.33088235294117646,
+                    "baseline_n": 408,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 288,
+                    "total": 398,
+                    "probability": 0.7236180904522613,
+                    "baseline_prob": 0.7361809045226131,
+                    "baseline_n": 398,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 110,
+                    "total": 398,
+                    "probability": 0.27638190954773867,
+                    "baseline_prob": 0.2638190954773869,
+                    "baseline_n": 398,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 301,
+                    "total": 432,
+                    "probability": 0.6967592592592593,
+                    "baseline_prob": 0.7268518518518519,
+                    "baseline_n": 432,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 131,
+                    "total": 432,
+                    "probability": 0.30324074074074076,
+                    "baseline_prob": 0.27314814814814814,
+                    "baseline_n": 432,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 258,
+                    "total": 346,
+                    "probability": 0.7456647398843931,
+                    "baseline_prob": 0.708092485549133,
+                    "baseline_n": 346,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 88,
+                    "total": 346,
+                    "probability": 0.2543352601156069,
+                    "baseline_prob": 0.29190751445086704,
+                    "baseline_n": 346,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 295,
+                    "total": 432,
+                    "probability": 0.6828703703703703,
+                    "baseline_prob": 0.6805555555555556,
+                    "baseline_n": 432,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 137,
+                    "total": 432,
+                    "probability": 0.31712962962962965,
+                    "baseline_prob": 0.3194444444444444,
+                    "baseline_n": 432,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 247,
+                    "total": 352,
+                    "probability": 0.7017045454545454,
+                    "baseline_prob": 0.7045454545454546,
+                    "baseline_n": 352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 105,
+                    "total": 352,
+                    "probability": 0.29829545454545453,
+                    "baseline_prob": 0.29545454545454547,
+                    "baseline_n": 352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 289,
+                    "total": 414,
+                    "probability": 0.6980676328502415,
+                    "baseline_prob": 0.6932367149758454,
+                    "baseline_n": 414,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 125,
+                    "total": 414,
+                    "probability": 0.30193236714975846,
+                    "baseline_prob": 0.30676328502415456,
+                    "baseline_n": 414,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 234,
+                    "total": 330,
+                    "probability": 0.7090909090909091,
+                    "baseline_prob": 0.7151515151515152,
+                    "baseline_n": 330,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 96,
+                    "total": 330,
+                    "probability": 0.2909090909090909,
+                    "baseline_prob": 0.28484848484848485,
+                    "baseline_n": 330,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 549,
+                    "total": 1154,
+                    "probability": 0.475736568457539,
+                    "baseline_prob": 0.6594454072790294,
+                    "baseline_n": 1154,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 605,
+                    "total": 1154,
+                    "probability": 0.524263431542461,
+                    "baseline_prob": 0.34055459272097055,
+                    "baseline_n": 1154,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 850,
+                    "total": 953,
+                    "probability": 0.8919202518363064,
+                    "baseline_prob": 0.6694648478488983,
+                    "baseline_n": 953,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 103,
+                    "total": 953,
+                    "probability": 0.1080797481636936,
+                    "baseline_prob": 0.3305351521511018,
+                    "baseline_n": 953,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 860,
+                    "total": 936,
+                    "probability": 0.9188034188034188,
+                    "baseline_prob": 0.7158119658119658,
+                    "baseline_n": 936,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 76,
+                    "total": 936,
+                    "probability": 0.0811965811965812,
+                    "baseline_prob": 0.2841880341880342,
+                    "baseline_n": 936,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 407,
+                    "total": 795,
+                    "probability": 0.5119496855345912,
+                    "baseline_prob": 0.7509433962264151,
+                    "baseline_n": 795,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 388,
+                    "total": 795,
+                    "probability": 0.4880503144654088,
+                    "baseline_prob": 0.2490566037735849,
+                    "baseline_n": 795,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 788,
+                    "total": 1140,
+                    "probability": 0.6912280701754386,
+                    "baseline_prob": 0.7228070175438597,
+                    "baseline_n": 1140,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 352,
+                    "total": 1140,
+                    "probability": 0.3087719298245614,
+                    "baseline_prob": 0.2771929824561403,
+                    "baseline_n": 1140,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 684,
+                    "total": 964,
+                    "probability": 0.7095435684647303,
+                    "baseline_prob": 0.6721991701244814,
+                    "baseline_n": 964,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 280,
+                    "total": 964,
+                    "probability": 0.29045643153526973,
+                    "baseline_prob": 0.3278008298755187,
+                    "baseline_n": 964,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 621,
+                    "total": 950,
+                    "probability": 0.6536842105263158,
+                    "baseline_prob": 0.6842105263157895,
+                    "baseline_n": 950,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 329,
+                    "total": 950,
+                    "probability": 0.3463157894736842,
+                    "baseline_prob": 0.3157894736842105,
+                    "baseline_n": 950,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 573,
+                    "total": 784,
+                    "probability": 0.7308673469387755,
+                    "baseline_prob": 0.6938775510204082,
+                    "baseline_n": 784,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 211,
+                    "total": 784,
+                    "probability": 0.26913265306122447,
+                    "baseline_prob": 0.30612244897959184,
+                    "baseline_n": 784,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pts": {
+            "dimension": "size_pts",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pts bin 1 (0.27–7.45]",
+                  "fr": "gap_size_pts tranche 1 (0.27–7.45]"
+                },
+                "total_samples": 960,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 442,
+                    "total": 493,
+                    "probability": 0.896551724137931,
+                    "baseline_prob": 0.9269776876267748,
+                    "baseline_n": 493,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 51,
+                    "total": 493,
+                    "probability": 0.10344827586206896,
+                    "baseline_prob": 0.07302231237322515,
+                    "baseline_n": 493,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 428,
+                    "total": 467,
+                    "probability": 0.9164882226980728,
+                    "baseline_prob": 0.8843683083511777,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 39,
+                    "total": 467,
+                    "probability": 0.0835117773019272,
+                    "baseline_prob": 0.11563169164882227,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pts bin 2 (7.45–19.50]",
+                  "fr": "gap_size_pts tranche 2 (7.45–19.50]"
+                },
+                "total_samples": 959,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 394,
+                    "total": 545,
+                    "probability": 0.7229357798165138,
+                    "baseline_prob": 0.7376146788990826,
+                    "baseline_n": 545,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 151,
+                    "total": 545,
+                    "probability": 0.27706422018348625,
+                    "baseline_prob": 0.26238532110091745,
+                    "baseline_n": 545,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 317,
+                    "total": 414,
+                    "probability": 0.7657004830917874,
+                    "baseline_prob": 0.7463768115942029,
+                    "baseline_n": 414,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 97,
+                    "total": 414,
+                    "probability": 0.23429951690821257,
+                    "baseline_prob": 0.2536231884057971,
+                    "baseline_n": 414,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pts bin 3 (19.50–54.38]",
+                  "fr": "gap_size_pts tranche 3 (19.50–54.38]"
+                },
+                "total_samples": 959,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 319,
+                    "total": 537,
+                    "probability": 0.5940409683426443,
+                    "baseline_prob": 0.6089385474860335,
+                    "baseline_n": 537,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 218,
+                    "total": 537,
+                    "probability": 0.4059590316573557,
+                    "baseline_prob": 0.39106145251396646,
+                    "baseline_n": 537,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 280,
+                    "total": 422,
+                    "probability": 0.6635071090047393,
+                    "baseline_prob": 0.6445497630331753,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 142,
+                    "total": 422,
+                    "probability": 0.33649289099526064,
+                    "baseline_prob": 0.35545023696682465,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pts bin 4 (54.38–854.22]",
+                  "fr": "gap_size_pts tranche 4 (54.38–854.22]"
+                },
+                "total_samples": 960,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 254,
+                    "total": 515,
+                    "probability": 0.49320388349514566,
+                    "baseline_prob": 0.5029126213592233,
+                    "baseline_n": 515,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 261,
+                    "total": 515,
+                    "probability": 0.5067961165048543,
+                    "baseline_prob": 0.4970873786407767,
+                    "baseline_n": 515,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 232,
+                    "total": 445,
+                    "probability": 0.5213483146067416,
+                    "baseline_prob": 0.5101123595505618,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 213,
+                    "total": 445,
+                    "probability": 0.4786516853932584,
+                    "baseline_prob": 0.4898876404494382,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (0.00–0.13]",
+                  "fr": "gap_size_pct tranche 1 (0.00–0.13]"
+                },
+                "total_samples": 960,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 457,
+                    "total": 502,
+                    "probability": 0.9103585657370518,
+                    "baseline_prob": 0.9282868525896414,
+                    "baseline_n": 502,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 45,
+                    "total": 502,
+                    "probability": 0.08964143426294821,
+                    "baseline_prob": 0.07171314741035857,
+                    "baseline_n": 502,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 429,
+                    "total": 458,
+                    "probability": 0.9366812227074236,
+                    "baseline_prob": 0.9170305676855895,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 29,
+                    "total": 458,
+                    "probability": 0.06331877729257641,
+                    "baseline_prob": 0.08296943231441048,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.13–0.28]",
+                  "fr": "gap_size_pct tranche 2 (0.13–0.28]"
+                },
+                "total_samples": 959,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 402,
+                    "total": 515,
+                    "probability": 0.7805825242718447,
+                    "baseline_prob": 0.7766990291262136,
+                    "baseline_n": 515,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 113,
+                    "total": 515,
+                    "probability": 0.21941747572815534,
+                    "baseline_prob": 0.22330097087378642,
+                    "baseline_n": 515,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 345,
+                    "total": 444,
+                    "probability": 0.777027027027027,
+                    "baseline_prob": 0.7815315315315315,
+                    "baseline_n": 444,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 99,
+                    "total": 444,
+                    "probability": 0.22297297297297297,
+                    "baseline_prob": 0.21846846846846846,
+                    "baseline_n": 444,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.28–0.54]",
+                  "fr": "gap_size_pct tranche 3 (0.28–0.54]"
+                },
+                "total_samples": 959,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 330,
+                    "total": 553,
+                    "probability": 0.596745027124774,
+                    "baseline_prob": 0.6274864376130199,
+                    "baseline_n": 553,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 223,
+                    "total": 553,
+                    "probability": 0.40325497287522605,
+                    "baseline_prob": 0.37251356238698013,
+                    "baseline_n": 553,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 268,
+                    "total": 406,
+                    "probability": 0.6600985221674877,
+                    "baseline_prob": 0.6182266009852216,
+                    "baseline_n": 406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 138,
+                    "total": 406,
+                    "probability": 0.3399014778325123,
+                    "baseline_prob": 0.3817733990147783,
+                    "baseline_n": 406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.54–10.58]",
+                  "fr": "gap_size_pct tranche 4 (0.54–10.58]"
+                },
+                "total_samples": 960,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 220,
+                    "total": 520,
+                    "probability": 0.4230769230769231,
+                    "baseline_prob": 0.45384615384615384,
+                    "baseline_n": 520,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 300,
+                    "total": 520,
+                    "probability": 0.5769230769230769,
+                    "baseline_prob": 0.5461538461538461,
+                    "baseline_n": 520,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 215,
+                    "total": 440,
+                    "probability": 0.48863636363636365,
+                    "baseline_prob": 0.45227272727272727,
+                    "baseline_n": 440,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 225,
+                    "total": 440,
+                    "probability": 0.5113636363636364,
+                    "baseline_prob": 0.5477272727272727,
+                    "baseline_n": 440,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "opened_above",
+            "outcome": "retraced",
+            "count": 1472,
+            "total": 2303,
+            "probability": 0.6391663048198003,
+            "baseline_prob": 0.6704298740772905,
+            "baseline_n": 2303,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_above",
+            "outcome": "not_retraced",
+            "count": 831,
+            "total": 2303,
+            "probability": 0.36083369518019975,
+            "baseline_prob": 0.3295701259227095,
+            "baseline_n": 2303,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_below",
+            "outcome": "retraced",
+            "count": 1345,
+            "total": 1953,
+            "probability": 0.68868407578085,
+            "baseline_prob": 0.6518177163338453,
+            "baseline_n": 1953,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opened_below",
+            "outcome": "not_retraced",
+            "count": 608,
+            "total": 1953,
+            "probability": 0.31131592421915005,
+            "baseline_prob": 0.3481822836661546,
+            "baseline_n": 1953,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 262,
+                    "total": 449,
+                    "probability": 0.5835189309576837,
+                    "baseline_prob": 0.6146993318485523,
+                    "baseline_n": 449,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 187,
+                    "total": 449,
+                    "probability": 0.41648106904231624,
+                    "baseline_prob": 0.38530066815144765,
+                    "baseline_n": 449,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 234,
+                    "total": 349,
+                    "probability": 0.670487106017192,
+                    "baseline_prob": 0.6303724928366762,
+                    "baseline_n": 349,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 115,
+                    "total": 349,
+                    "probability": 0.32951289398280803,
+                    "baseline_prob": 0.36962750716332377,
+                    "baseline_n": 349,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 297,
+                    "total": 453,
+                    "probability": 0.6556291390728477,
+                    "baseline_prob": 0.6666666666666666,
+                    "baseline_n": 453,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 156,
+                    "total": 453,
+                    "probability": 0.3443708609271523,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 453,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 296,
+                    "total": 426,
+                    "probability": 0.6948356807511737,
+                    "baseline_prob": 0.6830985915492958,
+                    "baseline_n": 426,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 130,
+                    "total": 426,
+                    "probability": 0.3051643192488263,
+                    "baseline_prob": 0.31690140845070425,
+                    "baseline_n": 426,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 310,
+                    "total": 477,
+                    "probability": 0.649895178197065,
+                    "baseline_prob": 0.660377358490566,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 167,
+                    "total": 477,
+                    "probability": 0.350104821802935,
+                    "baseline_prob": 0.33962264150943394,
+                    "baseline_n": 477,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 291,
+                    "total": 399,
+                    "probability": 0.7293233082706767,
+                    "baseline_prob": 0.7167919799498746,
+                    "baseline_n": 399,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 108,
+                    "total": 399,
+                    "probability": 0.2706766917293233,
+                    "baseline_prob": 0.2832080200501253,
+                    "baseline_n": 399,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 298,
+                    "total": 457,
+                    "probability": 0.6520787746170679,
+                    "baseline_prob": 0.6827133479212254,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 159,
+                    "total": 457,
+                    "probability": 0.3479212253829322,
+                    "baseline_prob": 0.3172866520787746,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 280,
+                    "total": 404,
+                    "probability": 0.693069306930693,
+                    "baseline_prob": 0.6584158415841584,
+                    "baseline_n": 404,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 124,
+                    "total": 404,
+                    "probability": 0.3069306930693069,
+                    "baseline_prob": 0.3415841584158416,
+                    "baseline_n": 404,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 305,
+                    "total": 467,
+                    "probability": 0.6531049250535332,
+                    "baseline_prob": 0.6381156316916489,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 162,
+                    "total": 467,
+                    "probability": 0.3468950749464668,
+                    "baseline_prob": 0.3618843683083512,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 244,
+                    "total": 375,
+                    "probability": 0.6506666666666666,
+                    "baseline_prob": 0.6693333333333333,
+                    "baseline_n": 375,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 131,
+                    "total": 375,
+                    "probability": 0.34933333333333333,
+                    "baseline_prob": 0.33066666666666666,
+                    "baseline_n": 375,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 565,
+                    "total": 1289,
+                    "probability": 0.4383242823894492,
+                    "baseline_prob": 0.6408068269976727,
+                    "baseline_n": 1289,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 724,
+                    "total": 1289,
+                    "probability": 0.5616757176105508,
+                    "baseline_prob": 0.3591931730023274,
+                    "baseline_n": 1289,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 929,
+                    "total": 1065,
+                    "probability": 0.8723004694835681,
+                    "baseline_prob": 0.6272300469483568,
+                    "baseline_n": 1065,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 136,
+                    "total": 1065,
+                    "probability": 0.12769953051643193,
+                    "baseline_prob": 0.3727699530516432,
+                    "baseline_n": 1065,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 907,
+                    "total": 1014,
+                    "probability": 0.8944773175542406,
+                    "baseline_prob": 0.6883629191321499,
+                    "baseline_n": 1014,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 107,
+                    "total": 1014,
+                    "probability": 0.10552268244575937,
+                    "baseline_prob": 0.3116370808678501,
+                    "baseline_n": 1014,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 416,
+                    "total": 888,
+                    "probability": 0.46846846846846846,
+                    "baseline_prob": 0.7038288288288288,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 472,
+                    "total": 888,
+                    "probability": 0.5315315315315315,
+                    "baseline_prob": 0.29617117117117114,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 801,
+                    "total": 1256,
+                    "probability": 0.6377388535031847,
+                    "baseline_prob": 0.6592356687898089,
+                    "baseline_n": 1256,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 455,
+                    "total": 1256,
+                    "probability": 0.3622611464968153,
+                    "baseline_prob": 0.34076433121019106,
+                    "baseline_n": 1256,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 740,
+                    "total": 1083,
+                    "probability": 0.6832871652816251,
+                    "baseline_prob": 0.6583564173591875,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 343,
+                    "total": 1083,
+                    "probability": 0.31671283471837486,
+                    "baseline_prob": 0.34164358264081257,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 671,
+                    "total": 1047,
+                    "probability": 0.6408787010506208,
+                    "baseline_prob": 0.6542502387774594,
+                    "baseline_n": 1047,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 376,
+                    "total": 1047,
+                    "probability": 0.35912129894937916,
+                    "baseline_prob": 0.3457497612225406,
+                    "baseline_n": 1047,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 605,
+                    "total": 870,
+                    "probability": 0.6954022988505747,
+                    "baseline_prob": 0.6793103448275862,
+                    "baseline_n": 870,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 265,
+                    "total": 870,
+                    "probability": 0.3045977011494253,
+                    "baseline_prob": 0.32068965517241377,
+                    "baseline_n": 870,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pts": {
+            "dimension": "size_pts",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pts bin 1 (0.01–2.84]",
+                  "fr": "gap_size_pts tranche 1 (0.01–2.84]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 467,
+                    "total": 528,
+                    "probability": 0.884469696969697,
+                    "baseline_prob": 0.9109848484848485,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 61,
+                    "total": 528,
+                    "probability": 0.11553030303030302,
+                    "baseline_prob": 0.08901515151515152,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 492,
+                    "total": 536,
+                    "probability": 0.917910447761194,
+                    "baseline_prob": 0.8917910447761194,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 44,
+                    "total": 536,
+                    "probability": 0.08208955223880597,
+                    "baseline_prob": 0.10820895522388059,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pts bin 2 (2.84–6.30]",
+                  "fr": "gap_size_pts tranche 2 (2.84–6.30]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 403,
+                    "total": 584,
+                    "probability": 0.690068493150685,
+                    "baseline_prob": 0.7311643835616438,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 181,
+                    "total": 584,
+                    "probability": 0.3099315068493151,
+                    "baseline_prob": 0.2688356164383562,
+                    "baseline_n": 584,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 356,
+                    "total": 480,
+                    "probability": 0.7416666666666667,
+                    "baseline_prob": 0.6916666666666667,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 124,
+                    "total": 480,
+                    "probability": 0.25833333333333336,
+                    "baseline_prob": 0.30833333333333335,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pts bin 3 (6.30–13.46]",
+                  "fr": "gap_size_pts tranche 3 (6.30–13.46]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 347,
+                    "total": 598,
+                    "probability": 0.580267558528428,
+                    "baseline_prob": 0.5852842809364549,
+                    "baseline_n": 598,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 251,
+                    "total": 598,
+                    "probability": 0.4197324414715719,
+                    "baseline_prob": 0.41471571906354515,
+                    "baseline_n": 598,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 285,
+                    "total": 466,
+                    "probability": 0.6115879828326181,
+                    "baseline_prob": 0.6051502145922747,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 181,
+                    "total": 466,
+                    "probability": 0.388412017167382,
+                    "baseline_prob": 0.3948497854077253,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pts bin 4 (13.46–252.54]",
+                  "fr": "gap_size_pts tranche 4 (13.46–252.54]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 255,
+                    "total": 593,
+                    "probability": 0.4300168634064081,
+                    "baseline_prob": 0.44350758853288363,
+                    "baseline_n": 593,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 338,
+                    "total": 593,
+                    "probability": 0.5699831365935919,
+                    "baseline_prob": 0.5564924114671164,
+                    "baseline_n": 593,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 212,
+                    "total": 471,
+                    "probability": 0.45010615711252655,
+                    "baseline_prob": 0.43312101910828027,
+                    "baseline_n": 471,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 259,
+                    "total": 471,
+                    "probability": 0.5498938428874734,
+                    "baseline_prob": 0.5668789808917197,
+                    "baseline_n": 471,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (-0.00–0.11]",
+                  "fr": "gap_size_pct tranche 1 (-0.00–0.11]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 486,
+                    "total": 541,
+                    "probability": 0.8983364140480592,
+                    "baseline_prob": 0.9131238447319778,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 55,
+                    "total": 541,
+                    "probability": 0.10166358595194085,
+                    "baseline_prob": 0.08687615526802218,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 485,
+                    "total": 523,
+                    "probability": 0.9273422562141491,
+                    "baseline_prob": 0.9120458891013384,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 38,
+                    "total": 523,
+                    "probability": 0.07265774378585087,
+                    "baseline_prob": 0.08795411089866156,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.11–0.24]",
+                  "fr": "gap_size_pct tranche 2 (0.11–0.24]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 416,
+                    "total": 586,
+                    "probability": 0.7098976109215017,
+                    "baseline_prob": 0.7440273037542662,
+                    "baseline_n": 586,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 170,
+                    "total": 586,
+                    "probability": 0.2901023890784983,
+                    "baseline_prob": 0.25597269624573377,
+                    "baseline_n": 586,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 366,
+                    "total": 478,
+                    "probability": 0.7656903765690377,
+                    "baseline_prob": 0.7238493723849372,
+                    "baseline_n": 478,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 112,
+                    "total": 478,
+                    "probability": 0.23430962343096234,
+                    "baseline_prob": 0.27615062761506276,
+                    "baseline_n": 478,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.24–0.46]",
+                  "fr": "gap_size_pct tranche 3 (0.24–0.46]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 335,
+                    "total": 596,
+                    "probability": 0.5620805369127517,
+                    "baseline_prob": 0.6057046979865772,
+                    "baseline_n": 596,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 261,
+                    "total": 596,
+                    "probability": 0.43791946308724833,
+                    "baseline_prob": 0.39429530201342283,
+                    "baseline_n": 596,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 296,
+                    "total": 468,
+                    "probability": 0.6324786324786325,
+                    "baseline_prob": 0.5769230769230769,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 172,
+                    "total": 468,
+                    "probability": 0.36752136752136755,
+                    "baseline_prob": 0.4230769230769231,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.46–9.29]",
+                  "fr": "gap_size_pct tranche 4 (0.46–9.29]"
+                },
+                "total_samples": 1064,
+                "results": [
+                  {
+                    "condition": "opened_above",
+                    "outcome": "retraced",
+                    "count": 235,
+                    "total": 580,
+                    "probability": 0.4051724137931034,
+                    "baseline_prob": 0.39482758620689656,
+                    "baseline_n": 580,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_above",
+                    "outcome": "not_retraced",
+                    "count": 345,
+                    "total": 580,
+                    "probability": 0.5948275862068966,
+                    "baseline_prob": 0.6051724137931035,
+                    "baseline_n": 580,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "retraced",
+                    "count": 198,
+                    "total": 484,
+                    "probability": 0.4090909090909091,
+                    "baseline_prob": 0.4214876033057851,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opened_below",
+                    "outcome": "not_retraced",
+                    "count": 286,
+                    "total": 484,
+                    "probability": 0.5909090909090909,
+                    "baseline_prob": 0.5785123966942148,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

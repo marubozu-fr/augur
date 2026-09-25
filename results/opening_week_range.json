@@ -1,0 +1,1709 @@
+{
+  "stat_name": "opening_week_range",
+  "title": {
+    "en": "Opening Week Range",
+    "fr": "Range de la semaine d'ouverture"
+  },
+  "definition": {
+    "en": "After the opening week range forms from the first N sessions of the week, how often does the rest of the week break above the range high, below the range low, both sides, or neither — and when both are taken, which level is reached first?",
+    "fr": "Après la formation du range de la semaine d'ouverture sur les N premières séances, à quelle fréquence le reste de la semaine casse-t-il au-dessus du plus haut du range, en-dessous du plus bas du range, des deux côtés, ou ni l'un ni l'autre — et quand les deux sont pris, quel niveau est atteint en premier ?"
+  },
+  "labels": {
+    "conditions": {
+      "opening_range": {
+        "en": "Opening week range",
+        "fr": "Range de la semaine d'ouverture"
+      },
+      "break_both": {
+        "en": "Broke both levels",
+        "fr": "A cassé les deux niveaux"
+      }
+    },
+    "outcomes": {
+      "break_high_only": {
+        "en": "Break opening high only",
+        "fr": "Casse seulement le plus haut d'ouverture"
+      },
+      "break_low_only": {
+        "en": "Break opening low only",
+        "fr": "Casse seulement le plus bas d'ouverture"
+      },
+      "break_both": {
+        "en": "Break both levels",
+        "fr": "Casse les deux niveaux"
+      },
+      "inside": {
+        "en": "Stay inside",
+        "fr": "Reste à l'intérieur"
+      },
+      "high_first": {
+        "en": "High taken first",
+        "fr": "Plus haut atteint en premier"
+      },
+      "low_first": {
+        "en": "Low taken first",
+        "fr": "Plus bas atteint en premier"
+      }
+    },
+    "dimensions": {
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "1d": {
+        "data_range": [
+          "2008-12-08",
+          "2026-04-27"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "break_high_only",
+            "count": 301,
+            "total": 908,
+            "probability": 0.3314977973568282,
+            "baseline_prob": 0.2444933920704846,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_low_only",
+            "count": 180,
+            "total": 908,
+            "probability": 0.19823788546255505,
+            "baseline_prob": 0.2852422907488987,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_both",
+            "count": 422,
+            "total": 908,
+            "probability": 0.4647577092511013,
+            "baseline_prob": 0.4647577092511013,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "inside",
+            "count": 5,
+            "total": 908,
+            "probability": 0.005506607929515419,
+            "baseline_prob": 0.005506607929515419,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 222,
+            "total": 422,
+            "probability": 0.5260663507109005,
+            "baseline_prob": 0.490521327014218,
+            "baseline_n": 422,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 200,
+            "total": 422,
+            "probability": 0.47393364928909953,
+            "baseline_prob": 0.509478672985782,
+            "baseline_n": 422,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_size bin 1 (3.84–34.10]",
+                  "fr": "opening_size tranche 1 (3.84–34.10]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 56,
+                    "total": 227,
+                    "probability": 0.24669603524229075,
+                    "baseline_prob": 0.19823788546255505,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 36,
+                    "total": 227,
+                    "probability": 0.15859030837004406,
+                    "baseline_prob": 0.20704845814977973,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 135,
+                    "total": 227,
+                    "probability": 0.5947136563876652,
+                    "baseline_prob": 0.5947136563876652,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 0,
+                    "total": 227,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 70,
+                    "total": 135,
+                    "probability": 0.5185185185185185,
+                    "baseline_prob": 0.4666666666666667,
+                    "baseline_n": 135,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 65,
+                    "total": 135,
+                    "probability": 0.48148148148148145,
+                    "baseline_prob": 0.5333333333333333,
+                    "baseline_n": 135,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_size bin 2 (34.10–66.04]",
+                  "fr": "opening_size tranche 2 (34.10–66.04]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 79,
+                    "total": 227,
+                    "probability": 0.34801762114537443,
+                    "baseline_prob": 0.2555066079295154,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 46,
+                    "total": 227,
+                    "probability": 0.2026431718061674,
+                    "baseline_prob": 0.29515418502202645,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 100,
+                    "total": 227,
+                    "probability": 0.44052863436123346,
+                    "baseline_prob": 0.44052863436123346,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 2,
+                    "total": 227,
+                    "probability": 0.00881057268722467,
+                    "baseline_prob": 0.00881057268722467,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 53,
+                    "total": 100,
+                    "probability": 0.53,
+                    "baseline_prob": 0.49,
+                    "baseline_n": 100,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 47,
+                    "total": 100,
+                    "probability": 0.47,
+                    "baseline_prob": 0.51,
+                    "baseline_n": 100,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_size bin 3 (66.04–181.59]",
+                  "fr": "opening_size tranche 3 (66.04–181.59]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 81,
+                    "total": 227,
+                    "probability": 0.3568281938325991,
+                    "baseline_prob": 0.2555066079295154,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 42,
+                    "total": 227,
+                    "probability": 0.18502202643171806,
+                    "baseline_prob": 0.28634361233480177,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 102,
+                    "total": 227,
+                    "probability": 0.44933920704845814,
+                    "baseline_prob": 0.44933920704845814,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 2,
+                    "total": 227,
+                    "probability": 0.00881057268722467,
+                    "baseline_prob": 0.00881057268722467,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 50,
+                    "total": 102,
+                    "probability": 0.49019607843137253,
+                    "baseline_prob": 0.46078431372549017,
+                    "baseline_n": 102,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 52,
+                    "total": 102,
+                    "probability": 0.5098039215686274,
+                    "baseline_prob": 0.5392156862745098,
+                    "baseline_n": 102,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_size bin 4 (181.59–1753.88]",
+                  "fr": "opening_size tranche 4 (181.59–1753.88]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 85,
+                    "total": 227,
+                    "probability": 0.3744493392070485,
+                    "baseline_prob": 0.3392070484581498,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 56,
+                    "total": 227,
+                    "probability": 0.24669603524229075,
+                    "baseline_prob": 0.28193832599118945,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 85,
+                    "total": 227,
+                    "probability": 0.3744493392070485,
+                    "baseline_prob": 0.3744493392070485,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 1,
+                    "total": 227,
+                    "probability": 0.004405286343612335,
+                    "baseline_prob": 0.004405286343612335,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 49,
+                    "total": 85,
+                    "probability": 0.5764705882352941,
+                    "baseline_prob": 0.4588235294117647,
+                    "baseline_n": 85,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 36,
+                    "total": 85,
+                    "probability": 0.4235294117647059,
+                    "baseline_prob": 0.5411764705882353,
+                    "baseline_n": 85,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "2d": {
+        "data_range": [
+          "2008-12-08",
+          "2026-04-27"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "break_high_only",
+            "count": 406,
+            "total": 907,
+            "probability": 0.4476295479603087,
+            "baseline_prob": 0.3395810363836825,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_low_only",
+            "count": 253,
+            "total": 907,
+            "probability": 0.278941565600882,
+            "baseline_prob": 0.3869900771775083,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_both",
+            "count": 194,
+            "total": 907,
+            "probability": 0.21389195148842338,
+            "baseline_prob": 0.21389195148842338,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "inside",
+            "count": 54,
+            "total": 907,
+            "probability": 0.05953693495038589,
+            "baseline_prob": 0.05953693495038589,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 117,
+            "total": 194,
+            "probability": 0.6030927835051546,
+            "baseline_prob": 0.5051546391752577,
+            "baseline_n": 194,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 77,
+            "total": 194,
+            "probability": 0.39690721649484534,
+            "baseline_prob": 0.4948453608247423,
+            "baseline_n": 194,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_size bin 1 (14.98–56.35]",
+                  "fr": "opening_size tranche 1 (14.98–56.35]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 100,
+                    "total": 227,
+                    "probability": 0.44052863436123346,
+                    "baseline_prob": 0.32158590308370044,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 54,
+                    "total": 227,
+                    "probability": 0.23788546255506607,
+                    "baseline_prob": 0.3568281938325991,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 67,
+                    "total": 227,
+                    "probability": 0.29515418502202645,
+                    "baseline_prob": 0.29515418502202645,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 6,
+                    "total": 227,
+                    "probability": 0.02643171806167401,
+                    "baseline_prob": 0.02643171806167401,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 44,
+                    "total": 67,
+                    "probability": 0.6567164179104478,
+                    "baseline_prob": 0.4626865671641791,
+                    "baseline_n": 67,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 23,
+                    "total": 67,
+                    "probability": 0.34328358208955223,
+                    "baseline_prob": 0.5373134328358209,
+                    "baseline_n": 67,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_size bin 2 (56.35–110.28]",
+                  "fr": "opening_size tranche 2 (56.35–110.28]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 104,
+                    "total": 226,
+                    "probability": 0.46017699115044247,
+                    "baseline_prob": 0.37168141592920356,
+                    "baseline_n": 226,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 62,
+                    "total": 226,
+                    "probability": 0.2743362831858407,
+                    "baseline_prob": 0.36283185840707965,
+                    "baseline_n": 226,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 41,
+                    "total": 226,
+                    "probability": 0.18141592920353983,
+                    "baseline_prob": 0.18141592920353983,
+                    "baseline_n": 226,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 19,
+                    "total": 226,
+                    "probability": 0.084070796460177,
+                    "baseline_prob": 0.084070796460177,
+                    "baseline_n": 226,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 26,
+                    "total": 41,
+                    "probability": 0.6341463414634146,
+                    "baseline_prob": 0.4878048780487805,
+                    "baseline_n": 41,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 15,
+                    "total": 41,
+                    "probability": 0.36585365853658536,
+                    "baseline_prob": 0.5121951219512195,
+                    "baseline_n": 41,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_size bin 3 (110.28–300.11]",
+                  "fr": "opening_size tranche 3 (110.28–300.11]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 101,
+                    "total": 227,
+                    "probability": 0.44493392070484583,
+                    "baseline_prob": 0.3436123348017621,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 64,
+                    "total": 227,
+                    "probability": 0.28193832599118945,
+                    "baseline_prob": 0.3832599118942731,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 50,
+                    "total": 227,
+                    "probability": 0.22026431718061673,
+                    "baseline_prob": 0.22026431718061673,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 12,
+                    "total": 227,
+                    "probability": 0.05286343612334802,
+                    "baseline_prob": 0.05286343612334802,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 25,
+                    "total": 50,
+                    "probability": 0.5,
+                    "baseline_prob": 0.44,
+                    "baseline_n": 50,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 25,
+                    "total": 50,
+                    "probability": 0.5,
+                    "baseline_prob": 0.56,
+                    "baseline_n": 50,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_size bin 4 (300.11–1753.88]",
+                  "fr": "opening_size tranche 4 (300.11–1753.88]"
+                },
+                "total_samples": 227,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 101,
+                    "total": 227,
+                    "probability": 0.44493392070484583,
+                    "baseline_prob": 0.3656387665198238,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 73,
+                    "total": 227,
+                    "probability": 0.32158590308370044,
+                    "baseline_prob": 0.4008810572687225,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 36,
+                    "total": 227,
+                    "probability": 0.15859030837004406,
+                    "baseline_prob": 0.15859030837004406,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 17,
+                    "total": 227,
+                    "probability": 0.07488986784140969,
+                    "baseline_prob": 0.07488986784140969,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 22,
+                    "total": 36,
+                    "probability": 0.6111111111111112,
+                    "baseline_prob": 0.5555555555555556,
+                    "baseline_n": 36,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 14,
+                    "total": 36,
+                    "probability": 0.3888888888888889,
+                    "baseline_prob": 0.4444444444444444,
+                    "baseline_n": 36,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "1d": {
+        "data_range": [
+          "2008-12-08",
+          "2026-06-01"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "break_high_only",
+            "count": 286,
+            "total": 913,
+            "probability": 0.3132530120481928,
+            "baseline_prob": 0.24315443592552027,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_low_only",
+            "count": 182,
+            "total": 913,
+            "probability": 0.19934282584884994,
+            "baseline_prob": 0.26944140197152244,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_both",
+            "count": 443,
+            "total": 913,
+            "probability": 0.48521358159912376,
+            "baseline_prob": 0.48521358159912376,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "inside",
+            "count": 2,
+            "total": 913,
+            "probability": 0.002190580503833516,
+            "baseline_prob": 0.002190580503833516,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 225,
+            "total": 443,
+            "probability": 0.5079006772009029,
+            "baseline_prob": 0.4966139954853273,
+            "baseline_n": 443,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 218,
+            "total": 443,
+            "probability": 0.49209932279909707,
+            "baseline_prob": 0.5033860045146726,
+            "baseline_n": 443,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_size bin 1 (1.37–12.11]",
+                  "fr": "opening_size tranche 1 (1.37–12.11]"
+                },
+                "total_samples": 229,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 54,
+                    "total": 229,
+                    "probability": 0.23580786026200873,
+                    "baseline_prob": 0.2052401746724891,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 39,
+                    "total": 229,
+                    "probability": 0.1703056768558952,
+                    "baseline_prob": 0.20087336244541484,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 136,
+                    "total": 229,
+                    "probability": 0.5938864628820961,
+                    "baseline_prob": 0.5938864628820961,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 0,
+                    "total": 229,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 69,
+                    "total": 136,
+                    "probability": 0.5073529411764706,
+                    "baseline_prob": 0.47794117647058826,
+                    "baseline_n": 136,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 67,
+                    "total": 136,
+                    "probability": 0.49264705882352944,
+                    "baseline_prob": 0.5220588235294118,
+                    "baseline_n": 136,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_size bin 2 (12.11–20.45]",
+                  "fr": "opening_size tranche 2 (12.11–20.45]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 70,
+                    "total": 228,
+                    "probability": 0.30701754385964913,
+                    "baseline_prob": 0.25877192982456143,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 44,
+                    "total": 228,
+                    "probability": 0.19298245614035087,
+                    "baseline_prob": 0.2412280701754386,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 114,
+                    "total": 228,
+                    "probability": 0.5,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 0,
+                    "total": 228,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 56,
+                    "total": 114,
+                    "probability": 0.49122807017543857,
+                    "baseline_prob": 0.43859649122807015,
+                    "baseline_n": 114,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 58,
+                    "total": 114,
+                    "probability": 0.5087719298245614,
+                    "baseline_prob": 0.5614035087719298,
+                    "baseline_n": 114,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_size bin 3 (20.45–40.22]",
+                  "fr": "opening_size tranche 3 (20.45–40.22]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 74,
+                    "total": 228,
+                    "probability": 0.32456140350877194,
+                    "baseline_prob": 0.23684210526315788,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 48,
+                    "total": 228,
+                    "probability": 0.21052631578947367,
+                    "baseline_prob": 0.2982456140350877,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 105,
+                    "total": 228,
+                    "probability": 0.4605263157894737,
+                    "baseline_prob": 0.4605263157894737,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 1,
+                    "total": 228,
+                    "probability": 0.0043859649122807015,
+                    "baseline_prob": 0.0043859649122807015,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 51,
+                    "total": 105,
+                    "probability": 0.4857142857142857,
+                    "baseline_prob": 0.47619047619047616,
+                    "baseline_n": 105,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 54,
+                    "total": 105,
+                    "probability": 0.5142857142857142,
+                    "baseline_prob": 0.5238095238095238,
+                    "baseline_n": 105,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_size bin 4 (40.22–433.67]",
+                  "fr": "opening_size tranche 4 (40.22–433.67]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 88,
+                    "total": 228,
+                    "probability": 0.38596491228070173,
+                    "baseline_prob": 0.29385964912280704,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 51,
+                    "total": 228,
+                    "probability": 0.2236842105263158,
+                    "baseline_prob": 0.3157894736842105,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 88,
+                    "total": 228,
+                    "probability": 0.38596491228070173,
+                    "baseline_prob": 0.38596491228070173,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 1,
+                    "total": 228,
+                    "probability": 0.0043859649122807015,
+                    "baseline_prob": 0.0043859649122807015,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 49,
+                    "total": 88,
+                    "probability": 0.5568181818181818,
+                    "baseline_prob": 0.5227272727272727,
+                    "baseline_n": 88,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 39,
+                    "total": 88,
+                    "probability": 0.4431818181818182,
+                    "baseline_prob": 0.4772727272727273,
+                    "baseline_n": 88,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "2d": {
+        "data_range": [
+          "2008-12-08",
+          "2026-06-01"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "break_high_only",
+            "count": 405,
+            "total": 912,
+            "probability": 0.4440789473684211,
+            "baseline_prob": 0.36293859649122806,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_low_only",
+            "count": 271,
+            "total": 912,
+            "probability": 0.29714912280701755,
+            "baseline_prob": 0.3782894736842105,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "break_both",
+            "count": 207,
+            "total": 912,
+            "probability": 0.22697368421052633,
+            "baseline_prob": 0.22697368421052633,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "inside",
+            "count": 29,
+            "total": 912,
+            "probability": 0.03179824561403509,
+            "baseline_prob": 0.03179824561403509,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 115,
+            "total": 207,
+            "probability": 0.5555555555555556,
+            "baseline_prob": 0.46859903381642515,
+            "baseline_n": 207,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 92,
+            "total": 207,
+            "probability": 0.4444444444444444,
+            "baseline_prob": 0.5314009661835749,
+            "baseline_n": 207,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_size bin 1 (6.84–22.15]",
+                  "fr": "opening_size tranche 1 (6.84–22.15]"
+                },
+                "total_samples": 229,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 90,
+                    "total": 229,
+                    "probability": 0.3930131004366812,
+                    "baseline_prob": 0.3318777292576419,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 63,
+                    "total": 229,
+                    "probability": 0.27510917030567683,
+                    "baseline_prob": 0.33624454148471616,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 75,
+                    "total": 229,
+                    "probability": 0.32751091703056767,
+                    "baseline_prob": 0.32751091703056767,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 1,
+                    "total": 229,
+                    "probability": 0.004366812227074236,
+                    "baseline_prob": 0.004366812227074236,
+                    "baseline_n": 229,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 38,
+                    "total": 75,
+                    "probability": 0.5066666666666667,
+                    "baseline_prob": 0.4533333333333333,
+                    "baseline_n": 75,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 37,
+                    "total": 75,
+                    "probability": 0.49333333333333335,
+                    "baseline_prob": 0.5466666666666666,
+                    "baseline_n": 75,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_size bin 2 (22.15–35.67]",
+                  "fr": "opening_size tranche 2 (22.15–35.67]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 109,
+                    "total": 228,
+                    "probability": 0.4780701754385965,
+                    "baseline_prob": 0.3991228070175439,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 64,
+                    "total": 228,
+                    "probability": 0.2807017543859649,
+                    "baseline_prob": 0.35964912280701755,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 48,
+                    "total": 228,
+                    "probability": 0.21052631578947367,
+                    "baseline_prob": 0.21052631578947367,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 7,
+                    "total": 228,
+                    "probability": 0.03070175438596491,
+                    "baseline_prob": 0.03070175438596491,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 31,
+                    "total": 48,
+                    "probability": 0.6458333333333334,
+                    "baseline_prob": 0.4583333333333333,
+                    "baseline_n": 48,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 17,
+                    "total": 48,
+                    "probability": 0.3541666666666667,
+                    "baseline_prob": 0.5416666666666666,
+                    "baseline_n": 48,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_size bin 3 (35.67–66.74]",
+                  "fr": "opening_size tranche 3 (35.67–66.74]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 97,
+                    "total": 227,
+                    "probability": 0.42731277533039647,
+                    "baseline_prob": 0.3788546255506608,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 69,
+                    "total": 227,
+                    "probability": 0.3039647577092511,
+                    "baseline_prob": 0.3524229074889868,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 49,
+                    "total": 227,
+                    "probability": 0.21585903083700442,
+                    "baseline_prob": 0.21585903083700442,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 12,
+                    "total": 227,
+                    "probability": 0.05286343612334802,
+                    "baseline_prob": 0.05286343612334802,
+                    "baseline_n": 227,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 24,
+                    "total": 49,
+                    "probability": 0.4897959183673469,
+                    "baseline_prob": 0.46938775510204084,
+                    "baseline_n": 49,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 25,
+                    "total": 49,
+                    "probability": 0.5102040816326531,
+                    "baseline_prob": 0.5306122448979592,
+                    "baseline_n": 49,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_size bin 4 (66.74–453.06]",
+                  "fr": "opening_size tranche 4 (66.74–453.06]"
+                },
+                "total_samples": 228,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_high_only",
+                    "count": 109,
+                    "total": 228,
+                    "probability": 0.4780701754385965,
+                    "baseline_prob": 0.36403508771929827,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_low_only",
+                    "count": 75,
+                    "total": 228,
+                    "probability": 0.32894736842105265,
+                    "baseline_prob": 0.44298245614035087,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "break_both",
+                    "count": 35,
+                    "total": 228,
+                    "probability": 0.15350877192982457,
+                    "baseline_prob": 0.15350877192982457,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "inside",
+                    "count": 9,
+                    "total": 228,
+                    "probability": 0.039473684210526314,
+                    "baseline_prob": 0.039473684210526314,
+                    "baseline_n": 228,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "high_first",
+                    "count": 22,
+                    "total": 35,
+                    "probability": 0.6285714285714286,
+                    "baseline_prob": 0.42857142857142855,
+                    "baseline_n": 35,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "break_both",
+                    "outcome": "low_first",
+                    "count": 13,
+                    "total": 35,
+                    "probability": 0.37142857142857144,
+                    "baseline_prob": 0.5714285714285714,
+                    "baseline_n": 35,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,451 @@
+{
+  "stat_name": "atr",
+  "title": {
+    "en": "Average True Range (ATR)",
+    "fr": "Average True Range (ATR)"
+  },
+  "definition": {
+    "en": "How often does a session's true range (high-low, accounting for the prior close gap) exceed or respect the prior session's period-N average true range (ATR)?",
+    "fr": "À quelle fréquence le true range d'une session (plus haut – plus bas, en tenant compte du gap avec la clôture précédente) dépasse-t-il ou respecte-t-il l'average true range (ATR) sur N périodes de la session précédente ?"
+  },
+  "labels": {
+    "conditions": {
+      "atr": {
+        "en": "True range vs ATR",
+        "fr": "True range vs ATR"
+      }
+    },
+    "outcomes": {
+      "exceeded": {
+        "en": "Exceeded ATR",
+        "fr": "A dépassé l'ATR"
+      },
+      "respected": {
+        "en": "Respected ATR",
+        "fr": "A respecté l'ATR"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "atr",
+            "outcome": "exceeded",
+            "count": 1857,
+            "total": 4318,
+            "probability": 0.4300602130616026,
+            "baseline_prob": 0.4770727188513201,
+            "baseline_n": 4318,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "atr",
+            "outcome": "respected",
+            "count": 2461,
+            "total": 4318,
+            "probability": 0.5699397869383974,
+            "baseline_prob": 0.5229272811486799,
+            "baseline_n": 4318,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 340,
+                    "total": 813,
+                    "probability": 0.4182041820418204,
+                    "baseline_prob": 0.48954489544895446,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 473,
+                    "total": 813,
+                    "probability": 0.5817958179581796,
+                    "baseline_prob": 0.5104551045510455,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 355,
+                    "total": 893,
+                    "probability": 0.3975363941769317,
+                    "baseline_prob": 0.47368421052631576,
+                    "baseline_n": 893,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 538,
+                    "total": 893,
+                    "probability": 0.6024636058230683,
+                    "baseline_prob": 0.5263157894736842,
+                    "baseline_n": 893,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 391,
+                    "total": 888,
+                    "probability": 0.4403153153153153,
+                    "baseline_prob": 0.4774774774774775,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 497,
+                    "total": 888,
+                    "probability": 0.5596846846846847,
+                    "baseline_prob": 0.5225225225225225,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 411,
+                    "total": 873,
+                    "probability": 0.47079037800687284,
+                    "baseline_prob": 0.5189003436426117,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 462,
+                    "total": 873,
+                    "probability": 0.5292096219931272,
+                    "baseline_prob": 0.48109965635738833,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 360,
+                    "total": 851,
+                    "probability": 0.42303172737955347,
+                    "baseline_prob": 0.4735605170387779,
+                    "baseline_n": 851,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 491,
+                    "total": 851,
+                    "probability": 0.5769682726204466,
+                    "baseline_prob": 0.5264394829612221,
+                    "baseline_n": 851,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "atr",
+            "outcome": "exceeded",
+            "count": 1852,
+            "total": 4347,
+            "probability": 0.4260409477800782,
+            "baseline_prob": 0.47642051989878076,
+            "baseline_n": 4347,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "atr",
+            "outcome": "respected",
+            "count": 2495,
+            "total": 4347,
+            "probability": 0.5739590522199218,
+            "baseline_prob": 0.5235794801012192,
+            "baseline_n": 4347,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 317,
+                    "total": 817,
+                    "probability": 0.3880048959608323,
+                    "baseline_prob": 0.4614443084455324,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 500,
+                    "total": 817,
+                    "probability": 0.6119951040391677,
+                    "baseline_prob": 0.5385556915544676,
+                    "baseline_n": 817,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 357,
+                    "total": 898,
+                    "probability": 0.3975501113585746,
+                    "baseline_prob": 0.4621380846325167,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 541,
+                    "total": 898,
+                    "probability": 0.6024498886414253,
+                    "baseline_prob": 0.5378619153674833,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 384,
+                    "total": 895,
+                    "probability": 0.42905027932960893,
+                    "baseline_prob": 0.4770949720670391,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 511,
+                    "total": 895,
+                    "probability": 0.5709497206703911,
+                    "baseline_prob": 0.5229050279329609,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 423,
+                    "total": 879,
+                    "probability": 0.4812286689419795,
+                    "baseline_prob": 0.4948805460750853,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 456,
+                    "total": 879,
+                    "probability": 0.5187713310580204,
+                    "baseline_prob": 0.5051194539249146,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "atr",
+                    "outcome": "exceeded",
+                    "count": 371,
+                    "total": 858,
+                    "probability": 0.4324009324009324,
+                    "baseline_prob": 0.4568764568764569,
+                    "baseline_n": 858,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "atr",
+                    "outcome": "respected",
+                    "count": 487,
+                    "total": 858,
+                    "probability": 0.5675990675990676,
+                    "baseline_prob": 0.5431235431235432,
+                    "baseline_n": 858,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

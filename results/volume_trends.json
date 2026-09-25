@@ -1,0 +1,2883 @@
+{
+  "stat_name": "volume_trends",
+  "title": {
+    "en": "Volume Trends",
+    "fr": "Tendances de volume"
+  },
+  "definition": {
+    "en": "What is the average traded volume for each calendar month and each ISO week of the year?",
+    "fr": "Quel est le volume échangé moyen pour chaque mois civil et chaque semaine ISO de l'année ?"
+  },
+  "labels": {
+    "conditions": {
+      "any_period": {
+        "en": "All periods",
+        "fr": "Toutes les périodes"
+      }
+    },
+    "outcomes": {
+      "mean_volume": {
+        "en": "Average volume",
+        "fr": "Volume moyen"
+      }
+    },
+    "dimensions": {
+      "month_of_year": {
+        "en": "Month of year",
+        "fr": "Mois de l'année"
+      },
+      "week_of_year": {
+        "en": "Week of year",
+        "fr": "Semaine de l'année"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "monthly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-04-01"
+        ],
+        "total_samples": 209,
+        "results": [
+          {
+            "condition": "any_period",
+            "outcome": "mean_volume",
+            "count": 209,
+            "total": 209,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 209,
+            "value": 6639683.330143541,
+            "value_baseline": 6639683.330143541,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "month_of_year": {
+            "dimension": "month_of_year",
+            "groups": {
+              "january": {
+                "label": {
+                  "en": "January",
+                  "fr": "Janvier"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6770778.555555556,
+                    "value_baseline": 7222660.944444444,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "february": {
+                "label": {
+                  "en": "February",
+                  "fr": "Février"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6514214.888888889,
+                    "value_baseline": 7222660.944444444,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "march": {
+                "label": {
+                  "en": "March",
+                  "fr": "Mars"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7227969.944444444,
+                    "value_baseline": 7222660.944444444,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "april": {
+                "label": {
+                  "en": "April",
+                  "fr": "Avril"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6890469.888888889,
+                    "value_baseline": 7222660.944444444,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "may": {
+                "label": {
+                  "en": "May",
+                  "fr": "Mai"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6763639.05882353,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "june": {
+                "label": {
+                  "en": "June",
+                  "fr": "Juin"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6251758.176470588,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "july": {
+                "label": {
+                  "en": "July",
+                  "fr": "Juillet"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6284529.411764706,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "august": {
+                "label": {
+                  "en": "August",
+                  "fr": "Août"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6911744.823529412,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "september": {
+                "label": {
+                  "en": "September",
+                  "fr": "Septembre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6622594.823529412,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "october": {
+                "label": {
+                  "en": "October",
+                  "fr": "Octobre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 7699625.823529412,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "november": {
+                "label": {
+                  "en": "November",
+                  "fr": "Novembre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6219314.882352941,
+                    "value_baseline": 7184361.05882353,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "december": {
+                "label": {
+                  "en": "December",
+                  "fr": "Décembre"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5534861.0,
+                    "value_baseline": 7222660.944444444,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "weekly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-04-27"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "any_period",
+            "outcome": "mean_volume",
+            "count": 908,
+            "total": 908,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 908,
+            "value": 1528741.4262114537,
+            "value_baseline": 1528741.4262114537,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "week_of_year": {
+            "dimension": "week_of_year",
+            "groups": {
+              "w01": {
+                "label": {
+                  "en": "Week 1",
+                  "fr": "Semaine 1"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1268995.5,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w02": {
+                "label": {
+                  "en": "Week 2",
+                  "fr": "Semaine 2"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1517916.9444444445,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w03": {
+                "label": {
+                  "en": "Week 3",
+                  "fr": "Semaine 3"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1512525.6666666667,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w04": {
+                "label": {
+                  "en": "Week 4",
+                  "fr": "Semaine 4"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1607126.888888889,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w05": {
+                "label": {
+                  "en": "Week 5",
+                  "fr": "Semaine 5"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1781249.4444444445,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w06": {
+                "label": {
+                  "en": "Week 6",
+                  "fr": "Semaine 6"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1734005.0555555555,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w07": {
+                "label": {
+                  "en": "Week 7",
+                  "fr": "Semaine 7"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1468647.7222222222,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w08": {
+                "label": {
+                  "en": "Week 8",
+                  "fr": "Semaine 8"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1420516.888888889,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w09": {
+                "label": {
+                  "en": "Week 9",
+                  "fr": "Semaine 9"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1846295.2222222222,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w10": {
+                "label": {
+                  "en": "Week 10",
+                  "fr": "Semaine 10"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1766627.7777777778,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w11": {
+                "label": {
+                  "en": "Week 11",
+                  "fr": "Semaine 11"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1582575.0,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w12": {
+                "label": {
+                  "en": "Week 12",
+                  "fr": "Semaine 12"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1583139.7777777778,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w13": {
+                "label": {
+                  "en": "Week 13",
+                  "fr": "Semaine 13"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1505930.5555555555,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w14": {
+                "label": {
+                  "en": "Week 14",
+                  "fr": "Semaine 14"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1605172.2222222222,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w15": {
+                "label": {
+                  "en": "Week 15",
+                  "fr": "Semaine 15"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1603217.6666666667,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w16": {
+                "label": {
+                  "en": "Week 16",
+                  "fr": "Semaine 16"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1606067.111111111,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w17": {
+                "label": {
+                  "en": "Week 17",
+                  "fr": "Semaine 17"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1644416.5555555555,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w18": {
+                "label": {
+                  "en": "Week 18",
+                  "fr": "Semaine 18"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1708929.888888889,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w19": {
+                "label": {
+                  "en": "Week 19",
+                  "fr": "Semaine 19"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1639284.705882353,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w20": {
+                "label": {
+                  "en": "Week 20",
+                  "fr": "Semaine 20"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1647980.705882353,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w21": {
+                "label": {
+                  "en": "Week 21",
+                  "fr": "Semaine 21"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1444426.1176470588,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w22": {
+                "label": {
+                  "en": "Week 22",
+                  "fr": "Semaine 22"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1239435.0,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w23": {
+                "label": {
+                  "en": "Week 23",
+                  "fr": "Semaine 23"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1439300.5294117648,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w24": {
+                "label": {
+                  "en": "Week 24",
+                  "fr": "Semaine 24"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1494954.0,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w25": {
+                "label": {
+                  "en": "Week 25",
+                  "fr": "Semaine 25"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1358804.5882352942,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w26": {
+                "label": {
+                  "en": "Week 26",
+                  "fr": "Semaine 26"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1538992.9411764706,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w27": {
+                "label": {
+                  "en": "Week 27",
+                  "fr": "Semaine 27"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 964386.2941176471,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w28": {
+                "label": {
+                  "en": "Week 28",
+                  "fr": "Semaine 28"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1480243.294117647,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w29": {
+                "label": {
+                  "en": "Week 29",
+                  "fr": "Semaine 29"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1558272.4705882352,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w30": {
+                "label": {
+                  "en": "Week 30",
+                  "fr": "Semaine 30"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1568647.9411764706,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w31": {
+                "label": {
+                  "en": "Week 31",
+                  "fr": "Semaine 31"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1663178.6470588236,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w32": {
+                "label": {
+                  "en": "Week 32",
+                  "fr": "Semaine 32"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1564156.6470588236,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w33": {
+                "label": {
+                  "en": "Week 33",
+                  "fr": "Semaine 33"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1537556.8235294118,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w34": {
+                "label": {
+                  "en": "Week 34",
+                  "fr": "Semaine 34"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1516230.5294117648,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w35": {
+                "label": {
+                  "en": "Week 35",
+                  "fr": "Semaine 35"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1558586.1176470588,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w36": {
+                "label": {
+                  "en": "Week 36",
+                  "fr": "Semaine 36"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1393324.3529411764,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w37": {
+                "label": {
+                  "en": "Week 37",
+                  "fr": "Semaine 37"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1481249.8235294118,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w38": {
+                "label": {
+                  "en": "Week 38",
+                  "fr": "Semaine 38"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1531143.7647058824,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w39": {
+                "label": {
+                  "en": "Week 39",
+                  "fr": "Semaine 39"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1728882.4117647058,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w40": {
+                "label": {
+                  "en": "Week 40",
+                  "fr": "Semaine 40"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1756203.2352941176,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w41": {
+                "label": {
+                  "en": "Week 41",
+                  "fr": "Semaine 41"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1713849.8823529412,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w42": {
+                "label": {
+                  "en": "Week 42",
+                  "fr": "Semaine 42"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1746213.1764705882,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w43": {
+                "label": {
+                  "en": "Week 43",
+                  "fr": "Semaine 43"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1739646.1764705882,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w44": {
+                "label": {
+                  "en": "Week 44",
+                  "fr": "Semaine 44"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1724809.4705882352,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w45": {
+                "label": {
+                  "en": "Week 45",
+                  "fr": "Semaine 45"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1626794.5882352942,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w46": {
+                "label": {
+                  "en": "Week 46",
+                  "fr": "Semaine 46"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1586869.4117647058,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w47": {
+                "label": {
+                  "en": "Week 47",
+                  "fr": "Semaine 47"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1265924.8235294118,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w48": {
+                "label": {
+                  "en": "Week 48",
+                  "fr": "Semaine 48"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1291479.5882352942,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w49": {
+                "label": {
+                  "en": "Week 49",
+                  "fr": "Semaine 49"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 1501066.705882353,
+                    "value_baseline": 1778700.5882352942,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w50": {
+                "label": {
+                  "en": "Week 50",
+                  "fr": "Semaine 50"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1470267.2222222222,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w51": {
+                "label": {
+                  "en": "Week 51",
+                  "fr": "Semaine 51"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 1360401.7222222222,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w52": {
+                "label": {
+                  "en": "Week 52",
+                  "fr": "Semaine 52"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 736861.6111111111,
+                    "value_baseline": 1622100.7222222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w53": {
+                "label": {
+                  "en": "Week 53",
+                  "fr": "Semaine 53"
+                },
+                "total_samples": 3,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 3,
+                    "total": 3,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": 669682.6666666666,
+                    "value_baseline": 1961424.0,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "monthly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-01"
+        ],
+        "total_samples": 210,
+        "results": [
+          {
+            "condition": "any_period",
+            "outcome": "mean_volume",
+            "count": 210,
+            "total": 210,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 210,
+            "value": 27661037.352380954,
+            "value_baseline": 27661037.352380954,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "month_of_year": {
+            "dimension": "month_of_year",
+            "groups": {
+              "january": {
+                "label": {
+                  "en": "January",
+                  "fr": "Janvier"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 27938690.666666668,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "february": {
+                "label": {
+                  "en": "February",
+                  "fr": "Février"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 27276498.388888888,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "march": {
+                "label": {
+                  "en": "March",
+                  "fr": "Mars"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 30164159.666666668,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "april": {
+                "label": {
+                  "en": "April",
+                  "fr": "Avril"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 27735833.944444444,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "may": {
+                "label": {
+                  "en": "May",
+                  "fr": "Mai"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 29194361.777777776,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "june": {
+                "label": {
+                  "en": "June",
+                  "fr": "Juin"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 28048277.94117647,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "july": {
+                "label": {
+                  "en": "July",
+                  "fr": "Juillet"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 25770465.94117647,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "august": {
+                "label": {
+                  "en": "August",
+                  "fr": "Août"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 28866529.94117647,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "september": {
+                "label": {
+                  "en": "September",
+                  "fr": "Septembre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 27817891.88235294,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "october": {
+                "label": {
+                  "en": "October",
+                  "fr": "Octobre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 31272932.0,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "november": {
+                "label": {
+                  "en": "November",
+                  "fr": "Novembre"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 25277218.352941178,
+                    "value_baseline": 28699619.352941178,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "december": {
+                "label": {
+                  "en": "December",
+                  "fr": "Décembre"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 22629981.722222224,
+                    "value_baseline": 27126711.611111112,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "weekly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-01"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "any_period",
+            "outcome": "mean_volume",
+            "count": 913,
+            "total": 913,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 913,
+            "value": 6368575.4633077765,
+            "value_baseline": 6368575.4633077765,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "week_of_year": {
+            "dimension": "week_of_year",
+            "groups": {
+              "w01": {
+                "label": {
+                  "en": "Week 1",
+                  "fr": "Semaine 1"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5102028.444444444,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w02": {
+                "label": {
+                  "en": "Week 2",
+                  "fr": "Semaine 2"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6379404.277777778,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w03": {
+                "label": {
+                  "en": "Week 3",
+                  "fr": "Semaine 3"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6346123.833333333,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w04": {
+                "label": {
+                  "en": "Week 4",
+                  "fr": "Semaine 4"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6571851.5,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w05": {
+                "label": {
+                  "en": "Week 5",
+                  "fr": "Semaine 5"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7404632.722222222,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w06": {
+                "label": {
+                  "en": "Week 6",
+                  "fr": "Semaine 6"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7419915.111111111,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w07": {
+                "label": {
+                  "en": "Week 7",
+                  "fr": "Semaine 7"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6016839.944444444,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w08": {
+                "label": {
+                  "en": "Week 8",
+                  "fr": "Semaine 8"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5881402.0,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w09": {
+                "label": {
+                  "en": "Week 9",
+                  "fr": "Semaine 9"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7815599.5,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w10": {
+                "label": {
+                  "en": "Week 10",
+                  "fr": "Semaine 10"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7004628.833333333,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w11": {
+                "label": {
+                  "en": "Week 11",
+                  "fr": "Semaine 11"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6720280.722222222,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w12": {
+                "label": {
+                  "en": "Week 12",
+                  "fr": "Semaine 12"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6673230.166666667,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w13": {
+                "label": {
+                  "en": "Week 13",
+                  "fr": "Semaine 13"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6283946.833333333,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w14": {
+                "label": {
+                  "en": "Week 14",
+                  "fr": "Semaine 14"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6603334.666666667,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w15": {
+                "label": {
+                  "en": "Week 15",
+                  "fr": "Semaine 15"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6499248.055555556,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w16": {
+                "label": {
+                  "en": "Week 16",
+                  "fr": "Semaine 16"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6468304.166666667,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w17": {
+                "label": {
+                  "en": "Week 17",
+                  "fr": "Semaine 17"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6488284.888888889,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w18": {
+                "label": {
+                  "en": "Week 18",
+                  "fr": "Semaine 18"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7178962.944444444,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w19": {
+                "label": {
+                  "en": "Week 19",
+                  "fr": "Semaine 19"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6812707.166666667,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w20": {
+                "label": {
+                  "en": "Week 20",
+                  "fr": "Semaine 20"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 7307886.388888889,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w21": {
+                "label": {
+                  "en": "Week 21",
+                  "fr": "Semaine 21"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6286939.166666667,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w22": {
+                "label": {
+                  "en": "Week 22",
+                  "fr": "Semaine 22"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5676618.5,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w23": {
+                "label": {
+                  "en": "Week 23",
+                  "fr": "Semaine 23"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 6415327.222222222,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w24": {
+                "label": {
+                  "en": "Week 24",
+                  "fr": "Semaine 24"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6584926.882352941,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w25": {
+                "label": {
+                  "en": "Week 25",
+                  "fr": "Semaine 25"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6157906.411764706,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w26": {
+                "label": {
+                  "en": "Week 26",
+                  "fr": "Semaine 26"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6805614.235294118,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w27": {
+                "label": {
+                  "en": "Week 27",
+                  "fr": "Semaine 27"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 4325023.647058823,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w28": {
+                "label": {
+                  "en": "Week 28",
+                  "fr": "Semaine 28"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6233151.0,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w29": {
+                "label": {
+                  "en": "Week 29",
+                  "fr": "Semaine 29"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6089687.647058823,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w30": {
+                "label": {
+                  "en": "Week 30",
+                  "fr": "Semaine 30"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6200510.470588235,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w31": {
+                "label": {
+                  "en": "Week 31",
+                  "fr": "Semaine 31"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 7022081.823529412,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w32": {
+                "label": {
+                  "en": "Week 32",
+                  "fr": "Semaine 32"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6607149.176470588,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w33": {
+                "label": {
+                  "en": "Week 33",
+                  "fr": "Semaine 33"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6258908.117647059,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w34": {
+                "label": {
+                  "en": "Week 34",
+                  "fr": "Semaine 34"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6343324.352941177,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w35": {
+                "label": {
+                  "en": "Week 35",
+                  "fr": "Semaine 35"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6494798.882352941,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w36": {
+                "label": {
+                  "en": "Week 36",
+                  "fr": "Semaine 36"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 5637059.0,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w37": {
+                "label": {
+                  "en": "Week 37",
+                  "fr": "Semaine 37"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6174095.411764706,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w38": {
+                "label": {
+                  "en": "Week 38",
+                  "fr": "Semaine 38"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6613730.94117647,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w39": {
+                "label": {
+                  "en": "Week 39",
+                  "fr": "Semaine 39"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 7297951.705882353,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w40": {
+                "label": {
+                  "en": "Week 40",
+                  "fr": "Semaine 40"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 7422615.411764706,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w41": {
+                "label": {
+                  "en": "Week 41",
+                  "fr": "Semaine 41"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6996458.294117647,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w42": {
+                "label": {
+                  "en": "Week 42",
+                  "fr": "Semaine 42"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6987017.647058823,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w43": {
+                "label": {
+                  "en": "Week 43",
+                  "fr": "Semaine 43"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6952090.529411765,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w44": {
+                "label": {
+                  "en": "Week 44",
+                  "fr": "Semaine 44"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 7100287.294117647,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w45": {
+                "label": {
+                  "en": "Week 45",
+                  "fr": "Semaine 45"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6809447.470588235,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w46": {
+                "label": {
+                  "en": "Week 46",
+                  "fr": "Semaine 46"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6462142.352941177,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w47": {
+                "label": {
+                  "en": "Week 47",
+                  "fr": "Semaine 47"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 4855132.705882353,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w48": {
+                "label": {
+                  "en": "Week 48",
+                  "fr": "Semaine 48"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 5311248.823529412,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w49": {
+                "label": {
+                  "en": "Week 49",
+                  "fr": "Semaine 49"
+                },
+                "total_samples": 17,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 17,
+                    "total": 17,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 17,
+                    "value": 6204129.647058823,
+                    "value_baseline": 7322665.176470588,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w50": {
+                "label": {
+                  "en": "Week 50",
+                  "fr": "Semaine 50"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5926904.944444444,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w51": {
+                "label": {
+                  "en": "Week 51",
+                  "fr": "Semaine 51"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 5880296.388888889,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w52": {
+                "label": {
+                  "en": "Week 52",
+                  "fr": "Semaine 52"
+                },
+                "total_samples": 18,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 18,
+                    "total": 18,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 18,
+                    "value": 2704468.0555555555,
+                    "value_baseline": 7353229.722222222,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "w53": {
+                "label": {
+                  "en": "Week 53",
+                  "fr": "Semaine 53"
+                },
+                "total_samples": 3,
+                "results": [
+                  {
+                    "condition": "any_period",
+                    "outcome": "mean_volume",
+                    "count": 3,
+                    "total": 3,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": 2591358.0,
+                    "value_baseline": 8361733.333333333,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

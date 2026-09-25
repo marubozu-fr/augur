@@ -1,0 +1,2285 @@
+{
+  "stat_name": "asian_range_breakout",
+  "title": {
+    "en": "Asian Range Breakout",
+    "fr": "Cassure du range asiatique"
+  },
+  "definition": {
+    "en": "Comparing each session's market-hours high and low to the prior Asian (Tokyo) session's high and low, how often does price break above the Asian high only, below the Asian low only, both sides, or neither during the RTH session?",
+    "fr": "En comparant le plus haut et le plus bas de la séance régulière au plus haut et au plus bas de la session asiatique (Tokyo) précédente, à quelle fréquence le prix casse-t-il au-dessus du plus haut asiatique uniquement, en-dessous du plus bas uniquement, des deux côtés, ou ni l'un ni l'autre pendant la séance RTH ?"
+  },
+  "labels": {
+    "conditions": {
+      "asian_range": {
+        "en": "Asian range",
+        "fr": "Range asiatique"
+      }
+    },
+    "outcomes": {
+      "broke_high": {
+        "en": "Broke above Asian high only",
+        "fr": "Cassure au-dessus du plus haut asiatique uniquement"
+      },
+      "broke_low": {
+        "en": "Broke below Asian low only",
+        "fr": "Cassure en-dessous du plus bas asiatique uniquement"
+      },
+      "broke_both": {
+        "en": "Broke both sides",
+        "fr": "Cassure des deux côtés"
+      },
+      "neither": {
+        "en": "Stayed within the Asian range",
+        "fr": "Resté dans le range asiatique"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "levels": {
+        "en": "Extension level",
+        "fr": "Niveau d'extension"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4324,
+        "results": [
+          {
+            "condition": "asian_range",
+            "outcome": "broke_high",
+            "count": 1369,
+            "total": 4324,
+            "probability": 0.3166049953746531,
+            "baseline_prob": 0.27705827937095284,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "broke_low",
+            "count": 1037,
+            "total": 4324,
+            "probability": 0.23982423681776133,
+            "baseline_prob": 0.27890841813135986,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "broke_both",
+            "count": 1895,
+            "total": 4324,
+            "probability": 0.43825161887141534,
+            "baseline_prob": 0.4387141535615171,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "neither",
+            "count": 23,
+            "total": 4324,
+            "probability": 0.005319148936170213,
+            "baseline_prob": 0.005319148936170213,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 315,
+                    "total": 816,
+                    "probability": 0.3860294117647059,
+                    "baseline_prob": 0.3125,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 201,
+                    "total": 816,
+                    "probability": 0.24632352941176472,
+                    "baseline_prob": 0.31862745098039214,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 292,
+                    "total": 816,
+                    "probability": 0.35784313725490197,
+                    "baseline_prob": 0.3590686274509804,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 816,
+                    "probability": 0.00980392156862745,
+                    "baseline_prob": 0.00980392156862745,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 894,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 271,
+                    "total": 894,
+                    "probability": 0.30313199105145416,
+                    "baseline_prob": 0.2662192393736018,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 219,
+                    "total": 894,
+                    "probability": 0.24496644295302014,
+                    "baseline_prob": 0.2807606263982103,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 402,
+                    "total": 894,
+                    "probability": 0.44966442953020136,
+                    "baseline_prob": 0.4507829977628635,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 894,
+                    "probability": 0.0022371364653243847,
+                    "baseline_prob": 0.0022371364653243847,
+                    "baseline_n": 894,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 888,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 273,
+                    "total": 888,
+                    "probability": 0.30743243243243246,
+                    "baseline_prob": 0.25563063063063063,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 185,
+                    "total": 888,
+                    "probability": 0.20833333333333334,
+                    "baseline_prob": 0.25900900900900903,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 427,
+                    "total": 888,
+                    "probability": 0.48085585585585583,
+                    "baseline_prob": 0.481981981981982,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 888,
+                    "probability": 0.0033783783783783786,
+                    "baseline_prob": 0.0033783783783783786,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 873,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 269,
+                    "total": 873,
+                    "probability": 0.30813287514318444,
+                    "baseline_prob": 0.284077892325315,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 218,
+                    "total": 873,
+                    "probability": 0.24971363115693013,
+                    "baseline_prob": 0.27262313860252,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 383,
+                    "total": 873,
+                    "probability": 0.43871706758304696,
+                    "baseline_prob": 0.43986254295532645,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 873,
+                    "probability": 0.003436426116838488,
+                    "baseline_prob": 0.003436426116838488,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 853,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 241,
+                    "total": 853,
+                    "probability": 0.2825322391559203,
+                    "baseline_prob": 0.26260257913247365,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 214,
+                    "total": 853,
+                    "probability": 0.2508792497069168,
+                    "baseline_prob": 0.2708089097303634,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 391,
+                    "total": 853,
+                    "probability": 0.45838218053927315,
+                    "baseline_prob": 0.45838218053927315,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 853,
+                    "probability": 0.008206330597889801,
+                    "baseline_prob": 0.008206330597889801,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2380,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 1158,
+                    "total": 2380,
+                    "probability": 0.4865546218487395,
+                    "baseline_prob": 0.3063025210084034,
+                    "baseline_n": 2380,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 255,
+                    "total": 2380,
+                    "probability": 0.10714285714285714,
+                    "baseline_prob": 0.28739495798319326,
+                    "baseline_n": 2380,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 956,
+                    "total": 2380,
+                    "probability": 0.4016806722689076,
+                    "baseline_prob": 0.4016806722689076,
+                    "baseline_n": 2380,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 11,
+                    "total": 2380,
+                    "probability": 0.004621848739495798,
+                    "baseline_prob": 0.004621848739495798,
+                    "baseline_n": 2380,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1944,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 211,
+                    "total": 1944,
+                    "probability": 0.10853909465020577,
+                    "baseline_prob": 0.24537037037037038,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 782,
+                    "total": 1944,
+                    "probability": 0.4022633744855967,
+                    "baseline_prob": 0.26440329218106995,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 939,
+                    "total": 1944,
+                    "probability": 0.48302469135802467,
+                    "baseline_prob": 0.48405349794238683,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 12,
+                    "total": 1944,
+                    "probability": 0.006172839506172839,
+                    "baseline_prob": 0.006172839506172839,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2379,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 701,
+                    "total": 2379,
+                    "probability": 0.294661622530475,
+                    "baseline_prob": 0.2728036990332072,
+                    "baseline_n": 2379,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 599,
+                    "total": 2379,
+                    "probability": 0.251786464901219,
+                    "baseline_prob": 0.273224043715847,
+                    "baseline_n": 2379,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 1069,
+                    "total": 2379,
+                    "probability": 0.44934846574190834,
+                    "baseline_prob": 0.44976881042454814,
+                    "baseline_n": 2379,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 2379,
+                    "probability": 0.004203446826397646,
+                    "baseline_prob": 0.004203446826397646,
+                    "baseline_n": 2379,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1944,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 668,
+                    "total": 1944,
+                    "probability": 0.3436213991769547,
+                    "baseline_prob": 0.2788065843621399,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 438,
+                    "total": 1944,
+                    "probability": 0.22530864197530864,
+                    "baseline_prob": 0.28960905349794236,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 825,
+                    "total": 1944,
+                    "probability": 0.4243827160493827,
+                    "baseline_prob": 0.42489711934156377,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 1944,
+                    "probability": 0.006687242798353909,
+                    "baseline_prob": 0.006687242798353909,
+                    "baseline_n": 1944,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ar_size bin 1 (2.03–12.87]",
+                  "fr": "ar_size tranche 1 (2.03–12.87]"
+                },
+                "total_samples": 1082,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 268,
+                    "total": 1082,
+                    "probability": 0.2476894639556377,
+                    "baseline_prob": 0.21903881700554528,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 187,
+                    "total": 1082,
+                    "probability": 0.17282809611829944,
+                    "baseline_prob": 0.1987060998151571,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 626,
+                    "total": 1082,
+                    "probability": 0.5785582255083179,
+                    "baseline_prob": 0.5813308687615527,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 1082,
+                    "probability": 0.0009242144177449168,
+                    "baseline_prob": 0.0009242144177449168,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ar_size bin 2 (12.87–31.40]",
+                  "fr": "ar_size tranche 2 (12.87–31.40]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 368,
+                    "total": 1080,
+                    "probability": 0.34074074074074073,
+                    "baseline_prob": 0.3037037037037037,
+                    "baseline_n": 1080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 280,
+                    "total": 1080,
+                    "probability": 0.25925925925925924,
+                    "baseline_prob": 0.2953703703703704,
+                    "baseline_n": 1080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 432,
+                    "total": 1080,
+                    "probability": 0.4,
+                    "baseline_prob": 0.4009259259259259,
+                    "baseline_n": 1080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1080,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ar_size bin 3 (31.40–81.63]",
+                  "fr": "ar_size tranche 3 (31.40–81.63]"
+                },
+                "total_samples": 1081,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 349,
+                    "total": 1081,
+                    "probability": 0.3228492136910268,
+                    "baseline_prob": 0.2765957446808511,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 259,
+                    "total": 1081,
+                    "probability": 0.23959296947271044,
+                    "baseline_prob": 0.2858464384828862,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 464,
+                    "total": 1081,
+                    "probability": 0.42923219241443106,
+                    "baseline_prob": 0.42923219241443106,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 1081,
+                    "probability": 0.008325624421831638,
+                    "baseline_prob": 0.008325624421831638,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ar_size bin 4 (81.63–1104.61]",
+                  "fr": "ar_size tranche 4 (81.63–1104.61]"
+                },
+                "total_samples": 1081,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 384,
+                    "total": 1081,
+                    "probability": 0.35522664199814985,
+                    "baseline_prob": 0.3209990749306198,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 311,
+                    "total": 1081,
+                    "probability": 0.28769657724329323,
+                    "baseline_prob": 0.3209990749306198,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 373,
+                    "total": 1081,
+                    "probability": 0.3450508788159112,
+                    "baseline_prob": 0.3459759481961147,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 1081,
+                    "probability": 0.012025901942645698,
+                    "baseline_prob": 0.012025901942645698,
+                    "baseline_n": 1081,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "levels": {
+            "dimension": "levels",
+            "groups": {
+              "0_0_5x": {
+                "label": {
+                  "en": "0–0.5x",
+                  "fr": "0–0.5x"
+                },
+                "total_samples": 369,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 112,
+                    "total": 369,
+                    "probability": 0.3035230352303523,
+                    "baseline_prob": 0.2601626016260163,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 91,
+                    "total": 369,
+                    "probability": 0.24661246612466126,
+                    "baseline_prob": 0.2872628726287263,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 143,
+                    "total": 369,
+                    "probability": 0.3875338753387534,
+                    "baseline_prob": 0.3902439024390244,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 23,
+                    "total": 369,
+                    "probability": 0.06233062330623306,
+                    "baseline_prob": 0.06233062330623306,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "0_5_1x": {
+                "label": {
+                  "en": "0.5–1x",
+                  "fr": "0.5–1x"
+                },
+                "total_samples": 744,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 230,
+                    "total": 744,
+                    "probability": 0.30913978494623656,
+                    "baseline_prob": 0.23790322580645162,
+                    "baseline_n": 744,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 137,
+                    "total": 744,
+                    "probability": 0.18413978494623656,
+                    "baseline_prob": 0.2540322580645161,
+                    "baseline_n": 744,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 377,
+                    "total": 744,
+                    "probability": 0.5067204301075269,
+                    "baseline_prob": 0.5080645161290323,
+                    "baseline_n": 744,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 744,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 744,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_1_5x": {
+                "label": {
+                  "en": "1–1.5x",
+                  "fr": "1–1.5x"
+                },
+                "total_samples": 751,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 237,
+                    "total": 751,
+                    "probability": 0.3155792276964048,
+                    "baseline_prob": 0.2170439414114514,
+                    "baseline_n": 751,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 122,
+                    "total": 751,
+                    "probability": 0.16245006657789615,
+                    "baseline_prob": 0.2609853528628495,
+                    "baseline_n": 751,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 392,
+                    "total": 751,
+                    "probability": 0.521970705725699,
+                    "baseline_prob": 0.521970705725699,
+                    "baseline_n": 751,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 751,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 751,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_5_2x": {
+                "label": {
+                  "en": "1.5–2x",
+                  "fr": "1.5–2x"
+                },
+                "total_samples": 627,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 200,
+                    "total": 627,
+                    "probability": 0.3189792663476874,
+                    "baseline_prob": 0.2567783094098884,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 125,
+                    "total": 627,
+                    "probability": 0.19936204146730463,
+                    "baseline_prob": 0.25996810207336524,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 302,
+                    "total": 627,
+                    "probability": 0.48165869218500795,
+                    "baseline_prob": 0.48325358851674644,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 627,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "ge_2x": {
+                "label": {
+                  "en": ">=2x",
+                  "fr": ">=2x"
+                },
+                "total_samples": 1833,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 590,
+                    "total": 1833,
+                    "probability": 0.32187670485542824,
+                    "baseline_prob": 0.3098745226404801,
+                    "baseline_n": 1833,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 562,
+                    "total": 1833,
+                    "probability": 0.3066012002182215,
+                    "baseline_prob": 0.3180578286961266,
+                    "baseline_n": 1833,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 681,
+                    "total": 1833,
+                    "probability": 0.37152209492635024,
+                    "baseline_prob": 0.37206764866339337,
+                    "baseline_n": 1833,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1833,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1833,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4353,
+        "results": [
+          {
+            "condition": "asian_range",
+            "outcome": "broke_high",
+            "count": 1468,
+            "total": 4353,
+            "probability": 0.3372386859637032,
+            "baseline_prob": 0.29933379278658395,
+            "baseline_n": 4353,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "broke_low",
+            "count": 1177,
+            "total": 4353,
+            "probability": 0.27038823799678385,
+            "baseline_prob": 0.3059958649207443,
+            "baseline_n": 4353,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "broke_both",
+            "count": 1674,
+            "total": 4353,
+            "probability": 0.38456237077877325,
+            "baseline_prob": 0.386859637031932,
+            "baseline_n": 4353,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "asian_range",
+            "outcome": "neither",
+            "count": 34,
+            "total": 4353,
+            "probability": 0.00781070526073972,
+            "baseline_prob": 0.00781070526073972,
+            "baseline_n": 4353,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 337,
+                    "total": 820,
+                    "probability": 0.41097560975609754,
+                    "baseline_prob": 0.33170731707317075,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 223,
+                    "total": 820,
+                    "probability": 0.27195121951219514,
+                    "baseline_prob": 0.35121951219512193,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 252,
+                    "total": 820,
+                    "probability": 0.3073170731707317,
+                    "baseline_prob": 0.30853658536585366,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 820,
+                    "probability": 0.00975609756097561,
+                    "baseline_prob": 0.00853658536585366,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 899,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 277,
+                    "total": 899,
+                    "probability": 0.3081201334816463,
+                    "baseline_prob": 0.27808676307007785,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 259,
+                    "total": 899,
+                    "probability": 0.28809788654060065,
+                    "baseline_prob": 0.3170189098998888,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 355,
+                    "total": 899,
+                    "probability": 0.39488320355951056,
+                    "baseline_prob": 0.39599555061179087,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 899,
+                    "probability": 0.008898776418242492,
+                    "baseline_prob": 0.008898776418242492,
+                    "baseline_n": 899,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 895,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 286,
+                    "total": 895,
+                    "probability": 0.3195530726256983,
+                    "baseline_prob": 0.2871508379888268,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 219,
+                    "total": 895,
+                    "probability": 0.2446927374301676,
+                    "baseline_prob": 0.2737430167597765,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 386,
+                    "total": 895,
+                    "probability": 0.4312849162011173,
+                    "baseline_prob": 0.4346368715083799,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 895,
+                    "probability": 0.004469273743016759,
+                    "baseline_prob": 0.004469273743016759,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 879,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 275,
+                    "total": 879,
+                    "probability": 0.31285551763367464,
+                    "baseline_prob": 0.28896473265073946,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 235,
+                    "total": 879,
+                    "probability": 0.267349260523322,
+                    "baseline_prob": 0.28896473265073946,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 362,
+                    "total": 879,
+                    "probability": 0.4118316268486917,
+                    "baseline_prob": 0.4141069397042093,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 879,
+                    "probability": 0.007963594994311717,
+                    "baseline_prob": 0.007963594994311717,
+                    "baseline_n": 879,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 860,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 293,
+                    "total": 860,
+                    "probability": 0.34069767441860466,
+                    "baseline_prob": 0.3058139534883721,
+                    "baseline_n": 860,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 241,
+                    "total": 860,
+                    "probability": 0.2802325581395349,
+                    "baseline_prob": 0.313953488372093,
+                    "baseline_n": 860,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 319,
+                    "total": 860,
+                    "probability": 0.37093023255813956,
+                    "baseline_prob": 0.37209302325581395,
+                    "baseline_n": 860,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 860,
+                    "probability": 0.00813953488372093,
+                    "baseline_prob": 0.00813953488372093,
+                    "baseline_n": 860,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2406,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 1202,
+                    "total": 2406,
+                    "probability": 0.4995843724023275,
+                    "baseline_prob": 0.32211138819617624,
+                    "baseline_n": 2406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 348,
+                    "total": 2406,
+                    "probability": 0.14463840399002495,
+                    "baseline_prob": 0.32128013300083125,
+                    "baseline_n": 2406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 840,
+                    "total": 2406,
+                    "probability": 0.3491271820448878,
+                    "baseline_prob": 0.34995843724023273,
+                    "baseline_n": 2406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 16,
+                    "total": 2406,
+                    "probability": 0.006650041562759767,
+                    "baseline_prob": 0.006650041562759767,
+                    "baseline_n": 2406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1947,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 266,
+                    "total": 1947,
+                    "probability": 0.13662044170518747,
+                    "baseline_prob": 0.2773497688751926,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 829,
+                    "total": 1947,
+                    "probability": 0.42578325629173086,
+                    "baseline_prob": 0.28197226502311246,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 834,
+                    "total": 1947,
+                    "probability": 0.4283513097072419,
+                    "baseline_prob": 0.43143297380585516,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 18,
+                    "total": 1947,
+                    "probability": 0.009244992295839754,
+                    "baseline_prob": 0.009244992295839754,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2405,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 799,
+                    "total": 2405,
+                    "probability": 0.33222453222453224,
+                    "baseline_prob": 0.3151767151767152,
+                    "baseline_n": 2405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 691,
+                    "total": 2405,
+                    "probability": 0.28731808731808733,
+                    "baseline_prob": 0.3027027027027027,
+                    "baseline_n": 2405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 894,
+                    "total": 2405,
+                    "probability": 0.37172557172557175,
+                    "baseline_prob": 0.3733887733887734,
+                    "baseline_n": 2405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 21,
+                    "total": 2405,
+                    "probability": 0.008731808731808732,
+                    "baseline_prob": 0.008731808731808732,
+                    "baseline_n": 2405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1947,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 669,
+                    "total": 1947,
+                    "probability": 0.3436055469953775,
+                    "baseline_prob": 0.2840267077555213,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 486,
+                    "total": 1947,
+                    "probability": 0.24961479198767333,
+                    "baseline_prob": 0.3071391884951207,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 779,
+                    "total": 1947,
+                    "probability": 0.40010272213662046,
+                    "baseline_prob": 0.40215716486902925,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 1947,
+                    "probability": 0.00667693888032871,
+                    "baseline_prob": 0.00667693888032871,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ar_size bin 1 (-0.00–6.00]",
+                  "fr": "ar_size tranche 1 (-0.00–6.00]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 311,
+                    "total": 1090,
+                    "probability": 0.2853211009174312,
+                    "baseline_prob": 0.25688073394495414,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 244,
+                    "total": 1090,
+                    "probability": 0.22385321100917432,
+                    "baseline_prob": 0.25045871559633026,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 535,
+                    "total": 1090,
+                    "probability": 0.4908256880733945,
+                    "baseline_prob": 0.4926605504587156,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ar_size bin 2 (6.00–10.63]",
+                  "fr": "ar_size tranche 2 (6.00–10.63]"
+                },
+                "total_samples": 1087,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 353,
+                    "total": 1087,
+                    "probability": 0.3247470101195952,
+                    "baseline_prob": 0.3137074517019319,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 302,
+                    "total": 1087,
+                    "probability": 0.2778288868445262,
+                    "baseline_prob": 0.28334866605335784,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 430,
+                    "total": 1087,
+                    "probability": 0.39558417663293466,
+                    "baseline_prob": 0.40110395584176634,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1087,
+                    "probability": 0.0018399264029438822,
+                    "baseline_prob": 0.0018399264029438822,
+                    "baseline_n": 1087,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ar_size bin 3 (10.63–20.00]",
+                  "fr": "ar_size tranche 3 (10.63–20.00]"
+                },
+                "total_samples": 1088,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 393,
+                    "total": 1088,
+                    "probability": 0.36121323529411764,
+                    "baseline_prob": 0.32077205882352944,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 303,
+                    "total": 1088,
+                    "probability": 0.27849264705882354,
+                    "baseline_prob": 0.3180147058823529,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 383,
+                    "total": 1088,
+                    "probability": 0.35202205882352944,
+                    "baseline_prob": 0.35294117647058826,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 1088,
+                    "probability": 0.008272058823529412,
+                    "baseline_prob": 0.008272058823529412,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ar_size bin 4 (20.00–209.03]",
+                  "fr": "ar_size tranche 4 (20.00–209.03]"
+                },
+                "total_samples": 1088,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 411,
+                    "total": 1088,
+                    "probability": 0.37775735294117646,
+                    "baseline_prob": 0.31985294117647056,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 328,
+                    "total": 1088,
+                    "probability": 0.3014705882352941,
+                    "baseline_prob": 0.35753676470588236,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 326,
+                    "total": 1088,
+                    "probability": 0.29963235294117646,
+                    "baseline_prob": 0.3014705882352941,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 23,
+                    "total": 1088,
+                    "probability": 0.021139705882352942,
+                    "baseline_prob": 0.021139705882352942,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "levels": {
+            "dimension": "levels",
+            "groups": {
+              "0_0_5x": {
+                "label": {
+                  "en": "0–0.5x",
+                  "fr": "0–0.5x"
+                },
+                "total_samples": 503,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 163,
+                    "total": 503,
+                    "probability": 0.3240556660039761,
+                    "baseline_prob": 0.2783300198807157,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 129,
+                    "total": 503,
+                    "probability": 0.25646123260437376,
+                    "baseline_prob": 0.2962226640159046,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 177,
+                    "total": 503,
+                    "probability": 0.3518886679920477,
+                    "baseline_prob": 0.35984095427435386,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 34,
+                    "total": 503,
+                    "probability": 0.06759443339960239,
+                    "baseline_prob": 0.06560636182902585,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "0_5_1x": {
+                "label": {
+                  "en": "0.5–1x",
+                  "fr": "0.5–1x"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 296,
+                    "total": 862,
+                    "probability": 0.3433874709976798,
+                    "baseline_prob": 0.27610208816705334,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 183,
+                    "total": 862,
+                    "probability": 0.2122969837587007,
+                    "baseline_prob": 0.27958236658932717,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 383,
+                    "total": 862,
+                    "probability": 0.4443155452436195,
+                    "baseline_prob": 0.4443155452436195,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_1_5x": {
+                "label": {
+                  "en": "1–1.5x",
+                  "fr": "1–1.5x"
+                },
+                "total_samples": 763,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 248,
+                    "total": 763,
+                    "probability": 0.32503276539973786,
+                    "baseline_prob": 0.25688073394495414,
+                    "baseline_n": 763,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 166,
+                    "total": 763,
+                    "probability": 0.21756225425950196,
+                    "baseline_prob": 0.2857142857142857,
+                    "baseline_n": 763,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 349,
+                    "total": 763,
+                    "probability": 0.45740498034076016,
+                    "baseline_prob": 0.45740498034076016,
+                    "baseline_n": 763,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 763,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 763,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "1_5_2x": {
+                "label": {
+                  "en": "1.5–2x",
+                  "fr": "1.5–2x"
+                },
+                "total_samples": 635,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 219,
+                    "total": 635,
+                    "probability": 0.34488188976377954,
+                    "baseline_prob": 0.2803149606299213,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 145,
+                    "total": 635,
+                    "probability": 0.2283464566929134,
+                    "baseline_prob": 0.2929133858267717,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 271,
+                    "total": 635,
+                    "probability": 0.4267716535433071,
+                    "baseline_prob": 0.4267716535433071,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 635,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "ge_2x": {
+                "label": {
+                  "en": ">=2x",
+                  "fr": ">=2x"
+                },
+                "total_samples": 1589,
+                "results": [
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_high",
+                    "count": 542,
+                    "total": 1589,
+                    "probability": 0.3410950283196979,
+                    "baseline_prob": 0.3329137822529893,
+                    "baseline_n": 1589,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_low",
+                    "count": 554,
+                    "total": 1589,
+                    "probability": 0.3486469477658905,
+                    "baseline_prob": 0.3536815607300189,
+                    "baseline_n": 1589,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "broke_both",
+                    "count": 493,
+                    "total": 1589,
+                    "probability": 0.3102580239144116,
+                    "baseline_prob": 0.31340465701699183,
+                    "baseline_n": 1589,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "asian_range",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1589,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1589,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

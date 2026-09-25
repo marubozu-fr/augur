@@ -1,0 +1,895 @@
+{
+  "stat_name": "performance_weekday",
+  "title": {
+    "en": "Performance by Weekday",
+    "fr": "Performance par jour de la semaine"
+  },
+  "definition": {
+    "en": "What is the average percent return, the green/red day counts, and the average green/red move size for each weekday?",
+    "fr": "Quels sont le rendement moyen en pourcentage, le nombre de jours verts/rouges et la taille moyenne des mouvements verts/rouges pour chaque jour de la semaine ?"
+  },
+  "labels": {
+    "conditions": {
+      "any_day": {
+        "en": "All trading days",
+        "fr": "Tous les jours de bourse"
+      }
+    },
+    "outcomes": {
+      "mean_return": {
+        "en": "Average return",
+        "fr": "Rendement moyen"
+      },
+      "green_day": {
+        "en": "Green day (up)",
+        "fr": "Jour vert (hausse)"
+      },
+      "red_day": {
+        "en": "Red day (down)",
+        "fr": "Jour rouge (baisse)"
+      },
+      "mean_green_move": {
+        "en": "Average green move",
+        "fr": "Mouvement vert moyen"
+      },
+      "mean_red_move": {
+        "en": "Average red move",
+        "fr": "Mouvement rouge moyen"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4331,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "mean_return",
+            "count": 4331,
+            "total": 4331,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4331,
+            "value": 0.0007832789264076974,
+            "value_baseline": -1.2001155631386748e-05,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "green_day",
+            "count": 2421,
+            "total": 4331,
+            "probability": 0.558993304086816,
+            "baseline_prob": 0.4968829369660586,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "any_day",
+            "outcome": "red_day",
+            "count": 1910,
+            "total": 4331,
+            "probability": 0.44100669591318403,
+            "baseline_prob": 0.5031170630339413,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_green_move",
+            "count": 2421,
+            "total": 4331,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4331,
+            "value": 0.008877535005560808,
+            "value_baseline": 0.009186957821007006,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_red_move",
+            "count": 1910,
+            "total": 4331,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4331,
+            "value": -0.009476508491199463,
+            "value_baseline": -0.009096975785152187,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.0010798699971239097,
+                    "value_baseline": -0.00011568815049850903,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 497,
+                    "total": 816,
+                    "probability": 0.6090686274509803,
+                    "baseline_prob": 0.5110294117647058,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 319,
+                    "total": 816,
+                    "probability": 0.3909313725490196,
+                    "baseline_prob": 0.4889705882352941,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 497,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.008419875880130694,
+                    "value_baseline": 0.008865445055623521,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 319,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": -0.010355813149755,
+                    "value_baseline": -0.00950198526065612,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.0011824579062010038,
+                    "value_baseline": 0.0009540486214540086,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 505,
+                    "total": 896,
+                    "probability": 0.5636160714285714,
+                    "baseline_prob": 0.5145089285714286,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 391,
+                    "total": 896,
+                    "probability": 0.43638392857142855,
+                    "baseline_prob": 0.48549107142857145,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 505,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.008796959593652082,
+                    "value_baseline": 0.009414614393118541,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 391,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": -0.008652128672220467,
+                    "value_baseline": -0.008012206138861737,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.0011353857988801867,
+                    "value_baseline": 0.000550747101747278,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 502,
+                    "total": 890,
+                    "probability": 0.5640449438202247,
+                    "baseline_prob": 0.5112359550561798,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 388,
+                    "total": 890,
+                    "probability": 0.43595505617977526,
+                    "baseline_prob": 0.4887640449438202,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 502,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.009075569782891098,
+                    "value_baseline": 0.009441256727004807,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 388,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": -0.009137738840226712,
+                    "value_baseline": -0.00874852158674048,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 874,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 874,
+                    "total": 874,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 874,
+                    "value": 0.0003442032602680294,
+                    "value_baseline": 0.0002207664890868459,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 466,
+                    "total": 874,
+                    "probability": 0.5331807780320366,
+                    "baseline_prob": 0.5091533180778032,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 408,
+                    "total": 874,
+                    "probability": 0.4668192219679634,
+                    "baseline_prob": 0.49084668192219677,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 466,
+                    "total": 874,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 874,
+                    "value": 0.00924792095331847,
+                    "value_baseline": 0.0095631220117758,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 408,
+                    "total": 874,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 874,
+                    "value": -0.009825239006794485,
+                    "value_baseline": -0.009470021873609154,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.0001642079744852669,
+                    "value_baseline": 0.0006318810414576844,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 451,
+                    "total": 855,
+                    "probability": 0.5274853801169591,
+                    "baseline_prob": 0.5099415204678363,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 404,
+                    "total": 855,
+                    "probability": 0.47251461988304094,
+                    "baseline_prob": 0.49005847953216375,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 451,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.008868962629680085,
+                    "value_baseline": 0.009632643078248689,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 404,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": -0.009553228534160433,
+                    "value_baseline": -0.008734067044558728,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "mean_return",
+            "count": 4360,
+            "total": 4360,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4360,
+            "value": 0.0005519765287161196,
+            "value_baseline": -6.649786913829451e-05,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "green_day",
+            "count": 2448,
+            "total": 4360,
+            "probability": 0.5614678899082569,
+            "baseline_prob": 0.49793577981651377,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "any_day",
+            "outcome": "red_day",
+            "count": 1912,
+            "total": 4360,
+            "probability": 0.43853211009174314,
+            "baseline_prob": 0.5020642201834863,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_green_move",
+            "count": 2448,
+            "total": 4360,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4360,
+            "value": 0.007157955892202104,
+            "value_baseline": 0.007450208123808441,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_red_move",
+            "count": 1912,
+            "total": 4360,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4360,
+            "value": -0.00790588826302744,
+            "value_baseline": -0.0075213944934815384,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.0004601539124273289,
+                    "value_baseline": -3.6719308502862076e-05,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 485,
+                    "total": 820,
+                    "probability": 0.5914634146341463,
+                    "baseline_prob": 0.5146341463414634,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 335,
+                    "total": 820,
+                    "probability": 0.40853658536585363,
+                    "baseline_prob": 0.4853658536585366,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 485,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.006750279667786898,
+                    "value_baseline": 0.007275278716339498,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 335,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": -0.00864644606174996,
+                    "value_baseline": -0.007789641837355816,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.0007056787211683273,
+                    "value_baseline": 0.0007014068708889455,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 488,
+                    "total": 901,
+                    "probability": 0.5416204217536071,
+                    "baseline_prob": 0.5238623751387348,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 413,
+                    "total": 901,
+                    "probability": 0.4583795782463929,
+                    "baseline_prob": 0.47613762486126526,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 488,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.007349705146386833,
+                    "value_baseline": 0.007594770429843036,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 413,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": -0.007144890033085017,
+                    "value_baseline": -0.006882899888612991,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.000766406333854547,
+                    "value_baseline": 0.0003328510996684837,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 510,
+                    "total": 897,
+                    "probability": 0.568561872909699,
+                    "baseline_prob": 0.5139353400222966,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 387,
+                    "total": 897,
+                    "probability": 0.431438127090301,
+                    "baseline_prob": 0.48606465997770343,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 510,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.007212902385610126,
+                    "value_baseline": 0.0075577672323833296,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 387,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": -0.007728976059931874,
+                    "value_baseline": -0.007306337747078175,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 880,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 880,
+                    "total": 880,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 880,
+                    "value": 0.00042089810457885226,
+                    "value_baseline": 8.464343995389174e-06,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 493,
+                    "total": 880,
+                    "probability": 0.5602272727272727,
+                    "baseline_prob": 0.5170454545454546,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 387,
+                    "total": 880,
+                    "probability": 0.43977272727272726,
+                    "baseline_prob": 0.48295454545454547,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 493,
+                    "total": 880,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 880,
+                    "value": 0.007253325924966645,
+                    "value_baseline": 0.007460261156817214,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 387,
+                    "total": 880,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 880,
+                    "value": -0.008282944054209731,
+                    "value_baseline": -0.007969341655613858,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_return",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.00038934816211402595,
+                    "value_baseline": 0.00043342974866391253,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "green_day",
+                    "count": 472,
+                    "total": 862,
+                    "probability": 0.5475638051044084,
+                    "baseline_prob": 0.5127610208816705,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "red_day",
+                    "count": 390,
+                    "total": 862,
+                    "probability": 0.45243619489559167,
+                    "baseline_prob": 0.4872389791183295,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_green_move",
+                    "count": 472,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.007219627915524592,
+                    "value_baseline": 0.007752632443281919,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_red_move",
+                    "count": 390,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": -0.007877041693295684,
+                    "value_baseline": -0.007269159753767418,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

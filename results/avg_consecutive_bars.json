@@ -1,0 +1,104 @@
+{
+  "stat_name": "avg_consecutive_bars",
+  "title": {
+    "en": "Average Consecutive Bars",
+    "fr": "Bougies consécutives moyennes"
+  },
+  "definition": {
+    "en": "For each trading day, the longest run of consecutive green and of consecutive red intraday bars, averaged across days. Shows the typical length of intraday color streaks.",
+    "fr": "Pour chaque jour de bourse, la plus longue série de bougies intraday vertes consécutives et de rouges consécutives, moyennée sur l'ensemble des jours. Montre la longueur typique des séries de couleur intraday."
+  },
+  "labels": {
+    "conditions": {
+      "green": {
+        "en": "Green bars",
+        "fr": "Bougies vertes"
+      },
+      "red": {
+        "en": "Red bars",
+        "fr": "Bougies rouges"
+      }
+    },
+    "outcomes": {
+      "max_streak": {
+        "en": "Avg longest run (bars)",
+        "fr": "Série la plus longue moy. (bougies)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "5min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "max_streak",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 5.815789473684211,
+            "value_baseline": 6.141735918744229,
+            "agg": "mean"
+          },
+          {
+            "condition": "red",
+            "outcome": "max_streak",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 5.088180978762696,
+            "value_baseline": 5.286703601108033,
+            "agg": "mean"
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "5min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "max_streak",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 6.146067415730337,
+            "value_baseline": 6.5484980509057555,
+            "agg": "mean"
+          },
+          {
+            "condition": "red",
+            "outcome": "max_streak",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 4.782160055033249,
+            "value_baseline": 5.05113506076588,
+            "agg": "mean"
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

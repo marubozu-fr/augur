@@ -1,0 +1,1441 @@
+{
+  "stat_name": "fair_value_gaps",
+  "title": {
+    "en": "Fair Value Gaps",
+    "fr": "Imbalances / Gaps de juste valeur"
+  },
+  "definition": {
+    "en": "On 15-minute RTH candles, a Fair Value Gap (FVG) forms when candle 1 and candle 3 leave a price imbalance (bullish: c1.high < c3.low; bearish: c1.low > c3.high). How often is that gap filled within the same session?",
+    "fr": "Sur les bougies RTH de 15 minutes, un gap de juste valeur (FVG) se forme lorsque la bougie 1 et la bougie 3 laissent un déséquilibre de prix (haussier : haut c1 < bas c3 ; baissier : bas c1 > haut c3). À quelle fréquence ce gap est-il comblé au cours de la même session ?"
+  },
+  "labels": {
+    "conditions": {
+      "bullish": {
+        "en": "Bullish FVG",
+        "fr": "FVG haussier"
+      },
+      "bearish": {
+        "en": "Bearish FVG",
+        "fr": "FVG baissier"
+      }
+    },
+    "outcomes": {
+      "filled": {
+        "en": "Filled",
+        "fr": "Comblé"
+      },
+      "not_filled": {
+        "en": "Not filled",
+        "fr": "Non comblé"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 20882,
+        "results": [
+          {
+            "condition": "bullish",
+            "outcome": "filled",
+            "count": 7000,
+            "total": 11369,
+            "probability": 0.6157093851701997,
+            "baseline_prob": 0.6233617732430293,
+            "baseline_n": 11369,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "not_filled",
+            "count": 4369,
+            "total": 11369,
+            "probability": 0.3842906148298003,
+            "baseline_prob": 0.37663822675697073,
+            "baseline_n": 11369,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "filled",
+            "count": 6047,
+            "total": 9513,
+            "probability": 0.6356564700935562,
+            "baseline_prob": 0.626511090087249,
+            "baseline_n": 9513,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "not_filled",
+            "count": 3466,
+            "total": 9513,
+            "probability": 0.3643435299064438,
+            "baseline_prob": 0.37348890991275097,
+            "baseline_n": 9513,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 3913,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1283,
+                    "total": 2170,
+                    "probability": 0.5912442396313364,
+                    "baseline_prob": 0.6179723502304147,
+                    "baseline_n": 2170,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 887,
+                    "total": 2170,
+                    "probability": 0.40875576036866357,
+                    "baseline_prob": 0.38202764976958525,
+                    "baseline_n": 2170,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1126,
+                    "total": 1743,
+                    "probability": 0.6460126219162364,
+                    "baseline_prob": 0.612736660929432,
+                    "baseline_n": 1743,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 617,
+                    "total": 1743,
+                    "probability": 0.3539873780837636,
+                    "baseline_prob": 0.387263339070568,
+                    "baseline_n": 1743,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 4429,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1514,
+                    "total": 2464,
+                    "probability": 0.614448051948052,
+                    "baseline_prob": 0.6229707792207793,
+                    "baseline_n": 2464,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 950,
+                    "total": 2464,
+                    "probability": 0.38555194805194803,
+                    "baseline_prob": 0.3770292207792208,
+                    "baseline_n": 2464,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1261,
+                    "total": 1965,
+                    "probability": 0.6417302798982188,
+                    "baseline_prob": 0.6310432569974554,
+                    "baseline_n": 1965,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 704,
+                    "total": 1965,
+                    "probability": 0.35826972010178115,
+                    "baseline_prob": 0.36895674300254455,
+                    "baseline_n": 1965,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 4277,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1489,
+                    "total": 2331,
+                    "probability": 0.6387816387816387,
+                    "baseline_prob": 0.6241956241956242,
+                    "baseline_n": 2331,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 842,
+                    "total": 2331,
+                    "probability": 0.3612183612183612,
+                    "baseline_prob": 0.3758043758043758,
+                    "baseline_n": 2331,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1245,
+                    "total": 1946,
+                    "probability": 0.6397738951695786,
+                    "baseline_prob": 0.6572456320657759,
+                    "baseline_n": 1946,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 701,
+                    "total": 1946,
+                    "probability": 0.3602261048304214,
+                    "baseline_prob": 0.34275436793422404,
+                    "baseline_n": 1946,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 4331,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1468,
+                    "total": 2324,
+                    "probability": 0.6316695352839932,
+                    "baseline_prob": 0.6290877796901894,
+                    "baseline_n": 2324,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 856,
+                    "total": 2324,
+                    "probability": 0.3683304647160069,
+                    "baseline_prob": 0.3709122203098107,
+                    "baseline_n": 2324,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1260,
+                    "total": 2007,
+                    "probability": 0.6278026905829597,
+                    "baseline_prob": 0.6307922272047832,
+                    "baseline_n": 2007,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 747,
+                    "total": 2007,
+                    "probability": 0.3721973094170404,
+                    "baseline_prob": 0.3692077727952167,
+                    "baseline_n": 2007,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 3932,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1246,
+                    "total": 2080,
+                    "probability": 0.5990384615384615,
+                    "baseline_prob": 0.625,
+                    "baseline_n": 2080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 834,
+                    "total": 2080,
+                    "probability": 0.4009615384615385,
+                    "baseline_prob": 0.375,
+                    "baseline_n": 2080,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1155,
+                    "total": 1852,
+                    "probability": 0.6236501079913607,
+                    "baseline_prob": 0.5944924406047516,
+                    "baseline_n": 1852,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 697,
+                    "total": 1852,
+                    "probability": 0.37634989200863933,
+                    "baseline_prob": 0.4055075593952484,
+                    "baseline_n": 1852,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (-0.00–0.02]",
+                  "fr": "gap_size_pct tranche 1 (-0.00–0.02]"
+                },
+                "total_samples": 4778,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 2037,
+                    "total": 2783,
+                    "probability": 0.7319439453826806,
+                    "baseline_prob": 0.7513474667624865,
+                    "baseline_n": 2783,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 746,
+                    "total": 2783,
+                    "probability": 0.26805605461731946,
+                    "baseline_prob": 0.24865253323751346,
+                    "baseline_n": 2783,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1534,
+                    "total": 1995,
+                    "probability": 0.768922305764411,
+                    "baseline_prob": 0.7418546365914787,
+                    "baseline_n": 1995,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 461,
+                    "total": 1995,
+                    "probability": 0.23107769423558897,
+                    "baseline_prob": 0.2581453634085213,
+                    "baseline_n": 1995,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.02–0.05]",
+                  "fr": "gap_size_pct tranche 2 (0.02–0.05]"
+                },
+                "total_samples": 4111,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1632,
+                    "total": 2391,
+                    "probability": 0.6825595984943539,
+                    "baseline_prob": 0.6905060644081974,
+                    "baseline_n": 2391,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 759,
+                    "total": 2391,
+                    "probability": 0.3174404015056462,
+                    "baseline_prob": 0.3094939355918026,
+                    "baseline_n": 2391,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1195,
+                    "total": 1720,
+                    "probability": 0.6947674418604651,
+                    "baseline_prob": 0.6837209302325581,
+                    "baseline_n": 1720,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 525,
+                    "total": 1720,
+                    "probability": 0.30523255813953487,
+                    "baseline_prob": 0.31627906976744186,
+                    "baseline_n": 1720,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.05–0.09]",
+                  "fr": "gap_size_pct tranche 3 (0.05–0.09]"
+                },
+                "total_samples": 4280,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1443,
+                    "total": 2409,
+                    "probability": 0.5990037359900373,
+                    "baseline_prob": 0.6226650062266501,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 966,
+                    "total": 2409,
+                    "probability": 0.40099626400996263,
+                    "baseline_prob": 0.37733499377334995,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1223,
+                    "total": 1871,
+                    "probability": 0.6536611437733832,
+                    "baseline_prob": 0.6231961517904864,
+                    "baseline_n": 1871,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 648,
+                    "total": 1871,
+                    "probability": 0.3463388562266168,
+                    "baseline_prob": 0.3768038482095136,
+                    "baseline_n": 1871,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.09–0.15]",
+                  "fr": "gap_size_pct tranche 4 (0.09–0.15]"
+                },
+                "total_samples": 3507,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1005,
+                    "total": 1822,
+                    "probability": 0.5515916575192097,
+                    "baseline_prob": 0.5845225027442371,
+                    "baseline_n": 1822,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 817,
+                    "total": 1822,
+                    "probability": 0.44840834248079037,
+                    "baseline_prob": 0.4154774972557629,
+                    "baseline_n": 1822,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1027,
+                    "total": 1685,
+                    "probability": 0.6094955489614243,
+                    "baseline_prob": 0.5738872403560831,
+                    "baseline_n": 1685,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 658,
+                    "total": 1685,
+                    "probability": 0.3905044510385757,
+                    "baseline_prob": 0.4261127596439169,
+                    "baseline_n": 1685,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "gap_size_pct bin 5 (0.15–0.25]",
+                  "fr": "gap_size_pct tranche 5 (0.15–0.25]"
+                },
+                "total_samples": 2537,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 583,
+                    "total": 1234,
+                    "probability": 0.47244732576985415,
+                    "baseline_prob": 0.4959481361426256,
+                    "baseline_n": 1234,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 651,
+                    "total": 1234,
+                    "probability": 0.5275526742301458,
+                    "baseline_prob": 0.5040518638573744,
+                    "baseline_n": 1234,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 668,
+                    "total": 1303,
+                    "probability": 0.5126630851880276,
+                    "baseline_prob": 0.4904067536454336,
+                    "baseline_n": 1303,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 635,
+                    "total": 1303,
+                    "probability": 0.4873369148119724,
+                    "baseline_prob": 0.5095932463545664,
+                    "baseline_n": 1303,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q6": {
+                "label": {
+                  "en": "gap_size_pct bin 6 (0.25–inf]",
+                  "fr": "gap_size_pct tranche 6 (0.25–inf]"
+                },
+                "total_samples": 1669,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 300,
+                    "total": 730,
+                    "probability": 0.410958904109589,
+                    "baseline_prob": 0.4465753424657534,
+                    "baseline_n": 730,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 430,
+                    "total": 730,
+                    "probability": 0.589041095890411,
+                    "baseline_prob": 0.5534246575342465,
+                    "baseline_n": 730,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 400,
+                    "total": 939,
+                    "probability": 0.42598509052183176,
+                    "baseline_prob": 0.39829605963791265,
+                    "baseline_n": 939,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 539,
+                    "total": 939,
+                    "probability": 0.5740149094781682,
+                    "baseline_prob": 0.6017039403620873,
+                    "baseline_n": 939,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 18999,
+        "results": [
+          {
+            "condition": "bullish",
+            "outcome": "filled",
+            "count": 6441,
+            "total": 10363,
+            "probability": 0.6215381646241436,
+            "baseline_prob": 0.6381356749975876,
+            "baseline_n": 10363,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "not_filled",
+            "count": 3922,
+            "total": 10363,
+            "probability": 0.3784618353758564,
+            "baseline_prob": 0.36186432500241245,
+            "baseline_n": 10363,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "filled",
+            "count": 5638,
+            "total": 8636,
+            "probability": 0.6528485409911996,
+            "baseline_prob": 0.6329319129226494,
+            "baseline_n": 8636,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "not_filled",
+            "count": 2998,
+            "total": 8636,
+            "probability": 0.34715145900880034,
+            "baseline_prob": 0.3670680870773506,
+            "baseline_n": 8636,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 3480,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1145,
+                    "total": 1872,
+                    "probability": 0.6116452991452992,
+                    "baseline_prob": 0.6319444444444444,
+                    "baseline_n": 1872,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 727,
+                    "total": 1872,
+                    "probability": 0.38835470085470086,
+                    "baseline_prob": 0.3680555555555556,
+                    "baseline_n": 1872,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1051,
+                    "total": 1608,
+                    "probability": 0.6536069651741293,
+                    "baseline_prob": 0.6299751243781094,
+                    "baseline_n": 1608,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 557,
+                    "total": 1608,
+                    "probability": 0.34639303482587064,
+                    "baseline_prob": 0.37002487562189057,
+                    "baseline_n": 1608,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 4011,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1382,
+                    "total": 2204,
+                    "probability": 0.6270417422867514,
+                    "baseline_prob": 0.645644283121597,
+                    "baseline_n": 2204,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 822,
+                    "total": 2204,
+                    "probability": 0.37295825771324864,
+                    "baseline_prob": 0.3543557168784029,
+                    "baseline_n": 2204,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1179,
+                    "total": 1807,
+                    "probability": 0.6524626452684007,
+                    "baseline_prob": 0.6297731045932484,
+                    "baseline_n": 1807,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 628,
+                    "total": 1807,
+                    "probability": 0.34753735473159936,
+                    "baseline_prob": 0.3702268954067515,
+                    "baseline_n": 1807,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 3893,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1356,
+                    "total": 2110,
+                    "probability": 0.6426540284360189,
+                    "baseline_prob": 0.6450236966824645,
+                    "baseline_n": 2110,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 754,
+                    "total": 2110,
+                    "probability": 0.35734597156398107,
+                    "baseline_prob": 0.35497630331753555,
+                    "baseline_n": 2110,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1167,
+                    "total": 1783,
+                    "probability": 0.6545148625911386,
+                    "baseline_prob": 0.6517106001121705,
+                    "baseline_n": 1783,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 616,
+                    "total": 1783,
+                    "probability": 0.34548513740886144,
+                    "baseline_prob": 0.3482893998878295,
+                    "baseline_n": 1783,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 4078,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1393,
+                    "total": 2239,
+                    "probability": 0.6221527467619473,
+                    "baseline_prob": 0.6319785618579723,
+                    "baseline_n": 2239,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 846,
+                    "total": 2239,
+                    "probability": 0.3778472532380527,
+                    "baseline_prob": 0.3680214381420277,
+                    "baseline_n": 2239,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1183,
+                    "total": 1839,
+                    "probability": 0.643284393692224,
+                    "baseline_prob": 0.6313213703099511,
+                    "baseline_n": 1839,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 656,
+                    "total": 1839,
+                    "probability": 0.356715606307776,
+                    "baseline_prob": 0.36867862969004894,
+                    "baseline_n": 1839,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 3537,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1165,
+                    "total": 1938,
+                    "probability": 0.6011351909184727,
+                    "baseline_prob": 0.6331269349845201,
+                    "baseline_n": 1938,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 773,
+                    "total": 1938,
+                    "probability": 0.3988648090815273,
+                    "baseline_prob": 0.3668730650154799,
+                    "baseline_n": 1938,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1058,
+                    "total": 1599,
+                    "probability": 0.6616635397123202,
+                    "baseline_prob": 0.6228893058161351,
+                    "baseline_n": 1599,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 541,
+                    "total": 1599,
+                    "probability": 0.3383364602876798,
+                    "baseline_prob": 0.3771106941838649,
+                    "baseline_n": 1599,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (-0.00–0.02]",
+                  "fr": "gap_size_pct tranche 1 (-0.00–0.02]"
+                },
+                "total_samples": 4836,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 2080,
+                    "total": 2858,
+                    "probability": 0.72778166550035,
+                    "baseline_prob": 0.7459762071378586,
+                    "baseline_n": 2858,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 778,
+                    "total": 2858,
+                    "probability": 0.2722183344996501,
+                    "baseline_prob": 0.2540237928621414,
+                    "baseline_n": 2858,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1526,
+                    "total": 1978,
+                    "probability": 0.7714863498483316,
+                    "baseline_prob": 0.7451971688574317,
+                    "baseline_n": 1978,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 452,
+                    "total": 1978,
+                    "probability": 0.22851365015166836,
+                    "baseline_prob": 0.25480283114256824,
+                    "baseline_n": 1978,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.02–0.05]",
+                  "fr": "gap_size_pct tranche 2 (0.02–0.05]"
+                },
+                "total_samples": 4445,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1704,
+                    "total": 2536,
+                    "probability": 0.6719242902208202,
+                    "baseline_prob": 0.6900630914826499,
+                    "baseline_n": 2536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 832,
+                    "total": 2536,
+                    "probability": 0.3280757097791798,
+                    "baseline_prob": 0.3099369085173502,
+                    "baseline_n": 2536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1371,
+                    "total": 1909,
+                    "probability": 0.7181770560502881,
+                    "baseline_prob": 0.6940806705081194,
+                    "baseline_n": 1909,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 538,
+                    "total": 1909,
+                    "probability": 0.2818229439497119,
+                    "baseline_prob": 0.30591932949188055,
+                    "baseline_n": 1909,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.05–0.09]",
+                  "fr": "gap_size_pct tranche 3 (0.05–0.09]"
+                },
+                "total_samples": 4029,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 1295,
+                    "total": 2176,
+                    "probability": 0.5951286764705882,
+                    "baseline_prob": 0.6121323529411765,
+                    "baseline_n": 2176,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 881,
+                    "total": 2176,
+                    "probability": 0.40487132352941174,
+                    "baseline_prob": 0.38786764705882354,
+                    "baseline_n": 2176,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 1197,
+                    "total": 1853,
+                    "probability": 0.645979492714517,
+                    "baseline_prob": 0.6260118726389639,
+                    "baseline_n": 1853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 656,
+                    "total": 1853,
+                    "probability": 0.354020507285483,
+                    "baseline_prob": 0.37398812736103615,
+                    "baseline_n": 1853,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.09–0.15]",
+                  "fr": "gap_size_pct tranche 4 (0.09–0.15]"
+                },
+                "total_samples": 2925,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 792,
+                    "total": 1507,
+                    "probability": 0.5255474452554745,
+                    "baseline_prob": 0.568679495686795,
+                    "baseline_n": 1507,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 715,
+                    "total": 1507,
+                    "probability": 0.4744525547445255,
+                    "baseline_prob": 0.43132050431320507,
+                    "baseline_n": 1507,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 851,
+                    "total": 1418,
+                    "probability": 0.6001410437235543,
+                    "baseline_prob": 0.5543018335684062,
+                    "baseline_n": 1418,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 567,
+                    "total": 1418,
+                    "probability": 0.3998589562764457,
+                    "baseline_prob": 0.44569816643159377,
+                    "baseline_n": 1418,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "gap_size_pct bin 5 (0.15–0.25]",
+                  "fr": "gap_size_pct tranche 5 (0.15–0.25]"
+                },
+                "total_samples": 1789,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 401,
+                    "total": 844,
+                    "probability": 0.47511848341232227,
+                    "baseline_prob": 0.48459715639810425,
+                    "baseline_n": 844,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 443,
+                    "total": 844,
+                    "probability": 0.5248815165876777,
+                    "baseline_prob": 0.5154028436018957,
+                    "baseline_n": 844,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 473,
+                    "total": 945,
+                    "probability": 0.5005291005291005,
+                    "baseline_prob": 0.49206349206349204,
+                    "baseline_n": 945,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 472,
+                    "total": 945,
+                    "probability": 0.49947089947089945,
+                    "baseline_prob": 0.5079365079365079,
+                    "baseline_n": 945,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q6": {
+                "label": {
+                  "en": "gap_size_pct bin 6 (0.25–inf]",
+                  "fr": "gap_size_pct tranche 6 (0.25–inf]"
+                },
+                "total_samples": 975,
+                "results": [
+                  {
+                    "condition": "bullish",
+                    "outcome": "filled",
+                    "count": 169,
+                    "total": 442,
+                    "probability": 0.38235294117647056,
+                    "baseline_prob": 0.38461538461538464,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "not_filled",
+                    "count": 273,
+                    "total": 442,
+                    "probability": 0.6176470588235294,
+                    "baseline_prob": 0.6153846153846154,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "filled",
+                    "count": 220,
+                    "total": 533,
+                    "probability": 0.41275797373358347,
+                    "baseline_prob": 0.41088180112570355,
+                    "baseline_n": 533,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "not_filled",
+                    "count": 313,
+                    "total": 533,
+                    "probability": 0.5872420262664165,
+                    "baseline_prob": 0.5891181988742964,
+                    "baseline_n": 533,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

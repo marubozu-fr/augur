@@ -1,0 +1,599 @@
+{
+  "stat_name": "session_volume_weekday",
+  "title": {
+    "en": "Session Volume by Weekday",
+    "fr": "Volume de session par jour de la semaine"
+  },
+  "definition": {
+    "en": "What is the average total traded volume of the Asia, London, and NY sessions for each weekday?",
+    "fr": "Quel est le volume total moyen échangé des sessions asiatique, de Londres et de New York pour chaque jour de la semaine ?"
+  },
+  "labels": {
+    "conditions": {
+      "any_day": {
+        "en": "All trading days",
+        "fr": "Tous les jours de bourse"
+      }
+    },
+    "outcomes": {
+      "mean_asia_volume": {
+        "en": "Average Asia session volume",
+        "fr": "Volume moyen de la session asiatique"
+      },
+      "mean_london_volume": {
+        "en": "Average London session volume",
+        "fr": "Volume moyen de la session de Londres"
+      },
+      "mean_ny_volume": {
+        "en": "Average NY session volume",
+        "fr": "Volume moyen de la session de New York"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4229,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "mean_asia_volume",
+            "count": 4229,
+            "total": 4229,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4229,
+            "value": 23600.44809647671,
+            "value_baseline": 23600.44809647671,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_london_volume",
+            "count": 4229,
+            "total": 4229,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4229,
+            "value": 48306.6845589974,
+            "value_baseline": 48306.6845589974,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_ny_volume",
+            "count": 4229,
+            "total": 4229,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4229,
+            "value": 322782.43698273826,
+            "value_baseline": 322782.43698273826,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 764,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 764,
+                    "total": 764,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 764,
+                    "value": 25831.498691099478,
+                    "value_baseline": 23926.090314136127,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 764,
+                    "total": 764,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 764,
+                    "value": 42364.615183246075,
+                    "value_baseline": 47657.608638743455,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 764,
+                    "total": 764,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 764,
+                    "value": 296689.9541884817,
+                    "value_baseline": 322106.41361256543,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 884,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 884,
+                    "total": 884,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 884,
+                    "value": 21810.941176470587,
+                    "value_baseline": 23019.713800904978,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 884,
+                    "total": 884,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 884,
+                    "value": 46583.04524886878,
+                    "value_baseline": 48110.67307692308,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 884,
+                    "total": 884,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 884,
+                    "value": 321362.7816742081,
+                    "value_baseline": 328093.51923076925,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 878,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 22882.069476082004,
+                    "value_baseline": 24172.50227790433,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 46974.444191343966,
+                    "value_baseline": 49677.07403189066,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 331701.4954441913,
+                    "value_baseline": 327651.5945330296,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 24330.457076566126,
+                    "value_baseline": 24337.358468677496,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 51958.185614849186,
+                    "value_baseline": 49427.48027842227,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 338136.4199535963,
+                    "value_baseline": 327469.32482598606,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 841,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 841,
+                    "total": 841,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 841,
+                    "value": 23456.417360285373,
+                    "value_baseline": 24514.77170035672,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 841,
+                    "total": 841,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 841,
+                    "value": 53164.65279429251,
+                    "value_baseline": 49266.618311533886,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 841,
+                    "total": 841,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 841,
+                    "value": 322929.3638525565,
+                    "value_baseline": 327207.4839476813,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4296,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "mean_asia_volume",
+            "count": 4296,
+            "total": 4296,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4296,
+            "value": 69151.74301675978,
+            "value_baseline": 69151.74301675978,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_london_volume",
+            "count": 4296,
+            "total": 4296,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4296,
+            "value": 194141.9406424581,
+            "value_baseline": 194141.9406424581,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_day",
+            "outcome": "mean_ny_volume",
+            "count": 4296,
+            "total": 4296,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4296,
+            "value": 1338123.4641527003,
+            "value_baseline": 1338123.4641527003,
+            "agg": "mean"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 772,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 772,
+                    "total": 772,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 772,
+                    "value": 77462.78497409326,
+                    "value_baseline": 71314.34974093264,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 772,
+                    "total": 772,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 772,
+                    "value": 163486.81476683938,
+                    "value_baseline": 196691.8419689119,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 772,
+                    "total": 772,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 772,
+                    "value": 1207793.4119170983,
+                    "value_baseline": 1342033.871761658,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 898,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 898,
+                    "total": 898,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 898,
+                    "value": 64012.0,
+                    "value_baseline": 70289.03897550111,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 898,
+                    "total": 898,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 898,
+                    "value": 185642.69487750556,
+                    "value_baseline": 192205.26169265033,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 898,
+                    "total": 898,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 898,
+                    "value": 1331773.0579064589,
+                    "value_baseline": 1339684.5902004454,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 891,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 891,
+                    "total": 891,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 891,
+                    "value": 67936.55331088665,
+                    "value_baseline": 68000.63187429855,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 891,
+                    "total": 891,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 891,
+                    "value": 189499.71492704825,
+                    "value_baseline": 192235.2626262626,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 891,
+                    "total": 891,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 891,
+                    "value": 1375502.0740740742,
+                    "value_baseline": 1334912.0695847364,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 878,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 69891.08769931663,
+                    "value_baseline": 70620.19703872438,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 210659.72209567198,
+                    "value_baseline": 189948.76651480637,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 878,
+                    "total": 878,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 878,
+                    "value": 1401667.5911161732,
+                    "value_baseline": 1338834.498861048,
+                    "agg": "mean"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 857,
+                "results": [
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_asia_volume",
+                    "count": 857,
+                    "total": 857,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 857,
+                    "value": 67556.59043173863,
+                    "value_baseline": 70712.35239206534,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_london_volume",
+                    "count": 857,
+                    "total": 857,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 857,
+                    "value": 218566.31738623104,
+                    "value_baseline": 196484.42940490082,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "any_day",
+                    "outcome": "mean_ny_volume",
+                    "count": 857,
+                    "total": 857,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 857,
+                    "value": 1358218.423570595,
+                    "value_baseline": 1362306.2660443408,
+                    "agg": "mean"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

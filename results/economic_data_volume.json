@@ -1,0 +1,216 @@
+{
+  "stat_name": "economic_data_volume",
+  "title": {
+    "en": "Economic Data Volume",
+    "fr": "Volume des données économiques"
+  },
+  "definition": {
+    "en": "How does the average total RTH daily volume on economic-event days (CPI, FOMC, NFP, GDP) compare to non-event days?",
+    "fr": "Comment le volume quotidien RTH total moyen des jours d'annonces économiques (CPI, FOMC, NFP, GDP) se compare-t-il aux jours sans annonce ?"
+  },
+  "labels": {
+    "conditions": {
+      "cpi_day": {
+        "en": "CPI release day",
+        "fr": "Jour de publication du CPI"
+      },
+      "fomc_day": {
+        "en": "FOMC decision day",
+        "fr": "Jour de décision du FOMC"
+      },
+      "nfp_day": {
+        "en": "NFP release day",
+        "fr": "Jour de publication du NFP"
+      },
+      "gdp_day": {
+        "en": "GDP release day",
+        "fr": "Jour de publication du PIB"
+      },
+      "any_event_day": {
+        "en": "Any event day",
+        "fr": "Jour avec annonce"
+      },
+      "non_event_day": {
+        "en": "Non-event day",
+        "fr": "Jour sans annonce"
+      }
+    },
+    "outcomes": {
+      "mean_volume": {
+        "en": "Average RTH volume",
+        "fr": "Volume RTH moyen"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "cpi_day",
+            "outcome": "mean_volume",
+            "count": 204,
+            "total": 204,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 204,
+            "value": 328863.0245098039,
+            "value_baseline": 308256.25,
+            "agg": "mean"
+          },
+          {
+            "condition": "fomc_day",
+            "outcome": "mean_volume",
+            "count": 140,
+            "total": 140,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 140,
+            "value": 350402.5571428572,
+            "value_baseline": 327253.4357142857,
+            "agg": "mean"
+          },
+          {
+            "condition": "nfp_day",
+            "outcome": "mean_volume",
+            "count": 198,
+            "total": 198,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 198,
+            "value": 340157.1414141414,
+            "value_baseline": 332898.25757575757,
+            "agg": "mean"
+          },
+          {
+            "condition": "gdp_day",
+            "outcome": "mean_volume",
+            "count": 206,
+            "total": 206,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 206,
+            "value": 338081.07766990294,
+            "value_baseline": 335292.63106796116,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_event_day",
+            "outcome": "mean_volume",
+            "count": 726,
+            "total": 726,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 726,
+            "value": 339862.2961432507,
+            "value_baseline": 318026.1157024793,
+            "agg": "mean"
+          },
+          {
+            "condition": "non_event_day",
+            "outcome": "mean_volume",
+            "count": 3606,
+            "total": 3606,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 3606,
+            "value": 316718.7520798669,
+            "value_baseline": 319316.64780920686,
+            "agg": "mean"
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "cpi_day",
+            "outcome": "mean_volume",
+            "count": 207,
+            "total": 207,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 207,
+            "value": 1380269.347826087,
+            "value_baseline": 1328892.4009661835,
+            "agg": "mean"
+          },
+          {
+            "condition": "fomc_day",
+            "outcome": "mean_volume",
+            "count": 140,
+            "total": 140,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 140,
+            "value": 1468650.157142857,
+            "value_baseline": 1332394.2571428572,
+            "agg": "mean"
+          },
+          {
+            "condition": "nfp_day",
+            "outcome": "mean_volume",
+            "count": 201,
+            "total": 201,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 201,
+            "value": 1449519.9900497512,
+            "value_baseline": 1349160.3781094528,
+            "agg": "mean"
+          },
+          {
+            "condition": "gdp_day",
+            "outcome": "mean_volume",
+            "count": 207,
+            "total": 207,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 207,
+            "value": 1426006.657004831,
+            "value_baseline": 1346320.5410628018,
+            "agg": "mean"
+          },
+          {
+            "condition": "any_event_day",
+            "outcome": "mean_volume",
+            "count": 733,
+            "total": 733,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 733,
+            "value": 1426393.7967257844,
+            "value_baseline": 1324505.1296043657,
+            "agg": "mean"
+          },
+          {
+            "condition": "non_event_day",
+            "outcome": "mean_volume",
+            "count": 3628,
+            "total": 3628,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 3628,
+            "value": 1316441.2582690187,
+            "value_baseline": 1331269.0314222712,
+            "agg": "mean"
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

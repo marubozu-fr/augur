@@ -1,0 +1,985 @@
+{
+  "stat_name": "power_hour_continuation",
+  "title": {
+    "en": "Power Hour Continuation",
+    "fr": "Continuation du power hour"
+  },
+  "definition": {
+    "en": "Given the session's direction going into the power hour (the pre-power-hour move, green or red), how often does the power hour itself close in the same direction (continuation) versus reverse?",
+    "fr": "Selon la direction de la séance à l'entrée du power hour (le mouvement pré-power-hour, vert ou rouge), à quelle fréquence le power hour clôture-t-il dans la même direction (continuation) plutôt que de se retourner ?"
+  },
+  "labels": {
+    "conditions": {
+      "pre_green": {
+        "en": "Green pre-power-hour move (up)",
+        "fr": "Mouvement pré-power-hour vert (hausse)"
+      },
+      "pre_red": {
+        "en": "Red pre-power-hour move (down)",
+        "fr": "Mouvement pré-power-hour rouge (baisse)"
+      }
+    },
+    "outcomes": {
+      "green": {
+        "en": "Green power hour (up)",
+        "fr": "Power hour vert (hausse)"
+      },
+      "red": {
+        "en": "Red power hour (down)",
+        "fr": "Power hour rouge (baisse)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "open": {
+        "en": "Power hour open",
+        "fr": "Ouverture du power hour"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4324,
+        "results": [
+          {
+            "condition": "pre_green",
+            "outcome": "green",
+            "count": 1261,
+            "total": 2381,
+            "probability": 0.5296094078118437,
+            "baseline_prob": 0.4871902561948761,
+            "baseline_n": 2381,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_green",
+            "outcome": "red",
+            "count": 1120,
+            "total": 2381,
+            "probability": 0.47039059218815626,
+            "baseline_prob": 0.5128097438051239,
+            "baseline_n": 2381,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_red",
+            "outcome": "green",
+            "count": 1066,
+            "total": 1943,
+            "probability": 0.5486361296963459,
+            "baseline_prob": 0.5028306742151313,
+            "baseline_n": 1943,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_red",
+            "outcome": "red",
+            "count": 877,
+            "total": 1943,
+            "probability": 0.45136387030365416,
+            "baseline_prob": 0.4971693257848688,
+            "baseline_n": 1943,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 813,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 248,
+                    "total": 474,
+                    "probability": 0.5232067510548524,
+                    "baseline_prob": 0.5295358649789029,
+                    "baseline_n": 474,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 226,
+                    "total": 474,
+                    "probability": 0.4767932489451477,
+                    "baseline_prob": 0.4704641350210971,
+                    "baseline_n": 474,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 208,
+                    "total": 339,
+                    "probability": 0.6135693215339233,
+                    "baseline_prob": 0.4808259587020649,
+                    "baseline_n": 339,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 131,
+                    "total": 339,
+                    "probability": 0.3864306784660767,
+                    "baseline_prob": 0.5191740412979351,
+                    "baseline_n": 339,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 895,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 248,
+                    "total": 495,
+                    "probability": 0.501010101010101,
+                    "baseline_prob": 0.503030303030303,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 247,
+                    "total": 495,
+                    "probability": 0.498989898989899,
+                    "baseline_prob": 0.49696969696969695,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 234,
+                    "total": 400,
+                    "probability": 0.585,
+                    "baseline_prob": 0.5225,
+                    "baseline_n": 400,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 166,
+                    "total": 400,
+                    "probability": 0.415,
+                    "baseline_prob": 0.4775,
+                    "baseline_n": 400,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 888,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 251,
+                    "total": 480,
+                    "probability": 0.5229166666666667,
+                    "baseline_prob": 0.51875,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 229,
+                    "total": 480,
+                    "probability": 0.47708333333333336,
+                    "baseline_prob": 0.48125,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 200,
+                    "total": 408,
+                    "probability": 0.49019607843137253,
+                    "baseline_prob": 0.5024509803921569,
+                    "baseline_n": 408,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 208,
+                    "total": 408,
+                    "probability": 0.5098039215686274,
+                    "baseline_prob": 0.49754901960784315,
+                    "baseline_n": 408,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 873,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 258,
+                    "total": 482,
+                    "probability": 0.5352697095435685,
+                    "baseline_prob": 0.516597510373444,
+                    "baseline_n": 482,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 224,
+                    "total": 482,
+                    "probability": 0.46473029045643155,
+                    "baseline_prob": 0.483402489626556,
+                    "baseline_n": 482,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 211,
+                    "total": 391,
+                    "probability": 0.5396419437340153,
+                    "baseline_prob": 0.5012787723785166,
+                    "baseline_n": 391,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 180,
+                    "total": 391,
+                    "probability": 0.46035805626598464,
+                    "baseline_prob": 0.49872122762148335,
+                    "baseline_n": 391,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 256,
+                    "total": 450,
+                    "probability": 0.5688888888888889,
+                    "baseline_prob": 0.4888888888888889,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 194,
+                    "total": 450,
+                    "probability": 0.4311111111111111,
+                    "baseline_prob": 0.5111111111111111,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 213,
+                    "total": 405,
+                    "probability": 0.5259259259259259,
+                    "baseline_prob": 0.5308641975308642,
+                    "baseline_n": 405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 192,
+                    "total": 405,
+                    "probability": 0.4740740740740741,
+                    "baseline_prob": 0.4691358024691358,
+                    "baseline_n": 405,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "open": {
+            "dimension": "open",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Open in upper half",
+                  "fr": "Ouverture dans la moitié haute"
+                },
+                "total_samples": 2522,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 1129,
+                    "total": 2127,
+                    "probability": 0.5307945463093559,
+                    "baseline_prob": 0.5030559473436765,
+                    "baseline_n": 2127,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 998,
+                    "total": 2127,
+                    "probability": 0.4692054536906441,
+                    "baseline_prob": 0.49694405265632347,
+                    "baseline_n": 2127,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 218,
+                    "total": 395,
+                    "probability": 0.5518987341772152,
+                    "baseline_prob": 0.4506329113924051,
+                    "baseline_n": 395,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 177,
+                    "total": 395,
+                    "probability": 0.4481012658227848,
+                    "baseline_prob": 0.549367088607595,
+                    "baseline_n": 395,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Open in lower half",
+                  "fr": "Ouverture dans la moitié basse"
+                },
+                "total_samples": 1802,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 132,
+                    "total": 254,
+                    "probability": 0.5196850393700787,
+                    "baseline_prob": 0.47244094488188976,
+                    "baseline_n": 254,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 122,
+                    "total": 254,
+                    "probability": 0.48031496062992124,
+                    "baseline_prob": 0.5275590551181102,
+                    "baseline_n": 254,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 848,
+                    "total": 1548,
+                    "probability": 0.5478036175710594,
+                    "baseline_prob": 0.5116279069767442,
+                    "baseline_n": 1548,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 700,
+                    "total": 1548,
+                    "probability": 0.45219638242894056,
+                    "baseline_prob": 0.4883720930232558,
+                    "baseline_n": 1548,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "pre_green",
+            "outcome": "green",
+            "count": 1258,
+            "total": 2385,
+            "probability": 0.5274633123689727,
+            "baseline_prob": 0.5006289308176101,
+            "baseline_n": 2385,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_green",
+            "outcome": "red",
+            "count": 1127,
+            "total": 2385,
+            "probability": 0.47253668763102724,
+            "baseline_prob": 0.49937106918238994,
+            "baseline_n": 2385,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_red",
+            "outcome": "green",
+            "count": 1086,
+            "total": 1975,
+            "probability": 0.549873417721519,
+            "baseline_prob": 0.48658227848101265,
+            "baseline_n": 1975,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_red",
+            "outcome": "red",
+            "count": 889,
+            "total": 1975,
+            "probability": 0.450126582278481,
+            "baseline_prob": 0.5134177215189873,
+            "baseline_n": 1975,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 819,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 237,
+                    "total": 451,
+                    "probability": 0.5254988913525499,
+                    "baseline_prob": 0.47671840354767187,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 214,
+                    "total": 451,
+                    "probability": 0.4745011086474501,
+                    "baseline_prob": 0.5232815964523282,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 221,
+                    "total": 368,
+                    "probability": 0.6005434782608695,
+                    "baseline_prob": 0.5489130434782609,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 147,
+                    "total": 368,
+                    "probability": 0.39945652173913043,
+                    "baseline_prob": 0.45108695652173914,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 240,
+                    "total": 495,
+                    "probability": 0.48484848484848486,
+                    "baseline_prob": 0.5171717171717172,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 255,
+                    "total": 495,
+                    "probability": 0.5151515151515151,
+                    "baseline_prob": 0.48282828282828283,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 211,
+                    "total": 406,
+                    "probability": 0.5197044334975369,
+                    "baseline_prob": 0.5049261083743842,
+                    "baseline_n": 406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 195,
+                    "total": 406,
+                    "probability": 0.4802955665024631,
+                    "baseline_prob": 0.49507389162561577,
+                    "baseline_n": 406,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 255,
+                    "total": 494,
+                    "probability": 0.5161943319838057,
+                    "baseline_prob": 0.5323886639676113,
+                    "baseline_n": 494,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 239,
+                    "total": 494,
+                    "probability": 0.48380566801619435,
+                    "baseline_prob": 0.4676113360323887,
+                    "baseline_n": 494,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 204,
+                    "total": 403,
+                    "probability": 0.5062034739454094,
+                    "baseline_prob": 0.48883374689826303,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 199,
+                    "total": 403,
+                    "probability": 0.49379652605459057,
+                    "baseline_prob": 0.511166253101737,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 257,
+                    "total": 478,
+                    "probability": 0.5376569037656904,
+                    "baseline_prob": 0.5334728033472803,
+                    "baseline_n": 478,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 221,
+                    "total": 478,
+                    "probability": 0.46234309623430964,
+                    "baseline_prob": 0.4665271966527197,
+                    "baseline_n": 478,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 231,
+                    "total": 403,
+                    "probability": 0.5732009925558312,
+                    "baseline_prob": 0.48635235732009924,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 172,
+                    "total": 403,
+                    "probability": 0.4267990074441687,
+                    "baseline_prob": 0.5136476426799007,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 269,
+                    "total": 467,
+                    "probability": 0.576017130620985,
+                    "baseline_prob": 0.4989293361884368,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 198,
+                    "total": 467,
+                    "probability": 0.42398286937901497,
+                    "baseline_prob": 0.5010706638115632,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 219,
+                    "total": 395,
+                    "probability": 0.5544303797468354,
+                    "baseline_prob": 0.5240506329113924,
+                    "baseline_n": 395,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 176,
+                    "total": 395,
+                    "probability": 0.44556962025316454,
+                    "baseline_prob": 0.4759493670886076,
+                    "baseline_n": 395,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "open": {
+            "dimension": "open",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Open in upper half",
+                  "fr": "Ouverture dans la moitié haute"
+                },
+                "total_samples": 2558,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 1141,
+                    "total": 2155,
+                    "probability": 0.5294663573085847,
+                    "baseline_prob": 0.4863109048723898,
+                    "baseline_n": 2155,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 1014,
+                    "total": 2155,
+                    "probability": 0.4705336426914153,
+                    "baseline_prob": 0.5136890951276102,
+                    "baseline_n": 2155,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 227,
+                    "total": 403,
+                    "probability": 0.5632754342431762,
+                    "baseline_prob": 0.5384615384615384,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 176,
+                    "total": 403,
+                    "probability": 0.43672456575682383,
+                    "baseline_prob": 0.46153846153846156,
+                    "baseline_n": 403,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Open in lower half",
+                  "fr": "Ouverture dans la moitié basse"
+                },
+                "total_samples": 1802,
+                "results": [
+                  {
+                    "condition": "pre_green",
+                    "outcome": "green",
+                    "count": 117,
+                    "total": 230,
+                    "probability": 0.508695652173913,
+                    "baseline_prob": 0.6,
+                    "baseline_n": 230,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_green",
+                    "outcome": "red",
+                    "count": 113,
+                    "total": 230,
+                    "probability": 0.49130434782608695,
+                    "baseline_prob": 0.4,
+                    "baseline_n": 230,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "green",
+                    "count": 859,
+                    "total": 1572,
+                    "probability": 0.5464376590330788,
+                    "baseline_prob": 0.49236641221374045,
+                    "baseline_n": 1572,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "pre_red",
+                    "outcome": "red",
+                    "count": 713,
+                    "total": 1572,
+                    "probability": 0.4535623409669211,
+                    "baseline_prob": 0.5076335877862596,
+                    "baseline_n": 1572,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

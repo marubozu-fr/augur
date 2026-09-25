@@ -1,0 +1,220 @@
+{
+  "stat_name": "prev_weeks_range",
+  "title": {
+    "en": "Previous Week's Range",
+    "fr": "Range de la semaine précédente"
+  },
+  "definition": {
+    "en": "How does a trading week resolve against the prior week's range — does it break the high only, the low only, both, or stay inside? And when both are taken, which level is hit first?",
+    "fr": "Comment une semaine de bourse se résout-elle face au range de la semaine précédente — casse-t-elle seulement le plus haut, seulement le plus bas, les deux, ou reste-t-elle à l'intérieur ? Et quand les deux sont pris, quel niveau est atteint en premier ?"
+  },
+  "labels": {
+    "conditions": {
+      "prior_range": {
+        "en": "Prior week's range",
+        "fr": "Range de la semaine précédente"
+      },
+      "break_both": {
+        "en": "Broke both levels",
+        "fr": "A cassé les deux niveaux"
+      }
+    },
+    "outcomes": {
+      "break_high_only": {
+        "en": "Break prior high only",
+        "fr": "Casse seulement le plus haut précédent"
+      },
+      "break_low_only": {
+        "en": "Break prior low only",
+        "fr": "Casse seulement le plus bas précédent"
+      },
+      "break_both": {
+        "en": "Break both levels",
+        "fr": "Casse les deux niveaux"
+      },
+      "inside": {
+        "en": "Stay inside",
+        "fr": "Reste à l'intérieur"
+      },
+      "high_first": {
+        "en": "High taken first",
+        "fr": "Plus haut atteint en premier"
+      },
+      "low_first": {
+        "en": "Low taken first",
+        "fr": "Plus bas atteint en premier"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "weekly": {
+        "data_range": [
+          "2008-12-08",
+          "2026-04-27"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "prior_range",
+            "outcome": "break_high_only",
+            "count": 467,
+            "total": 907,
+            "probability": 0.5148842337375965,
+            "baseline_prob": 0.48732083792723263,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "break_low_only",
+            "count": 251,
+            "total": 907,
+            "probability": 0.27673649393605293,
+            "baseline_prob": 0.5027563395810364,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "break_both",
+            "count": 119,
+            "total": 907,
+            "probability": 0.13120176405733186,
+            "baseline_prob": 0.004410143329658214,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "inside",
+            "count": 70,
+            "total": 907,
+            "probability": 0.07717750826901874,
+            "baseline_prob": 0.005512679162072767,
+            "baseline_n": 907,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 65,
+            "total": 119,
+            "probability": 0.5462184873949579,
+            "baseline_prob": 0.46218487394957986,
+            "baseline_n": 119,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 54,
+            "total": 119,
+            "probability": 0.453781512605042,
+            "baseline_prob": 0.5378151260504201,
+            "baseline_n": 119,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "weekly": {
+        "data_range": [
+          "2008-12-08",
+          "2026-06-01"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "prior_range",
+            "outcome": "break_high_only",
+            "count": 478,
+            "total": 912,
+            "probability": 0.5241228070175439,
+            "baseline_prob": 0.48464912280701755,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "break_low_only",
+            "count": 251,
+            "total": 912,
+            "probability": 0.27521929824561403,
+            "baseline_prob": 0.5,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "break_both",
+            "count": 109,
+            "total": 912,
+            "probability": 0.11951754385964912,
+            "baseline_prob": 0.006578947368421052,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prior_range",
+            "outcome": "inside",
+            "count": 74,
+            "total": 912,
+            "probability": 0.08114035087719298,
+            "baseline_prob": 0.008771929824561403,
+            "baseline_n": 912,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "high_first",
+            "count": 64,
+            "total": 109,
+            "probability": 0.5871559633027523,
+            "baseline_prob": 0.47706422018348627,
+            "baseline_n": 109,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "break_both",
+            "outcome": "low_first",
+            "count": 45,
+            "total": 109,
+            "probability": 0.41284403669724773,
+            "baseline_prob": 0.5229357798165137,
+            "baseline_n": 109,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

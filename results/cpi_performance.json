@@ -1,0 +1,284 @@
+{
+  "stat_name": "cpi_performance",
+  "title": {
+    "en": "CPI Performance",
+    "fr": "Performance CPI"
+  },
+  "definition": {
+    "en": "What is the average close-to-close percent return in the trading sessions before a CPI release, on the release day itself, and in the sessions after?",
+    "fr": "Quel est le rendement moyen en pourcentage de clôture à clôture lors des séances précédant une publication du CPI, le jour de la publication, et lors des séances suivantes ?"
+  },
+  "labels": {
+    "conditions": {
+      "pre_announcement": {
+        "en": "Pre-announcement window",
+        "fr": "Fenêtre pré-annonce"
+      },
+      "cpi_day": {
+        "en": "CPI release day",
+        "fr": "Jour de publication du CPI"
+      },
+      "post_announcement": {
+        "en": "Post-announcement window",
+        "fr": "Fenêtre post-annonce"
+      }
+    },
+    "outcomes": {
+      "mean_return": {
+        "en": "Average return",
+        "fr": "Rendement moyen"
+      },
+      "green": {
+        "en": "Green (up)",
+        "fr": "Vert (hausse)"
+      },
+      "red": {
+        "en": "Red (down)",
+        "fr": "Rouge (baisse)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-16",
+          "2026-04-10"
+        ],
+        "total_samples": 204,
+        "results": [
+          {
+            "condition": "pre_announcement",
+            "outcome": "mean_return",
+            "count": 203,
+            "total": 203,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 203,
+            "value": 0.0038813767261496705,
+            "value_baseline": -0.0007147590459319339,
+            "agg": "mean"
+          },
+          {
+            "condition": "pre_announcement",
+            "outcome": "green",
+            "count": 128,
+            "total": 203,
+            "probability": 0.6305418719211823,
+            "baseline_prob": 0.5024630541871922,
+            "baseline_n": 203,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_announcement",
+            "outcome": "red",
+            "count": 75,
+            "total": 203,
+            "probability": 0.3694581280788177,
+            "baseline_prob": 0.4975369458128079,
+            "baseline_n": 203,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "mean_return",
+            "count": 204,
+            "total": 204,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 204,
+            "value": 0.001719913197600068,
+            "value_baseline": -0.0007728109722313707,
+            "agg": "mean"
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "green",
+            "count": 119,
+            "total": 204,
+            "probability": 0.5833333333333334,
+            "baseline_prob": 0.47058823529411764,
+            "baseline_n": 204,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "red",
+            "count": 85,
+            "total": 204,
+            "probability": 0.4166666666666667,
+            "baseline_prob": 0.5294117647058824,
+            "baseline_n": 204,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "mean_return",
+            "count": 204,
+            "total": 204,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 204,
+            "value": 0.00217731415415492,
+            "value_baseline": -0.0016227120583921044,
+            "agg": "mean"
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "green",
+            "count": 121,
+            "total": 204,
+            "probability": 0.5931372549019608,
+            "baseline_prob": 0.5294117647058824,
+            "baseline_n": 204,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "red",
+            "count": 83,
+            "total": 204,
+            "probability": 0.4068627450980392,
+            "baseline_prob": 0.47058823529411764,
+            "baseline_n": 204,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-16",
+          "2026-06-10"
+        ],
+        "total_samples": 207,
+        "results": [
+          {
+            "condition": "pre_announcement",
+            "outcome": "mean_return",
+            "count": 206,
+            "total": 206,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 206,
+            "value": 0.0030712077081232786,
+            "value_baseline": -0.0009729935989638922,
+            "agg": "mean"
+          },
+          {
+            "condition": "pre_announcement",
+            "outcome": "green",
+            "count": 137,
+            "total": 206,
+            "probability": 0.6650485436893204,
+            "baseline_prob": 0.5,
+            "baseline_n": 206,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "pre_announcement",
+            "outcome": "red",
+            "count": 69,
+            "total": 206,
+            "probability": 0.33495145631067963,
+            "baseline_prob": 0.5,
+            "baseline_n": 206,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "mean_return",
+            "count": 207,
+            "total": 207,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 207,
+            "value": 0.0007291042835908864,
+            "value_baseline": 0.0001847229311801978,
+            "agg": "mean"
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "green",
+            "count": 116,
+            "total": 207,
+            "probability": 0.5603864734299517,
+            "baseline_prob": 0.463768115942029,
+            "baseline_n": 207,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "cpi_day",
+            "outcome": "red",
+            "count": 91,
+            "total": 207,
+            "probability": 0.4396135265700483,
+            "baseline_prob": 0.5362318840579711,
+            "baseline_n": 207,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "mean_return",
+            "count": 206,
+            "total": 206,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 206,
+            "value": 0.0001451983565533896,
+            "value_baseline": 0.0015875362508137821,
+            "agg": "mean"
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "green",
+            "count": 120,
+            "total": 206,
+            "probability": 0.5825242718446602,
+            "baseline_prob": 0.5388349514563107,
+            "baseline_n": 206,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "post_announcement",
+            "outcome": "red",
+            "count": 86,
+            "total": 206,
+            "probability": 0.4174757281553398,
+            "baseline_prob": 0.46116504854368934,
+            "baseline_n": 206,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

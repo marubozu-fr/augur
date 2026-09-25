@@ -1,0 +1,1891 @@
+{
+  "stat_name": "initial_balance_retracement",
+  "title": {
+    "en": "Initial Balance Breakout — Retracement",
+    "fr": "Cassure de l'initial balance — Repli"
+  },
+  "definition": {
+    "en": "On single-break days, after price breaks one side of the initial balance, how deep does it pull back into the balance range? Reported as the share of single-break sessions whose retracement reaches at least 25%, 50%, or 75% of the initial-balance size.",
+    "fr": "Les jours à cassure unique, après que le prix casse un côté de l'initial balance, jusqu'où revient-il dans le range de la balance ? Exprimé comme la proportion des séances à cassure unique dont le repli atteint au moins 25 %, 50 % ou 75 % de la taille de l'initial balance."
+  },
+  "labels": {
+    "conditions": {
+      "single_break": {
+        "en": "Single-break day",
+        "fr": "Jour à cassure unique"
+      }
+    },
+    "outcomes": {
+      "retrace_25": {
+        "en": "Retraced ≥25% of IB",
+        "fr": "Repli ≥25% de l'IB"
+      },
+      "retrace_50": {
+        "en": "Retraced ≥50% of IB",
+        "fr": "Repli ≥50% de l'IB"
+      },
+      "retrace_75": {
+        "en": "Retraced ≥75% of IB",
+        "fr": "Repli ≥75% de l'IB"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "overnight": {
+        "en": "Overnight gap",
+        "fr": "Gap overnight"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "size_pct": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "single_break",
+            "outcome": "retrace_25",
+            "count": 1776,
+            "total": 2562,
+            "probability": 0.6932084309133489,
+            "baseline_prob": 0.7431693989071039,
+            "baseline_n": 2562,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "single_break",
+            "outcome": "retrace_50",
+            "count": 1076,
+            "total": 2562,
+            "probability": 0.419984387197502,
+            "baseline_prob": 0.4960967993754879,
+            "baseline_n": 2562,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "single_break",
+            "outcome": "retrace_75",
+            "count": 508,
+            "total": 2562,
+            "probability": 0.19828259172521467,
+            "baseline_prob": 0.2529274004683841,
+            "baseline_n": 2562,
+            "value": null,
+            "value_baseline": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 326,
+                    "total": 496,
+                    "probability": 0.657258064516129,
+                    "baseline_prob": 0.7298387096774194,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 190,
+                    "total": 496,
+                    "probability": 0.38306451612903225,
+                    "baseline_prob": 0.49798387096774194,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 77,
+                    "total": 496,
+                    "probability": 0.15524193548387097,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 365,
+                    "total": 529,
+                    "probability": 0.6899810964083176,
+                    "baseline_prob": 0.718336483931947,
+                    "baseline_n": 529,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 230,
+                    "total": 529,
+                    "probability": 0.43478260869565216,
+                    "baseline_prob": 0.500945179584121,
+                    "baseline_n": 529,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 124,
+                    "total": 529,
+                    "probability": 0.23440453686200377,
+                    "baseline_prob": 0.23440453686200377,
+                    "baseline_n": 529,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 348,
+                    "total": 484,
+                    "probability": 0.71900826446281,
+                    "baseline_prob": 0.7293388429752066,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 203,
+                    "total": 484,
+                    "probability": 0.4194214876033058,
+                    "baseline_prob": 0.4834710743801653,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 96,
+                    "total": 484,
+                    "probability": 0.19834710743801653,
+                    "baseline_prob": 0.24173553719008264,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 341,
+                    "total": 507,
+                    "probability": 0.6725838264299803,
+                    "baseline_prob": 0.7435897435897436,
+                    "baseline_n": 507,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 227,
+                    "total": 507,
+                    "probability": 0.4477317554240631,
+                    "baseline_prob": 0.5069033530571992,
+                    "baseline_n": 507,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 106,
+                    "total": 507,
+                    "probability": 0.20907297830374755,
+                    "baseline_prob": 0.252465483234714,
+                    "baseline_n": 507,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 396,
+                    "total": 546,
+                    "probability": 0.7252747252747253,
+                    "baseline_prob": 0.7454212454212454,
+                    "baseline_n": 546,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 226,
+                    "total": 546,
+                    "probability": 0.4139194139194139,
+                    "baseline_prob": 0.489010989010989,
+                    "baseline_n": 546,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 105,
+                    "total": 546,
+                    "probability": 0.19230769230769232,
+                    "baseline_prob": 0.26373626373626374,
+                    "baseline_n": 546,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 929,
+                    "total": 1407,
+                    "probability": 0.660270078180526,
+                    "baseline_prob": 0.744136460554371,
+                    "baseline_n": 1407,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 572,
+                    "total": 1407,
+                    "probability": 0.40653873489694387,
+                    "baseline_prob": 0.47761194029850745,
+                    "baseline_n": 1407,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 267,
+                    "total": 1407,
+                    "probability": 0.18976545842217485,
+                    "baseline_prob": 0.2572850035536603,
+                    "baseline_n": 1407,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 847,
+                    "total": 1155,
+                    "probability": 0.7333333333333333,
+                    "baseline_prob": 0.7385281385281385,
+                    "baseline_n": 1155,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 504,
+                    "total": 1155,
+                    "probability": 0.43636363636363634,
+                    "baseline_prob": 0.4961038961038961,
+                    "baseline_n": 1155,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 241,
+                    "total": 1155,
+                    "probability": 0.20865800865800865,
+                    "baseline_prob": 0.258008658008658,
+                    "baseline_n": 1155,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 988,
+                    "total": 1415,
+                    "probability": 0.6982332155477032,
+                    "baseline_prob": 0.7335689045936395,
+                    "baseline_n": 1415,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 594,
+                    "total": 1415,
+                    "probability": 0.41978798586572436,
+                    "baseline_prob": 0.49187279151943464,
+                    "baseline_n": 1415,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 279,
+                    "total": 1415,
+                    "probability": 0.1971731448763251,
+                    "baseline_prob": 0.2607773851590106,
+                    "baseline_n": 1415,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 788,
+                    "total": 1147,
+                    "probability": 0.6870095902353966,
+                    "baseline_prob": 0.7384481255448997,
+                    "baseline_n": 1147,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 482,
+                    "total": 1147,
+                    "probability": 0.4202266782911944,
+                    "baseline_prob": 0.4838709677419355,
+                    "baseline_n": 1147,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 229,
+                    "total": 1147,
+                    "probability": 0.1996512641673932,
+                    "baseline_prob": 0.2598081952920663,
+                    "baseline_n": 1147,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 1000,
+                    "total": 1456,
+                    "probability": 0.6868131868131868,
+                    "baseline_prob": 0.7506868131868132,
+                    "baseline_n": 1456,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 593,
+                    "total": 1456,
+                    "probability": 0.4072802197802198,
+                    "baseline_prob": 0.489010989010989,
+                    "baseline_n": 1456,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 268,
+                    "total": 1456,
+                    "probability": 0.18406593406593408,
+                    "baseline_prob": 0.25961538461538464,
+                    "baseline_n": 1456,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 776,
+                    "total": 1106,
+                    "probability": 0.701627486437613,
+                    "baseline_prob": 0.7314647377938517,
+                    "baseline_n": 1106,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 483,
+                    "total": 1106,
+                    "probability": 0.43670886075949367,
+                    "baseline_prob": 0.4873417721518987,
+                    "baseline_n": 1106,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 240,
+                    "total": 1106,
+                    "probability": 0.21699819168173598,
+                    "baseline_prob": 0.2522603978300181,
+                    "baseline_n": 1106,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (4.36–17.10]",
+                  "fr": "ib_size tranche 1 (4.36–17.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 400,
+                    "total": 575,
+                    "probability": 0.6956521739130435,
+                    "baseline_prob": 0.76,
+                    "baseline_n": 575,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 255,
+                    "total": 575,
+                    "probability": 0.4434782608695652,
+                    "baseline_prob": 0.5026086956521739,
+                    "baseline_n": 575,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 136,
+                    "total": 575,
+                    "probability": 0.23652173913043478,
+                    "baseline_prob": 0.24695652173913044,
+                    "baseline_n": 575,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (17.10–33.57]",
+                  "fr": "ib_size tranche 2 (17.10–33.57]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 469,
+                    "total": 656,
+                    "probability": 0.7149390243902439,
+                    "baseline_prob": 0.7332317073170732,
+                    "baseline_n": 656,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 282,
+                    "total": 656,
+                    "probability": 0.4298780487804878,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 656,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 140,
+                    "total": 656,
+                    "probability": 0.21341463414634146,
+                    "baseline_prob": 0.26676829268292684,
+                    "baseline_n": 656,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (33.57–89.96]",
+                  "fr": "ib_size tranche 3 (33.57–89.96]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 422,
+                    "total": 626,
+                    "probability": 0.6741214057507987,
+                    "baseline_prob": 0.7396166134185304,
+                    "baseline_n": 626,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 259,
+                    "total": 626,
+                    "probability": 0.41373801916932906,
+                    "baseline_prob": 0.5175718849840255,
+                    "baseline_n": 626,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 101,
+                    "total": 626,
+                    "probability": 0.16134185303514376,
+                    "baseline_prob": 0.26038338658146964,
+                    "baseline_n": 626,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (89.96–647.05]",
+                  "fr": "ib_size tranche 4 (89.96–647.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 485,
+                    "total": 705,
+                    "probability": 0.6879432624113475,
+                    "baseline_prob": 0.7418439716312056,
+                    "baseline_n": 705,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 280,
+                    "total": 705,
+                    "probability": 0.3971631205673759,
+                    "baseline_prob": 0.49929078014184397,
+                    "baseline_n": 705,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 131,
+                    "total": 705,
+                    "probability": 0.18581560283687942,
+                    "baseline_prob": 0.2581560283687943,
+                    "baseline_n": 705,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 67,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 17,
+                    "total": 22,
+                    "probability": 0.7727272727272727,
+                    "baseline_prob": 0.7272727272727273,
+                    "baseline_n": 22,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 11,
+                    "total": 22,
+                    "probability": 0.5,
+                    "baseline_prob": 0.6363636363636364,
+                    "baseline_n": 22,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 6,
+                    "total": 22,
+                    "probability": 0.2727272727272727,
+                    "baseline_prob": 0.4090909090909091,
+                    "baseline_n": 22,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 1102,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 436,
+                    "total": 564,
+                    "probability": 0.7730496453900709,
+                    "baseline_prob": 0.7322695035460993,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 275,
+                    "total": 564,
+                    "probability": 0.4875886524822695,
+                    "baseline_prob": 0.4858156028368794,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 132,
+                    "total": 564,
+                    "probability": 0.23404255319148937,
+                    "baseline_prob": 0.25354609929078015,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1346,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 548,
+                    "total": 796,
+                    "probability": 0.6884422110552764,
+                    "baseline_prob": 0.7399497487437185,
+                    "baseline_n": 796,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 335,
+                    "total": 796,
+                    "probability": 0.42085427135678394,
+                    "baseline_prob": 0.4849246231155779,
+                    "baseline_n": 796,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 158,
+                    "total": 796,
+                    "probability": 0.1984924623115578,
+                    "baseline_prob": 0.2638190954773869,
+                    "baseline_n": 796,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1114,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 479,
+                    "total": 718,
+                    "probability": 0.6671309192200557,
+                    "baseline_prob": 0.7590529247910863,
+                    "baseline_n": 718,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 282,
+                    "total": 718,
+                    "probability": 0.39275766016713093,
+                    "baseline_prob": 0.5194986072423399,
+                    "baseline_n": 718,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 127,
+                    "total": 718,
+                    "probability": 0.17688022284122562,
+                    "baseline_prob": 0.26880222841225626,
+                    "baseline_n": 718,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 703,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 296,
+                    "total": 462,
+                    "probability": 0.6406926406926406,
+                    "baseline_prob": 0.7424242424242424,
+                    "baseline_n": 462,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 173,
+                    "total": 462,
+                    "probability": 0.37445887445887444,
+                    "baseline_prob": 0.5173160173160173,
+                    "baseline_n": 462,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 85,
+                    "total": 462,
+                    "probability": 0.18398268398268397,
+                    "baseline_prob": 0.2683982683982684,
+                    "baseline_n": 462,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "single_break",
+            "outcome": "retrace_25",
+            "count": 1947,
+            "total": 3129,
+            "probability": 0.6222435282837967,
+            "baseline_prob": 0.74784276126558,
+            "baseline_n": 3129,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "single_break",
+            "outcome": "retrace_50",
+            "count": 1064,
+            "total": 3129,
+            "probability": 0.3400447427293065,
+            "baseline_prob": 0.4956855225311601,
+            "baseline_n": 3129,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "single_break",
+            "outcome": "retrace_75",
+            "count": 456,
+            "total": 3129,
+            "probability": 0.1457334611697028,
+            "baseline_prob": 0.24992010226909556,
+            "baseline_n": 3129,
+            "value": null,
+            "value_baseline": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 371,
+                    "total": 613,
+                    "probability": 0.6052202283849919,
+                    "baseline_prob": 0.7226753670473083,
+                    "baseline_n": 613,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 192,
+                    "total": 613,
+                    "probability": 0.3132137030995106,
+                    "baseline_prob": 0.4926590538336052,
+                    "baseline_n": 613,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 75,
+                    "total": 613,
+                    "probability": 0.12234910277324633,
+                    "baseline_prob": 0.25938009787928223,
+                    "baseline_n": 613,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 386,
+                    "total": 637,
+                    "probability": 0.6059654631083202,
+                    "baseline_prob": 0.728414442700157,
+                    "baseline_n": 637,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 225,
+                    "total": 637,
+                    "probability": 0.3532182103610675,
+                    "baseline_prob": 0.49921507064364207,
+                    "baseline_n": 637,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 97,
+                    "total": 637,
+                    "probability": 0.152276295133438,
+                    "baseline_prob": 0.24175824175824176,
+                    "baseline_n": 637,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 405,
+                    "total": 611,
+                    "probability": 0.662847790507365,
+                    "baseline_prob": 0.734860883797054,
+                    "baseline_n": 611,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 225,
+                    "total": 611,
+                    "probability": 0.36824877250409166,
+                    "baseline_prob": 0.49754500818330605,
+                    "baseline_n": 611,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 102,
+                    "total": 611,
+                    "probability": 0.16693944353518822,
+                    "baseline_prob": 0.25368248772504093,
+                    "baseline_n": 611,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 389,
+                    "total": 622,
+                    "probability": 0.6254019292604501,
+                    "baseline_prob": 0.7491961414790996,
+                    "baseline_n": 622,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 220,
+                    "total": 622,
+                    "probability": 0.3536977491961415,
+                    "baseline_prob": 0.5032154340836013,
+                    "baseline_n": 622,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 107,
+                    "total": 622,
+                    "probability": 0.1720257234726688,
+                    "baseline_prob": 0.25562700964630225,
+                    "baseline_n": 622,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 396,
+                    "total": 646,
+                    "probability": 0.6130030959752322,
+                    "baseline_prob": 0.7461300309597523,
+                    "baseline_n": 646,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 202,
+                    "total": 646,
+                    "probability": 0.3126934984520124,
+                    "baseline_prob": 0.4984520123839009,
+                    "baseline_n": 646,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 75,
+                    "total": 646,
+                    "probability": 0.11609907120743033,
+                    "baseline_prob": 0.2476780185758514,
+                    "baseline_n": 646,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 1043,
+                    "total": 1762,
+                    "probability": 0.5919409761634506,
+                    "baseline_prob": 0.7497162315550511,
+                    "baseline_n": 1762,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 569,
+                    "total": 1762,
+                    "probability": 0.3229284903518729,
+                    "baseline_prob": 0.48240635641316687,
+                    "baseline_n": 1762,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 224,
+                    "total": 1762,
+                    "probability": 0.1271282633371169,
+                    "baseline_prob": 0.26503972758229283,
+                    "baseline_n": 1762,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 904,
+                    "total": 1367,
+                    "probability": 0.6613021214337966,
+                    "baseline_prob": 0.7468910021945867,
+                    "baseline_n": 1367,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 495,
+                    "total": 1367,
+                    "probability": 0.3621068032187271,
+                    "baseline_prob": 0.49231894659839065,
+                    "baseline_n": 1367,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 232,
+                    "total": 1367,
+                    "probability": 0.16971470373079736,
+                    "baseline_prob": 0.25969275786393564,
+                    "baseline_n": 1367,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 1065,
+                    "total": 1709,
+                    "probability": 0.6231714452896431,
+                    "baseline_prob": 0.7425394967817437,
+                    "baseline_n": 1709,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 584,
+                    "total": 1709,
+                    "probability": 0.3417203042715038,
+                    "baseline_prob": 0.49151550614394385,
+                    "baseline_n": 1709,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 248,
+                    "total": 1709,
+                    "probability": 0.14511410181392628,
+                    "baseline_prob": 0.2592159157401989,
+                    "baseline_n": 1709,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 882,
+                    "total": 1420,
+                    "probability": 0.6211267605633802,
+                    "baseline_prob": 0.7436619718309859,
+                    "baseline_n": 1420,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 480,
+                    "total": 1420,
+                    "probability": 0.3380281690140845,
+                    "baseline_prob": 0.4915492957746479,
+                    "baseline_n": 1420,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 208,
+                    "total": 1420,
+                    "probability": 0.14647887323943662,
+                    "baseline_prob": 0.2669014084507042,
+                    "baseline_n": 1420,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 1062,
+                    "total": 1768,
+                    "probability": 0.6006787330316742,
+                    "baseline_prob": 0.744343891402715,
+                    "baseline_n": 1768,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 565,
+                    "total": 1768,
+                    "probability": 0.3195701357466063,
+                    "baseline_prob": 0.49264705882352944,
+                    "baseline_n": 1768,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 235,
+                    "total": 1768,
+                    "probability": 0.1329185520361991,
+                    "baseline_prob": 0.26300904977375567,
+                    "baseline_n": 1768,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 885,
+                    "total": 1361,
+                    "probability": 0.6502571638501102,
+                    "baseline_prob": 0.7406318883174137,
+                    "baseline_n": 1361,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 499,
+                    "total": 1361,
+                    "probability": 0.3666421748714181,
+                    "baseline_prob": 0.4878765613519471,
+                    "baseline_n": 1361,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 221,
+                    "total": 1361,
+                    "probability": 0.1623806024981631,
+                    "baseline_prob": 0.2615723732549596,
+                    "baseline_n": 1361,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (5.79–22.29]",
+                  "fr": "ib_size tranche 1 (5.79–22.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 459,
+                    "total": 724,
+                    "probability": 0.6339779005524862,
+                    "baseline_prob": 0.7541436464088398,
+                    "baseline_n": 724,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 254,
+                    "total": 724,
+                    "probability": 0.35082872928176795,
+                    "baseline_prob": 0.49171270718232046,
+                    "baseline_n": 724,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 129,
+                    "total": 724,
+                    "probability": 0.1781767955801105,
+                    "baseline_prob": 0.2596685082872928,
+                    "baseline_n": 724,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (22.29–43.29]",
+                  "fr": "ib_size tranche 2 (22.29–43.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 497,
+                    "total": 799,
+                    "probability": 0.6220275344180225,
+                    "baseline_prob": 0.7459324155193993,
+                    "baseline_n": 799,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 256,
+                    "total": 799,
+                    "probability": 0.32040050062578224,
+                    "baseline_prob": 0.4981226533166458,
+                    "baseline_n": 799,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 114,
+                    "total": 799,
+                    "probability": 0.14267834793491865,
+                    "baseline_prob": 0.24405506883604505,
+                    "baseline_n": 799,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (43.29–117.54]",
+                  "fr": "ib_size tranche 3 (43.29–117.54]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 473,
+                    "total": 760,
+                    "probability": 0.6223684210526316,
+                    "baseline_prob": 0.7473684210526316,
+                    "baseline_n": 760,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 275,
+                    "total": 760,
+                    "probability": 0.3618421052631579,
+                    "baseline_prob": 0.5171052631578947,
+                    "baseline_n": 760,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 103,
+                    "total": 760,
+                    "probability": 0.1355263157894737,
+                    "baseline_prob": 0.25921052631578945,
+                    "baseline_n": 760,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (117.54–1753.88]",
+                  "fr": "ib_size tranche 4 (117.54–1753.88]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 518,
+                    "total": 846,
+                    "probability": 0.6122931442080378,
+                    "baseline_prob": 0.7411347517730497,
+                    "baseline_n": 846,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 279,
+                    "total": 846,
+                    "probability": 0.32978723404255317,
+                    "baseline_prob": 0.5011820330969267,
+                    "baseline_n": 846,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 110,
+                    "total": 846,
+                    "probability": 0.13002364066193853,
+                    "baseline_prob": 0.2553191489361702,
+                    "baseline_n": 846,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 12,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 4,
+                    "total": 6,
+                    "probability": 0.6666666666666666,
+                    "baseline_prob": 0.8333333333333334,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 2,
+                    "total": 6,
+                    "probability": 0.3333333333333333,
+                    "baseline_prob": 0.6666666666666666,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 1,
+                    "total": 6,
+                    "probability": 0.16666666666666666,
+                    "baseline_prob": 0.6666666666666666,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 581,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 259,
+                    "total": 368,
+                    "probability": 0.7038043478260869,
+                    "baseline_prob": 0.7527173913043478,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 162,
+                    "total": 368,
+                    "probability": 0.44021739130434784,
+                    "baseline_prob": 0.5081521739130435,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 80,
+                    "total": 368,
+                    "probability": 0.21739130434782608,
+                    "baseline_prob": 0.24728260869565216,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1071,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 473,
+                    "total": 730,
+                    "probability": 0.647945205479452,
+                    "baseline_prob": 0.7452054794520548,
+                    "baseline_n": 730,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 265,
+                    "total": 730,
+                    "probability": 0.363013698630137,
+                    "baseline_prob": 0.5178082191780822,
+                    "baseline_n": 730,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 120,
+                    "total": 730,
+                    "probability": 0.1643835616438356,
+                    "baseline_prob": 0.2671232876712329,
+                    "baseline_n": 730,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1279,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 603,
+                    "total": 965,
+                    "probability": 0.6248704663212435,
+                    "baseline_prob": 0.7326424870466322,
+                    "baseline_n": 965,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 320,
+                    "total": 965,
+                    "probability": 0.3316062176165803,
+                    "baseline_prob": 0.48082901554404145,
+                    "baseline_n": 965,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 117,
+                    "total": 965,
+                    "probability": 0.12124352331606218,
+                    "baseline_prob": 0.24455958549222798,
+                    "baseline_n": 965,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 1389,
+                "results": [
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_25",
+                    "count": 608,
+                    "total": 1060,
+                    "probability": 0.5735849056603773,
+                    "baseline_prob": 0.7367924528301887,
+                    "baseline_n": 1060,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_50",
+                    "count": 315,
+                    "total": 1060,
+                    "probability": 0.2971698113207547,
+                    "baseline_prob": 0.5056603773584906,
+                    "baseline_n": 1060,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "single_break",
+                    "outcome": "retrace_75",
+                    "count": 138,
+                    "total": 1060,
+                    "probability": 0.13018867924528302,
+                    "baseline_prob": 0.2632075471698113,
+                    "baseline_n": 1060,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

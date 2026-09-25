@@ -1,0 +1,1339 @@
+{
+  "stat_name": "intraday_range_window",
+  "title": {
+    "en": "Intraday Range Window",
+    "fr": "Amplitude d'une fenêtre intraday"
+  },
+  "definition": {
+    "en": "The high-low range over a configurable intraday window measured each day, summarized across days. Reports the average, maximum, minimum, and median of both the absolute range (points) and the percentage range.",
+    "fr": "L'amplitude haut-bas sur une fenêtre intraday configurable mesurée chaque jour, résumée sur l'ensemble des jours. Donne la moyenne, le maximum, le minimum et la médiane de l'amplitude en points et de l'amplitude en pourcentage."
+  },
+  "labels": {
+    "conditions": {
+      "0930-1030": {
+        "en": "09:30–10:30",
+        "fr": "09:30–10:30"
+      }
+    },
+    "outcomes": {
+      "range_avg": {
+        "en": "Average range (points)",
+        "fr": "Amplitude moyenne (points)"
+      },
+      "range_max": {
+        "en": "Maximum range (points)",
+        "fr": "Amplitude maximale (points)"
+      },
+      "range_min": {
+        "en": "Minimum range (points)",
+        "fr": "Amplitude minimale (points)"
+      },
+      "range_median": {
+        "en": "Median range (points)",
+        "fr": "Amplitude médiane (points)"
+      },
+      "range_pct_avg": {
+        "en": "Average range (%)",
+        "fr": "Amplitude moyenne (%)"
+      },
+      "range_pct_max": {
+        "en": "Maximum range (%)",
+        "fr": "Amplitude maximale (%)"
+      },
+      "range_pct_min": {
+        "en": "Minimum range (%)",
+        "fr": "Amplitude minimale (%)"
+      },
+      "range_pct_median": {
+        "en": "Median range (%)",
+        "fr": "Amplitude médiane (%)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "0930-1030": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "0930-1030",
+            "outcome": "range_avg",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 79.92194416066482,
+            "value_baseline": 48.91304683194831,
+            "agg": "mean"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_max",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 1753.8774029999986,
+            "value_baseline": 504.96707199999946,
+            "agg": "max"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_min",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 5.795659999999771,
+            "value_baseline": 2.8978299999998853,
+            "agg": "min"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_median",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 43.80775850000009,
+            "value_baseline": 26.34861150000006,
+            "agg": "median"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_avg",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.008270196774985061,
+            "value_baseline": 0.005107893028680939,
+            "agg": "mean"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_max",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.09973412116449992,
+            "value_baseline": 0.09549284464474203,
+            "agg": "max"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_min",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.0014120823633504685,
+            "value_baseline": 0.0006997901004527468,
+            "agg": "min"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_median",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.007084496913069723,
+            "value_baseline": 0.004107576142115219,
+            "agg": "median"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 80.71468182475493,
+                    "value_baseline": 44.10044555269604,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 1753.8774029999986,
+                    "value_baseline": 303.9255520000006,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 6.3498460000000705,
+                    "value_baseline": 3.2381539999996676,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 44.958543000000645,
+                    "value_baseline": 25.015525000000252,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.008407312898677802,
+                    "value_baseline": 0.004693548483361956,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.09973412116449992,
+                    "value_baseline": 0.0352363960153331,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.0014120823633504685,
+                    "value_baseline": 0.0008186655546056471,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.0071792845596545425,
+                    "value_baseline": 0.003793390984896826,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 79.15861031361605,
+                    "value_baseline": 48.94113718861604,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 486.1404900000016,
+                    "value_baseline": 541.3330139999998,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 7.516151000000264,
+                    "value_baseline": 2.6080470000001696,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 42.639250000000175,
+                    "value_baseline": 27.480382499999905,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.00814186898392333,
+                    "value_baseline": 0.005186202719026365,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.043792911790991186,
+                    "value_baseline": 0.03249310746630479,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.001739022543848269,
+                    "value_baseline": 0.000803930348212063,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.00677822023993746,
+                    "value_baseline": 0.004151245890913723,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 74.72803549550564,
+                    "value_baseline": 52.38540214382026,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 423.2071340000002,
+                    "value_baseline": 383.1411689999986,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 5.795659999999771,
+                    "value_baseline": 2.601744999999937,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 40.550938499999575,
+                    "value_baseline": 28.717115000000376,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.007842961237573805,
+                    "value_baseline": 0.005363796728658935,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.05205047326030067,
+                    "value_baseline": 0.03791560597103187,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.0016726551693892922,
+                    "value_baseline": 0.0008571428629144041,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.006833818632999251,
+                    "value_baseline": 0.004361822613981789,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 82.31801848914286,
+                    "value_baseline": 51.86551313028569,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 509.03108000000066,
+                    "value_baseline": 625.1344850000023,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 6.070737000000008,
+                    "value_baseline": 2.880907999999863,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 47.8191139999999,
+                    "value_baseline": 26.047426000000087,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.008542560263945849,
+                    "value_baseline": 0.005298875388182772,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.05301473412723286,
+                    "value_baseline": 0.030880510002732724,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.002341772058591193,
+                    "value_baseline": 0.000768158380177588,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.00728556409063709,
+                    "value_baseline": 0.004301530152731473,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 82.91970657894734,
+                    "value_baseline": 48.81272578245612,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 572.2936900000004,
+                    "value_baseline": 397.8252160000011,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 6.375225999999657,
+                    "value_baseline": 2.318263999999999,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 44.28978599999937,
+                    "value_baseline": 25.38661100000172,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.00843980673909427,
+                    "value_baseline": 0.004916368721927848,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.05035300401946386,
+                    "value_baseline": 0.03138810924562916,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.0019749546706026144,
+                    "value_baseline": 0.0007340796090862024,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.00727932394302877,
+                    "value_baseline": 0.003954408107632257,
+                    "agg": "median"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "0930-1030": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "0930-1030",
+            "outcome": "range_avg",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 18.582276643659707,
+            "value_baseline": 13.056756809676676,
+            "agg": "mean"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_max",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 433.6723030000003,
+            "value_baseline": 206.96200899999985,
+            "agg": "max"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_min",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 2.07884399999989,
+            "value_baseline": 1.2992769999998472,
+            "agg": "min"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_median",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 12.496986000000106,
+            "value_baseline": 8.701118000000406,
+            "agg": "median"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_avg",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.006046354411553863,
+            "value_baseline": 0.004253319368347415,
+            "agg": "mean"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_max",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.08488895640272363,
+            "value_baseline": 0.07101913914861899,
+            "agg": "max"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_min",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.0008807126107895472,
+            "value_baseline": 0.0005047955403673512,
+            "agg": "min"
+          },
+          {
+            "condition": "0930-1030",
+            "outcome": "range_pct_median",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.004954904688799454,
+            "value_baseline": 0.0032924819833311646,
+            "agg": "median"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 18.505280543902444,
+                    "value_baseline": 11.428942660975613,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 433.6723030000003,
+                    "value_baseline": 101.40587800000003,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 3.1516379999998207,
+                    "value_baseline": 1.4325630000003002,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 11.738875500000404,
+                    "value_baseline": 7.857033999999999,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.0060070587671930435,
+                    "value_baseline": 0.003739721316889442,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.08488895640272363,
+                    "value_baseline": 0.0363617946219485,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.0008923259266697201,
+                    "value_baseline": 0.0005048974885098977,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.004770978119580522,
+                    "value_baseline": 0.002952248959059573,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 18.329492908990012,
+                    "value_baseline": 12.923089082130973,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 116.65913,
+                    "value_baseline": 143.6959479999996,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 2.580446999999822,
+                    "value_baseline": 1.0394220000000587,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 12.742110000000139,
+                    "value_baseline": 8.966975999999704,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.005946952068648427,
+                    "value_baseline": 0.00423906982789408,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.0424766017245291,
+                    "value_baseline": 0.035380116589004196,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.0008807126107895472,
+                    "value_baseline": 0.0005045917678989995,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.004920367692187456,
+                    "value_baseline": 0.003292323728487038,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 17.184123732441467,
+                    "value_baseline": 13.209178596432556,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 111.57471299999997,
+                    "value_baseline": 112.97963999999956,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 2.07884399999989,
+                    "value_baseline": 1.0394220000000587,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 11.911467999999786,
+                    "value_baseline": 8.53838900000028,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.005682140059622011,
+                    "value_baseline": 0.004290093939807338,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.04196770078074398,
+                    "value_baseline": 0.025576255497637437,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.001112877578247817,
+                    "value_baseline": 0.0005858804263311445,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.004654255354662058,
+                    "value_baseline": 0.0033936647639393135,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 19.316778429057887,
+                    "value_baseline": 13.695796737797961,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 131.62991499999998,
+                    "value_baseline": 156.35979899999984,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 2.8584109999999328,
+                    "value_baseline": 1.5591329999999743,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 13.586745999999948,
+                    "value_baseline": 9.323406999999861,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.006332080242597689,
+                    "value_baseline": 0.0044009111883056146,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.049057795677133594,
+                    "value_baseline": 0.028736997061625563,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.0012417218202713303,
+                    "value_baseline": 0.0005587630770976957,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.0053012246928271015,
+                    "value_baseline": 0.0034775575247566752,
+                    "agg": "median"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_avg",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 19.6239727401392,
+                    "value_baseline": 12.721515475638054,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_max",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 111.54588899999999,
+                    "value_baseline": 87.35473099999945,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_min",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 2.8584109999999328,
+                    "value_baseline": 1.433582000000115,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_median",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 12.59731899999997,
+                    "value_baseline": 8.67080599999997,
+                    "agg": "median"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_avg",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.006274613989125706,
+                    "value_baseline": 0.00402335728851621,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_max",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.0374498438276999,
+                    "value_baseline": 0.02781671157795051,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_min",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.0012039730513360887,
+                    "value_baseline": 0.0005006510831517413,
+                    "agg": "min"
+                  },
+                  {
+                    "condition": "0930-1030",
+                    "outcome": "range_pct_median",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.005173605047914423,
+                    "value_baseline": 0.0032496867584095443,
+                    "agg": "median"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1043 @@
+{
+  "stat_name": "engulfing_candles",
+  "title": {
+    "en": "Engulfing Candles",
+    "fr": "Bougies englobantes"
+  },
+  "definition": {
+    "en": "How often is the RTH daily candle a bullish or bearish engulfing pattern (its body fully engulfs the prior day's body, opposite color), and given such a pattern, how far does price continue from the engulfing close until it reclaims the engulfing open?",
+    "fr": "À quelle fréquence la bougie journalière RTH est-elle un pattern englobant haussier ou baissier (son corps englobe entièrement celui du jour précédent, couleur opposée), et après un tel pattern, jusqu'où le prix poursuit-il depuis la clôture englobante avant de reprendre l'ouverture englobante ?"
+  },
+  "labels": {
+    "conditions": {
+      "engulfing": {
+        "en": "Engulfing candle",
+        "fr": "Bougie englobante"
+      },
+      "bullish": {
+        "en": "Bullish engulfing",
+        "fr": "Englobante haussière"
+      },
+      "bearish": {
+        "en": "Bearish engulfing",
+        "fr": "Englobante baissière"
+      }
+    },
+    "outcomes": {
+      "bullish": {
+        "en": "Bullish engulfing",
+        "fr": "Englobante haussière"
+      },
+      "bearish": {
+        "en": "Bearish engulfing",
+        "fr": "Englobante baissière"
+      },
+      "avg_continuation": {
+        "en": "Average continuation (% of close)",
+        "fr": "Continuation moyenne (% de la clôture)"
+      },
+      "max_continuation": {
+        "en": "Maximum continuation (% of close)",
+        "fr": "Continuation maximale (% de la clôture)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "engulfing",
+            "outcome": "bullish",
+            "count": 142,
+            "total": 4331,
+            "probability": 0.03278688524590164,
+            "baseline_prob": 0.0,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "engulfing",
+            "outcome": "bearish",
+            "count": 187,
+            "total": 4331,
+            "probability": 0.043177095359039484,
+            "baseline_prob": 0.00023089355806972986,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "avg_continuation",
+            "count": 123,
+            "total": 123,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 2.9924885643638075,
+            "value_baseline": null,
+            "agg": "mean"
+          },
+          {
+            "condition": "bullish",
+            "outcome": "max_continuation",
+            "count": 123,
+            "total": 123,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 33.01315056633709,
+            "value_baseline": null,
+            "agg": "max"
+          },
+          {
+            "condition": "bearish",
+            "outcome": "avg_continuation",
+            "count": 187,
+            "total": 187,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 2.6738360977712645,
+            "value_baseline": 2.408682298903359,
+            "agg": "mean"
+          },
+          {
+            "condition": "bearish",
+            "outcome": "max_continuation",
+            "count": 187,
+            "total": 187,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 36.611569846811,
+            "value_baseline": 2.408682298903359,
+            "agg": "max"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 26,
+                    "total": 816,
+                    "probability": 0.031862745098039214,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 28,
+                    "total": 816,
+                    "probability": 0.03431372549019608,
+                    "baseline_prob": 0.0024509803921568627,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 20,
+                    "total": 20,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 2.3709026794543115,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 20,
+                    "total": 20,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 8.208162613271188,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 28,
+                    "total": 28,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2,
+                    "value": 3.672395240076042,
+                    "value_baseline": 2.832120519623595,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 28,
+                    "total": 28,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2,
+                    "value": 36.611569846811,
+                    "value_baseline": 5.66424103924719,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 28,
+                    "total": 896,
+                    "probability": 0.03125,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 37,
+                    "total": 896,
+                    "probability": 0.041294642857142856,
+                    "baseline_prob": 0.0011160714285714285,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 25,
+                    "total": 25,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.0597023243100407,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 25,
+                    "total": 25,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 33.01315056633709,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 37,
+                    "total": 37,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 3.4089961420937507,
+                    "value_baseline": 13.506434577395183,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 37,
+                    "total": 37,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 36.02261753567967,
+                    "value_baseline": 13.506434577395183,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 29,
+                    "total": 890,
+                    "probability": 0.03258426966292135,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 42,
+                    "total": 890,
+                    "probability": 0.04719101123595506,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 25,
+                    "total": 25,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.1601286923659866,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 25,
+                    "total": 25,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 14.38790793298988,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 42,
+                    "total": 42,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 1.9191378455219332,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 42,
+                    "total": 42,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 12.391882342109191,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 33,
+                    "total": 874,
+                    "probability": 0.03775743707093822,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 39,
+                    "total": 874,
+                    "probability": 0.04462242562929062,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 32,
+                    "total": 32,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.7826776748773803,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 32,
+                    "total": 32,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 25.32945727818599,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 39,
+                    "total": 39,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 2.678553397849885,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 39,
+                    "total": 39,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 14.341450288824708,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 26,
+                    "total": 855,
+                    "probability": 0.0304093567251462,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 41,
+                    "total": 855,
+                    "probability": 0.047953216374269005,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 21,
+                    "total": 21,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 2.1007894673659644,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 21,
+                    "total": 21,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 7.955240570734057,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 41,
+                    "total": 41,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 2.097074494525897,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 41,
+                    "total": 41,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 17.357703990164648,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "engulfing",
+            "outcome": "bullish",
+            "count": 138,
+            "total": 4360,
+            "probability": 0.03165137614678899,
+            "baseline_prob": 0.00022935779816513763,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "engulfing",
+            "outcome": "bearish",
+            "count": 173,
+            "total": 4360,
+            "probability": 0.03967889908256881,
+            "baseline_prob": 0.0009174311926605505,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "avg_continuation",
+            "count": 124,
+            "total": 124,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 1.976452159528607,
+            "value_baseline": 0.1795493212044451,
+            "agg": "mean"
+          },
+          {
+            "condition": "bullish",
+            "outcome": "max_continuation",
+            "count": 124,
+            "total": 124,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 30.15783605363452,
+            "value_baseline": 0.1795493212044451,
+            "agg": "max"
+          },
+          {
+            "condition": "bearish",
+            "outcome": "avg_continuation",
+            "count": 173,
+            "total": 173,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4,
+            "value": 1.7868290474523136,
+            "value_baseline": 3.361517508056692,
+            "agg": "mean"
+          },
+          {
+            "condition": "bearish",
+            "outcome": "max_continuation",
+            "count": 173,
+            "total": 173,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4,
+            "value": 24.795255536108932,
+            "value_baseline": 4.840187882721987,
+            "agg": "max"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 21,
+                    "total": 820,
+                    "probability": 0.025609756097560974,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 26,
+                    "total": 820,
+                    "probability": 0.03170731707317073,
+                    "baseline_prob": 0.0012195121951219512,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 20,
+                    "total": 20,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 0.8782201716623751,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 20,
+                    "total": 20,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.0905606695099728,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 26,
+                    "total": 26,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 2.364168486666616,
+                    "value_baseline": 0.5343307238678741,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 26,
+                    "total": 26,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 17.845455444633814,
+                    "value_baseline": 0.5343307238678741,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 33,
+                    "total": 901,
+                    "probability": 0.03662597114317425,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 37,
+                    "total": 901,
+                    "probability": 0.041065482796892344,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 30,
+                    "total": 30,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 1.8680970814059357,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 30,
+                    "total": 30,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 9.996999653770441,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 37,
+                    "total": 37,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 1.1453885406073152,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 37,
+                    "total": 37,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.9286615616884526,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 28,
+                    "total": 897,
+                    "probability": 0.03121516164994426,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 41,
+                    "total": 897,
+                    "probability": 0.045707915273132664,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 24,
+                    "total": 24,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 0.9489891216448892,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 24,
+                    "total": 24,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 9.30716067306081,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 41,
+                    "total": 41,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 1.2199751167827317,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 41,
+                    "total": 41,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 7.245316978211079,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 32,
+                    "total": 880,
+                    "probability": 0.03636363636363636,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 34,
+                    "total": 880,
+                    "probability": 0.038636363636363635,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 29,
+                    "total": 29,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 3.838006452566105,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 29,
+                    "total": 29,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 30.15783605363452,
+                    "value_baseline": null,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 34,
+                    "total": 34,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 1.944071712942334,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 34,
+                    "total": 34,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 12.757593777846282,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bullish",
+                    "count": 24,
+                    "total": 862,
+                    "probability": 0.027842227378190254,
+                    "baseline_prob": 0.001160092807424594,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "engulfing",
+                    "outcome": "bearish",
+                    "count": 35,
+                    "total": 862,
+                    "probability": 0.04060324825986079,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "avg_continuation",
+                    "count": 21,
+                    "total": 21,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 1.7807059934393945,
+                    "value_baseline": 6.555524255544122,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "max_continuation",
+                    "count": 21,
+                    "total": 21,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1,
+                    "value": 12.277667401461342,
+                    "value_baseline": 6.555524255544122,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "avg_continuation",
+                    "count": 35,
+                    "total": 35,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 2.5473214435804628,
+                    "value_baseline": null,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "max_continuation",
+                    "count": 35,
+                    "total": 35,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 0,
+                    "value": 24.795255536108932,
+                    "value_baseline": null,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

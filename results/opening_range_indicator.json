@@ -1,0 +1,4263 @@
+{
+  "stat_name": "opening_range_indicator",
+  "title": {
+    "en": "Opening Range Indicator",
+    "fr": "Indicateur du range d'ouverture"
+  },
+  "definition": {
+    "en": "How big is the opening range (the first N minutes of the session) relative to the rest-of-session range, and how strongly are the two correlated?",
+    "fr": "Quelle est la taille du range d'ouverture (les N premières minutes de la séance) par rapport au range du reste de la séance, et à quel point les deux sont-ils corrélés ?"
+  },
+  "labels": {
+    "conditions": {
+      "opening_range": {
+        "en": "Opening range",
+        "fr": "Range d'ouverture"
+      }
+    },
+    "outcomes": {
+      "mean_opening_range": {
+        "en": "Average opening range (points)",
+        "fr": "Range d'ouverture moyen (points)"
+      },
+      "mean_remaining_range": {
+        "en": "Average remaining-session range (points)",
+        "fr": "Range moyen du reste de la séance (points)"
+      },
+      "opening_range_share": {
+        "en": "Opening range as a share of the session range",
+        "fr": "Range d'ouverture en proportion du range de la séance"
+      },
+      "correlation": {
+        "en": "Correlation of opening range with remaining range",
+        "fr": "Corrélation du range d'ouverture avec le range restant"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 46.82571598014775,
+            "value_baseline": 46.82571598014775,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 133.9010161128809,
+            "value_baseline": 133.9010161128809,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.36717716412577706,
+            "value_baseline": 0.36717716412577706,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.7956115073008654,
+            "value_baseline": 0.0026383941234681676,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 48.728156572303966,
+                    "value_baseline": 48.728156572303966,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 125.30492806740196,
+                    "value_baseline": 125.30492806740199,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.39405080078694793,
+                    "value_baseline": 0.39405080078694793,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.7861058262700089,
+                    "value_baseline": 0.040588282328394155,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 45.83046960156251,
+                    "value_baseline": 45.83046960156251,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 128.85976925669647,
+                    "value_baseline": 128.85976925669647,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.36605255836107925,
+                    "value_baseline": 0.36605255836107925,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.8172017401329154,
+                    "value_baseline": -0.010324340342226644,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 43.905782433707884,
+                    "value_baseline": 43.905782433707884,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 139.00432788988763,
+                    "value_baseline": 139.00432788988763,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.3443369443402741,
+                    "value_baseline": 0.3443369443402741,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.7948376550325738,
+                    "value_baseline": -0.001526464886254434,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 47.46206337828573,
+                    "value_baseline": 47.46206337828573,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 141.9802055085714,
+                    "value_baseline": 141.98020550857143,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.35726403992794725,
+                    "value_baseline": 0.35726403992794725,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.7888641536568235,
+                    "value_baseline": -0.036886884964993066,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 48.441255295906416,
+                    "value_baseline": 48.441255295906416,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 133.80759719532162,
+                    "value_baseline": 133.80759719532162,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.3766280863852538,
+                    "value_baseline": 0.3766280863852538,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.8219958666075755,
+                    "value_baseline": -0.009867737019088428,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 46.23771047776846,
+                    "value_baseline": 46.23771047776846,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 123.66237231837246,
+                    "value_baseline": 123.66237231837246,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.3824321348546309,
+                    "value_baseline": 0.3824321348546309,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.8339627981009842,
+                    "value_baseline": 0.023847109922996646,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 47.54532846355238,
+                    "value_baseline": 47.54532846355238,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 146.43126601334703,
+                    "value_baseline": 146.43126601334706,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.3485078364986787,
+                    "value_baseline": 0.3485078364986787,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.7597621569250574,
+                    "value_baseline": 0.003819765934674535,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (-0.00–13.22]",
+                  "fr": "opening_range tranche 1 (-0.00–13.22]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 9.578194829178223,
+                    "value_baseline": 9.578194829178223,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 33.612233115420125,
+                    "value_baseline": 33.612233115420125,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.3217500701934753,
+                    "value_baseline": 0.3217500701934753,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.028629690314923278,
+                    "value_baseline": 0.041481355574085846,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (13.22–26.34]",
+                  "fr": "opening_range tranche 2 (13.22–26.34]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 18.26386588273316,
+                    "value_baseline": 18.26386588273316,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 52.14117826408124,
+                    "value_baseline": 52.14117826408124,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.3922022313989578,
+                    "value_baseline": 0.3922022313989578,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.3030636876382511,
+                    "value_baseline": -0.0023237322755661873,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (26.34–68.75]",
+                  "fr": "opening_range tranche 3 (26.34–68.75]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 45.65175734718374,
+                    "value_baseline": 45.65175734718374,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 146.7612545771007,
+                    "value_baseline": 146.7612545771007,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.3621688734937602,
+                    "value_baseline": 0.3621688734937602,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5008626678755578,
+                    "value_baseline": 0.0013175911897780224,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (68.75–385.92]",
+                  "fr": "opening_range tranche 4 (68.75–385.92]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 113.80904586149586,
+                    "value_baseline": 113.80904586149586,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 303.0893984949215,
+                    "value_baseline": 303.0893984949215,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.39258748141691496,
+                    "value_baseline": 0.39258748141691496,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.47817165715451126,
+                    "value_baseline": 0.020967137050597093,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 60.72497245106187,
+            "value_baseline": 60.72497245106187,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 127.26762661542014,
+            "value_baseline": 127.26762661542014,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.4703229837344977,
+            "value_baseline": 0.4703229837344977,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.7907130782035457,
+            "value_baseline": -0.007616516913162708,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 63.10840206495101,
+                    "value_baseline": 63.10840206495101,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 117.58419239093139,
+                    "value_baseline": 117.58419239093139,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.5046098146583292,
+                    "value_baseline": 0.5046098146583292,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.8385591323477775,
+                    "value_baseline": 0.05410101049373641,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 60.15042465848215,
+                    "value_baseline": 60.15042465848215,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 122.01841517075896,
+                    "value_baseline": 122.01841517075893,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.4713700401000377,
+                    "value_baseline": 0.4713700401000377,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.7938188699593831,
+                    "value_baseline": -0.034753450795023136,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 56.46717494494383,
+                    "value_baseline": 56.46717494494383,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 133.8101152280899,
+                    "value_baseline": 133.8101152280899,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.43941987755546974,
+                    "value_baseline": 0.43941987755546974,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.7489417557506131,
+                    "value_baseline": -0.006833396962496988,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 62.18522475657142,
+                    "value_baseline": 62.18522475657142,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 135.06407578742858,
+                    "value_baseline": 135.06407578742858,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.45938316305698046,
+                    "value_baseline": 0.45938316305698046,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.8004343145020101,
+                    "value_baseline": -0.0431546543911674,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 61.99004294269003,
+                    "value_baseline": 61.99004294269003,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 127.2211563122807,
+                    "value_baseline": 127.2211563122807,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.4798667159623247,
+                    "value_baseline": 0.4798667159623247,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.8183012569934374,
+                    "value_baseline": -0.013357399064960527,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 59.36132660864095,
+                    "value_baseline": 59.36132660864095,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 117.01281241526847,
+                    "value_baseline": 117.01281241526847,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.4855642438445111,
+                    "value_baseline": 0.4855642438445111,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.8217527554937651,
+                    "value_baseline": 0.01766308283741439,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 62.39382855390143,
+                    "value_baseline": 62.39382855390143,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 139.8176661704312,
+                    "value_baseline": 139.8176661704312,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.45167043542737667,
+                    "value_baseline": 0.45167043542737667,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.7623903269248449,
+                    "value_baseline": 0.008447209510043146,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (4.36–17.10]",
+                  "fr": "opening_range tranche 1 (4.36–17.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 12.41058693444138,
+                    "value_baseline": 12.41058693444138,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 31.453158002770063,
+                    "value_baseline": 31.453158002770063,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.42009431184049034,
+                    "value_baseline": 0.42009431184049034,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.24452339453828123,
+                    "value_baseline": -0.0055054760627177325,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (17.10–33.57]",
+                  "fr": "opening_range tranche 2 (17.10–33.57]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 23.65538725577101,
+                    "value_baseline": 23.65538725577101,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 49.584243638965845,
+                    "value_baseline": 49.584243638965845,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5006469277994816,
+                    "value_baseline": 0.5006469277994816,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.2898039649969843,
+                    "value_baseline": -0.001019127472027874,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (33.57–89.96]",
+                  "fr": "opening_range tranche 3 (33.57–89.96]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 58.69996579224374,
+                    "value_baseline": 58.69996579224374,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 141.93554695844878,
+                    "value_baseline": 141.93554695844878,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.45859952292148026,
+                    "value_baseline": 0.45859952292148026,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5015384839799477,
+                    "value_baseline": 0.039687979543422174,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (89.96–647.05]",
+                  "fr": "opening_range tranche 4 (89.96–647.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 148.13394982179136,
+                    "value_baseline": 148.13394982179136,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 286.09755786149583,
+                    "value_baseline": 286.0975578614959,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5019511723765385,
+                    "value_baseline": 0.5019511723765385,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.4824959118880348,
+                    "value_baseline": -0.01471501199234568,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 79.25132424838412,
+            "value_baseline": 79.25132424838412,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 116.13439849746077,
+            "value_baseline": 116.13439849746077,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.6011552838015984,
+            "value_baseline": 0.6011552838015984,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.7490460730942463,
+            "value_baseline": -0.003968033942788409,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 80.11621550857845,
+                    "value_baseline": 80.11621550857845,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 107.35443399877457,
+                    "value_baseline": 107.35443399877455,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.6297740418927568,
+                    "value_baseline": 0.6297740418927568,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.7386645064936516,
+                    "value_baseline": 0.07357495674406493,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 78.38995760714285,
+                    "value_baseline": 78.38995760714285,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 110.3853496651786,
+                    "value_baseline": 110.3853496651786,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.6006106474757097,
+                    "value_baseline": 0.6006106474757097,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.7885468250050164,
+                    "value_baseline": -0.035087285415843314,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 74.12875370337082,
+                    "value_baseline": 74.12875370337082,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 123.57061610561799,
+                    "value_baseline": 123.57061610561799,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.5707387806053984,
+                    "value_baseline": 0.5707387806053984,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.7065495753481912,
+                    "value_baseline": -0.0011868161613381358,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 81.61092016685714,
+                    "value_baseline": 81.61092016685714,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 124.41586267885714,
+                    "value_baseline": 124.41586267885715,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.593657313115999,
+                    "value_baseline": 0.593657313115999,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.7872668785010495,
+                    "value_baseline": -0.04780784395897121,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 82.24603138128653,
+                    "value_baseline": 82.24603138128653,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 114.32280078362571,
+                    "value_baseline": 114.32280078362571,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.6137476811584741,
+                    "value_baseline": 0.6137476811584741,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.8006279053894115,
+                    "value_baseline": -0.010498321831021533,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 76.5246321979866,
+                    "value_baseline": 76.5246321979866,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 106.15281497776844,
+                    "value_baseline": 106.15281497776844,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.6139939817805533,
+                    "value_baseline": 0.6139939817805533,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.7572372151209379,
+                    "value_baseline": 0.004109529793431203,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 82.58830260985626,
+                    "value_baseline": 82.58830260985626,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 128.35005307186862,
+                    "value_baseline": 128.3500530718686,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.585443037404356,
+                    "value_baseline": 0.585443037404356,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.7449933731219032,
+                    "value_baseline": 0.0003041138523155873,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (5.79–22.29]",
+                  "fr": "opening_range tranche 1 (5.79–22.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 16.25910696952909,
+                    "value_baseline": 16.25910696952909,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 28.72964580701753,
+                    "value_baseline": 28.729645807017533,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5567777588279569,
+                    "value_baseline": 0.5567777588279569,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.26360225432934375,
+                    "value_baseline": 0.04381890020687432,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (22.29–43.29]",
+                  "fr": "opening_range tranche 2 (22.29–43.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 30.30973809048938,
+                    "value_baseline": 30.30973809048938,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 45.37147361218837,
+                    "value_baseline": 45.37147361218837,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.6270008293910083,
+                    "value_baseline": 0.6270008293910083,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.31185179198559543,
+                    "value_baseline": 0.032636148884043065,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (43.29–117.54]",
+                  "fr": "opening_range tranche 3 (43.29–117.54]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 76.08547101846722,
+                    "value_baseline": 76.08547101846722,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 130.2179305401662,
+                    "value_baseline": 130.2179305401662,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.5849462033500433,
+                    "value_baseline": 0.5849462033500433,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.4626645432718859,
+                    "value_baseline": -0.026883376535300613,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (117.54–1753.88]",
+                  "fr": "opening_range tranche 4 (117.54–1753.88]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 194.35098091505083,
+                    "value_baseline": 194.35098091505083,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 260.218544030471,
+                    "value_baseline": 260.218544030471,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.6358963436373853,
+                    "value_baseline": 0.6358963436373853,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1083,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": 0.41495622580611735,
+                    "value_baseline": 0.058191110189831294,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 10.304350453336385,
+            "value_baseline": 10.304350453336385,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 34.788423530153636,
+            "value_baseline": 34.78842353015363,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.3236667536627152,
+            "value_baseline": 0.3236667536627152,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.7567082828016153,
+            "value_baseline": 0.022315099247752858,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 10.358379098780487,
+                    "value_baseline": 10.358379098780487,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 31.834078256097545,
+                    "value_baseline": 31.834078256097545,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.3527858990332941,
+                    "value_baseline": 0.3527858990332941,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.7332327906373617,
+                    "value_baseline": 0.14052793408836506,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 9.909862941176476,
+                    "value_baseline": 9.909862941176476,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 33.49991044617093,
+                    "value_baseline": 33.49991044617093,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.3178643360024088,
+                    "value_baseline": 0.3178643360024088,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.7805064757874598,
+                    "value_baseline": -0.03161994047356061,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 9.724289684503894,
+                    "value_baseline": 9.724289684503894,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 36.115528838350045,
+                    "value_baseline": 36.115528838350045,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.30310808170924697,
+                    "value_baseline": 0.30310808170924697,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.752831615339769,
+                    "value_baseline": -0.010766425989452533,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 10.474371263337101,
+                    "value_baseline": 10.474371263337101,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 37.07185799999999,
+                    "value_baseline": 37.07185799999999,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.3095179058055101,
+                    "value_baseline": 0.3095179058055101,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.7284066580693,
+                    "value_baseline": -0.051194199413909944,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 11.09513460092807,
+                    "value_baseline": 11.09513460092807,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 35.23087617981437,
+                    "value_baseline": 35.23087617981437,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.3378854808234113,
+                    "value_baseline": 0.3378854808234113,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.8085398339361384,
+                    "value_baseline": 0.034520224382399704,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 10.268773696680498,
+                    "value_baseline": 10.268773696680498,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 32.1582415352697,
+                    "value_baseline": 32.1582415352697,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.3370956504390483,
+                    "value_baseline": 0.3370956504390483,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.8094057539777674,
+                    "value_baseline": -0.023050431727330983,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 10.348297138903115,
+                    "value_baseline": 10.348297138903115,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 38.03739257560225,
+                    "value_baseline": 38.03739257560225,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.30707852135571223,
+                    "value_baseline": 0.30707852135571223,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.7064768629275325,
+                    "value_baseline": 0.01867302663887466,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (-0.00–4.57]",
+                  "fr": "opening_range tranche 1 (-0.00–4.57]"
+                },
+                "total_samples": 1093,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1093,
+                    "total": 1093,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1093,
+                    "value": 3.5238233385178375,
+                    "value_baseline": 3.5238233385178375,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1093,
+                    "total": 1093,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1093,
+                    "value": 13.828114534309236,
+                    "value_baseline": 13.828114534309238,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1093,
+                    "total": 1093,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1093,
+                    "value": 0.29501912816594517,
+                    "value_baseline": 0.29501912816594517,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1093,
+                    "total": 1093,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1093,
+                    "value": 0.040618086310507416,
+                    "value_baseline": -0.00041544730199552553,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (4.57–7.16]",
+                  "fr": "opening_range tranche 2 (4.57–7.16]"
+                },
+                "total_samples": 1088,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1088,
+                    "total": 1088,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1088,
+                    "value": 5.7651813115808785,
+                    "value_baseline": 5.7651813115808785,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1088,
+                    "total": 1088,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1088,
+                    "value": 19.907505778492638,
+                    "value_baseline": 19.907505778492638,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1088,
+                    "total": 1088,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1088,
+                    "value": 0.3317966953895607,
+                    "value_baseline": 0.3317966953895607,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1088,
+                    "total": 1088,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1088,
+                    "value": 0.25689018300069155,
+                    "value_baseline": 0.0046858702531658615,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (7.16–12.83]",
+                  "fr": "opening_range tranche 3 (7.16–12.83]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 9.63151554220182,
+                    "value_baseline": 9.63151554220182,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 35.52069956605504,
+                    "value_baseline": 35.52069956605505,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.3221656239244334,
+                    "value_baseline": 0.3221656239244334,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.28307562198711483,
+                    "value_baseline": 0.040016682635854735,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (12.83–90.72]",
+                  "fr": "opening_range tranche 4 (12.83–90.72]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 22.307214871559637,
+                    "value_baseline": 22.307214871559637,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 69.92775872935778,
+                    "value_baseline": 69.92775872935778,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.34577933117087023,
+                    "value_baseline": 0.34577933117087023,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.5757282923516129,
+                    "value_baseline": 0.015683129085993668,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 13.67362768424673,
+            "value_baseline": 13.67362768424673,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 33.437221542765414,
+            "value_baseline": 33.437221542765414,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.4216557440191993,
+            "value_baseline": 0.4216557440191993,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.7596412006181781,
+            "value_baseline": 0.018608936163459724,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 13.862275236585367,
+                    "value_baseline": 13.862275236585367,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 30.326310849999995,
+                    "value_baseline": 30.326310849999995,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.4567132919428653,
+                    "value_baseline": 0.4567132919428653,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.7946147151167198,
+                    "value_baseline": 0.0961117396326405,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 13.385615619311885,
+                    "value_baseline": 13.385615619311885,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 32.05348366148724,
+                    "value_baseline": 32.05348366148724,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.418453187821285,
+                    "value_baseline": 0.418453187821285,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.7585205450017971,
+                    "value_baseline": -0.03444821003719931,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 12.71454728539576,
+                    "value_baseline": 12.71454728539576,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 35.10285538684502,
+                    "value_baseline": 35.10285538684502,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.39288646021106977,
+                    "value_baseline": 0.39288646021106977,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.7350148399497951,
+                    "value_baseline": -0.017554115097256566,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 14.239245240635633,
+                    "value_baseline": 14.239245240635633,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 35.60592317026106,
+                    "value_baseline": 35.605923170261065,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.4126737945572155,
+                    "value_baseline": 0.4126737945572155,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.752968288667239,
+                    "value_baseline": -0.03843230221776611,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 14.215151962877014,
+                    "value_baseline": 14.215151962877014,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 33.89313210788862,
+                    "value_baseline": 33.89313210788862,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.4307711255607476,
+                    "value_baseline": 0.4307711255607476,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.8089294154293717,
+                    "value_baseline": 0.0273913912488268,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 13.486379833609961,
+                    "value_baseline": 13.486379833609961,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 30.731071518672188,
+                    "value_baseline": 30.731071518672195,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.4357538134801216,
+                    "value_baseline": 0.4357538134801216,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.8027009635054633,
+                    "value_baseline": -0.022715467243086707,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 13.904928207073285,
+                    "value_baseline": 13.904928207073285,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 36.780031157355204,
+                    "value_baseline": 36.780031157355204,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.40424090680709124,
+                    "value_baseline": 0.40424090680709124,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.7194899431825221,
+                    "value_baseline": 0.013373857508128112,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (1.54–5.99]",
+                  "fr": "opening_range tranche 1 (1.54–5.99]"
+                },
+                "total_samples": 1091,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1091,
+                    "total": 1091,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1091,
+                    "value": 4.586199627864341,
+                    "value_baseline": 4.586199627864341,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1091,
+                    "total": 1091,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1091,
+                    "value": 12.858464706691107,
+                    "value_baseline": 12.858464706691105,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1091,
+                    "total": 1091,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1091,
+                    "value": 0.3913232316487459,
+                    "value_baseline": 0.3913232316487459,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1091,
+                    "total": 1091,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1091,
+                    "value": 0.19984024111562135,
+                    "value_baseline": -0.032473095930240205,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (5.99–9.32]",
+                  "fr": "opening_range tranche 2 (5.99–9.32]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 7.530472182568811,
+                    "value_baseline": 7.530472182568811,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 19.26882067522936,
+                    "value_baseline": 19.268820675229357,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.4284136837618771,
+                    "value_baseline": 0.4284136837618771,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.17276094747725668,
+                    "value_baseline": 0.006964721120364737,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (9.32–17.13]",
+                  "fr": "opening_range tranche 3 (9.32–17.13]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 12.56380101376146,
+                    "value_baseline": 12.56380101376146,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 34.85058768807339,
+                    "value_baseline": 34.85058768807338,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.41201816418429943,
+                    "value_baseline": 0.41201816418429943,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.31142323592663834,
+                    "value_baseline": 0.022700598863897657,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (17.13–179.73]",
+                  "fr": "opening_range tranche 4 (17.13–179.73]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 30.02237500275229,
+                    "value_baseline": 30.02237500275229,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 66.7898926944954,
+                    "value_baseline": 66.78989269449538,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.4548957244748752,
+                    "value_baseline": 0.4548957244748752,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.5916514007601363,
+                    "value_baseline": -0.023504844946828838,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "opening_range",
+            "outcome": "mean_opening_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 18.41805735771612,
+            "value_baseline": 18.41805735771612,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "mean_remaining_range",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 30.905845008942904,
+            "value_baseline": 30.905845008942904,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "opening_range_share",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.5550057829691831,
+            "value_baseline": 0.5550057829691831,
+            "agg": "mean"
+          },
+          {
+            "condition": "opening_range",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.7164290790116578,
+            "value_baseline": 0.024063907666774603,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 18.36240515731708,
+                    "value_baseline": 18.36240515731708,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 28.021654684146327,
+                    "value_baseline": 28.02165468414633,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.5852400175630414,
+                    "value_baseline": 0.5852400175630414,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.7146690524657069,
+                    "value_baseline": 0.061568203478941305,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 18.165305981132082,
+                    "value_baseline": 18.165305981132082,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 29.259096621531647,
+                    "value_baseline": 29.259096621531647,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.5584666472775706,
+                    "value_baseline": 0.5584666472775706,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.7608540395540613,
+                    "value_baseline": -0.04801247096592889,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 17.00091214715719,
+                    "value_baseline": 17.00091214715719,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 32.93424730657748,
+                    "value_baseline": 32.93424730657748,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.5189368518796776,
+                    "value_baseline": 0.5189368518796776,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.7011769765249422,
+                    "value_baseline": -0.005474570561160983,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 19.151256825198637,
+                    "value_baseline": 19.151256825198637,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 33.161171337116905,
+                    "value_baseline": 33.161171337116905,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.5463542486088306,
+                    "value_baseline": 0.5463542486088306,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.7393252563956305,
+                    "value_baseline": -0.057504079693035844,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 19.460510162412987,
+                    "value_baseline": 19.460510162412987,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 30.954959866589324,
+                    "value_baseline": 30.95495986658932,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.569002908085118,
+                    "value_baseline": 0.569002908085118,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.7778364485729667,
+                    "value_baseline": 0.029176895832848812,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 17.939224712448134,
+                    "value_baseline": 17.939224712448134,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 28.193311247717844,
+                    "value_baseline": 28.193311247717844,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.5684657098685996,
+                    "value_baseline": 0.5684657098685996,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.7187106364809878,
+                    "value_baseline": -0.01560282824250039,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 19.009542070732962,
+                    "value_baseline": 19.009542070732962,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 34.2565402239877,
+                    "value_baseline": 34.256540223987706,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.5383792202692373,
+                    "value_baseline": 0.5383792202692373,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.7244094189671731,
+                    "value_baseline": 0.020602075162808653,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_range bin 1 (2.08–7.96]",
+                  "fr": "opening_range tranche 1 (2.08–7.96]"
+                },
+                "total_samples": 1092,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1092,
+                    "total": 1092,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1092,
+                    "value": 6.028907913003666,
+                    "value_baseline": 6.028907913003666,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1092,
+                    "total": 1092,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1092,
+                    "value": 12.206483688644683,
+                    "value_baseline": 12.206483688644683,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1092,
+                    "total": 1092,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1092,
+                    "value": 0.5166691389634894,
+                    "value_baseline": 0.5166691389634894,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1092,
+                    "total": 1092,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1092,
+                    "value": 0.24573482835406216,
+                    "value_baseline": 0.011343962319593861,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_range bin 2 (7.96–12.36]",
+                  "fr": "opening_range tranche 2 (7.96–12.36]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 9.907518024770646,
+                    "value_baseline": 9.907518024770646,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 17.353280398165143,
+                    "value_baseline": 17.35328039816514,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.5628984381059241,
+                    "value_baseline": 0.5628984381059241,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.243597569671028,
+                    "value_baseline": 0.029841093614302826,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_range bin 3 (12.36–23.33]",
+                  "fr": "opening_range tranche 3 (12.36–23.33]"
+                },
+                "total_samples": 1089,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1089,
+                    "total": 1089,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1089,
+                    "value": 17.037523528925618,
+                    "value_baseline": 17.037523528925618,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1089,
+                    "total": 1089,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1089,
+                    "value": 32.02239096051424,
+                    "value_baseline": 32.02239096051424,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1089,
+                    "total": 1089,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1089,
+                    "value": 0.5449174411962858,
+                    "value_baseline": 0.5449174411962858,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1089,
+                    "total": 1089,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1089,
+                    "value": 0.36589251784970994,
+                    "value_baseline": -0.0037221950293641367,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_range bin 4 (23.33–433.67]",
+                  "fr": "opening_range tranche 4 (23.33–433.67]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_opening_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 40.71974580366973,
+                    "value_baseline": 40.71974580366973,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "mean_remaining_range",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 62.0765600972477,
+                    "value_baseline": 62.0765600972477,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "opening_range_share",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.5955992007176738,
+                    "value_baseline": 0.5955992007176738,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "opening_range",
+                    "outcome": "correlation",
+                    "count": 1090,
+                    "total": 1090,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1090,
+                    "value": 0.48769467408019207,
+                    "value_baseline": -0.034609954600229705,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

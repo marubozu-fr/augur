@@ -1,0 +1,4981 @@
+{
+  "stat_name": "opening_range_breakout",
+  "title": {
+    "en": "Opening Range Breakout",
+    "fr": "Cassure du range d'ouverture"
+  },
+  "definition": {
+    "en": "After the opening range forms from the first N minutes of the session, how often does price break above the range high, below the range low, both sides, or neither during the rest of the session?",
+    "fr": "Après la formation du range d'ouverture sur les N premières minutes de la session, à quelle fréquence le prix casse-t-il au-dessus du haut du range, en-dessous du bas du range, des deux côtés, ou ni l'un ni l'autre pendant le reste de la séance ?"
+  },
+  "labels": {
+    "conditions": {
+      "orb": {
+        "en": "Opening range",
+        "fr": "Range d'ouverture"
+      }
+    },
+    "outcomes": {
+      "broke_high": {
+        "en": "Broke above range high only",
+        "fr": "Cassure au-dessus du haut du range uniquement"
+      },
+      "broke_low": {
+        "en": "Broke below range low only",
+        "fr": "Cassure en-dessous du bas du range uniquement"
+      },
+      "broke_both": {
+        "en": "Broke both sides",
+        "fr": "Cassure des deux côtés"
+      },
+      "neither": {
+        "en": "Stayed within the range",
+        "fr": "Resté dans le range"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 1085,
+            "total": 4332,
+            "probability": 0.2504616805170822,
+            "baseline_prob": 0.21791320406278855,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 921,
+            "total": 4332,
+            "probability": 0.2126038781163435,
+            "baseline_prob": 0.2435364727608495,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 2322,
+            "total": 4332,
+            "probability": 0.53601108033241,
+            "baseline_prob": 0.5376269621421976,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 4,
+            "total": 4332,
+            "probability": 0.0009233610341643582,
+            "baseline_prob": 0.0009233610341643582,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 250,
+                    "total": 816,
+                    "probability": 0.30637254901960786,
+                    "baseline_prob": 0.27205882352941174,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 164,
+                    "total": 816,
+                    "probability": 0.20098039215686275,
+                    "baseline_prob": 0.23529411764705882,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 402,
+                    "total": 816,
+                    "probability": 0.49264705882352944,
+                    "baseline_prob": 0.49264705882352944,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 229,
+                    "total": 896,
+                    "probability": 0.25558035714285715,
+                    "baseline_prob": 0.21428571428571427,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 176,
+                    "total": 896,
+                    "probability": 0.19642857142857142,
+                    "baseline_prob": 0.23549107142857142,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 490,
+                    "total": 896,
+                    "probability": 0.546875,
+                    "baseline_prob": 0.5491071428571429,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 896,
+                    "probability": 0.0011160714285714285,
+                    "baseline_prob": 0.0011160714285714285,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 188,
+                    "total": 890,
+                    "probability": 0.21123595505617979,
+                    "baseline_prob": 0.18651685393258427,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 179,
+                    "total": 890,
+                    "probability": 0.20112359550561798,
+                    "baseline_prob": 0.22359550561797753,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 523,
+                    "total": 890,
+                    "probability": 0.5876404494382023,
+                    "baseline_prob": 0.5898876404494382,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 201,
+                    "total": 875,
+                    "probability": 0.2297142857142857,
+                    "baseline_prob": 0.22628571428571428,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 198,
+                    "total": 875,
+                    "probability": 0.22628571428571428,
+                    "baseline_prob": 0.22857142857142856,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 474,
+                    "total": 875,
+                    "probability": 0.5417142857142857,
+                    "baseline_prob": 0.5428571428571428,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 875,
+                    "probability": 0.002285714285714286,
+                    "baseline_prob": 0.002285714285714286,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 217,
+                    "total": 855,
+                    "probability": 0.25380116959064325,
+                    "baseline_prob": 0.25380116959064325,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 204,
+                    "total": 855,
+                    "probability": 0.23859649122807017,
+                    "baseline_prob": 0.23508771929824562,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 433,
+                    "total": 855,
+                    "probability": 0.5064327485380117,
+                    "baseline_prob": 0.5099415204678363,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 855,
+                    "probability": 0.0011695906432748538,
+                    "baseline_prob": 0.0011695906432748538,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 1041,
+                    "total": 2384,
+                    "probability": 0.43666107382550334,
+                    "baseline_prob": 0.2231543624161074,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 38,
+                    "total": 2384,
+                    "probability": 0.015939597315436243,
+                    "baseline_prob": 0.22651006711409397,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1303,
+                    "total": 2384,
+                    "probability": 0.5465604026845637,
+                    "baseline_prob": 0.549496644295302,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 2384,
+                    "probability": 0.0008389261744966443,
+                    "baseline_prob": 0.0008389261744966443,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 44,
+                    "total": 1948,
+                    "probability": 0.022587268993839837,
+                    "baseline_prob": 0.23049281314168377,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 883,
+                    "total": 1948,
+                    "probability": 0.45328542094455854,
+                    "baseline_prob": 0.2433264887063655,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1019,
+                    "total": 1948,
+                    "probability": 0.5231006160164271,
+                    "baseline_prob": 0.5251540041067762,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1948,
+                    "probability": 0.001026694045174538,
+                    "baseline_prob": 0.001026694045174538,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 602,
+                    "total": 2383,
+                    "probability": 0.2526227444397818,
+                    "baseline_prob": 0.24464960134284516,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 537,
+                    "total": 2383,
+                    "probability": 0.2253462022660512,
+                    "baseline_prob": 0.23080151070079732,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1242,
+                    "total": 2383,
+                    "probability": 0.5211917750734368,
+                    "baseline_prob": 0.5237096097356274,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 2383,
+                    "probability": 0.000839278220730172,
+                    "baseline_prob": 0.000839278220730172,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 483,
+                    "total": 1948,
+                    "probability": 0.24794661190965092,
+                    "baseline_prob": 0.2202258726899384,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 384,
+                    "total": 1948,
+                    "probability": 0.1971252566735113,
+                    "baseline_prob": 0.22433264887063656,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1079,
+                    "total": 1948,
+                    "probability": 0.5539014373716632,
+                    "baseline_prob": 0.5544147843942505,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1948,
+                    "probability": 0.001026694045174538,
+                    "baseline_prob": 0.001026694045174538,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (-0.00–13.22]",
+                  "fr": "orb_size tranche 1 (-0.00–13.22]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 234,
+                    "total": 1083,
+                    "probability": 0.21606648199445982,
+                    "baseline_prob": 0.20683287165281625,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 207,
+                    "total": 1083,
+                    "probability": 0.19113573407202217,
+                    "baseline_prob": 0.1948291782086796,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 642,
+                    "total": 1083,
+                    "probability": 0.592797783933518,
+                    "baseline_prob": 0.5983379501385041,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (13.22–26.34]",
+                  "fr": "orb_size tranche 2 (13.22–26.34]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 289,
+                    "total": 1083,
+                    "probability": 0.26685133887349954,
+                    "baseline_prob": 0.25115420129270544,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 232,
+                    "total": 1083,
+                    "probability": 0.21421975992613113,
+                    "baseline_prob": 0.22807017543859648,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 558,
+                    "total": 1083,
+                    "probability": 0.5152354570637119,
+                    "baseline_prob": 0.5170821791320406,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 1083,
+                    "probability": 0.003693444136657433,
+                    "baseline_prob": 0.003693444136657433,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (26.34–68.75]",
+                  "fr": "orb_size tranche 3 (26.34–68.75]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 277,
+                    "total": 1083,
+                    "probability": 0.25577100646352724,
+                    "baseline_prob": 0.247460757156048,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 227,
+                    "total": 1083,
+                    "probability": 0.20960295475530932,
+                    "baseline_prob": 0.21791320406278855,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 579,
+                    "total": 1083,
+                    "probability": 0.5346260387811634,
+                    "baseline_prob": 0.5346260387811634,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (68.75–385.92]",
+                  "fr": "orb_size tranche 4 (68.75–385.92]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 285,
+                    "total": 1083,
+                    "probability": 0.2631578947368421,
+                    "baseline_prob": 0.24469067405355494,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 255,
+                    "total": 1083,
+                    "probability": 0.23545706371191136,
+                    "baseline_prob": 0.25392428439519854,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 543,
+                    "total": 1083,
+                    "probability": 0.5013850415512465,
+                    "baseline_prob": 0.5013850415512465,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1083,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 1397,
+            "total": 4332,
+            "probability": 0.3224838411819021,
+            "baseline_prob": 0.28624192059095105,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 1165,
+            "total": 4332,
+            "probability": 0.26892890120036933,
+            "baseline_prob": 0.3047091412742382,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 1748,
+            "total": 4332,
+            "probability": 0.40350877192982454,
+            "baseline_prob": 0.4039704524469067,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 22,
+            "total": 4332,
+            "probability": 0.0050784856879039705,
+            "baseline_prob": 0.0050784856879039705,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 294,
+                    "total": 816,
+                    "probability": 0.3602941176470588,
+                    "baseline_prob": 0.32965686274509803,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 202,
+                    "total": 816,
+                    "probability": 0.24754901960784315,
+                    "baseline_prob": 0.27818627450980393,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 313,
+                    "total": 816,
+                    "probability": 0.38357843137254904,
+                    "baseline_prob": 0.38357843137254904,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 816,
+                    "probability": 0.00857843137254902,
+                    "baseline_prob": 0.00857843137254902,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 295,
+                    "total": 896,
+                    "probability": 0.32924107142857145,
+                    "baseline_prob": 0.29017857142857145,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 234,
+                    "total": 896,
+                    "probability": 0.2611607142857143,
+                    "baseline_prob": 0.29910714285714285,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 364,
+                    "total": 896,
+                    "probability": 0.40625,
+                    "baseline_prob": 0.40736607142857145,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 896,
+                    "probability": 0.0033482142857142855,
+                    "baseline_prob": 0.0033482142857142855,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 251,
+                    "total": 890,
+                    "probability": 0.28202247191011237,
+                    "baseline_prob": 0.24943820224719102,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 233,
+                    "total": 890,
+                    "probability": 0.26179775280898876,
+                    "baseline_prob": 0.2943820224719101,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 404,
+                    "total": 890,
+                    "probability": 0.45393258426966293,
+                    "baseline_prob": 0.45393258426966293,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 890,
+                    "probability": 0.0022471910112359553,
+                    "baseline_prob": 0.0022471910112359553,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 270,
+                    "total": 875,
+                    "probability": 0.30857142857142855,
+                    "baseline_prob": 0.29028571428571426,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 237,
+                    "total": 875,
+                    "probability": 0.27085714285714285,
+                    "baseline_prob": 0.28914285714285715,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 363,
+                    "total": 875,
+                    "probability": 0.41485714285714287,
+                    "baseline_prob": 0.41485714285714287,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 875,
+                    "probability": 0.005714285714285714,
+                    "baseline_prob": 0.005714285714285714,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 287,
+                    "total": 855,
+                    "probability": 0.33567251461988307,
+                    "baseline_prob": 0.3345029239766082,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 259,
+                    "total": 855,
+                    "probability": 0.30292397660818715,
+                    "baseline_prob": 0.30292397660818715,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 304,
+                    "total": 855,
+                    "probability": 0.35555555555555557,
+                    "baseline_prob": 0.3567251461988304,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 855,
+                    "probability": 0.005847953216374269,
+                    "baseline_prob": 0.005847953216374269,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 1323,
+                    "total": 2384,
+                    "probability": 0.5549496644295302,
+                    "baseline_prob": 0.28691275167785235,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 84,
+                    "total": 2384,
+                    "probability": 0.03523489932885906,
+                    "baseline_prob": 0.3024328859060403,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 969,
+                    "total": 2384,
+                    "probability": 0.40645973154362414,
+                    "baseline_prob": 0.4072986577181208,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 2384,
+                    "probability": 0.003355704697986577,
+                    "baseline_prob": 0.003355704697986577,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 74,
+                    "total": 1948,
+                    "probability": 0.037987679671457907,
+                    "baseline_prob": 0.29312114989733057,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 1081,
+                    "total": 1948,
+                    "probability": 0.5549281314168378,
+                    "baseline_prob": 0.29928131416837783,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 779,
+                    "total": 1948,
+                    "probability": 0.39989733059548255,
+                    "baseline_prob": 0.4004106776180698,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 14,
+                    "total": 1948,
+                    "probability": 0.007186858316221766,
+                    "baseline_prob": 0.007186858316221766,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 763,
+                    "total": 2383,
+                    "probability": 0.32018464120856066,
+                    "baseline_prob": 0.30046160302140157,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 652,
+                    "total": 2383,
+                    "probability": 0.2736046999580361,
+                    "baseline_prob": 0.29164918170373477,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 955,
+                    "total": 2383,
+                    "probability": 0.4007553503986572,
+                    "baseline_prob": 0.4024339068401175,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 2383,
+                    "probability": 0.005455308434746118,
+                    "baseline_prob": 0.005455308434746118,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 634,
+                    "total": 1948,
+                    "probability": 0.32546201232032856,
+                    "baseline_prob": 0.2879876796714579,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 513,
+                    "total": 1948,
+                    "probability": 0.263347022587269,
+                    "baseline_prob": 0.3008213552361396,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 792,
+                    "total": 1948,
+                    "probability": 0.406570841889117,
+                    "baseline_prob": 0.406570841889117,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 1948,
+                    "probability": 0.004620123203285421,
+                    "baseline_prob": 0.004620123203285421,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (4.36–17.10]",
+                  "fr": "orb_size tranche 1 (4.36–17.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 314,
+                    "total": 1083,
+                    "probability": 0.2899353647276085,
+                    "baseline_prob": 0.2760849492151431,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 261,
+                    "total": 1083,
+                    "probability": 0.2409972299168975,
+                    "baseline_prob": 0.2530009233610342,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 506,
+                    "total": 1083,
+                    "probability": 0.46722068328716526,
+                    "baseline_prob": 0.469067405355494,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1083,
+                    "probability": 0.0018467220683287165,
+                    "baseline_prob": 0.0018467220683287165,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (17.10–33.57]",
+                  "fr": "orb_size tranche 2 (17.10–33.57]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 367,
+                    "total": 1083,
+                    "probability": 0.33887349953831947,
+                    "baseline_prob": 0.2807017543859649,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 289,
+                    "total": 1083,
+                    "probability": 0.26685133887349954,
+                    "baseline_prob": 0.3250230840258541,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 416,
+                    "total": 1083,
+                    "probability": 0.38411819021237303,
+                    "baseline_prob": 0.38411819021237303,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 11,
+                    "total": 1083,
+                    "probability": 0.010156971375807941,
+                    "baseline_prob": 0.010156971375807941,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (33.57–89.96]",
+                  "fr": "orb_size tranche 3 (33.57–89.96]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 344,
+                    "total": 1083,
+                    "probability": 0.31763619575253926,
+                    "baseline_prob": 0.29362880886426596,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 282,
+                    "total": 1083,
+                    "probability": 0.26038781163434904,
+                    "baseline_prob": 0.28439519852262235,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 451,
+                    "total": 1083,
+                    "probability": 0.4164358264081256,
+                    "baseline_prob": 0.4164358264081256,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 1083,
+                    "probability": 0.00554016620498615,
+                    "baseline_prob": 0.00554016620498615,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (89.96–647.05]",
+                  "fr": "orb_size tranche 4 (89.96–647.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 372,
+                    "total": 1083,
+                    "probability": 0.34349030470914127,
+                    "baseline_prob": 0.31486611265004616,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 333,
+                    "total": 1083,
+                    "probability": 0.3074792243767313,
+                    "baseline_prob": 0.3361034164358264,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 375,
+                    "total": 1083,
+                    "probability": 0.3462603878116344,
+                    "baseline_prob": 0.3462603878116344,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 1083,
+                    "probability": 0.002770083102493075,
+                    "baseline_prob": 0.002770083102493075,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 1745,
+            "total": 4332,
+            "probability": 0.4028162511542013,
+            "baseline_prob": 0.3490304709141274,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 1384,
+            "total": 4332,
+            "probability": 0.31948291782086796,
+            "baseline_prob": 0.3734995383194829,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 1033,
+            "total": 4332,
+            "probability": 0.23845798707294552,
+            "baseline_prob": 0.23845798707294552,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 170,
+            "total": 4332,
+            "probability": 0.039242843951985226,
+            "baseline_prob": 0.03901200369344414,
+            "baseline_n": 4332,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 353,
+                    "total": 816,
+                    "probability": 0.4325980392156863,
+                    "baseline_prob": 0.3958333333333333,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 260,
+                    "total": 816,
+                    "probability": 0.31862745098039214,
+                    "baseline_prob": 0.3553921568627451,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 165,
+                    "total": 816,
+                    "probability": 0.20220588235294118,
+                    "baseline_prob": 0.20220588235294118,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 38,
+                    "total": 816,
+                    "probability": 0.04656862745098039,
+                    "baseline_prob": 0.04656862745098039,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 356,
+                    "total": 896,
+                    "probability": 0.39732142857142855,
+                    "baseline_prob": 0.34598214285714285,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 281,
+                    "total": 896,
+                    "probability": 0.31361607142857145,
+                    "baseline_prob": 0.3638392857142857,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 222,
+                    "total": 896,
+                    "probability": 0.24776785714285715,
+                    "baseline_prob": 0.24888392857142858,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 37,
+                    "total": 896,
+                    "probability": 0.041294642857142856,
+                    "baseline_prob": 0.041294642857142856,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 335,
+                    "total": 890,
+                    "probability": 0.37640449438202245,
+                    "baseline_prob": 0.32247191011235954,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 276,
+                    "total": 890,
+                    "probability": 0.3101123595505618,
+                    "baseline_prob": 0.36404494382022473,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 256,
+                    "total": 890,
+                    "probability": 0.2876404494382023,
+                    "baseline_prob": 0.2876404494382023,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 23,
+                    "total": 890,
+                    "probability": 0.025842696629213482,
+                    "baseline_prob": 0.025842696629213482,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 349,
+                    "total": 875,
+                    "probability": 0.39885714285714285,
+                    "baseline_prob": 0.35428571428571426,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 273,
+                    "total": 875,
+                    "probability": 0.312,
+                    "baseline_prob": 0.3565714285714286,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 221,
+                    "total": 875,
+                    "probability": 0.25257142857142856,
+                    "baseline_prob": 0.25257142857142856,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 32,
+                    "total": 875,
+                    "probability": 0.036571428571428574,
+                    "baseline_prob": 0.036571428571428574,
+                    "baseline_n": 875,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 352,
+                    "total": 855,
+                    "probability": 0.41169590643274856,
+                    "baseline_prob": 0.4070175438596491,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 294,
+                    "total": 855,
+                    "probability": 0.34385964912280703,
+                    "baseline_prob": 0.34619883040935673,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 169,
+                    "total": 855,
+                    "probability": 0.1976608187134503,
+                    "baseline_prob": 0.2,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 40,
+                    "total": 855,
+                    "probability": 0.04678362573099415,
+                    "baseline_prob": 0.04678362573099415,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 1618,
+                    "total": 2384,
+                    "probability": 0.6786912751677853,
+                    "baseline_prob": 0.3611577181208054,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 144,
+                    "total": 2384,
+                    "probability": 0.06040268456375839,
+                    "baseline_prob": 0.3770973154362416,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 554,
+                    "total": 2384,
+                    "probability": 0.23238255033557048,
+                    "baseline_prob": 0.23364093959731544,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 68,
+                    "total": 2384,
+                    "probability": 0.028523489932885907,
+                    "baseline_prob": 0.028104026845637585,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 127,
+                    "total": 1948,
+                    "probability": 0.06519507186858316,
+                    "baseline_prob": 0.3531827515400411,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 1240,
+                    "total": 1948,
+                    "probability": 0.6365503080082136,
+                    "baseline_prob": 0.3480492813141684,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 479,
+                    "total": 1948,
+                    "probability": 0.24589322381930184,
+                    "baseline_prob": 0.2464065708418891,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 102,
+                    "total": 1948,
+                    "probability": 0.052361396303901436,
+                    "baseline_prob": 0.052361396303901436,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 942,
+                    "total": 2383,
+                    "probability": 0.39530004196391105,
+                    "baseline_prob": 0.3600503566932438,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 767,
+                    "total": 2383,
+                    "probability": 0.32186319765002097,
+                    "baseline_prob": 0.35669324381032314,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 580,
+                    "total": 2383,
+                    "probability": 0.2433906840117499,
+                    "baseline_prob": 0.24422996223248006,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 94,
+                    "total": 2383,
+                    "probability": 0.03944607637431809,
+                    "baseline_prob": 0.039026437263953,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 803,
+                    "total": 1948,
+                    "probability": 0.412217659137577,
+                    "baseline_prob": 0.3531827515400411,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 617,
+                    "total": 1948,
+                    "probability": 0.316735112936345,
+                    "baseline_prob": 0.3757700205338809,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 452,
+                    "total": 1948,
+                    "probability": 0.23203285420944558,
+                    "baseline_prob": 0.23203285420944558,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 76,
+                    "total": 1948,
+                    "probability": 0.039014373716632446,
+                    "baseline_prob": 0.039014373716632446,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (5.79–22.29]",
+                  "fr": "orb_size tranche 1 (5.79–22.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 421,
+                    "total": 1083,
+                    "probability": 0.38873499538319484,
+                    "baseline_prob": 0.33887349953831947,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 303,
+                    "total": 1083,
+                    "probability": 0.27977839335180055,
+                    "baseline_prob": 0.32871652816251157,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 328,
+                    "total": 1083,
+                    "probability": 0.3028624192059095,
+                    "baseline_prob": 0.30378578024007385,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 31,
+                    "total": 1083,
+                    "probability": 0.028624192059095107,
+                    "baseline_prob": 0.028624192059095107,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (22.29–43.29]",
+                  "fr": "orb_size tranche 2 (22.29–43.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 464,
+                    "total": 1083,
+                    "probability": 0.42843951985226225,
+                    "baseline_prob": 0.3878116343490305,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 335,
+                    "total": 1083,
+                    "probability": 0.30932594644506,
+                    "baseline_prob": 0.34995383194829177,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 226,
+                    "total": 1083,
+                    "probability": 0.20867959372114497,
+                    "baseline_prob": 0.20960295475530932,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 58,
+                    "total": 1083,
+                    "probability": 0.05355493998153278,
+                    "baseline_prob": 0.05263157894736842,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (43.29–117.54]",
+                  "fr": "orb_size tranche 3 (43.29–117.54]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 420,
+                    "total": 1083,
+                    "probability": 0.3878116343490305,
+                    "baseline_prob": 0.3471837488457987,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 340,
+                    "total": 1083,
+                    "probability": 0.3139427516158818,
+                    "baseline_prob": 0.3545706371191136,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 279,
+                    "total": 1083,
+                    "probability": 0.25761772853185594,
+                    "baseline_prob": 0.25761772853185594,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 44,
+                    "total": 1083,
+                    "probability": 0.040627885503231764,
+                    "baseline_prob": 0.040627885503231764,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (117.54–1753.88]",
+                  "fr": "orb_size tranche 4 (117.54–1753.88]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 440,
+                    "total": 1083,
+                    "probability": 0.40627885503231764,
+                    "baseline_prob": 0.40350877192982454,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 406,
+                    "total": 1083,
+                    "probability": 0.37488457987072943,
+                    "baseline_prob": 0.37765466297322253,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 200,
+                    "total": 1083,
+                    "probability": 0.18467220683287167,
+                    "baseline_prob": 0.18467220683287167,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 37,
+                    "total": 1083,
+                    "probability": 0.034164358264081256,
+                    "baseline_prob": 0.034164358264081256,
+                    "baseline_n": 1083,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 939,
+            "total": 4361,
+            "probability": 0.215317587709241,
+            "baseline_prob": 0.18825957349231828,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 805,
+            "total": 4361,
+            "probability": 0.18459069020866772,
+            "baseline_prob": 0.20889704196285255,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 2613,
+            "total": 4361,
+            "probability": 0.5991745012611787,
+            "baseline_prob": 0.6019261637239165,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 4,
+            "total": 4361,
+            "probability": 0.0009172208209126347,
+            "baseline_prob": 0.0009172208209126347,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 212,
+                    "total": 820,
+                    "probability": 0.25853658536585367,
+                    "baseline_prob": 0.2329268292682927,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 158,
+                    "total": 820,
+                    "probability": 0.1926829268292683,
+                    "baseline_prob": 0.2146341463414634,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 447,
+                    "total": 820,
+                    "probability": 0.5451219512195122,
+                    "baseline_prob": 0.5487804878048781,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 820,
+                    "probability": 0.003658536585365854,
+                    "baseline_prob": 0.003658536585365854,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 196,
+                    "total": 901,
+                    "probability": 0.21753607103218647,
+                    "baseline_prob": 0.17980022197558268,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 161,
+                    "total": 901,
+                    "probability": 0.17869034406215317,
+                    "baseline_prob": 0.21309655937846836,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 543,
+                    "total": 901,
+                    "probability": 0.6026637069922308,
+                    "baseline_prob": 0.6059933407325194,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 901,
+                    "probability": 0.0011098779134295228,
+                    "baseline_prob": 0.0011098779134295228,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 170,
+                    "total": 897,
+                    "probability": 0.189520624303233,
+                    "baseline_prob": 0.16722408026755853,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 149,
+                    "total": 897,
+                    "probability": 0.16610925306577481,
+                    "baseline_prob": 0.18283166109253066,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 578,
+                    "total": 897,
+                    "probability": 0.6443701226309922,
+                    "baseline_prob": 0.6499442586399108,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 178,
+                    "total": 881,
+                    "probability": 0.20204313280363223,
+                    "baseline_prob": 0.19863791146424517,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 164,
+                    "total": 881,
+                    "probability": 0.18615209988649262,
+                    "baseline_prob": 0.188422247446084,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 539,
+                    "total": 881,
+                    "probability": 0.6118047673098751,
+                    "baseline_prob": 0.6129398410896708,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 183,
+                    "total": 862,
+                    "probability": 0.2122969837587007,
+                    "baseline_prob": 0.21461716937354988,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 173,
+                    "total": 862,
+                    "probability": 0.20069605568445475,
+                    "baseline_prob": 0.19837587006960558,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 506,
+                    "total": 862,
+                    "probability": 0.5870069605568445,
+                    "baseline_prob": 0.5870069605568445,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 923,
+                    "total": 2410,
+                    "probability": 0.38298755186721994,
+                    "baseline_prob": 0.20663900414937758,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 33,
+                    "total": 2410,
+                    "probability": 0.013692946058091286,
+                    "baseline_prob": 0.18713692946058091,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1451,
+                    "total": 2410,
+                    "probability": 0.6020746887966805,
+                    "baseline_prob": 0.6049792531120332,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 2410,
+                    "probability": 0.0012448132780082987,
+                    "baseline_prob": 0.0012448132780082987,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 16,
+                    "total": 1951,
+                    "probability": 0.008200922603792926,
+                    "baseline_prob": 0.1998974884674526,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 772,
+                    "total": 1951,
+                    "probability": 0.3956945156330087,
+                    "baseline_prob": 0.20143516145566376,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1162,
+                    "total": 1951,
+                    "probability": 0.5955920041004613,
+                    "baseline_prob": 0.5981547924141466,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 1951,
+                    "probability": 0.0005125576627370579,
+                    "baseline_prob": 0.0005125576627370579,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 515,
+                    "total": 2409,
+                    "probability": 0.21378165213781652,
+                    "baseline_prob": 0.2009132420091324,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 457,
+                    "total": 2409,
+                    "probability": 0.18970527189705272,
+                    "baseline_prob": 0.19883769198837692,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1434,
+                    "total": 2409,
+                    "probability": 0.5952677459526775,
+                    "baseline_prob": 0.5990037359900373,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 2409,
+                    "probability": 0.0012453300124533001,
+                    "baseline_prob": 0.0012453300124533001,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 424,
+                    "total": 1951,
+                    "probability": 0.21732444900051257,
+                    "baseline_prob": 0.19528446950281908,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 348,
+                    "total": 1951,
+                    "probability": 0.17837006663249616,
+                    "baseline_prob": 0.19938493080471553,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1178,
+                    "total": 1951,
+                    "probability": 0.6037929267042542,
+                    "baseline_prob": 0.6048180420297283,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 1951,
+                    "probability": 0.0005125576627370579,
+                    "baseline_prob": 0.0005125576627370579,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (-0.00–4.57]",
+                  "fr": "orb_size tranche 1 (-0.00–4.57]"
+                },
+                "total_samples": 1093,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 221,
+                    "total": 1093,
+                    "probability": 0.20219579139981703,
+                    "baseline_prob": 0.16285452881976212,
+                    "baseline_n": 1093,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 176,
+                    "total": 1093,
+                    "probability": 0.16102470265324795,
+                    "baseline_prob": 0.1948764867337603,
+                    "baseline_n": 1093,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 696,
+                    "total": 1093,
+                    "probability": 0.636779505946935,
+                    "baseline_prob": 0.6422689844464776,
+                    "baseline_n": 1093,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 1093,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1093,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (4.57–7.16]",
+                  "fr": "orb_size tranche 2 (4.57–7.16]"
+                },
+                "total_samples": 1088,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 228,
+                    "total": 1088,
+                    "probability": 0.20955882352941177,
+                    "baseline_prob": 0.20404411764705882,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 192,
+                    "total": 1088,
+                    "probability": 0.17647058823529413,
+                    "baseline_prob": 0.18106617647058823,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 667,
+                    "total": 1088,
+                    "probability": 0.6130514705882353,
+                    "baseline_prob": 0.6139705882352942,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 1088,
+                    "probability": 0.0009191176470588235,
+                    "baseline_prob": 0.0009191176470588235,
+                    "baseline_n": 1088,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (7.16–12.83]",
+                  "fr": "orb_size tranche 3 (7.16–12.83]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 230,
+                    "total": 1090,
+                    "probability": 0.21100917431192662,
+                    "baseline_prob": 0.1853211009174312,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 217,
+                    "total": 1090,
+                    "probability": 0.19908256880733946,
+                    "baseline_prob": 0.22293577981651377,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 641,
+                    "total": 1090,
+                    "probability": 0.5880733944954128,
+                    "baseline_prob": 0.5899082568807339,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1090,
+                    "probability": 0.001834862385321101,
+                    "baseline_prob": 0.001834862385321101,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (12.83–90.72]",
+                  "fr": "orb_size tranche 4 (12.83–90.72]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 260,
+                    "total": 1090,
+                    "probability": 0.23853211009174313,
+                    "baseline_prob": 0.22110091743119267,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 220,
+                    "total": 1090,
+                    "probability": 0.2018348623853211,
+                    "baseline_prob": 0.21926605504587157,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 609,
+                    "total": 1090,
+                    "probability": 0.5587155963302752,
+                    "baseline_prob": 0.5587155963302752,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 1090,
+                    "probability": 0.0009174311926605505,
+                    "baseline_prob": 0.0009174311926605505,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 1265,
+            "total": 4361,
+            "probability": 0.29007108461362074,
+            "baseline_prob": 0.2552166934189406,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 1042,
+            "total": 4361,
+            "probability": 0.23893602384774135,
+            "baseline_prob": 0.2719559734005962,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 2041,
+            "total": 4361,
+            "probability": 0.46801192387067186,
+            "baseline_prob": 0.46984636551249714,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 13,
+            "total": 4361,
+            "probability": 0.002980967667966063,
+            "baseline_prob": 0.002980967667966063,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 266,
+                    "total": 820,
+                    "probability": 0.32439024390243903,
+                    "baseline_prob": 0.29634146341463413,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 197,
+                    "total": 820,
+                    "probability": 0.24024390243902438,
+                    "baseline_prob": 0.26707317073170733,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 352,
+                    "total": 820,
+                    "probability": 0.4292682926829268,
+                    "baseline_prob": 0.4317073170731707,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 820,
+                    "probability": 0.006097560975609756,
+                    "baseline_prob": 0.004878048780487805,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 262,
+                    "total": 901,
+                    "probability": 0.290788013318535,
+                    "baseline_prob": 0.2541620421753607,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 214,
+                    "total": 901,
+                    "probability": 0.23751387347391786,
+                    "baseline_prob": 0.2730299667036626,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 424,
+                    "total": 901,
+                    "probability": 0.47058823529411764,
+                    "baseline_prob": 0.4716981132075472,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 901,
+                    "probability": 0.0011098779134295228,
+                    "baseline_prob": 0.0011098779134295228,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 227,
+                    "total": 897,
+                    "probability": 0.2530657748049052,
+                    "baseline_prob": 0.22630992196209587,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 193,
+                    "total": 897,
+                    "probability": 0.21516164994425863,
+                    "baseline_prob": 0.241917502787068,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 473,
+                    "total": 897,
+                    "probability": 0.5273132664437012,
+                    "baseline_prob": 0.5273132664437012,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 897,
+                    "probability": 0.004459308807134894,
+                    "baseline_prob": 0.004459308807134894,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 251,
+                    "total": 881,
+                    "probability": 0.2849035187287174,
+                    "baseline_prob": 0.264472190692395,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 211,
+                    "total": 881,
+                    "probability": 0.2395005675368899,
+                    "baseline_prob": 0.2565266742338252,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 417,
+                    "total": 881,
+                    "probability": 0.4733257661748014,
+                    "baseline_prob": 0.4767309875141884,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 881,
+                    "probability": 0.0022701475595913734,
+                    "baseline_prob": 0.0022701475595913734,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 259,
+                    "total": 862,
+                    "probability": 0.3004640371229698,
+                    "baseline_prob": 0.29582366589327147,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 227,
+                    "total": 862,
+                    "probability": 0.2633410672853828,
+                    "baseline_prob": 0.2633410672853828,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 375,
+                    "total": 862,
+                    "probability": 0.43503480278422274,
+                    "baseline_prob": 0.4396751740139211,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 862,
+                    "probability": 0.001160092807424594,
+                    "baseline_prob": 0.001160092807424594,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 1216,
+                    "total": 2410,
+                    "probability": 0.5045643153526971,
+                    "baseline_prob": 0.2809128630705394,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 74,
+                    "total": 2410,
+                    "probability": 0.030705394190871368,
+                    "baseline_prob": 0.25269709543568464,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1113,
+                    "total": 2410,
+                    "probability": 0.46182572614107886,
+                    "baseline_prob": 0.46390041493775935,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 2410,
+                    "probability": 0.002904564315352697,
+                    "baseline_prob": 0.0024896265560165973,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 49,
+                    "total": 1951,
+                    "probability": 0.025115325474115838,
+                    "baseline_prob": 0.2573039466940031,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 968,
+                    "total": 1951,
+                    "probability": 0.4961558175294721,
+                    "baseline_prob": 0.2619169656586366,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 928,
+                    "total": 1951,
+                    "probability": 0.47565351101998976,
+                    "baseline_prob": 0.477703741670938,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 1951,
+                    "probability": 0.0030753459764223477,
+                    "baseline_prob": 0.0030753459764223477,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 687,
+                    "total": 2409,
+                    "probability": 0.2851805728518057,
+                    "baseline_prob": 0.2590286425902864,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 577,
+                    "total": 2409,
+                    "probability": 0.23951847239518473,
+                    "baseline_prob": 0.2623495226234952,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 1137,
+                    "total": 2409,
+                    "probability": 0.47198007471980075,
+                    "baseline_prob": 0.47530095475300954,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 2409,
+                    "probability": 0.0033208800332088003,
+                    "baseline_prob": 0.0033208800332088003,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 578,
+                    "total": 1951,
+                    "probability": 0.2962583290620195,
+                    "baseline_prob": 0.26806765761148127,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 465,
+                    "total": 1951,
+                    "probability": 0.23833931317273194,
+                    "baseline_prob": 0.2644797539723219,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 903,
+                    "total": 1951,
+                    "probability": 0.4628395694515633,
+                    "baseline_prob": 0.4648898001025115,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 1951,
+                    "probability": 0.0025627883136852894,
+                    "baseline_prob": 0.0025627883136852894,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (1.54–5.99]",
+                  "fr": "orb_size tranche 1 (1.54–5.99]"
+                },
+                "total_samples": 1091,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 301,
+                    "total": 1091,
+                    "probability": 0.2758936755270394,
+                    "baseline_prob": 0.24197983501374887,
+                    "baseline_n": 1091,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 218,
+                    "total": 1091,
+                    "probability": 0.1998166819431714,
+                    "baseline_prob": 0.22548120989917506,
+                    "baseline_n": 1091,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 570,
+                    "total": 1091,
+                    "probability": 0.5224564619615032,
+                    "baseline_prob": 0.5307057745187901,
+                    "baseline_n": 1091,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 1091,
+                    "probability": 0.0018331805682859762,
+                    "baseline_prob": 0.0018331805682859762,
+                    "baseline_n": 1091,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (5.99–9.32]",
+                  "fr": "orb_size tranche 2 (5.99–9.32]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 333,
+                    "total": 1090,
+                    "probability": 0.3055045871559633,
+                    "baseline_prob": 0.2761467889908257,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 261,
+                    "total": 1090,
+                    "probability": 0.23944954128440368,
+                    "baseline_prob": 0.26697247706422017,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 493,
+                    "total": 1090,
+                    "probability": 0.4522935779816514,
+                    "baseline_prob": 0.4541284403669725,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 1090,
+                    "probability": 0.0027522935779816515,
+                    "baseline_prob": 0.0027522935779816515,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (9.32–17.13]",
+                  "fr": "orb_size tranche 3 (9.32–17.13]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 294,
+                    "total": 1090,
+                    "probability": 0.26972477064220185,
+                    "baseline_prob": 0.24587155963302754,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 266,
+                    "total": 1090,
+                    "probability": 0.24403669724770644,
+                    "baseline_prob": 0.26788990825688075,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 526,
+                    "total": 1090,
+                    "probability": 0.48256880733944957,
+                    "baseline_prob": 0.4834862385321101,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 1090,
+                    "probability": 0.003669724770642202,
+                    "baseline_prob": 0.0027522935779816515,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (17.13–179.73]",
+                  "fr": "orb_size tranche 4 (17.13–179.73]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 337,
+                    "total": 1090,
+                    "probability": 0.3091743119266055,
+                    "baseline_prob": 0.26972477064220185,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 297,
+                    "total": 1090,
+                    "probability": 0.2724770642201835,
+                    "baseline_prob": 0.3100917431192661,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 452,
+                    "total": 1090,
+                    "probability": 0.41467889908256883,
+                    "baseline_prob": 0.41651376146788993,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 1090,
+                    "probability": 0.003669724770642202,
+                    "baseline_prob": 0.003669724770642202,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "orb",
+            "outcome": "broke_high",
+            "count": 1671,
+            "total": 4361,
+            "probability": 0.38316899793625314,
+            "baseline_prob": 0.33707865168539325,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_low",
+            "count": 1357,
+            "total": 4361,
+            "probability": 0.3111671634946113,
+            "baseline_prob": 0.3556523733088741,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "broke_both",
+            "count": 1240,
+            "total": 4361,
+            "probability": 0.2843384544829168,
+            "baseline_prob": 0.28709011694565467,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "orb",
+            "outcome": "neither",
+            "count": 93,
+            "total": 4361,
+            "probability": 0.021325384086218757,
+            "baseline_prob": 0.020178858060077964,
+            "baseline_n": 4361,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 316,
+                    "total": 820,
+                    "probability": 0.3853658536585366,
+                    "baseline_prob": 0.35609756097560974,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 256,
+                    "total": 820,
+                    "probability": 0.3121951219512195,
+                    "baseline_prob": 0.3426829268292683,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 217,
+                    "total": 820,
+                    "probability": 0.2646341463414634,
+                    "baseline_prob": 0.2646341463414634,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 31,
+                    "total": 820,
+                    "probability": 0.03780487804878049,
+                    "baseline_prob": 0.036585365853658534,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 351,
+                    "total": 901,
+                    "probability": 0.3895671476137625,
+                    "baseline_prob": 0.3340732519422864,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 283,
+                    "total": 901,
+                    "probability": 0.31409544950055496,
+                    "baseline_prob": 0.36847946725860153,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 252,
+                    "total": 901,
+                    "probability": 0.27968923418423974,
+                    "baseline_prob": 0.2807991120976693,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 15,
+                    "total": 901,
+                    "probability": 0.016648168701442843,
+                    "baseline_prob": 0.016648168701442843,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 317,
+                    "total": 897,
+                    "probability": 0.3534002229654404,
+                    "baseline_prob": 0.3076923076923077,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 251,
+                    "total": 897,
+                    "probability": 0.2798216276477146,
+                    "baseline_prob": 0.326644370122631,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 314,
+                    "total": 897,
+                    "probability": 0.3500557413600892,
+                    "baseline_prob": 0.3500557413600892,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 15,
+                    "total": 897,
+                    "probability": 0.016722408026755852,
+                    "baseline_prob": 0.01560758082497213,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 343,
+                    "total": 881,
+                    "probability": 0.38933030646992056,
+                    "baseline_prob": 0.3688989784335982,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 286,
+                    "total": 881,
+                    "probability": 0.3246311010215664,
+                    "baseline_prob": 0.3427922814982974,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 240,
+                    "total": 881,
+                    "probability": 0.2724177071509648,
+                    "baseline_prob": 0.2746878547105562,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 12,
+                    "total": 881,
+                    "probability": 0.01362088535754824,
+                    "baseline_prob": 0.01362088535754824,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 344,
+                    "total": 862,
+                    "probability": 0.3990719257540603,
+                    "baseline_prob": 0.3851508120649652,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 281,
+                    "total": 862,
+                    "probability": 0.3259860788863109,
+                    "baseline_prob": 0.33874709976798145,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 217,
+                    "total": 862,
+                    "probability": 0.2517401392111369,
+                    "baseline_prob": 0.25406032482598606,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 20,
+                    "total": 862,
+                    "probability": 0.02320185614849188,
+                    "baseline_prob": 0.022041763341067284,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 1548,
+                    "total": 2410,
+                    "probability": 0.6423236514522822,
+                    "baseline_prob": 0.3663900414937759,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 148,
+                    "total": 2410,
+                    "probability": 0.061410788381742736,
+                    "baseline_prob": 0.33526970954356844,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 674,
+                    "total": 2410,
+                    "probability": 0.2796680497925311,
+                    "baseline_prob": 0.2821576763485477,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 40,
+                    "total": 2410,
+                    "probability": 0.016597510373443983,
+                    "baseline_prob": 0.016182572614107885,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 123,
+                    "total": 1951,
+                    "probability": 0.06304459251665813,
+                    "baseline_prob": 0.3377754997437212,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 1209,
+                    "total": 1951,
+                    "probability": 0.619682214249103,
+                    "baseline_prob": 0.34392619169656585,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 566,
+                    "total": 1951,
+                    "probability": 0.2901076371091748,
+                    "baseline_prob": 0.2926704254228601,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 53,
+                    "total": 1951,
+                    "probability": 0.02716555612506407,
+                    "baseline_prob": 0.025627883136852898,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 911,
+                    "total": 2409,
+                    "probability": 0.37816521378165213,
+                    "baseline_prob": 0.34329597343295976,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 758,
+                    "total": 2409,
+                    "probability": 0.31465338314653385,
+                    "baseline_prob": 0.34869240348692404,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 691,
+                    "total": 2409,
+                    "probability": 0.28684101286841013,
+                    "baseline_prob": 0.28808634288086343,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 49,
+                    "total": 2409,
+                    "probability": 0.0203403902034039,
+                    "baseline_prob": 0.019925280199252802,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 760,
+                    "total": 1951,
+                    "probability": 0.389543823680164,
+                    "baseline_prob": 0.3511019989748847,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 599,
+                    "total": 1951,
+                    "probability": 0.3070220399794977,
+                    "baseline_prob": 0.3444387493593029,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 548,
+                    "total": 1951,
+                    "probability": 0.28088159917990774,
+                    "baseline_prob": 0.28293182983085596,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 44,
+                    "total": 1951,
+                    "probability": 0.02255253716043055,
+                    "baseline_prob": 0.021527421834956432,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "orb_size bin 1 (2.08–7.96]",
+                  "fr": "orb_size tranche 1 (2.08–7.96]"
+                },
+                "total_samples": 1092,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 436,
+                    "total": 1092,
+                    "probability": 0.3992673992673993,
+                    "baseline_prob": 0.3315018315018315,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 289,
+                    "total": 1092,
+                    "probability": 0.26465201465201466,
+                    "baseline_prob": 0.3241758241758242,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 350,
+                    "total": 1092,
+                    "probability": 0.32051282051282054,
+                    "baseline_prob": 0.3305860805860806,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 17,
+                    "total": 1092,
+                    "probability": 0.015567765567765568,
+                    "baseline_prob": 0.013736263736263736,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "orb_size bin 2 (7.96–12.36]",
+                  "fr": "orb_size tranche 2 (7.96–12.36]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 422,
+                    "total": 1090,
+                    "probability": 0.3871559633027523,
+                    "baseline_prob": 0.3330275229357798,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 345,
+                    "total": 1090,
+                    "probability": 0.3165137614678899,
+                    "baseline_prob": 0.3678899082568807,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 300,
+                    "total": 1090,
+                    "probability": 0.27522935779816515,
+                    "baseline_prob": 0.2779816513761468,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 23,
+                    "total": 1090,
+                    "probability": 0.02110091743119266,
+                    "baseline_prob": 0.02110091743119266,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "orb_size bin 3 (12.36–23.33]",
+                  "fr": "orb_size tranche 3 (12.36–23.33]"
+                },
+                "total_samples": 1089,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 390,
+                    "total": 1089,
+                    "probability": 0.3581267217630854,
+                    "baseline_prob": 0.3278236914600551,
+                    "baseline_n": 1089,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 357,
+                    "total": 1089,
+                    "probability": 0.3278236914600551,
+                    "baseline_prob": 0.3581267217630854,
+                    "baseline_n": 1089,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 321,
+                    "total": 1089,
+                    "probability": 0.29476584022038566,
+                    "baseline_prob": 0.2956841138659321,
+                    "baseline_n": 1089,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 21,
+                    "total": 1089,
+                    "probability": 0.01928374655647383,
+                    "baseline_prob": 0.018365472910927456,
+                    "baseline_n": 1089,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "orb_size bin 4 (23.33–433.67]",
+                  "fr": "orb_size tranche 4 (23.33–433.67]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_high",
+                    "count": 423,
+                    "total": 1090,
+                    "probability": 0.38807339449541284,
+                    "baseline_prob": 0.3660550458715596,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_low",
+                    "count": 366,
+                    "total": 1090,
+                    "probability": 0.3357798165137615,
+                    "baseline_prob": 0.3596330275229358,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "broke_both",
+                    "count": 269,
+                    "total": 1090,
+                    "probability": 0.2467889908256881,
+                    "baseline_prob": 0.2467889908256881,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "orb",
+                    "outcome": "neither",
+                    "count": 32,
+                    "total": 1090,
+                    "probability": 0.029357798165137616,
+                    "baseline_prob": 0.027522935779816515,
+                    "baseline_n": 1090,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

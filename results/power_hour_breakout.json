@@ -1,0 +1,989 @@
+{
+  "stat_name": "power_hour_breakout",
+  "title": {
+    "en": "Power Hour Breakout",
+    "fr": "Cassure du power hour"
+  },
+  "definition": {
+    "en": "During the last hour of the session (the power hour), how often does price make a new high of day, a new low of day, both, or neither relative to the range established earlier in the session?",
+    "fr": "Pendant la dernière heure de la séance (le power hour), à quelle fréquence le prix inscrit-il un nouveau plus haut du jour, un nouveau plus bas du jour, les deux, ou ni l'un ni l'autre par rapport à l'amplitude établie plus tôt dans la séance ?"
+  },
+  "labels": {
+    "conditions": {
+      "power_hour": {
+        "en": "Power hour",
+        "fr": "Power hour"
+      }
+    },
+    "outcomes": {
+      "made_high": {
+        "en": "Made a new high of day only",
+        "fr": "Nouveau plus haut du jour uniquement"
+      },
+      "made_low": {
+        "en": "Made a new low of day only",
+        "fr": "Nouveau plus bas du jour uniquement"
+      },
+      "made_both": {
+        "en": "Made a new high and a new low",
+        "fr": "Nouveau plus haut et nouveau plus bas"
+      },
+      "neither": {
+        "en": "Stayed within the prior range",
+        "fr": "Resté dans l'amplitude antérieure"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "open": {
+        "en": "Power hour open",
+        "fr": "Ouverture du power hour"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4324,
+        "results": [
+          {
+            "condition": "power_hour",
+            "outcome": "made_high",
+            "count": 1156,
+            "total": 4324,
+            "probability": 0.26734505087881594,
+            "baseline_prob": 0.22224791859389453,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "made_low",
+            "count": 762,
+            "total": 4324,
+            "probability": 0.17622571692876965,
+            "baseline_prob": 0.22340425531914893,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "made_both",
+            "count": 6,
+            "total": 4324,
+            "probability": 0.0013876040703052729,
+            "baseline_prob": 0.0013876040703052729,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "neither",
+            "count": 2400,
+            "total": 4324,
+            "probability": 0.5550416281221091,
+            "baseline_prob": 0.5529602220166513,
+            "baseline_n": 4324,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 813,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 216,
+                    "total": 813,
+                    "probability": 0.2656826568265683,
+                    "baseline_prob": 0.2140221402214022,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 131,
+                    "total": 813,
+                    "probability": 0.16113161131611317,
+                    "baseline_prob": 0.2140221402214022,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 0,
+                    "total": 813,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 466,
+                    "total": 813,
+                    "probability": 0.5731857318573186,
+                    "baseline_prob": 0.5719557195571956,
+                    "baseline_n": 813,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 895,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 231,
+                    "total": 895,
+                    "probability": 0.2581005586592179,
+                    "baseline_prob": 0.2223463687150838,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 151,
+                    "total": 895,
+                    "probability": 0.16871508379888267,
+                    "baseline_prob": 0.20558659217877095,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 1,
+                    "total": 895,
+                    "probability": 0.0011173184357541898,
+                    "baseline_prob": 0.0011173184357541898,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 512,
+                    "total": 895,
+                    "probability": 0.5720670391061452,
+                    "baseline_prob": 0.5709497206703911,
+                    "baseline_n": 895,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 888,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 245,
+                    "total": 888,
+                    "probability": 0.2759009009009009,
+                    "baseline_prob": 0.24211711711711711,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 176,
+                    "total": 888,
+                    "probability": 0.1981981981981982,
+                    "baseline_prob": 0.23423423423423423,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 888,
+                    "probability": 0.0022522522522522522,
+                    "baseline_prob": 0.0022522522522522522,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 465,
+                    "total": 888,
+                    "probability": 0.5236486486486487,
+                    "baseline_prob": 0.5213963963963963,
+                    "baseline_n": 888,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 873,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 236,
+                    "total": 873,
+                    "probability": 0.27033218785796104,
+                    "baseline_prob": 0.21305841924398625,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 166,
+                    "total": 873,
+                    "probability": 0.19014891179839633,
+                    "baseline_prob": 0.24742268041237114,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 1,
+                    "total": 873,
+                    "probability": 0.001145475372279496,
+                    "baseline_prob": 0.001145475372279496,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 470,
+                    "total": 873,
+                    "probability": 0.5383734249713631,
+                    "baseline_prob": 0.5383734249713631,
+                    "baseline_n": 873,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 228,
+                    "total": 855,
+                    "probability": 0.26666666666666666,
+                    "baseline_prob": 0.23625730994152047,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 138,
+                    "total": 855,
+                    "probability": 0.16140350877192983,
+                    "baseline_prob": 0.1953216374269006,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 855,
+                    "probability": 0.0023391812865497076,
+                    "baseline_prob": 0.0023391812865497076,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 487,
+                    "total": 855,
+                    "probability": 0.5695906432748538,
+                    "baseline_prob": 0.5660818713450292,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "open": {
+            "dimension": "open",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Open in upper half",
+                  "fr": "Ouverture dans la moitié haute"
+                },
+                "total_samples": 2522,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 1112,
+                    "total": 2522,
+                    "probability": 0.4409199048374306,
+                    "baseline_prob": 0.2367168913560666,
+                    "baseline_n": 2522,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 57,
+                    "total": 2522,
+                    "probability": 0.02260111022997621,
+                    "baseline_prob": 0.22799365582870737,
+                    "baseline_n": 2522,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 4,
+                    "total": 2522,
+                    "probability": 0.0015860428231562252,
+                    "baseline_prob": 0.0015860428231562252,
+                    "baseline_n": 2522,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 1349,
+                    "total": 2522,
+                    "probability": 0.5348929421094369,
+                    "baseline_prob": 0.5337034099920698,
+                    "baseline_n": 2522,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Open in lower half",
+                  "fr": "Ouverture dans la moitié basse"
+                },
+                "total_samples": 1802,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 44,
+                    "total": 1802,
+                    "probability": 0.0244173140954495,
+                    "baseline_prob": 0.206992230854606,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 705,
+                    "total": 1802,
+                    "probability": 0.3912319644839068,
+                    "baseline_prob": 0.21032186459489458,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 1802,
+                    "probability": 0.0011098779134295228,
+                    "baseline_prob": 0.0011098779134295228,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 1051,
+                    "total": 1802,
+                    "probability": 0.5832408435072142,
+                    "baseline_prob": 0.58157602663707,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "power_hour",
+            "outcome": "made_high",
+            "count": 1245,
+            "total": 4360,
+            "probability": 0.2855504587155963,
+            "baseline_prob": 0.231651376146789,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "made_low",
+            "count": 822,
+            "total": 4360,
+            "probability": 0.18853211009174312,
+            "baseline_prob": 0.24472477064220183,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "made_both",
+            "count": 12,
+            "total": 4360,
+            "probability": 0.0027522935779816515,
+            "baseline_prob": 0.0027522935779816515,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "power_hour",
+            "outcome": "neither",
+            "count": 2281,
+            "total": 4360,
+            "probability": 0.5231651376146789,
+            "baseline_prob": 0.5208715596330276,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 819,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 223,
+                    "total": 819,
+                    "probability": 0.27228327228327226,
+                    "baseline_prob": 0.23809523809523808,
+                    "baseline_n": 819,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 149,
+                    "total": 819,
+                    "probability": 0.18192918192918192,
+                    "baseline_prob": 0.21855921855921856,
+                    "baseline_n": 819,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 3,
+                    "total": 819,
+                    "probability": 0.003663003663003663,
+                    "baseline_prob": 0.003663003663003663,
+                    "baseline_n": 819,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 444,
+                    "total": 819,
+                    "probability": 0.5421245421245421,
+                    "baseline_prob": 0.5396825396825397,
+                    "baseline_n": 819,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 247,
+                    "total": 901,
+                    "probability": 0.2741398446170921,
+                    "baseline_prob": 0.22641509433962265,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 162,
+                    "total": 901,
+                    "probability": 0.17980022197558268,
+                    "baseline_prob": 0.23085460599334073,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 901,
+                    "probability": 0.0022197558268590455,
+                    "baseline_prob": 0.0022197558268590455,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 490,
+                    "total": 901,
+                    "probability": 0.5438401775804661,
+                    "baseline_prob": 0.5405105438401776,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 254,
+                    "total": 897,
+                    "probability": 0.2831661092530658,
+                    "baseline_prob": 0.2329988851727982,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 195,
+                    "total": 897,
+                    "probability": 0.21739130434782608,
+                    "baseline_prob": 0.2709030100334448,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 5,
+                    "total": 897,
+                    "probability": 0.005574136008918618,
+                    "baseline_prob": 0.005574136008918618,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 443,
+                    "total": 897,
+                    "probability": 0.4938684503901895,
+                    "baseline_prob": 0.49052396878483834,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 254,
+                    "total": 881,
+                    "probability": 0.2883087400681044,
+                    "baseline_prob": 0.22474460839954596,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 167,
+                    "total": 881,
+                    "probability": 0.18955732122587968,
+                    "baseline_prob": 0.25312145289443816,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 881,
+                    "probability": 0.0022701475595913734,
+                    "baseline_prob": 0.0022701475595913734,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 458,
+                    "total": 881,
+                    "probability": 0.5198637911464246,
+                    "baseline_prob": 0.5198637911464246,
+                    "baseline_n": 881,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 267,
+                    "total": 862,
+                    "probability": 0.30974477958236657,
+                    "baseline_prob": 0.26218097447795824,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 149,
+                    "total": 862,
+                    "probability": 0.1728538283062645,
+                    "baseline_prob": 0.22389791183294663,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 0,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 446,
+                    "total": 862,
+                    "probability": 0.5174013921113689,
+                    "baseline_prob": 0.5139211136890951,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "open": {
+            "dimension": "open",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Open in upper half",
+                  "fr": "Ouverture dans la moitié haute"
+                },
+                "total_samples": 2558,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 1181,
+                    "total": 2558,
+                    "probability": 0.46168881939014855,
+                    "baseline_prob": 0.2619233776387803,
+                    "baseline_n": 2558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 59,
+                    "total": 2558,
+                    "probability": 0.023064894448788117,
+                    "baseline_prob": 0.2251759186864738,
+                    "baseline_n": 2558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 10,
+                    "total": 2558,
+                    "probability": 0.003909304143862392,
+                    "baseline_prob": 0.003909304143862392,
+                    "baseline_n": 2558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 1308,
+                    "total": 2558,
+                    "probability": 0.5113369820172009,
+                    "baseline_prob": 0.5089913995308835,
+                    "baseline_n": 2558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Open in lower half",
+                  "fr": "Ouverture dans la moitié basse"
+                },
+                "total_samples": 1802,
+                "results": [
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_high",
+                    "count": 64,
+                    "total": 1802,
+                    "probability": 0.03551609322974473,
+                    "baseline_prob": 0.22086570477247502,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_low",
+                    "count": 763,
+                    "total": 1802,
+                    "probability": 0.42341842397336293,
+                    "baseline_prob": 0.24195338512763595,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "made_both",
+                    "count": 2,
+                    "total": 1802,
+                    "probability": 0.0011098779134295228,
+                    "baseline_prob": 0.0011098779134295228,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "power_hour",
+                    "outcome": "neither",
+                    "count": 973,
+                    "total": 1802,
+                    "probability": 0.5399556048834628,
+                    "baseline_prob": 0.5360710321864595,
+                    "baseline_n": 1802,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

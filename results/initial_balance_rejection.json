@@ -1,0 +1,3281 @@
+{
+  "stat_name": "initial_balance_rejection",
+  "title": {
+    "en": "Initial Balance Breakout — by Rejection",
+    "fr": "Cassure de l'initial balance — par rejet"
+  },
+  "definition": {
+    "en": "Does the order in which the initial balance edges form predict the first breakout? Cross-tabulates which edge (high or low) formed first during the initial balance against which edge broke first afterward (high, low, or neither).",
+    "fr": "L'ordre de formation des bornes de l'initial balance prédit-il la première cassure ? Croise la borne (haut ou bas) formée en premier pendant l'initial balance avec la borne cassée en premier ensuite (haut, bas, ou ni l'un ni l'autre)."
+  },
+  "labels": {
+    "conditions": {
+      "formed_high": {
+        "en": "IB high formed first",
+        "fr": "Haut de l'IB formé en premier"
+      },
+      "formed_low": {
+        "en": "IB low formed first",
+        "fr": "Bas de l'IB formé en premier"
+      }
+    },
+    "outcomes": {
+      "broke_high": {
+        "en": "Broke the balance high first",
+        "fr": "Cassure du haut de l'IB en premier"
+      },
+      "broke_low": {
+        "en": "Broke the balance low first",
+        "fr": "Cassure du bas de l'IB en premier"
+      },
+      "neither": {
+        "en": "Broke neither side",
+        "fr": "Aucune cassure"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "overnight": {
+        "en": "Overnight gap",
+        "fr": "Gap overnight"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "size_pct": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "formed_high",
+            "outcome": "broke_high",
+            "count": 680,
+            "total": 2131,
+            "probability": 0.31909901454716094,
+            "baseline_prob": 0.5377756921633036,
+            "baseline_n": 2131,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_high",
+            "outcome": "broke_low",
+            "count": 1437,
+            "total": 2131,
+            "probability": 0.674331299859221,
+            "baseline_prob": 0.45659314875645235,
+            "baseline_n": 2131,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_high",
+            "outcome": "neither",
+            "count": 14,
+            "total": 2131,
+            "probability": 0.00656968559361802,
+            "baseline_prob": 0.005631159080244017,
+            "baseline_n": 2131,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "broke_high",
+            "count": 1633,
+            "total": 2200,
+            "probability": 0.7422727272727273,
+            "baseline_prob": 0.5304545454545454,
+            "baseline_n": 2200,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "broke_low",
+            "count": 559,
+            "total": 2200,
+            "probability": 0.2540909090909091,
+            "baseline_prob": 0.465,
+            "baseline_n": 2200,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "neither",
+            "count": 8,
+            "total": 2200,
+            "probability": 0.0036363636363636364,
+            "baseline_prob": 0.004545454545454545,
+            "baseline_n": 2200,
+            "value": null,
+            "value_baseline": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 108,
+                    "total": 359,
+                    "probability": 0.3008356545961003,
+                    "baseline_prob": 0.5793871866295265,
+                    "baseline_n": 359,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 245,
+                    "total": 359,
+                    "probability": 0.6824512534818942,
+                    "baseline_prob": 0.40947075208913647,
+                    "baseline_n": 359,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 359,
+                    "probability": 0.016713091922005572,
+                    "baseline_prob": 0.011142061281337047,
+                    "baseline_n": 359,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 358,
+                    "total": 457,
+                    "probability": 0.7833698030634574,
+                    "baseline_prob": 0.5645514223194749,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 98,
+                    "total": 457,
+                    "probability": 0.21444201312910285,
+                    "baseline_prob": 0.4288840262582057,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 457,
+                    "probability": 0.002188183807439825,
+                    "baseline_prob": 0.006564551422319475,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 155,
+                    "total": 445,
+                    "probability": 0.34831460674157305,
+                    "baseline_prob": 0.5617977528089888,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 288,
+                    "total": 445,
+                    "probability": 0.647191011235955,
+                    "baseline_prob": 0.4337078651685393,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 445,
+                    "probability": 0.0044943820224719105,
+                    "baseline_prob": 0.0044943820224719105,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 337,
+                    "total": 451,
+                    "probability": 0.7472283813747228,
+                    "baseline_prob": 0.5365853658536586,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 113,
+                    "total": 451,
+                    "probability": 0.25055432372505543,
+                    "baseline_prob": 0.4611973392461197,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 451,
+                    "probability": 0.0022172949002217295,
+                    "baseline_prob": 0.0022172949002217295,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 133,
+                    "total": 438,
+                    "probability": 0.3036529680365297,
+                    "baseline_prob": 0.54337899543379,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 305,
+                    "total": 438,
+                    "probability": 0.6963470319634704,
+                    "baseline_prob": 0.454337899543379,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 438,
+                    "probability": 0.0,
+                    "baseline_prob": 0.00228310502283105,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 332,
+                    "total": 452,
+                    "probability": 0.7345132743362832,
+                    "baseline_prob": 0.5022123893805309,
+                    "baseline_n": 452,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 118,
+                    "total": 452,
+                    "probability": 0.2610619469026549,
+                    "baseline_prob": 0.49557522123893805,
+                    "baseline_n": 452,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 452,
+                    "probability": 0.004424778761061947,
+                    "baseline_prob": 0.0022123893805309734,
+                    "baseline_n": 452,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 140,
+                    "total": 456,
+                    "probability": 0.30701754385964913,
+                    "baseline_prob": 0.5043859649122807,
+                    "baseline_n": 456,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 313,
+                    "total": 456,
+                    "probability": 0.6864035087719298,
+                    "baseline_prob": 0.48903508771929827,
+                    "baseline_n": 456,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 456,
+                    "probability": 0.006578947368421052,
+                    "baseline_prob": 0.006578947368421052,
+                    "baseline_n": 456,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 311,
+                    "total": 419,
+                    "probability": 0.7422434367541766,
+                    "baseline_prob": 0.5274463007159904,
+                    "baseline_n": 419,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 106,
+                    "total": 419,
+                    "probability": 0.2529832935560859,
+                    "baseline_prob": 0.4677804295942721,
+                    "baseline_n": 419,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 419,
+                    "probability": 0.00477326968973747,
+                    "baseline_prob": 0.00477326968973747,
+                    "baseline_n": 419,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 144,
+                    "total": 433,
+                    "probability": 0.3325635103926097,
+                    "baseline_prob": 0.5150115473441108,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 286,
+                    "total": 433,
+                    "probability": 0.6605080831408776,
+                    "baseline_prob": 0.48498845265588914,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 433,
+                    "probability": 0.006928406466512702,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 295,
+                    "total": 421,
+                    "probability": 0.7007125890736342,
+                    "baseline_prob": 0.5130641330166271,
+                    "baseline_n": 421,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 124,
+                    "total": 421,
+                    "probability": 0.29453681710213775,
+                    "baseline_prob": 0.4750593824228028,
+                    "baseline_n": 421,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 421,
+                    "probability": 0.004750593824228029,
+                    "baseline_prob": 0.011876484560570071,
+                    "baseline_n": 421,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 416,
+                    "total": 853,
+                    "probability": 0.4876905041031653,
+                    "baseline_prob": 0.6987104337631888,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 436,
+                    "total": 853,
+                    "probability": 0.511137162954279,
+                    "baseline_prob": 0.2977725674091442,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 853,
+                    "probability": 0.0011723329425556857,
+                    "baseline_prob": 0.0035169988276670576,
+                    "baseline_n": 853,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 1263,
+                    "total": 1530,
+                    "probability": 0.8254901960784313,
+                    "baseline_prob": 0.707843137254902,
+                    "baseline_n": 1530,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 260,
+                    "total": 1530,
+                    "probability": 0.16993464052287582,
+                    "baseline_prob": 0.28888888888888886,
+                    "baseline_n": 1530,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 7,
+                    "total": 1530,
+                    "probability": 0.004575163398692811,
+                    "baseline_prob": 0.0032679738562091504,
+                    "baseline_n": 1530,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 264,
+                    "total": 1278,
+                    "probability": 0.20657276995305165,
+                    "baseline_prob": 0.310641627543036,
+                    "baseline_n": 1278,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 1001,
+                    "total": 1278,
+                    "probability": 0.7832550860719875,
+                    "baseline_prob": 0.6823161189358372,
+                    "baseline_n": 1278,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 1278,
+                    "probability": 0.010172143974960876,
+                    "baseline_prob": 0.007042253521126761,
+                    "baseline_n": 1278,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 370,
+                    "total": 670,
+                    "probability": 0.5522388059701493,
+                    "baseline_prob": 0.3537313432835821,
+                    "baseline_n": 670,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 299,
+                    "total": 670,
+                    "probability": 0.4462686567164179,
+                    "baseline_prob": 0.6388059701492538,
+                    "baseline_n": 670,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 670,
+                    "probability": 0.0014925373134328358,
+                    "baseline_prob": 0.007462686567164179,
+                    "baseline_n": 670,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 378,
+                    "total": 1201,
+                    "probability": 0.3147377185678601,
+                    "baseline_prob": 0.5395503746877602,
+                    "baseline_n": 1201,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 815,
+                    "total": 1201,
+                    "probability": 0.678601165695254,
+                    "baseline_prob": 0.4537885095753539,
+                    "baseline_n": 1201,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 1201,
+                    "probability": 0.006661115736885929,
+                    "baseline_prob": 0.006661115736885929,
+                    "baseline_n": 1201,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 896,
+                    "total": 1182,
+                    "probability": 0.7580372250423012,
+                    "baseline_prob": 0.5296108291032149,
+                    "baseline_n": 1182,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 281,
+                    "total": 1182,
+                    "probability": 0.2377326565143824,
+                    "baseline_prob": 0.46615905245346867,
+                    "baseline_n": 1182,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 1182,
+                    "probability": 0.004230118443316413,
+                    "baseline_prob": 0.004230118443316413,
+                    "baseline_n": 1182,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 302,
+                    "total": 930,
+                    "probability": 0.3247311827956989,
+                    "baseline_prob": 0.5290322580645161,
+                    "baseline_n": 930,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 622,
+                    "total": 930,
+                    "probability": 0.6688172043010753,
+                    "baseline_prob": 0.4645161290322581,
+                    "baseline_n": 930,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 930,
+                    "probability": 0.0064516129032258064,
+                    "baseline_prob": 0.0064516129032258064,
+                    "baseline_n": 930,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 736,
+                    "total": 1017,
+                    "probability": 0.7236971484759095,
+                    "baseline_prob": 0.5368731563421829,
+                    "baseline_n": 1017,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 278,
+                    "total": 1017,
+                    "probability": 0.27335299901671584,
+                    "baseline_prob": 0.46017699115044247,
+                    "baseline_n": 1017,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 1017,
+                    "probability": 0.0029498525073746312,
+                    "baseline_prob": 0.0029498525073746312,
+                    "baseline_n": 1017,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 387,
+                    "total": 1234,
+                    "probability": 0.31361426256077796,
+                    "baseline_prob": 0.5364667747163695,
+                    "baseline_n": 1234,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 837,
+                    "total": 1234,
+                    "probability": 0.6782820097244733,
+                    "baseline_prob": 0.4554294975688817,
+                    "baseline_n": 1234,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 1234,
+                    "probability": 0.008103727714748784,
+                    "baseline_prob": 0.008103727714748784,
+                    "baseline_n": 1234,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 920,
+                    "total": 1209,
+                    "probability": 0.76095947063689,
+                    "baseline_prob": 0.533498759305211,
+                    "baseline_n": 1209,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 283,
+                    "total": 1209,
+                    "probability": 0.23407775020678245,
+                    "baseline_prob": 0.46153846153846156,
+                    "baseline_n": 1209,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 1209,
+                    "probability": 0.004962779156327543,
+                    "baseline_prob": 0.004962779156327543,
+                    "baseline_n": 1209,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 293,
+                    "total": 897,
+                    "probability": 0.326644370122631,
+                    "baseline_prob": 0.5373467112597548,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 600,
+                    "total": 897,
+                    "probability": 0.6688963210702341,
+                    "baseline_prob": 0.4604236343366778,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 897,
+                    "probability": 0.004459308807134894,
+                    "baseline_prob": 0.002229654403567447,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 712,
+                    "total": 990,
+                    "probability": 0.7191919191919192,
+                    "baseline_prob": 0.5282828282828282,
+                    "baseline_n": 990,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 276,
+                    "total": 990,
+                    "probability": 0.2787878787878788,
+                    "baseline_prob": 0.4676767676767677,
+                    "baseline_n": 990,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 990,
+                    "probability": 0.00202020202020202,
+                    "baseline_prob": 0.00404040404040404,
+                    "baseline_n": 990,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (4.36–17.10]",
+                  "fr": "ib_size tranche 1 (4.36–17.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 206,
+                    "total": 530,
+                    "probability": 0.3886792452830189,
+                    "baseline_prob": 0.5188679245283019,
+                    "baseline_n": 530,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 324,
+                    "total": 530,
+                    "probability": 0.6113207547169811,
+                    "baseline_prob": 0.47924528301886793,
+                    "baseline_n": 530,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 530,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0018867924528301887,
+                    "baseline_n": 530,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 369,
+                    "total": 553,
+                    "probability": 0.6672694394213382,
+                    "baseline_prob": 0.5424954792043399,
+                    "baseline_n": 553,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 182,
+                    "total": 553,
+                    "probability": 0.3291139240506329,
+                    "baseline_prob": 0.45569620253164556,
+                    "baseline_n": 553,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 553,
+                    "probability": 0.003616636528028933,
+                    "baseline_prob": 0.0018083182640144665,
+                    "baseline_n": 553,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (17.10–33.57]",
+                  "fr": "ib_size tranche 2 (17.10–33.57]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 151,
+                    "total": 519,
+                    "probability": 0.2909441233140655,
+                    "baseline_prob": 0.5452793834296724,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 360,
+                    "total": 519,
+                    "probability": 0.6936416184971098,
+                    "baseline_prob": 0.4393063583815029,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 519,
+                    "probability": 0.015414258188824663,
+                    "baseline_prob": 0.015414258188824663,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 437,
+                    "total": 564,
+                    "probability": 0.774822695035461,
+                    "baseline_prob": 0.5407801418439716,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 124,
+                    "total": 564,
+                    "probability": 0.2198581560283688,
+                    "baseline_prob": 0.45390070921985815,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 564,
+                    "probability": 0.005319148936170213,
+                    "baseline_prob": 0.005319148936170213,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (33.57–89.96]",
+                  "fr": "ib_size tranche 3 (33.57–89.96]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 162,
+                    "total": 523,
+                    "probability": 0.30975143403441685,
+                    "baseline_prob": 0.5200764818355641,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 356,
+                    "total": 523,
+                    "probability": 0.6806883365200764,
+                    "baseline_prob": 0.47418738049713194,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 523,
+                    "probability": 0.009560229445506692,
+                    "baseline_prob": 0.0057361376673040155,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 420,
+                    "total": 559,
+                    "probability": 0.7513416815742398,
+                    "baseline_prob": 0.554561717352415,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 138,
+                    "total": 559,
+                    "probability": 0.24686940966010734,
+                    "baseline_prob": 0.4400715563506261,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 559,
+                    "probability": 0.0017889087656529517,
+                    "baseline_prob": 0.005366726296958855,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (89.96–647.05]",
+                  "fr": "ib_size tranche 4 (89.96–647.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 161,
+                    "total": 559,
+                    "probability": 0.2880143112701252,
+                    "baseline_prob": 0.5205724508050089,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 397,
+                    "total": 559,
+                    "probability": 0.7101967799642218,
+                    "baseline_prob": 0.47942754919499103,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 559,
+                    "probability": 0.0017889087656529517,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 407,
+                    "total": 524,
+                    "probability": 0.7767175572519084,
+                    "baseline_prob": 0.5286259541984732,
+                    "baseline_n": 524,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 115,
+                    "total": 524,
+                    "probability": 0.21946564885496184,
+                    "baseline_prob": 0.46564885496183206,
+                    "baseline_n": 524,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 524,
+                    "probability": 0.003816793893129771,
+                    "baseline_prob": 0.0057251908396946565,
+                    "baseline_n": 524,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 67,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 14,
+                    "total": 27,
+                    "probability": 0.5185185185185185,
+                    "baseline_prob": 0.6296296296296297,
+                    "baseline_n": 27,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 13,
+                    "total": 27,
+                    "probability": 0.48148148148148145,
+                    "baseline_prob": 0.37037037037037035,
+                    "baseline_n": 27,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 27,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 27,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 21,
+                    "total": 40,
+                    "probability": 0.525,
+                    "baseline_prob": 0.45,
+                    "baseline_n": 40,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 19,
+                    "total": 40,
+                    "probability": 0.475,
+                    "baseline_prob": 0.55,
+                    "baseline_n": 40,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 40,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 40,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 1102,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 208,
+                    "total": 522,
+                    "probability": 0.39846743295019155,
+                    "baseline_prob": 0.5689655172413793,
+                    "baseline_n": 522,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 312,
+                    "total": 522,
+                    "probability": 0.5977011494252874,
+                    "baseline_prob": 0.4272030651340996,
+                    "baseline_n": 522,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 2,
+                    "total": 522,
+                    "probability": 0.0038314176245210726,
+                    "baseline_prob": 0.0038314176245210726,
+                    "baseline_n": 522,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 396,
+                    "total": 579,
+                    "probability": 0.6839378238341969,
+                    "baseline_prob": 0.5302245250431779,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 183,
+                    "total": 579,
+                    "probability": 0.3160621761658031,
+                    "baseline_prob": 0.4697754749568221,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 579,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1346,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 220,
+                    "total": 660,
+                    "probability": 0.3333333333333333,
+                    "baseline_prob": 0.5484848484848485,
+                    "baseline_n": 660,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 436,
+                    "total": 660,
+                    "probability": 0.6606060606060606,
+                    "baseline_prob": 0.44696969696969696,
+                    "baseline_n": 660,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 660,
+                    "probability": 0.006060606060606061,
+                    "baseline_prob": 0.004545454545454545,
+                    "baseline_n": 660,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 533,
+                    "total": 686,
+                    "probability": 0.7769679300291545,
+                    "baseline_prob": 0.5699708454810496,
+                    "baseline_n": 686,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 152,
+                    "total": 686,
+                    "probability": 0.22157434402332363,
+                    "baseline_prob": 0.4271137026239067,
+                    "baseline_n": 686,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 686,
+                    "probability": 0.0014577259475218659,
+                    "baseline_prob": 0.0029154518950437317,
+                    "baseline_n": 686,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1114,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 153,
+                    "total": 554,
+                    "probability": 0.27617328519855594,
+                    "baseline_prob": 0.5036101083032491,
+                    "baseline_n": 554,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 396,
+                    "total": 554,
+                    "probability": 0.7148014440433214,
+                    "baseline_prob": 0.49097472924187724,
+                    "baseline_n": 554,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 5,
+                    "total": 554,
+                    "probability": 0.009025270758122744,
+                    "baseline_prob": 0.005415162454873646,
+                    "baseline_n": 554,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 423,
+                    "total": 560,
+                    "probability": 0.7553571428571428,
+                    "baseline_prob": 0.5303571428571429,
+                    "baseline_n": 560,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 133,
+                    "total": 560,
+                    "probability": 0.2375,
+                    "baseline_prob": 0.4589285714285714,
+                    "baseline_n": 560,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 4,
+                    "total": 560,
+                    "probability": 0.007142857142857143,
+                    "baseline_prob": 0.010714285714285714,
+                    "baseline_n": 560,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 703,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 85,
+                    "total": 368,
+                    "probability": 0.23097826086956522,
+                    "baseline_prob": 0.4945652173913043,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 280,
+                    "total": 368,
+                    "probability": 0.7608695652173914,
+                    "baseline_prob": 0.49728260869565216,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 368,
+                    "probability": 0.008152173913043478,
+                    "baseline_prob": 0.008152173913043478,
+                    "baseline_n": 368,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 260,
+                    "total": 335,
+                    "probability": 0.7761194029850746,
+                    "baseline_prob": 0.48656716417910445,
+                    "baseline_n": 335,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 72,
+                    "total": 335,
+                    "probability": 0.21492537313432836,
+                    "baseline_prob": 0.5044776119402985,
+                    "baseline_n": 335,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 3,
+                    "total": 335,
+                    "probability": 0.008955223880597015,
+                    "baseline_prob": 0.008955223880597015,
+                    "baseline_n": 335,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "formed_high",
+            "outcome": "broke_high",
+            "count": 658,
+            "total": 2128,
+            "probability": 0.3092105263157895,
+            "baseline_prob": 0.5244360902255639,
+            "baseline_n": 2128,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_high",
+            "outcome": "broke_low",
+            "count": 1355,
+            "total": 2128,
+            "probability": 0.6367481203007519,
+            "baseline_prob": 0.43796992481203006,
+            "baseline_n": 2128,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_high",
+            "outcome": "neither",
+            "count": 115,
+            "total": 2128,
+            "probability": 0.05404135338345865,
+            "baseline_prob": 0.03759398496240601,
+            "baseline_n": 2128,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "broke_high",
+            "count": 1617,
+            "total": 2204,
+            "probability": 0.7336660617059891,
+            "baseline_prob": 0.5258620689655172,
+            "baseline_n": 2204,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "broke_low",
+            "count": 532,
+            "total": 2204,
+            "probability": 0.2413793103448276,
+            "baseline_prob": 0.43330308529945555,
+            "baseline_n": 2204,
+            "value": null,
+            "value_baseline": null
+          },
+          {
+            "condition": "formed_low",
+            "outcome": "neither",
+            "count": 55,
+            "total": 2204,
+            "probability": 0.0249546279491833,
+            "baseline_prob": 0.04083484573502722,
+            "baseline_n": 2204,
+            "value": null,
+            "value_baseline": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 109,
+                    "total": 358,
+                    "probability": 0.30446927374301674,
+                    "baseline_prob": 0.5279329608938548,
+                    "baseline_n": 358,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 220,
+                    "total": 358,
+                    "probability": 0.6145251396648045,
+                    "baseline_prob": 0.4245810055865922,
+                    "baseline_n": 358,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 29,
+                    "total": 358,
+                    "probability": 0.08100558659217877,
+                    "baseline_prob": 0.04748603351955307,
+                    "baseline_n": 358,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 319,
+                    "total": 458,
+                    "probability": 0.6965065502183406,
+                    "baseline_prob": 0.5218340611353712,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 130,
+                    "total": 458,
+                    "probability": 0.2838427947598253,
+                    "baseline_prob": 0.43231441048034935,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 458,
+                    "probability": 0.019650655021834062,
+                    "baseline_prob": 0.04585152838427948,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 138,
+                    "total": 449,
+                    "probability": 0.30734966592427615,
+                    "baseline_prob": 0.4922048997772829,
+                    "baseline_n": 449,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 289,
+                    "total": 449,
+                    "probability": 0.643652561247216,
+                    "baseline_prob": 0.4610244988864143,
+                    "baseline_n": 449,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 22,
+                    "total": 449,
+                    "probability": 0.04899777282850779,
+                    "baseline_prob": 0.0467706013363029,
+                    "baseline_n": 449,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 338,
+                    "total": 447,
+                    "probability": 0.756152125279642,
+                    "baseline_prob": 0.5704697986577181,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 94,
+                    "total": 447,
+                    "probability": 0.21029082774049218,
+                    "baseline_prob": 0.39373601789709173,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 15,
+                    "total": 447,
+                    "probability": 0.03355704697986577,
+                    "baseline_prob": 0.035794183445190156,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 130,
+                    "total": 436,
+                    "probability": 0.2981651376146789,
+                    "baseline_prob": 0.5412844036697247,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 291,
+                    "total": 436,
+                    "probability": 0.6674311926605505,
+                    "baseline_prob": 0.43119266055045874,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 15,
+                    "total": 436,
+                    "probability": 0.034403669724770644,
+                    "baseline_prob": 0.027522935779816515,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 332,
+                    "total": 454,
+                    "probability": 0.7312775330396476,
+                    "baseline_prob": 0.4977973568281938,
+                    "baseline_n": 454,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 114,
+                    "total": 454,
+                    "probability": 0.2511013215859031,
+                    "baseline_prob": 0.4779735682819383,
+                    "baseline_n": 454,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 8,
+                    "total": 454,
+                    "probability": 0.01762114537444934,
+                    "baseline_prob": 0.024229074889867842,
+                    "baseline_n": 454,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 141,
+                    "total": 445,
+                    "probability": 0.31685393258426964,
+                    "baseline_prob": 0.5123595505617977,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 282,
+                    "total": 445,
+                    "probability": 0.6337078651685393,
+                    "baseline_prob": 0.45393258426966293,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 22,
+                    "total": 445,
+                    "probability": 0.04943820224719101,
+                    "baseline_prob": 0.033707865168539325,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 329,
+                    "total": 430,
+                    "probability": 0.7651162790697674,
+                    "baseline_prob": 0.5627906976744186,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 91,
+                    "total": 430,
+                    "probability": 0.2116279069767442,
+                    "baseline_prob": 0.39767441860465114,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 430,
+                    "probability": 0.023255813953488372,
+                    "baseline_prob": 0.03953488372093023,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 140,
+                    "total": 440,
+                    "probability": 0.3181818181818182,
+                    "baseline_prob": 0.5022727272727273,
+                    "baseline_n": 440,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 273,
+                    "total": 440,
+                    "probability": 0.6204545454545455,
+                    "baseline_prob": 0.45454545454545453,
+                    "baseline_n": 440,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 27,
+                    "total": 440,
+                    "probability": 0.06136363636363636,
+                    "baseline_prob": 0.04318181818181818,
+                    "baseline_n": 440,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 299,
+                    "total": 415,
+                    "probability": 0.7204819277108434,
+                    "baseline_prob": 0.5253012048192771,
+                    "baseline_n": 415,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 103,
+                    "total": 415,
+                    "probability": 0.24819277108433735,
+                    "baseline_prob": 0.42409638554216866,
+                    "baseline_n": 415,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 415,
+                    "probability": 0.03132530120481928,
+                    "baseline_prob": 0.05060240963855422,
+                    "baseline_n": 415,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 451,
+                    "total": 775,
+                    "probability": 0.5819354838709677,
+                    "baseline_prob": 0.7458064516129033,
+                    "baseline_n": 775,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 301,
+                    "total": 775,
+                    "probability": 0.38838709677419353,
+                    "baseline_prob": 0.22580645161290322,
+                    "baseline_n": 775,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 23,
+                    "total": 775,
+                    "probability": 0.02967741935483871,
+                    "baseline_prob": 0.02838709677419355,
+                    "baseline_n": 775,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 1329,
+                    "total": 1609,
+                    "probability": 0.8259788688626476,
+                    "baseline_prob": 0.7470478558110628,
+                    "baseline_n": 1609,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 235,
+                    "total": 1609,
+                    "probability": 0.14605344934742076,
+                    "baseline_prob": 0.22436295835922934,
+                    "baseline_n": 1609,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 45,
+                    "total": 1609,
+                    "probability": 0.027967681789931635,
+                    "baseline_prob": 0.028589185829707892,
+                    "baseline_n": 1609,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 207,
+                    "total": 1353,
+                    "probability": 0.15299334811529933,
+                    "baseline_prob": 0.2409460458240946,
+                    "baseline_n": 1353,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 1054,
+                    "total": 1353,
+                    "probability": 0.779009608277901,
+                    "baseline_prob": 0.7080561714708056,
+                    "baseline_n": 1353,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 92,
+                    "total": 1353,
+                    "probability": 0.0679970436067997,
+                    "baseline_prob": 0.050997782705099776,
+                    "baseline_n": 1353,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 288,
+                    "total": 595,
+                    "probability": 0.48403361344537815,
+                    "baseline_prob": 0.28403361344537814,
+                    "baseline_n": 595,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 297,
+                    "total": 595,
+                    "probability": 0.4991596638655462,
+                    "baseline_prob": 0.6605042016806723,
+                    "baseline_n": 595,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 10,
+                    "total": 595,
+                    "probability": 0.01680672268907563,
+                    "baseline_prob": 0.05546218487394958,
+                    "baseline_n": 595,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 364,
+                    "total": 1184,
+                    "probability": 0.30743243243243246,
+                    "baseline_prob": 0.5337837837837838,
+                    "baseline_n": 1184,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 757,
+                    "total": 1184,
+                    "probability": 0.6393581081081081,
+                    "baseline_prob": 0.43074324324324326,
+                    "baseline_n": 1184,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 63,
+                    "total": 1184,
+                    "probability": 0.05320945945945946,
+                    "baseline_prob": 0.03547297297297297,
+                    "baseline_n": 1184,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 893,
+                    "total": 1199,
+                    "probability": 0.7447873227689742,
+                    "baseline_prob": 0.5212677231025855,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 275,
+                    "total": 1199,
+                    "probability": 0.22935779816513763,
+                    "baseline_prob": 0.4353628023352794,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 31,
+                    "total": 1199,
+                    "probability": 0.02585487906588824,
+                    "baseline_prob": 0.043369474562135114,
+                    "baseline_n": 1199,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 294,
+                    "total": 944,
+                    "probability": 0.3114406779661017,
+                    "baseline_prob": 0.5360169491525424,
+                    "baseline_n": 944,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 598,
+                    "total": 944,
+                    "probability": 0.6334745762711864,
+                    "baseline_prob": 0.4269067796610169,
+                    "baseline_n": 944,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 52,
+                    "total": 944,
+                    "probability": 0.05508474576271186,
+                    "baseline_prob": 0.037076271186440676,
+                    "baseline_n": 944,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 723,
+                    "total": 1004,
+                    "probability": 0.7201195219123506,
+                    "baseline_prob": 0.5089641434262948,
+                    "baseline_n": 1004,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 257,
+                    "total": 1004,
+                    "probability": 0.2559760956175299,
+                    "baseline_prob": 0.450199203187251,
+                    "baseline_n": 1004,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 24,
+                    "total": 1004,
+                    "probability": 0.02390438247011952,
+                    "baseline_prob": 0.04083665338645418,
+                    "baseline_n": 1004,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 381,
+                    "total": 1222,
+                    "probability": 0.3117839607201309,
+                    "baseline_prob": 0.5245499181669394,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 764,
+                    "total": 1222,
+                    "probability": 0.6252045826513911,
+                    "baseline_prob": 0.43453355155482815,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 77,
+                    "total": 1222,
+                    "probability": 0.0630114566284779,
+                    "baseline_prob": 0.04091653027823241,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 906,
+                    "total": 1222,
+                    "probability": 0.7414075286415712,
+                    "baseline_prob": 0.5286415711947627,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 287,
+                    "total": 1222,
+                    "probability": 0.234860883797054,
+                    "baseline_prob": 0.425531914893617,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 29,
+                    "total": 1222,
+                    "probability": 0.023731587561374796,
+                    "baseline_prob": 0.04582651391162029,
+                    "baseline_n": 1222,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 277,
+                    "total": 906,
+                    "probability": 0.3057395143487859,
+                    "baseline_prob": 0.5253863134657837,
+                    "baseline_n": 906,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 591,
+                    "total": 906,
+                    "probability": 0.652317880794702,
+                    "baseline_prob": 0.4381898454746137,
+                    "baseline_n": 906,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 38,
+                    "total": 906,
+                    "probability": 0.04194260485651214,
+                    "baseline_prob": 0.03642384105960265,
+                    "baseline_n": 906,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 710,
+                    "total": 981,
+                    "probability": 0.7237512742099899,
+                    "baseline_prob": 0.5208970438328236,
+                    "baseline_n": 981,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 245,
+                    "total": 981,
+                    "probability": 0.24974515800203873,
+                    "baseline_prob": 0.4475025484199796,
+                    "baseline_n": 981,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 26,
+                    "total": 981,
+                    "probability": 0.026503567787971458,
+                    "baseline_prob": 0.03160040774719674,
+                    "baseline_n": 981,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (5.79–22.29]",
+                  "fr": "ib_size tranche 1 (5.79–22.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 192,
+                    "total": 504,
+                    "probability": 0.38095238095238093,
+                    "baseline_prob": 0.5555555555555556,
+                    "baseline_n": 504,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 290,
+                    "total": 504,
+                    "probability": 0.5753968253968254,
+                    "baseline_prob": 0.4087301587301587,
+                    "baseline_n": 504,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 22,
+                    "total": 504,
+                    "probability": 0.04365079365079365,
+                    "baseline_prob": 0.03571428571428571,
+                    "baseline_n": 504,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 407,
+                    "total": 579,
+                    "probability": 0.7029360967184801,
+                    "baseline_prob": 0.5509499136442142,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 163,
+                    "total": 579,
+                    "probability": 0.2815198618307427,
+                    "baseline_prob": 0.4265975820379965,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 579,
+                    "probability": 0.015544041450777202,
+                    "baseline_prob": 0.022452504317789293,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (22.29–43.29]",
+                  "fr": "ib_size tranche 2 (22.29–43.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 160,
+                    "total": 520,
+                    "probability": 0.3076923076923077,
+                    "baseline_prob": 0.5442307692307692,
+                    "baseline_n": 520,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 324,
+                    "total": 520,
+                    "probability": 0.6230769230769231,
+                    "baseline_prob": 0.39615384615384613,
+                    "baseline_n": 520,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 36,
+                    "total": 520,
+                    "probability": 0.06923076923076923,
+                    "baseline_prob": 0.05961538461538462,
+                    "baseline_n": 520,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 425,
+                    "total": 563,
+                    "probability": 0.7548845470692718,
+                    "baseline_prob": 0.5364120781527532,
+                    "baseline_n": 563,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 116,
+                    "total": 563,
+                    "probability": 0.20603907637655416,
+                    "baseline_prob": 0.41563055062166965,
+                    "baseline_n": 563,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 22,
+                    "total": 563,
+                    "probability": 0.03907637655417407,
+                    "baseline_prob": 0.047957371225577264,
+                    "baseline_n": 563,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (43.29–117.54]",
+                  "fr": "ib_size tranche 3 (43.29–117.54]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 179,
+                    "total": 555,
+                    "probability": 0.3225225225225225,
+                    "baseline_prob": 0.5135135135135135,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 343,
+                    "total": 555,
+                    "probability": 0.618018018018018,
+                    "baseline_prob": 0.45585585585585586,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 33,
+                    "total": 555,
+                    "probability": 0.05945945945945946,
+                    "baseline_prob": 0.03063063063063063,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 376,
+                    "total": 528,
+                    "probability": 0.7121212121212122,
+                    "baseline_prob": 0.5113636363636364,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 141,
+                    "total": 528,
+                    "probability": 0.26704545454545453,
+                    "baseline_prob": 0.4375,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 11,
+                    "total": 528,
+                    "probability": 0.020833333333333332,
+                    "baseline_prob": 0.05113636363636364,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (117.54–1753.88]",
+                  "fr": "ib_size tranche 4 (117.54–1753.88]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 127,
+                    "total": 549,
+                    "probability": 0.23132969034608378,
+                    "baseline_prob": 0.48269581056466304,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 398,
+                    "total": 549,
+                    "probability": 0.7249544626593807,
+                    "baseline_prob": 0.48633879781420764,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 24,
+                    "total": 549,
+                    "probability": 0.04371584699453552,
+                    "baseline_prob": 0.030965391621129327,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 409,
+                    "total": 534,
+                    "probability": 0.7659176029962547,
+                    "baseline_prob": 0.5074906367041199,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 112,
+                    "total": 534,
+                    "probability": 0.20973782771535582,
+                    "baseline_prob": 0.4550561797752809,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 13,
+                    "total": 534,
+                    "probability": 0.024344569288389514,
+                    "baseline_prob": 0.03745318352059925,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 12,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 3,
+                    "total": 5,
+                    "probability": 0.6,
+                    "baseline_prob": 0.6,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 2,
+                    "total": 5,
+                    "probability": 0.4,
+                    "baseline_prob": 0.4,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 5,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 4,
+                    "total": 7,
+                    "probability": 0.5714285714285714,
+                    "baseline_prob": 0.5714285714285714,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 3,
+                    "total": 7,
+                    "probability": 0.42857142857142855,
+                    "baseline_prob": 0.42857142857142855,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 0,
+                    "total": 7,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 581,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 111,
+                    "total": 256,
+                    "probability": 0.43359375,
+                    "baseline_prob": 0.57421875,
+                    "baseline_n": 256,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 139,
+                    "total": 256,
+                    "probability": 0.54296875,
+                    "baseline_prob": 0.40625,
+                    "baseline_n": 256,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 6,
+                    "total": 256,
+                    "probability": 0.0234375,
+                    "baseline_prob": 0.01953125,
+                    "baseline_n": 256,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 234,
+                    "total": 325,
+                    "probability": 0.72,
+                    "baseline_prob": 0.6092307692307692,
+                    "baseline_n": 325,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 90,
+                    "total": 325,
+                    "probability": 0.27692307692307694,
+                    "baseline_prob": 0.38461538461538464,
+                    "baseline_n": 325,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 1,
+                    "total": 325,
+                    "probability": 0.003076923076923077,
+                    "baseline_prob": 0.006153846153846154,
+                    "baseline_n": 325,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1071,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 188,
+                    "total": 516,
+                    "probability": 0.3643410852713178,
+                    "baseline_prob": 0.5368217054263565,
+                    "baseline_n": 516,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 302,
+                    "total": 516,
+                    "probability": 0.5852713178294574,
+                    "baseline_prob": 0.4263565891472868,
+                    "baseline_n": 516,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 26,
+                    "total": 516,
+                    "probability": 0.050387596899224806,
+                    "baseline_prob": 0.03682170542635659,
+                    "baseline_n": 516,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 395,
+                    "total": 555,
+                    "probability": 0.7117117117117117,
+                    "baseline_prob": 0.5513513513513514,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 145,
+                    "total": 555,
+                    "probability": 0.26126126126126126,
+                    "baseline_prob": 0.409009009009009,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 15,
+                    "total": 555,
+                    "probability": 0.02702702702702703,
+                    "baseline_prob": 0.03963963963963964,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1279,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 197,
+                    "total": 601,
+                    "probability": 0.3277870216306156,
+                    "baseline_prob": 0.5291181364392679,
+                    "baseline_n": 601,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 372,
+                    "total": 601,
+                    "probability": 0.6189683860232945,
+                    "baseline_prob": 0.4442595673876872,
+                    "baseline_n": 601,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 32,
+                    "total": 601,
+                    "probability": 0.05324459234608985,
+                    "baseline_prob": 0.026622296173044926,
+                    "baseline_n": 601,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 493,
+                    "total": 678,
+                    "probability": 0.7271386430678466,
+                    "baseline_prob": 0.5486725663716814,
+                    "baseline_n": 678,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 176,
+                    "total": 678,
+                    "probability": 0.25958702064896755,
+                    "baseline_prob": 0.4144542772861357,
+                    "baseline_n": 678,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 9,
+                    "total": 678,
+                    "probability": 0.01327433628318584,
+                    "baseline_prob": 0.03687315634218289,
+                    "baseline_n": 678,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 1389,
+                "results": [
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_high",
+                    "count": 159,
+                    "total": 750,
+                    "probability": 0.212,
+                    "baseline_prob": 0.45866666666666667,
+                    "baseline_n": 750,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "broke_low",
+                    "count": 540,
+                    "total": 750,
+                    "probability": 0.72,
+                    "baseline_prob": 0.4826666666666667,
+                    "baseline_n": 750,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_high",
+                    "outcome": "neither",
+                    "count": 51,
+                    "total": 750,
+                    "probability": 0.068,
+                    "baseline_prob": 0.058666666666666666,
+                    "baseline_n": 750,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_high",
+                    "count": 491,
+                    "total": 639,
+                    "probability": 0.7683881064162754,
+                    "baseline_prob": 0.4788732394366197,
+                    "baseline_n": 639,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "broke_low",
+                    "count": 118,
+                    "total": 639,
+                    "probability": 0.18466353677621283,
+                    "baseline_prob": 0.46322378716744916,
+                    "baseline_n": 639,
+                    "value": null,
+                    "value_baseline": null
+                  },
+                  {
+                    "condition": "formed_low",
+                    "outcome": "neither",
+                    "count": 30,
+                    "total": 639,
+                    "probability": 0.046948356807511735,
+                    "baseline_prob": 0.057902973395931145,
+                    "baseline_n": 639,
+                    "value": null,
+                    "value_baseline": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

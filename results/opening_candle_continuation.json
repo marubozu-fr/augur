@@ -1,0 +1,4601 @@
+{
+  "stat_name": "opening_candle_continuation",
+  "title": {
+    "en": "Opening Candle Continuation",
+    "fr": "Continuation de la bougie d'ouverture"
+  },
+  "definition": {
+    "en": "After the first N-minute candle of the NY session, how often does the session close in the same direction?",
+    "fr": "Après la première bougie de N minutes de la session NY, à quelle fréquence la session clôture-t-elle dans la même direction ?"
+  },
+  "labels": {
+    "conditions": {
+      "green_open": {
+        "en": "Green opening candle",
+        "fr": "Bougie d'ouverture verte"
+      },
+      "red_open": {
+        "en": "Red opening candle",
+        "fr": "Bougie d'ouverture rouge"
+      }
+    },
+    "outcomes": {
+      "green_close": {
+        "en": "Session closes green",
+        "fr": "Session clôture en vert"
+      },
+      "red_close": {
+        "en": "Session closes red",
+        "fr": "Session clôture en rouge"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close vs opening candle",
+        "fr": "Clôture de session vs bougie d'ouverture"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1528,
+            "total": 2248,
+            "probability": 0.6797153024911032,
+            "baseline_prob": 0.49466192170818507,
+            "baseline_n": 2248,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 720,
+            "total": 2248,
+            "probability": 0.3202846975088968,
+            "baseline_prob": 0.505338078291815,
+            "baseline_n": 2248,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 856,
+            "total": 2084,
+            "probability": 0.4107485604606526,
+            "baseline_prob": 0.4932821497120921,
+            "baseline_n": 2084,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1228,
+            "total": 2084,
+            "probability": 0.5892514395393474,
+            "baseline_prob": 0.5067178502879078,
+            "baseline_n": 2084,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 332,
+                    "total": 472,
+                    "probability": 0.7033898305084746,
+                    "baseline_prob": 0.5127118644067796,
+                    "baseline_n": 472,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 140,
+                    "total": 472,
+                    "probability": 0.2966101694915254,
+                    "baseline_prob": 0.4872881355932203,
+                    "baseline_n": 472,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 156,
+                    "total": 344,
+                    "probability": 0.45348837209302323,
+                    "baseline_prob": 0.5058139534883721,
+                    "baseline_n": 344,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 188,
+                    "total": 344,
+                    "probability": 0.5465116279069767,
+                    "baseline_prob": 0.4941860465116279,
+                    "baseline_n": 344,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 305,
+                    "total": 448,
+                    "probability": 0.6808035714285714,
+                    "baseline_prob": 0.49776785714285715,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 143,
+                    "total": 448,
+                    "probability": 0.31919642857142855,
+                    "baseline_prob": 0.5022321428571429,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 189,
+                    "total": 448,
+                    "probability": 0.421875,
+                    "baseline_prob": 0.5267857142857143,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 259,
+                    "total": 448,
+                    "probability": 0.578125,
+                    "baseline_prob": 0.4732142857142857,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 301,
+                    "total": 459,
+                    "probability": 0.6557734204793029,
+                    "baseline_prob": 0.5250544662309368,
+                    "baseline_n": 459,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 158,
+                    "total": 459,
+                    "probability": 0.3442265795206972,
+                    "baseline_prob": 0.4749455337690632,
+                    "baseline_n": 459,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 171,
+                    "total": 431,
+                    "probability": 0.39675174013921116,
+                    "baseline_prob": 0.494199535962877,
+                    "baseline_n": 431,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 260,
+                    "total": 431,
+                    "probability": 0.6032482598607889,
+                    "baseline_prob": 0.505800464037123,
+                    "baseline_n": 431,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 301,
+                    "total": 447,
+                    "probability": 0.6733780760626398,
+                    "baseline_prob": 0.5324384787472036,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 146,
+                    "total": 447,
+                    "probability": 0.32662192393736017,
+                    "baseline_prob": 0.46756152125279643,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 166,
+                    "total": 428,
+                    "probability": 0.3878504672897196,
+                    "baseline_prob": 0.48598130841121495,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 262,
+                    "total": 428,
+                    "probability": 0.6121495327102804,
+                    "baseline_prob": 0.514018691588785,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 289,
+                    "total": 422,
+                    "probability": 0.6848341232227488,
+                    "baseline_prob": 0.5118483412322274,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 133,
+                    "total": 422,
+                    "probability": 0.31516587677725116,
+                    "baseline_prob": 0.4881516587677725,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 174,
+                    "total": 433,
+                    "probability": 0.4018475750577367,
+                    "baseline_prob": 0.5057736720554272,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 259,
+                    "total": 433,
+                    "probability": 0.5981524249422633,
+                    "baseline_prob": 0.4942263279445728,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1865,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1144,
+                    "total": 1144,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4965034965034965,
+                    "baseline_n": 1144,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1144,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5034965034965035,
+                    "baseline_n": 1144,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 721,
+                    "total": 721,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5159500693481276,
+                    "baseline_n": 721,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 721,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4840499306518724,
+                    "baseline_n": 721,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 994,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 384,
+                    "total": 490,
+                    "probability": 0.7836734693877551,
+                    "baseline_prob": 0.5204081632653061,
+                    "baseline_n": 490,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 106,
+                    "total": 490,
+                    "probability": 0.2163265306122449,
+                    "baseline_prob": 0.47959183673469385,
+                    "baseline_n": 490,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 135,
+                    "total": 504,
+                    "probability": 0.26785714285714285,
+                    "baseline_prob": 0.49404761904761907,
+                    "baseline_n": 504,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 369,
+                    "total": 504,
+                    "probability": 0.7321428571428571,
+                    "baseline_prob": 0.5059523809523809,
+                    "baseline_n": 504,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1473,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 614,
+                    "probability": 0.0,
+                    "baseline_prob": 0.496742671009772,
+                    "baseline_n": 614,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 614,
+                    "total": 614,
+                    "probability": 1.0,
+                    "baseline_prob": 0.503257328990228,
+                    "baseline_n": 614,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5250291036088475,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 859,
+                    "total": 859,
+                    "probability": 1.0,
+                    "baseline_prob": 0.47497089639115253,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–4.70]",
+                  "fr": "opening_body tranche 1 (-0.00–4.70]"
+                },
+                "total_samples": 1086,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 321,
+                    "total": 549,
+                    "probability": 0.5846994535519126,
+                    "baseline_prob": 0.5100182149362478,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 228,
+                    "total": 549,
+                    "probability": 0.41530054644808745,
+                    "baseline_prob": 0.4899817850637523,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 280,
+                    "total": 537,
+                    "probability": 0.521415270018622,
+                    "baseline_prob": 0.5121042830540037,
+                    "baseline_n": 537,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 257,
+                    "total": 537,
+                    "probability": 0.478584729981378,
+                    "baseline_prob": 0.48789571694599626,
+                    "baseline_n": 537,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (4.70–11.34]",
+                  "fr": "opening_body tranche 2 (4.70–11.34]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 395,
+                    "total": 571,
+                    "probability": 0.691768826619965,
+                    "baseline_prob": 0.51138353765324,
+                    "baseline_n": 571,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 176,
+                    "total": 571,
+                    "probability": 0.30823117338003503,
+                    "baseline_prob": 0.4886164623467601,
+                    "baseline_n": 571,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 207,
+                    "total": 509,
+                    "probability": 0.4066797642436149,
+                    "baseline_prob": 0.5068762278978389,
+                    "baseline_n": 509,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 302,
+                    "total": 509,
+                    "probability": 0.593320235756385,
+                    "baseline_prob": 0.4931237721021611,
+                    "baseline_n": 509,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (11.34–28.75]",
+                  "fr": "opening_body tranche 3 (11.34–28.75]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 418,
+                    "total": 573,
+                    "probability": 0.7294938917975567,
+                    "baseline_prob": 0.5008726003490401,
+                    "baseline_n": 573,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 155,
+                    "total": 573,
+                    "probability": 0.2705061082024433,
+                    "baseline_prob": 0.49912739965095987,
+                    "baseline_n": 573,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 194,
+                    "total": 510,
+                    "probability": 0.3803921568627451,
+                    "baseline_prob": 0.5215686274509804,
+                    "baseline_n": 510,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 316,
+                    "total": 510,
+                    "probability": 0.6196078431372549,
+                    "baseline_prob": 0.47843137254901963,
+                    "baseline_n": 510,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (28.75–225.65]",
+                  "fr": "opening_body tranche 4 (28.75–225.65]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 394,
+                    "total": 555,
+                    "probability": 0.7099099099099099,
+                    "baseline_prob": 0.5333333333333333,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 161,
+                    "total": 555,
+                    "probability": 0.29009009009009007,
+                    "baseline_prob": 0.4666666666666667,
+                    "baseline_n": 555,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 175,
+                    "total": 528,
+                    "probability": 0.3314393939393939,
+                    "baseline_prob": 0.48674242424242425,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 353,
+                    "total": 528,
+                    "probability": 0.6685606060606061,
+                    "baseline_prob": 0.5132575757575758,
+                    "baseline_n": 528,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1616,
+            "total": 2289,
+            "probability": 0.7059851463521188,
+            "baseline_prob": 0.49017038007863695,
+            "baseline_n": 2289,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 673,
+            "total": 2289,
+            "probability": 0.29401485364788116,
+            "baseline_prob": 0.509829619921363,
+            "baseline_n": 2289,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 768,
+            "total": 2043,
+            "probability": 0.37591776798825255,
+            "baseline_prob": 0.4982868330885952,
+            "baseline_n": 2043,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1275,
+            "total": 2043,
+            "probability": 0.6240822320117474,
+            "baseline_prob": 0.5017131669114048,
+            "baseline_n": 2043,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 344,
+                    "total": 468,
+                    "probability": 0.7350427350427351,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 124,
+                    "total": 468,
+                    "probability": 0.26495726495726496,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 144,
+                    "total": 348,
+                    "probability": 0.41379310344827586,
+                    "baseline_prob": 0.5229885057471264,
+                    "baseline_n": 348,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 204,
+                    "total": 348,
+                    "probability": 0.5862068965517241,
+                    "baseline_prob": 0.47701149425287354,
+                    "baseline_n": 348,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 334,
+                    "total": 463,
+                    "probability": 0.7213822894168467,
+                    "baseline_prob": 0.49892008639308855,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 129,
+                    "total": 463,
+                    "probability": 0.2786177105831533,
+                    "baseline_prob": 0.5010799136069114,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 160,
+                    "total": 433,
+                    "probability": 0.3695150115473441,
+                    "baseline_prob": 0.5265588914549654,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 273,
+                    "total": 433,
+                    "probability": 0.6304849884526559,
+                    "baseline_prob": 0.47344110854503463,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 322,
+                    "total": 479,
+                    "probability": 0.6722338204592901,
+                    "baseline_prob": 0.511482254697286,
+                    "baseline_n": 479,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 157,
+                    "total": 479,
+                    "probability": 0.3277661795407098,
+                    "baseline_prob": 0.48851774530271397,
+                    "baseline_n": 479,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 150,
+                    "total": 411,
+                    "probability": 0.36496350364963503,
+                    "baseline_prob": 0.5085158150851582,
+                    "baseline_n": 411,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 261,
+                    "total": 411,
+                    "probability": 0.635036496350365,
+                    "baseline_prob": 0.49148418491484186,
+                    "baseline_n": 411,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 305,
+                    "total": 445,
+                    "probability": 0.6853932584269663,
+                    "baseline_prob": 0.501123595505618,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 140,
+                    "total": 445,
+                    "probability": 0.3146067415730337,
+                    "baseline_prob": 0.49887640449438203,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 162,
+                    "total": 430,
+                    "probability": 0.3767441860465116,
+                    "baseline_prob": 0.5186046511627908,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 268,
+                    "total": 430,
+                    "probability": 0.6232558139534884,
+                    "baseline_prob": 0.4813953488372093,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 311,
+                    "total": 434,
+                    "probability": 0.716589861751152,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 123,
+                    "total": 434,
+                    "probability": 0.2834101382488479,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 152,
+                    "total": 421,
+                    "probability": 0.36104513064133015,
+                    "baseline_prob": 0.517814726840855,
+                    "baseline_n": 421,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 269,
+                    "total": 421,
+                    "probability": 0.6389548693586699,
+                    "baseline_prob": 0.4821852731591449,
+                    "baseline_n": 421,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1744,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1123,
+                    "total": 1123,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5182546749777382,
+                    "baseline_n": 1123,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1123,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4817453250222618,
+                    "baseline_n": 1123,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 621,
+                    "total": 621,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4927536231884058,
+                    "baseline_n": 621,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 621,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5072463768115942,
+                    "baseline_n": 621,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 1279,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 493,
+                    "total": 635,
+                    "probability": 0.7763779527559055,
+                    "baseline_prob": 0.5228346456692914,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 142,
+                    "total": 635,
+                    "probability": 0.22362204724409449,
+                    "baseline_prob": 0.47716535433070867,
+                    "baseline_n": 635,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 147,
+                    "total": 644,
+                    "probability": 0.22826086956521738,
+                    "baseline_prob": 0.5077639751552795,
+                    "baseline_n": 644,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 497,
+                    "total": 644,
+                    "probability": 0.7717391304347826,
+                    "baseline_prob": 0.4922360248447205,
+                    "baseline_n": 644,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1309,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 531,
+                    "probability": 0.0,
+                    "baseline_prob": 0.536723163841808,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 531,
+                    "total": 531,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4632768361581921,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 778,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5012853470437018,
+                    "baseline_n": 778,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 778,
+                    "total": 778,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4987146529562982,
+                    "baseline_n": 778,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–6.05]",
+                  "fr": "opening_body tranche 1 (-0.00–6.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 363,
+                    "total": 578,
+                    "probability": 0.6280276816608996,
+                    "baseline_prob": 0.48788927335640137,
+                    "baseline_n": 578,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 215,
+                    "total": 578,
+                    "probability": 0.3719723183391003,
+                    "baseline_prob": 0.5121107266435986,
+                    "baseline_n": 578,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 263,
+                    "total": 505,
+                    "probability": 0.5207920792079208,
+                    "baseline_prob": 0.5366336633663367,
+                    "baseline_n": 505,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 242,
+                    "total": 505,
+                    "probability": 0.4792079207920792,
+                    "baseline_prob": 0.4633663366336634,
+                    "baseline_n": 505,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (6.05–14.62]",
+                  "fr": "opening_body tranche 2 (6.05–14.62]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 397,
+                    "total": 569,
+                    "probability": 0.6977152899824253,
+                    "baseline_prob": 0.5131810193321616,
+                    "baseline_n": 569,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 172,
+                    "total": 569,
+                    "probability": 0.3022847100175747,
+                    "baseline_prob": 0.4868189806678383,
+                    "baseline_n": 569,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 185,
+                    "total": 514,
+                    "probability": 0.35992217898832685,
+                    "baseline_prob": 0.5077821011673151,
+                    "baseline_n": 514,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 329,
+                    "total": 514,
+                    "probability": 0.6400778210116731,
+                    "baseline_prob": 0.49221789883268485,
+                    "baseline_n": 514,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (14.62–37.27]",
+                  "fr": "opening_body tranche 3 (14.62–37.27]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 425,
+                    "total": 577,
+                    "probability": 0.7365684575389948,
+                    "baseline_prob": 0.4731369150779896,
+                    "baseline_n": 577,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 152,
+                    "total": 577,
+                    "probability": 0.2634315424610052,
+                    "baseline_prob": 0.5268630849220104,
+                    "baseline_n": 577,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 177,
+                    "total": 506,
+                    "probability": 0.34980237154150196,
+                    "baseline_prob": 0.5533596837944664,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 329,
+                    "total": 506,
+                    "probability": 0.650197628458498,
+                    "baseline_prob": 0.44664031620553357,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (37.27–362.10]",
+                  "fr": "opening_body tranche 4 (37.27–362.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 431,
+                    "total": 565,
+                    "probability": 0.7628318584070797,
+                    "baseline_prob": 0.5185840707964602,
+                    "baseline_n": 565,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 134,
+                    "total": 565,
+                    "probability": 0.23716814159292035,
+                    "baseline_prob": 0.4814159292035398,
+                    "baseline_n": 565,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 143,
+                    "total": 518,
+                    "probability": 0.27606177606177607,
+                    "baseline_prob": 0.5019305019305019,
+                    "baseline_n": 518,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 375,
+                    "total": 518,
+                    "probability": 0.7239382239382239,
+                    "baseline_prob": 0.4980694980694981,
+                    "baseline_n": 518,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4329,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1613,
+            "total": 2287,
+            "probability": 0.7052907739396589,
+            "baseline_prob": 0.49628334062090074,
+            "baseline_n": 2287,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 674,
+            "total": 2287,
+            "probability": 0.29470922606034106,
+            "baseline_prob": 0.5037166593790993,
+            "baseline_n": 2287,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 770,
+            "total": 2042,
+            "probability": 0.3770812928501469,
+            "baseline_prob": 0.49167482859941236,
+            "baseline_n": 2042,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1272,
+            "total": 2042,
+            "probability": 0.6229187071498531,
+            "baseline_prob": 0.5083251714005876,
+            "baseline_n": 2042,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 815,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 341,
+                    "total": 468,
+                    "probability": 0.7286324786324786,
+                    "baseline_prob": 0.49145299145299143,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 127,
+                    "total": 468,
+                    "probability": 0.27136752136752135,
+                    "baseline_prob": 0.5085470085470085,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 147,
+                    "total": 347,
+                    "probability": 0.42363112391930835,
+                    "baseline_prob": 0.5331412103746398,
+                    "baseline_n": 347,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 200,
+                    "total": 347,
+                    "probability": 0.5763688760806917,
+                    "baseline_prob": 0.4668587896253602,
+                    "baseline_n": 347,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 330,
+                    "total": 460,
+                    "probability": 0.717391304347826,
+                    "baseline_prob": 0.49130434782608695,
+                    "baseline_n": 460,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 130,
+                    "total": 460,
+                    "probability": 0.2826086956521739,
+                    "baseline_prob": 0.508695652173913,
+                    "baseline_n": 460,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 164,
+                    "total": 436,
+                    "probability": 0.3761467889908257,
+                    "baseline_prob": 0.5344036697247706,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 272,
+                    "total": 436,
+                    "probability": 0.6238532110091743,
+                    "baseline_prob": 0.46559633027522934,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 321,
+                    "total": 467,
+                    "probability": 0.6873661670235546,
+                    "baseline_prob": 0.5032119914346895,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 146,
+                    "total": 467,
+                    "probability": 0.31263383297644537,
+                    "baseline_prob": 0.49678800856531047,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 151,
+                    "total": 423,
+                    "probability": 0.35697399527186763,
+                    "baseline_prob": 0.5177304964539007,
+                    "baseline_n": 423,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 272,
+                    "total": 423,
+                    "probability": 0.6430260047281324,
+                    "baseline_prob": 0.48226950354609927,
+                    "baseline_n": 423,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 874,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 314,
+                    "total": 458,
+                    "probability": 0.6855895196506551,
+                    "baseline_prob": 0.5021834061135371,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 144,
+                    "total": 458,
+                    "probability": 0.314410480349345,
+                    "baseline_prob": 0.4978165938864629,
+                    "baseline_n": 458,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 153,
+                    "total": 416,
+                    "probability": 0.36778846153846156,
+                    "baseline_prob": 0.5168269230769231,
+                    "baseline_n": 416,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 263,
+                    "total": 416,
+                    "probability": 0.6322115384615384,
+                    "baseline_prob": 0.4831730769230769,
+                    "baseline_n": 416,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 854,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 307,
+                    "total": 434,
+                    "probability": 0.7073732718894009,
+                    "baseline_prob": 0.5184331797235023,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 127,
+                    "total": 434,
+                    "probability": 0.2926267281105991,
+                    "baseline_prob": 0.4815668202764977,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 155,
+                    "total": 420,
+                    "probability": 0.36904761904761907,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 420,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 265,
+                    "total": 420,
+                    "probability": 0.6309523809523809,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 420,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1717,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1123,
+                    "total": 1123,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5075690115761353,
+                    "baseline_n": 1123,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1123,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4924309884238646,
+                    "baseline_n": 1123,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 594,
+                    "total": 594,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5084175084175084,
+                    "baseline_n": 594,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 594,
+                    "probability": 0.0,
+                    "baseline_prob": 0.49158249158249157,
+                    "baseline_n": 594,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 1332,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 490,
+                    "total": 666,
+                    "probability": 0.7357357357357357,
+                    "baseline_prob": 0.5195195195195195,
+                    "baseline_n": 666,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 176,
+                    "total": 666,
+                    "probability": 0.26426426426426425,
+                    "baseline_prob": 0.4804804804804805,
+                    "baseline_n": 666,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 176,
+                    "total": 666,
+                    "probability": 0.26426426426426425,
+                    "baseline_prob": 0.5135135135135135,
+                    "baseline_n": 666,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 490,
+                    "total": 666,
+                    "probability": 0.7357357357357357,
+                    "baseline_prob": 0.4864864864864865,
+                    "baseline_n": 666,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1280,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 498,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5321285140562249,
+                    "baseline_n": 498,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 498,
+                    "total": 498,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4678714859437751,
+                    "baseline_n": 498,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 782,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5051150895140665,
+                    "baseline_n": 782,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 782,
+                    "total": 782,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4948849104859335,
+                    "baseline_n": 782,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–6.29]",
+                  "fr": "opening_body tranche 1 (-0.00–6.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 378,
+                    "total": 587,
+                    "probability": 0.6439522998296422,
+                    "baseline_prob": 0.5178875638841567,
+                    "baseline_n": 587,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 209,
+                    "total": 587,
+                    "probability": 0.35604770017035775,
+                    "baseline_prob": 0.48211243611584326,
+                    "baseline_n": 587,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 249,
+                    "total": 496,
+                    "probability": 0.5020161290322581,
+                    "baseline_prob": 0.5020161290322581,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 247,
+                    "total": 496,
+                    "probability": 0.49798387096774194,
+                    "baseline_prob": 0.49798387096774194,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (6.29–15.01]",
+                  "fr": "opening_body tranche 2 (6.29–15.01]"
+                },
+                "total_samples": 1082,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 398,
+                    "total": 576,
+                    "probability": 0.6909722222222222,
+                    "baseline_prob": 0.4809027777777778,
+                    "baseline_n": 576,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 178,
+                    "total": 576,
+                    "probability": 0.3090277777777778,
+                    "baseline_prob": 0.5190972222222222,
+                    "baseline_n": 576,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 198,
+                    "total": 506,
+                    "probability": 0.391304347826087,
+                    "baseline_prob": 0.5434782608695652,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 308,
+                    "total": 506,
+                    "probability": 0.6086956521739131,
+                    "baseline_prob": 0.45652173913043476,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (15.01–39.64]",
+                  "fr": "opening_body tranche 3 (15.01–39.64]"
+                },
+                "total_samples": 1082,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 399,
+                    "total": 563,
+                    "probability": 0.7087033747779752,
+                    "baseline_prob": 0.5062166962699822,
+                    "baseline_n": 563,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 164,
+                    "total": 563,
+                    "probability": 0.2912966252220249,
+                    "baseline_prob": 0.4937833037300178,
+                    "baseline_n": 563,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 172,
+                    "total": 519,
+                    "probability": 0.33140655105973027,
+                    "baseline_prob": 0.5144508670520231,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 347,
+                    "total": 519,
+                    "probability": 0.6685934489402697,
+                    "baseline_prob": 0.48554913294797686,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (39.64–377.95]",
+                  "fr": "opening_body tranche 4 (39.64–377.95]"
+                },
+                "total_samples": 1082,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 438,
+                    "total": 561,
+                    "probability": 0.7807486631016043,
+                    "baseline_prob": 0.48841354723707664,
+                    "baseline_n": 561,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 123,
+                    "total": 561,
+                    "probability": 0.2192513368983957,
+                    "baseline_prob": 0.5115864527629234,
+                    "baseline_n": 561,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 151,
+                    "total": 521,
+                    "probability": 0.28982725527831094,
+                    "baseline_prob": 0.5335892514395394,
+                    "baseline_n": 521,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 370,
+                    "total": 521,
+                    "probability": 0.710172744721689,
+                    "baseline_prob": 0.46641074856046066,
+                    "baseline_n": 521,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1476,
+            "total": 2229,
+            "probability": 0.6621803499327052,
+            "baseline_prob": 0.48272768057424853,
+            "baseline_n": 2229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 753,
+            "total": 2229,
+            "probability": 0.33781965006729475,
+            "baseline_prob": 0.5172723194257515,
+            "baseline_n": 2229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 934,
+            "total": 2132,
+            "probability": 0.43808630393996245,
+            "baseline_prob": 0.5060975609756098,
+            "baseline_n": 2132,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1198,
+            "total": 2132,
+            "probability": 0.5619136960600375,
+            "baseline_prob": 0.49390243902439024,
+            "baseline_n": 2132,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 307,
+                    "total": 447,
+                    "probability": 0.6868008948545862,
+                    "baseline_prob": 0.5167785234899329,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 140,
+                    "total": 447,
+                    "probability": 0.3131991051454139,
+                    "baseline_prob": 0.48322147651006714,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 163,
+                    "total": 373,
+                    "probability": 0.43699731903485256,
+                    "baseline_prob": 0.5013404825737265,
+                    "baseline_n": 373,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 210,
+                    "total": 373,
+                    "probability": 0.5630026809651475,
+                    "baseline_prob": 0.49865951742627346,
+                    "baseline_n": 373,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 294,
+                    "total": 455,
+                    "probability": 0.6461538461538462,
+                    "baseline_prob": 0.5252747252747253,
+                    "baseline_n": 455,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 161,
+                    "total": 455,
+                    "probability": 0.35384615384615387,
+                    "baseline_prob": 0.4747252747252747,
+                    "baseline_n": 455,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 191,
+                    "total": 446,
+                    "probability": 0.4282511210762332,
+                    "baseline_prob": 0.4977578475336323,
+                    "baseline_n": 446,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 255,
+                    "total": 446,
+                    "probability": 0.5717488789237668,
+                    "baseline_prob": 0.5022421524663677,
+                    "baseline_n": 446,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 291,
+                    "total": 466,
+                    "probability": 0.6244635193133047,
+                    "baseline_prob": 0.5107296137339056,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 175,
+                    "total": 466,
+                    "probability": 0.37553648068669526,
+                    "baseline_prob": 0.4892703862660944,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 188,
+                    "total": 431,
+                    "probability": 0.4361948955916473,
+                    "baseline_prob": 0.5150812064965197,
+                    "baseline_n": 431,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 243,
+                    "total": 431,
+                    "probability": 0.5638051044083526,
+                    "baseline_prob": 0.48491879350348027,
+                    "baseline_n": 431,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 289,
+                    "total": 427,
+                    "probability": 0.6768149882903981,
+                    "baseline_prob": 0.5035128805620609,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 138,
+                    "total": 427,
+                    "probability": 0.3231850117096019,
+                    "baseline_prob": 0.4964871194379391,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 203,
+                    "total": 454,
+                    "probability": 0.44713656387665196,
+                    "baseline_prob": 0.5198237885462555,
+                    "baseline_n": 454,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 251,
+                    "total": 454,
+                    "probability": 0.552863436123348,
+                    "baseline_prob": 0.4801762114537445,
+                    "baseline_n": 454,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 295,
+                    "total": 434,
+                    "probability": 0.6797235023041475,
+                    "baseline_prob": 0.5230414746543779,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 139,
+                    "total": 434,
+                    "probability": 0.32027649769585254,
+                    "baseline_prob": 0.4769585253456221,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 189,
+                    "total": 428,
+                    "probability": 0.441588785046729,
+                    "baseline_prob": 0.4976635514018692,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 239,
+                    "total": 428,
+                    "probability": 0.5584112149532711,
+                    "baseline_prob": 0.5023364485981309,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1926,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1127,
+                    "total": 1127,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4968944099378882,
+                    "baseline_n": 1127,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1127,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5031055900621118,
+                    "baseline_n": 1127,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 799,
+                    "total": 799,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5068836045056321,
+                    "baseline_n": 799,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 799,
+                    "probability": 0.0,
+                    "baseline_prob": 0.493116395494368,
+                    "baseline_n": 799,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 904,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 349,
+                    "total": 448,
+                    "probability": 0.7790178571428571,
+                    "baseline_prob": 0.5178571428571429,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 99,
+                    "total": 448,
+                    "probability": 0.22098214285714285,
+                    "baseline_prob": 0.48214285714285715,
+                    "baseline_n": 448,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 135,
+                    "total": 456,
+                    "probability": 0.29605263157894735,
+                    "baseline_prob": 0.5043859649122807,
+                    "baseline_n": 456,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 321,
+                    "total": 456,
+                    "probability": 0.7039473684210527,
+                    "baseline_prob": 0.4956140350877193,
+                    "baseline_n": 456,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1531,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 654,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5168195718654435,
+                    "baseline_n": 654,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 654,
+                    "total": 654,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4831804281345566,
+                    "baseline_n": 654,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 877,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4960091220068415,
+                    "baseline_n": 877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 877,
+                    "total": 877,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5039908779931584,
+                    "baseline_n": 877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–1.43]",
+                  "fr": "opening_body tranche 1 (-0.00–1.43]"
+                },
+                "total_samples": 1092,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 365,
+                    "total": 597,
+                    "probability": 0.6113902847571189,
+                    "baseline_prob": 0.5309882747068677,
+                    "baseline_n": 597,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 232,
+                    "total": 597,
+                    "probability": 0.38860971524288107,
+                    "baseline_prob": 0.46901172529313234,
+                    "baseline_n": 597,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 274,
+                    "total": 495,
+                    "probability": 0.5535353535353535,
+                    "baseline_prob": 0.4888888888888889,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 221,
+                    "total": 495,
+                    "probability": 0.44646464646464645,
+                    "baseline_prob": 0.5111111111111111,
+                    "baseline_n": 495,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (1.43–3.17]",
+                  "fr": "opening_body tranche 2 (1.43–3.17]"
+                },
+                "total_samples": 1089,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 342,
+                    "total": 510,
+                    "probability": 0.6705882352941176,
+                    "baseline_prob": 0.5274509803921569,
+                    "baseline_n": 510,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 168,
+                    "total": 510,
+                    "probability": 0.32941176470588235,
+                    "baseline_prob": 0.4725490196078431,
+                    "baseline_n": 510,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 264,
+                    "total": 579,
+                    "probability": 0.45595854922279794,
+                    "baseline_prob": 0.4991364421416235,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 315,
+                    "total": 579,
+                    "probability": 0.5440414507772021,
+                    "baseline_prob": 0.5008635578583766,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (3.17–6.26]",
+                  "fr": "opening_body tranche 3 (3.17–6.26]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 381,
+                    "total": 573,
+                    "probability": 0.6649214659685864,
+                    "baseline_prob": 0.49214659685863876,
+                    "baseline_n": 573,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 192,
+                    "total": 573,
+                    "probability": 0.33507853403141363,
+                    "baseline_prob": 0.5078534031413613,
+                    "baseline_n": 573,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 196,
+                    "total": 517,
+                    "probability": 0.379110251450677,
+                    "baseline_prob": 0.5338491295938105,
+                    "baseline_n": 517,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 321,
+                    "total": 517,
+                    "probability": 0.620889748549323,
+                    "baseline_prob": 0.4661508704061896,
+                    "baseline_n": 517,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (6.26–65.53]",
+                  "fr": "opening_body tranche 4 (6.26–65.53]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 388,
+                    "total": 549,
+                    "probability": 0.7067395264116576,
+                    "baseline_prob": 0.5136612021857924,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 161,
+                    "total": 549,
+                    "probability": 0.29326047358834245,
+                    "baseline_prob": 0.48633879781420764,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 200,
+                    "total": 541,
+                    "probability": 0.36968576709796674,
+                    "baseline_prob": 0.5101663585951941,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 341,
+                    "total": 541,
+                    "probability": 0.6303142329020333,
+                    "baseline_prob": 0.4898336414048059,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1545,
+            "total": 2250,
+            "probability": 0.6866666666666666,
+            "baseline_prob": 0.49244444444444446,
+            "baseline_n": 2250,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 705,
+            "total": 2250,
+            "probability": 0.31333333333333335,
+            "baseline_prob": 0.5075555555555555,
+            "baseline_n": 2250,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 865,
+            "total": 2111,
+            "probability": 0.4097584083372809,
+            "baseline_prob": 0.49597347228801514,
+            "baseline_n": 2111,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1246,
+            "total": 2111,
+            "probability": 0.5902415916627191,
+            "baseline_prob": 0.5040265277119849,
+            "baseline_n": 2111,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 319,
+                    "total": 451,
+                    "probability": 0.7073170731707317,
+                    "baseline_prob": 0.49667405764966743,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 132,
+                    "total": 451,
+                    "probability": 0.2926829268292683,
+                    "baseline_prob": 0.5033259423503326,
+                    "baseline_n": 451,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 151,
+                    "total": 369,
+                    "probability": 0.4092140921409214,
+                    "baseline_prob": 0.5257452574525745,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 218,
+                    "total": 369,
+                    "probability": 0.5907859078590786,
+                    "baseline_prob": 0.4742547425474255,
+                    "baseline_n": 369,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 309,
+                    "total": 466,
+                    "probability": 0.6630901287553648,
+                    "baseline_prob": 0.5085836909871244,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 157,
+                    "total": 466,
+                    "probability": 0.3369098712446352,
+                    "baseline_prob": 0.49141630901287553,
+                    "baseline_n": 466,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 176,
+                    "total": 435,
+                    "probability": 0.4045977011494253,
+                    "baseline_prob": 0.5149425287356322,
+                    "baseline_n": 435,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 259,
+                    "total": 435,
+                    "probability": 0.5954022988505747,
+                    "baseline_prob": 0.4850574712643678,
+                    "baseline_n": 435,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 302,
+                    "total": 469,
+                    "probability": 0.6439232409381663,
+                    "baseline_prob": 0.5031982942430704,
+                    "baseline_n": 469,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 167,
+                    "total": 469,
+                    "probability": 0.35607675906183367,
+                    "baseline_prob": 0.4968017057569296,
+                    "baseline_n": 469,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 177,
+                    "total": 428,
+                    "probability": 0.4135514018691589,
+                    "baseline_prob": 0.5233644859813084,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 251,
+                    "total": 428,
+                    "probability": 0.5864485981308412,
+                    "baseline_prob": 0.4766355140186916,
+                    "baseline_n": 428,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 318,
+                    "total": 445,
+                    "probability": 0.7146067415730337,
+                    "baseline_prob": 0.48314606741573035,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 127,
+                    "total": 445,
+                    "probability": 0.2853932584269663,
+                    "baseline_prob": 0.5168539325842697,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 174,
+                    "total": 436,
+                    "probability": 0.39908256880733944,
+                    "baseline_prob": 0.5412844036697247,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 262,
+                    "total": 436,
+                    "probability": 0.6009174311926605,
+                    "baseline_prob": 0.45871559633027525,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 297,
+                    "total": 419,
+                    "probability": 0.7088305489260143,
+                    "baseline_prob": 0.522673031026253,
+                    "baseline_n": 419,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 122,
+                    "total": 419,
+                    "probability": 0.2911694510739857,
+                    "baseline_prob": 0.477326968973747,
+                    "baseline_n": 419,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 187,
+                    "total": 443,
+                    "probability": 0.4221218961625282,
+                    "baseline_prob": 0.49887133182844245,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 256,
+                    "total": 443,
+                    "probability": 0.5778781038374717,
+                    "baseline_prob": 0.5011286681715575,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1799,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1107,
+                    "total": 1107,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4878048780487805,
+                    "baseline_n": 1107,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1107,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5121951219512195,
+                    "baseline_n": 1107,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 692,
+                    "total": 692,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5361271676300579,
+                    "baseline_n": 692,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 692,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4638728323699422,
+                    "baseline_n": 692,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 1202,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 438,
+                    "total": 579,
+                    "probability": 0.7564766839378239,
+                    "baseline_prob": 0.5077720207253886,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 141,
+                    "total": 579,
+                    "probability": 0.24352331606217617,
+                    "baseline_prob": 0.49222797927461137,
+                    "baseline_n": 579,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 173,
+                    "total": 623,
+                    "probability": 0.27768860353130015,
+                    "baseline_prob": 0.5136436597110754,
+                    "baseline_n": 623,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 450,
+                    "total": 623,
+                    "probability": 0.7223113964686998,
+                    "baseline_prob": 0.48635634028892455,
+                    "baseline_n": 623,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1360,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 564,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5070921985815603,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 564,
+                    "total": 564,
+                    "probability": 1.0,
+                    "baseline_prob": 0.4929078014184397,
+                    "baseline_n": 564,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 796,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5213567839195979,
+                    "baseline_n": 796,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 796,
+                    "total": 796,
+                    "probability": 1.0,
+                    "baseline_prob": 0.478643216080402,
+                    "baseline_n": 796,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–1.91]",
+                  "fr": "opening_body tranche 1 (-0.00–1.91]"
+                },
+                "total_samples": 1091,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 336,
+                    "total": 552,
+                    "probability": 0.6086956521739131,
+                    "baseline_prob": 0.4855072463768116,
+                    "baseline_n": 552,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 216,
+                    "total": 552,
+                    "probability": 0.391304347826087,
+                    "baseline_prob": 0.5144927536231884,
+                    "baseline_n": 552,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 299,
+                    "total": 539,
+                    "probability": 0.5547309833024119,
+                    "baseline_prob": 0.5398886827458256,
+                    "baseline_n": 539,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 240,
+                    "total": 539,
+                    "probability": 0.4452690166975881,
+                    "baseline_prob": 0.4601113172541744,
+                    "baseline_n": 539,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (1.91–4.16]",
+                  "fr": "opening_body tranche 2 (1.91–4.16]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 368,
+                    "total": 534,
+                    "probability": 0.6891385767790262,
+                    "baseline_prob": 0.5187265917602997,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 166,
+                    "total": 534,
+                    "probability": 0.31086142322097376,
+                    "baseline_prob": 0.4812734082397004,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 231,
+                    "total": 556,
+                    "probability": 0.4154676258992806,
+                    "baseline_prob": 0.5053956834532374,
+                    "baseline_n": 556,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 325,
+                    "total": 556,
+                    "probability": 0.5845323741007195,
+                    "baseline_prob": 0.49460431654676257,
+                    "baseline_n": 556,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (4.16–8.11]",
+                  "fr": "opening_body tranche 3 (4.16–8.11]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 421,
+                    "total": 606,
+                    "probability": 0.6947194719471947,
+                    "baseline_prob": 0.504950495049505,
+                    "baseline_n": 606,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 185,
+                    "total": 606,
+                    "probability": 0.30528052805280526,
+                    "baseline_prob": 0.49504950495049505,
+                    "baseline_n": 606,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 174,
+                    "total": 484,
+                    "probability": 0.359504132231405,
+                    "baseline_prob": 0.5206611570247934,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 310,
+                    "total": 484,
+                    "probability": 0.640495867768595,
+                    "baseline_prob": 0.4793388429752066,
+                    "baseline_n": 484,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (8.11–79.17]",
+                  "fr": "opening_body tranche 4 (8.11–79.17]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 420,
+                    "total": 558,
+                    "probability": 0.7526881720430108,
+                    "baseline_prob": 0.514336917562724,
+                    "baseline_n": 558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 138,
+                    "total": 558,
+                    "probability": 0.24731182795698925,
+                    "baseline_prob": 0.48566308243727596,
+                    "baseline_n": 558,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 161,
+                    "total": 532,
+                    "probability": 0.3026315789473684,
+                    "baseline_prob": 0.5093984962406015,
+                    "baseline_n": 532,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 371,
+                    "total": 532,
+                    "probability": 0.6973684210526315,
+                    "baseline_prob": 0.4906015037593985,
+                    "baseline_n": 532,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4359,
+        "results": [
+          {
+            "condition": "green_open",
+            "outcome": "green_close",
+            "count": 1576,
+            "total": 2303,
+            "probability": 0.6843247937472862,
+            "baseline_prob": 0.4902301346070343,
+            "baseline_n": 2303,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green_open",
+            "outcome": "red_close",
+            "count": 727,
+            "total": 2303,
+            "probability": 0.31567520625271384,
+            "baseline_prob": 0.5097698653929656,
+            "baseline_n": 2303,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "green_close",
+            "count": 833,
+            "total": 2056,
+            "probability": 0.4051556420233463,
+            "baseline_prob": 0.4985408560311284,
+            "baseline_n": 2056,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red_open",
+            "outcome": "red_close",
+            "count": 1223,
+            "total": 2056,
+            "probability": 0.5948443579766537,
+            "baseline_prob": 0.5014591439688716,
+            "baseline_n": 2056,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 819,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 320,
+                    "total": 453,
+                    "probability": 0.7064017660044151,
+                    "baseline_prob": 0.4922737306843267,
+                    "baseline_n": 453,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 133,
+                    "total": 453,
+                    "probability": 0.293598233995585,
+                    "baseline_prob": 0.5077262693156733,
+                    "baseline_n": 453,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 150,
+                    "total": 366,
+                    "probability": 0.4098360655737705,
+                    "baseline_prob": 0.5300546448087432,
+                    "baseline_n": 366,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 216,
+                    "total": 366,
+                    "probability": 0.5901639344262295,
+                    "baseline_prob": 0.46994535519125685,
+                    "baseline_n": 366,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 307,
+                    "total": 463,
+                    "probability": 0.6630669546436285,
+                    "baseline_prob": 0.509719222462203,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 156,
+                    "total": 463,
+                    "probability": 0.3369330453563715,
+                    "baseline_prob": 0.490280777537797,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 178,
+                    "total": 438,
+                    "probability": 0.4063926940639269,
+                    "baseline_prob": 0.5136986301369864,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 260,
+                    "total": 438,
+                    "probability": 0.593607305936073,
+                    "baseline_prob": 0.4863013698630137,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 306,
+                    "total": 469,
+                    "probability": 0.652452025586354,
+                    "baseline_prob": 0.5010660980810234,
+                    "baseline_n": 469,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 163,
+                    "total": 469,
+                    "probability": 0.34754797441364604,
+                    "baseline_prob": 0.4989339019189765,
+                    "baseline_n": 469,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 172,
+                    "total": 427,
+                    "probability": 0.4028103044496487,
+                    "baseline_prob": 0.5245901639344263,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 255,
+                    "total": 427,
+                    "probability": 0.5971896955503513,
+                    "baseline_prob": 0.47540983606557374,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 325,
+                    "total": 468,
+                    "probability": 0.6944444444444444,
+                    "baseline_prob": 0.49572649572649574,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 143,
+                    "total": 468,
+                    "probability": 0.3055555555555556,
+                    "baseline_prob": 0.5042735042735043,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 167,
+                    "total": 413,
+                    "probability": 0.4043583535108959,
+                    "baseline_prob": 0.5302663438256658,
+                    "baseline_n": 413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 246,
+                    "total": 413,
+                    "probability": 0.5956416464891041,
+                    "baseline_prob": 0.46973365617433416,
+                    "baseline_n": 413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 318,
+                    "total": 450,
+                    "probability": 0.7066666666666667,
+                    "baseline_prob": 0.5222222222222223,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 132,
+                    "total": 450,
+                    "probability": 0.29333333333333333,
+                    "baseline_prob": 0.4777777777777778,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 166,
+                    "total": 412,
+                    "probability": 0.4029126213592233,
+                    "baseline_prob": 0.4975728155339806,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 246,
+                    "total": 412,
+                    "probability": 0.5970873786407767,
+                    "baseline_prob": 0.5024271844660194,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "above": {
+                "label": {
+                  "en": "Closes above opening candle",
+                  "fr": "Clôture au-dessus de la bougie d'ouverture"
+                },
+                "total_samples": 1754,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 1129,
+                    "total": 1129,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5004428697962799,
+                    "baseline_n": 1129,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 1129,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4995571302037201,
+                    "baseline_n": 1129,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 625,
+                    "total": 625,
+                    "probability": 1.0,
+                    "baseline_prob": 0.528,
+                    "baseline_n": 625,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 0,
+                    "total": 625,
+                    "probability": 0.0,
+                    "baseline_prob": 0.472,
+                    "baseline_n": 625,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "inside": {
+                "label": {
+                  "en": "Closes inside opening candle",
+                  "fr": "Clôture dans la bougie d'ouverture"
+                },
+                "total_samples": 1280,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 447,
+                    "total": 640,
+                    "probability": 0.6984375,
+                    "baseline_prob": 0.5375,
+                    "baseline_n": 640,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 193,
+                    "total": 640,
+                    "probability": 0.3015625,
+                    "baseline_prob": 0.4625,
+                    "baseline_n": 640,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 208,
+                    "total": 640,
+                    "probability": 0.325,
+                    "baseline_prob": 0.49375,
+                    "baseline_n": 640,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 432,
+                    "total": 640,
+                    "probability": 0.675,
+                    "baseline_prob": 0.50625,
+                    "baseline_n": 640,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "below": {
+                "label": {
+                  "en": "Closes below opening candle",
+                  "fr": "Clôture en dessous de la bougie d'ouverture"
+                },
+                "total_samples": 1325,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 534,
+                    "probability": 0.0,
+                    "baseline_prob": 0.5468164794007491,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 534,
+                    "total": 534,
+                    "probability": 1.0,
+                    "baseline_prob": 0.45318352059925093,
+                    "baseline_n": 534,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 0,
+                    "total": 791,
+                    "probability": 0.0,
+                    "baseline_prob": 0.4968394437420986,
+                    "baseline_n": 791,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 791,
+                    "total": 791,
+                    "probability": 1.0,
+                    "baseline_prob": 0.5031605562579013,
+                    "baseline_n": 791,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "opening_body bin 1 (-0.00–2.01]",
+                  "fr": "opening_body tranche 1 (-0.00–2.01]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 366,
+                    "total": 610,
+                    "probability": 0.6,
+                    "baseline_prob": 0.5032786885245901,
+                    "baseline_n": 610,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 244,
+                    "total": 610,
+                    "probability": 0.4,
+                    "baseline_prob": 0.4967213114754098,
+                    "baseline_n": 610,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 253,
+                    "total": 480,
+                    "probability": 0.5270833333333333,
+                    "baseline_prob": 0.5229166666666667,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 227,
+                    "total": 480,
+                    "probability": 0.47291666666666665,
+                    "baseline_prob": 0.47708333333333336,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "opening_body bin 2 (2.01–4.53]",
+                  "fr": "opening_body tranche 2 (2.01–4.53]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 368,
+                    "total": 546,
+                    "probability": 0.673992673992674,
+                    "baseline_prob": 0.5146520146520146,
+                    "baseline_n": 546,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 178,
+                    "total": 546,
+                    "probability": 0.326007326007326,
+                    "baseline_prob": 0.48534798534798534,
+                    "baseline_n": 546,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 241,
+                    "total": 544,
+                    "probability": 0.4430147058823529,
+                    "baseline_prob": 0.5091911764705882,
+                    "baseline_n": 544,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 303,
+                    "total": 544,
+                    "probability": 0.5569852941176471,
+                    "baseline_prob": 0.49080882352941174,
+                    "baseline_n": 544,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "opening_body bin 3 (4.53–9.01]",
+                  "fr": "opening_body tranche 3 (4.53–9.01]"
+                },
+                "total_samples": 1089,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 436,
+                    "total": 598,
+                    "probability": 0.7290969899665551,
+                    "baseline_prob": 0.49498327759197325,
+                    "baseline_n": 598,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 162,
+                    "total": 598,
+                    "probability": 0.2709030100334448,
+                    "baseline_prob": 0.5050167224080268,
+                    "baseline_n": 598,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 171,
+                    "total": 491,
+                    "probability": 0.34826883910386963,
+                    "baseline_prob": 0.5336048879837068,
+                    "baseline_n": 491,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 320,
+                    "total": 491,
+                    "probability": 0.6517311608961304,
+                    "baseline_prob": 0.4663951120162933,
+                    "baseline_n": 491,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "opening_body bin 4 (9.01–88.65]",
+                  "fr": "opening_body tranche 4 (9.01–88.65]"
+                },
+                "total_samples": 1090,
+                "results": [
+                  {
+                    "condition": "green_open",
+                    "outcome": "green_close",
+                    "count": 406,
+                    "total": 549,
+                    "probability": 0.7395264116575592,
+                    "baseline_prob": 0.5136612021857924,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "green_open",
+                    "outcome": "red_close",
+                    "count": 143,
+                    "total": 549,
+                    "probability": 0.2604735883424408,
+                    "baseline_prob": 0.48633879781420764,
+                    "baseline_n": 549,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "green_close",
+                    "count": 168,
+                    "total": 541,
+                    "probability": 0.31053604436229204,
+                    "baseline_prob": 0.5101663585951941,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "red_open",
+                    "outcome": "red_close",
+                    "count": 373,
+                    "total": 541,
+                    "probability": 0.6894639556377079,
+                    "baseline_prob": 0.4898336414048059,
+                    "baseline_n": 541,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

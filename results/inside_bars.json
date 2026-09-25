@@ -1,0 +1,1189 @@
+{
+  "stat_name": "inside_bars",
+  "title": {
+    "en": "Inside Bars",
+    "fr": "Inside bars"
+  },
+  "definition": {
+    "en": "How often does a session open inside the prior day's range (between its RTH low and RTH high, inclusive), and given such an open, does price break above, below, both sides, or stay contained within the prior range during the session?",
+    "fr": "À quelle fréquence une session ouvre-t-elle à l'intérieur du range du jour précédent (entre son plus bas RTH et son plus haut RTH, bornes incluses), et après une telle ouverture, le prix casse-t-il vers le haut, vers le bas, des deux côtés, ou reste-t-il contenu dans le range précédent pendant la séance ?"
+  },
+  "labels": {
+    "conditions": {
+      "inside_open": {
+        "en": "Inside open",
+        "fr": "Ouverture dans le range"
+      },
+      "inside": {
+        "en": "Inside open (breakout direction)",
+        "fr": "Ouverture dans le range (direction de la cassure)"
+      }
+    },
+    "outcomes": {
+      "inside": {
+        "en": "Open inside prior range",
+        "fr": "Ouverture à l'intérieur du range précédent"
+      },
+      "broke_high": {
+        "en": "Broke above prior high only",
+        "fr": "Cassure au-dessus du plus haut précédent uniquement"
+      },
+      "broke_low": {
+        "en": "Broke below prior low only",
+        "fr": "Cassure en-dessous du plus bas précédent uniquement"
+      },
+      "broke_both": {
+        "en": "Broke both sides",
+        "fr": "Cassure des deux côtés"
+      },
+      "contained": {
+        "en": "Contained within prior range",
+        "fr": "Contenu dans le range précédent"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "inside_open",
+            "outcome": "inside",
+            "count": 2728,
+            "total": 4331,
+            "probability": 0.6298776264142231,
+            "baseline_prob": 0.006234126067882706,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_high",
+            "count": 1096,
+            "total": 2728,
+            "probability": 0.40175953079178883,
+            "baseline_prob": 0.2962962962962963,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_low",
+            "count": 917,
+            "total": 2728,
+            "probability": 0.33614369501466274,
+            "baseline_prob": 0.4074074074074074,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_both",
+            "count": 252,
+            "total": 2728,
+            "probability": 0.09237536656891496,
+            "baseline_prob": 0.037037037037037035,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "contained",
+            "count": 463,
+            "total": 2728,
+            "probability": 0.16972140762463342,
+            "baseline_prob": 0.25925925925925924,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 494,
+                    "total": 816,
+                    "probability": 0.6053921568627451,
+                    "baseline_prob": 0.00857843137254902,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 220,
+                    "total": 494,
+                    "probability": 0.44534412955465585,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 154,
+                    "total": 494,
+                    "probability": 0.3117408906882591,
+                    "baseline_prob": 0.5714285714285714,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 36,
+                    "total": 494,
+                    "probability": 0.0728744939271255,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 84,
+                    "total": 494,
+                    "probability": 0.1700404858299595,
+                    "baseline_prob": 0.42857142857142855,
+                    "baseline_n": 7,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 562,
+                    "total": 896,
+                    "probability": 0.6272321428571429,
+                    "baseline_prob": 0.006696428571428571,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 229,
+                    "total": 562,
+                    "probability": 0.40747330960854095,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 180,
+                    "total": 562,
+                    "probability": 0.3202846975088968,
+                    "baseline_prob": 0.16666666666666666,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 57,
+                    "total": 562,
+                    "probability": 0.10142348754448399,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 96,
+                    "total": 562,
+                    "probability": 0.1708185053380783,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 586,
+                    "total": 890,
+                    "probability": 0.6584269662921348,
+                    "baseline_prob": 0.0044943820224719105,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 236,
+                    "total": 586,
+                    "probability": 0.40273037542662116,
+                    "baseline_prob": 0.75,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 196,
+                    "total": 586,
+                    "probability": 0.33447098976109213,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 64,
+                    "total": 586,
+                    "probability": 0.10921501706484642,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 90,
+                    "total": 586,
+                    "probability": 0.15358361774744028,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 546,
+                    "total": 874,
+                    "probability": 0.6247139588100686,
+                    "baseline_prob": 0.004576659038901602,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 213,
+                    "total": 546,
+                    "probability": 0.3901098901098901,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 197,
+                    "total": 546,
+                    "probability": 0.3608058608058608,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 52,
+                    "total": 546,
+                    "probability": 0.09523809523809523,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 84,
+                    "total": 546,
+                    "probability": 0.15384615384615385,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 540,
+                    "total": 855,
+                    "probability": 0.631578947368421,
+                    "baseline_prob": 0.007017543859649123,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 198,
+                    "total": 540,
+                    "probability": 0.36666666666666664,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 190,
+                    "total": 540,
+                    "probability": 0.35185185185185186,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 43,
+                    "total": 540,
+                    "probability": 0.07962962962962963,
+                    "baseline_prob": 0.16666666666666666,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 109,
+                    "total": 540,
+                    "probability": 0.20185185185185187,
+                    "baseline_prob": 0.16666666666666666,
+                    "baseline_n": 6,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 1400,
+                    "total": 2383,
+                    "probability": 0.5874947545111204,
+                    "baseline_prob": 0.003357112882920688,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 707,
+                    "total": 1400,
+                    "probability": 0.505,
+                    "baseline_prob": 0.375,
+                    "baseline_n": 8,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 344,
+                    "total": 1400,
+                    "probability": 0.24571428571428572,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 8,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 145,
+                    "total": 1400,
+                    "probability": 0.10357142857142858,
+                    "baseline_prob": 0.125,
+                    "baseline_n": 8,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 204,
+                    "total": 1400,
+                    "probability": 0.1457142857142857,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 8,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 1328,
+                    "total": 1948,
+                    "probability": 0.6817248459958932,
+                    "baseline_prob": 0.006673511293634497,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 389,
+                    "total": 1328,
+                    "probability": 0.29292168674698793,
+                    "baseline_prob": 0.3076923076923077,
+                    "baseline_n": 13,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 573,
+                    "total": 1328,
+                    "probability": 0.4314759036144578,
+                    "baseline_prob": 0.38461538461538464,
+                    "baseline_n": 13,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 107,
+                    "total": 1328,
+                    "probability": 0.08057228915662651,
+                    "baseline_prob": 0.07692307692307693,
+                    "baseline_n": 13,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 259,
+                    "total": 1328,
+                    "probability": 0.19503012048192772,
+                    "baseline_prob": 0.23076923076923078,
+                    "baseline_n": 13,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "inside_open",
+            "outcome": "inside",
+            "count": 2623,
+            "total": 4360,
+            "probability": 0.601605504587156,
+            "baseline_prob": 0.006192660550458716,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_high",
+            "count": 1052,
+            "total": 2623,
+            "probability": 0.4010674799847503,
+            "baseline_prob": 0.2962962962962963,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_low",
+            "count": 897,
+            "total": 2623,
+            "probability": 0.341974837971788,
+            "baseline_prob": 0.37037037037037035,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "broke_both",
+            "count": 228,
+            "total": 2623,
+            "probability": 0.086923370186809,
+            "baseline_prob": 0.14814814814814814,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "inside",
+            "outcome": "contained",
+            "count": 446,
+            "total": 2623,
+            "probability": 0.1700343118566527,
+            "baseline_prob": 0.18518518518518517,
+            "baseline_n": 27,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 480,
+                    "total": 820,
+                    "probability": 0.5853658536585366,
+                    "baseline_prob": 0.013414634146341463,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 204,
+                    "total": 480,
+                    "probability": 0.425,
+                    "baseline_prob": 0.45454545454545453,
+                    "baseline_n": 11,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 148,
+                    "total": 480,
+                    "probability": 0.30833333333333335,
+                    "baseline_prob": 0.18181818181818182,
+                    "baseline_n": 11,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 27,
+                    "total": 480,
+                    "probability": 0.05625,
+                    "baseline_prob": 0.09090909090909091,
+                    "baseline_n": 11,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 101,
+                    "total": 480,
+                    "probability": 0.21041666666666667,
+                    "baseline_prob": 0.2727272727272727,
+                    "baseline_n": 11,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 524,
+                    "total": 901,
+                    "probability": 0.58157602663707,
+                    "baseline_prob": 0.003329633740288568,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 205,
+                    "total": 524,
+                    "probability": 0.39122137404580154,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 188,
+                    "total": 524,
+                    "probability": 0.35877862595419846,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 54,
+                    "total": 524,
+                    "probability": 0.10305343511450382,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 77,
+                    "total": 524,
+                    "probability": 0.14694656488549618,
+                    "baseline_prob": 0.6666666666666666,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 590,
+                    "total": 897,
+                    "probability": 0.6577480490523969,
+                    "baseline_prob": 0.005574136008918618,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 235,
+                    "total": 590,
+                    "probability": 0.3983050847457627,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 198,
+                    "total": 590,
+                    "probability": 0.33559322033898303,
+                    "baseline_prob": 0.4,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 67,
+                    "total": 590,
+                    "probability": 0.1135593220338983,
+                    "baseline_prob": 0.2,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 90,
+                    "total": 590,
+                    "probability": 0.15254237288135594,
+                    "baseline_prob": 0.4,
+                    "baseline_n": 5,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 527,
+                    "total": 880,
+                    "probability": 0.5988636363636364,
+                    "baseline_prob": 0.004545454545454545,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 207,
+                    "total": 527,
+                    "probability": 0.3927893738140417,
+                    "baseline_prob": 0.5,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 190,
+                    "total": 527,
+                    "probability": 0.3605313092979127,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 48,
+                    "total": 527,
+                    "probability": 0.09108159392789374,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 82,
+                    "total": 527,
+                    "probability": 0.1555977229601518,
+                    "baseline_prob": 0.25,
+                    "baseline_n": 4,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 502,
+                    "total": 862,
+                    "probability": 0.5823665893271461,
+                    "baseline_prob": 0.0034802784222737818,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 201,
+                    "total": 502,
+                    "probability": 0.40039840637450197,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 173,
+                    "total": 502,
+                    "probability": 0.34462151394422313,
+                    "baseline_prob": 0.6666666666666666,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 32,
+                    "total": 502,
+                    "probability": 0.06374501992031872,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 96,
+                    "total": 502,
+                    "probability": 0.19123505976095617,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 3,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 1349,
+                    "total": 2409,
+                    "probability": 0.559983395599834,
+                    "baseline_prob": 0.008717310087173101,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 655,
+                    "total": 1349,
+                    "probability": 0.4855448480355819,
+                    "baseline_prob": 0.38095238095238093,
+                    "baseline_n": 21,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 358,
+                    "total": 1349,
+                    "probability": 0.2653817642698295,
+                    "baseline_prob": 0.23809523809523808,
+                    "baseline_n": 21,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 120,
+                    "total": 1349,
+                    "probability": 0.08895478131949593,
+                    "baseline_prob": 0.047619047619047616,
+                    "baseline_n": 21,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 216,
+                    "total": 1349,
+                    "probability": 0.16011860637509265,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 21,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "inside_open",
+                    "outcome": "inside",
+                    "count": 1274,
+                    "total": 1951,
+                    "probability": 0.6529984623270118,
+                    "baseline_prob": 0.009226037929267043,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_high",
+                    "count": 397,
+                    "total": 1274,
+                    "probability": 0.3116169544740973,
+                    "baseline_prob": 0.2222222222222222,
+                    "baseline_n": 18,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_low",
+                    "count": 539,
+                    "total": 1274,
+                    "probability": 0.4230769230769231,
+                    "baseline_prob": 0.2222222222222222,
+                    "baseline_n": 18,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "broke_both",
+                    "count": 108,
+                    "total": 1274,
+                    "probability": 0.0847723704866562,
+                    "baseline_prob": 0.2222222222222222,
+                    "baseline_n": 18,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "inside",
+                    "outcome": "contained",
+                    "count": 230,
+                    "total": 1274,
+                    "probability": 0.18053375196232338,
+                    "baseline_prob": 0.3333333333333333,
+                    "baseline_n": 18,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

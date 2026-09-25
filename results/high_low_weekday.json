@@ -1,0 +1,1581 @@
+{
+  "stat_name": "high_low_weekday",
+  "title": {
+    "en": "High & Low by Weekday",
+    "fr": "Plus haut & plus bas par jour de la semaine"
+  },
+  "definition": {
+    "en": "For each ISO week, which weekday produced the weekly high, weekly low, weekly high close, and weekly low close? Aggregated as the fraction of weeks each weekday claims each extreme.",
+    "fr": "Pour chaque semaine ISO, quel jour de la semaine a produit le plus haut hebdomadaire, le plus bas hebdomadaire, le plus haut de clôture hebdomadaire et le plus bas de clôture hebdomadaire ? Agrégé sous forme de fraction des semaines où chaque jour revendique chaque extrême."
+  },
+  "labels": {
+    "conditions": {
+      "weekly_high": {
+        "en": "Weekly high",
+        "fr": "Plus haut hebdomadaire"
+      },
+      "weekly_low": {
+        "en": "Weekly low",
+        "fr": "Plus bas hebdomadaire"
+      },
+      "weekly_high_close": {
+        "en": "Weekly high by close",
+        "fr": "Plus haut hebdomadaire (clôture)"
+      },
+      "weekly_low_close": {
+        "en": "Weekly low by close",
+        "fr": "Plus bas hebdomadaire (clôture)"
+      }
+    },
+    "outcomes": {
+      "monday": {
+        "en": "Monday",
+        "fr": "Lundi"
+      },
+      "tuesday": {
+        "en": "Tuesday",
+        "fr": "Mardi"
+      },
+      "wednesday": {
+        "en": "Wednesday",
+        "fr": "Mercredi"
+      },
+      "thursday": {
+        "en": "Thursday",
+        "fr": "Jeudi"
+      },
+      "friday": {
+        "en": "Friday",
+        "fr": "Vendredi"
+      },
+      "saturday": {
+        "en": "Saturday",
+        "fr": "Samedi"
+      },
+      "sunday": {
+        "en": "Sunday",
+        "fr": "Dimanche"
+      }
+    },
+    "dimensions": {
+      "weekly_candle": {
+        "en": "Weekly candle",
+        "fr": "Bougie hebdomadaire"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "weekly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-04-27"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "weekly_high",
+            "outcome": "monday",
+            "count": 171,
+            "total": 908,
+            "probability": 0.1883259911894273,
+            "baseline_prob": 0.183920704845815,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "tuesday",
+            "count": 133,
+            "total": 908,
+            "probability": 0.14647577092511013,
+            "baseline_prob": 0.1949339207048458,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "wednesday",
+            "count": 138,
+            "total": 908,
+            "probability": 0.15198237885462554,
+            "baseline_prob": 0.22246696035242292,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "thursday",
+            "count": 153,
+            "total": 908,
+            "probability": 0.1685022026431718,
+            "baseline_prob": 0.2092511013215859,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "friday",
+            "count": 313,
+            "total": 908,
+            "probability": 0.3447136563876652,
+            "baseline_prob": 0.1894273127753304,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "monday",
+            "count": 294,
+            "total": 908,
+            "probability": 0.3237885462555066,
+            "baseline_prob": 0.21035242290748898,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "tuesday",
+            "count": 159,
+            "total": 908,
+            "probability": 0.1751101321585903,
+            "baseline_prob": 0.20044052863436124,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "wednesday",
+            "count": 115,
+            "total": 908,
+            "probability": 0.12665198237885464,
+            "baseline_prob": 0.1828193832599119,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "thursday",
+            "count": 135,
+            "total": 908,
+            "probability": 0.1486784140969163,
+            "baseline_prob": 0.1949339207048458,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "friday",
+            "count": 205,
+            "total": 908,
+            "probability": 0.22577092511013216,
+            "baseline_prob": 0.21145374449339208,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "monday",
+            "count": 165,
+            "total": 908,
+            "probability": 0.1817180616740088,
+            "baseline_prob": 0.1828193832599119,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "tuesday",
+            "count": 133,
+            "total": 908,
+            "probability": 0.14647577092511013,
+            "baseline_prob": 0.23348017621145375,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "wednesday",
+            "count": 136,
+            "total": 908,
+            "probability": 0.14977973568281938,
+            "baseline_prob": 0.20484581497797358,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "thursday",
+            "count": 171,
+            "total": 908,
+            "probability": 0.1883259911894273,
+            "baseline_prob": 0.18722466960352424,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "friday",
+            "count": 303,
+            "total": 908,
+            "probability": 0.33370044052863435,
+            "baseline_prob": 0.19162995594713655,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "monday",
+            "count": 287,
+            "total": 908,
+            "probability": 0.31607929515418504,
+            "baseline_prob": 0.18612334801762115,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "tuesday",
+            "count": 164,
+            "total": 908,
+            "probability": 0.18061674008810572,
+            "baseline_prob": 0.19383259911894274,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "wednesday",
+            "count": 114,
+            "total": 908,
+            "probability": 0.12555066079295155,
+            "baseline_prob": 0.22687224669603523,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "thursday",
+            "count": 132,
+            "total": 908,
+            "probability": 0.14537444933920704,
+            "baseline_prob": 0.1894273127753304,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "friday",
+            "count": 211,
+            "total": 908,
+            "probability": 0.23237885462555066,
+            "baseline_prob": 0.20374449339207049,
+            "baseline_n": 908,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekly_candle": {
+            "dimension": "weekly_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 531,
+                "results": [
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "monday",
+                    "count": 17,
+                    "total": 531,
+                    "probability": 0.032015065913371,
+                    "baseline_prob": 0.1713747645951036,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "tuesday",
+                    "count": 31,
+                    "total": 531,
+                    "probability": 0.0583804143126177,
+                    "baseline_prob": 0.1977401129943503,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "wednesday",
+                    "count": 68,
+                    "total": 531,
+                    "probability": 0.128060263653484,
+                    "baseline_prob": 0.2222222222222222,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "thursday",
+                    "count": 116,
+                    "total": 531,
+                    "probability": 0.2184557438794727,
+                    "baseline_prob": 0.2071563088512241,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "friday",
+                    "count": 299,
+                    "total": 531,
+                    "probability": 0.5630885122410546,
+                    "baseline_prob": 0.2015065913370998,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "monday",
+                    "count": 279,
+                    "total": 531,
+                    "probability": 0.5254237288135594,
+                    "baseline_prob": 0.2184557438794727,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "tuesday",
+                    "count": 122,
+                    "total": 531,
+                    "probability": 0.2297551789077213,
+                    "baseline_prob": 0.2033898305084746,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "wednesday",
+                    "count": 66,
+                    "total": 531,
+                    "probability": 0.12429378531073447,
+                    "baseline_prob": 0.18455743879472694,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "thursday",
+                    "count": 51,
+                    "total": 531,
+                    "probability": 0.096045197740113,
+                    "baseline_prob": 0.21092278719397364,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "friday",
+                    "count": 13,
+                    "total": 531,
+                    "probability": 0.02448210922787194,
+                    "baseline_prob": 0.18267419962335216,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "monday",
+                    "count": 14,
+                    "total": 531,
+                    "probability": 0.026365348399246705,
+                    "baseline_prob": 0.20527306967984935,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "tuesday",
+                    "count": 38,
+                    "total": 531,
+                    "probability": 0.07156308851224105,
+                    "baseline_prob": 0.17890772128060264,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "wednesday",
+                    "count": 62,
+                    "total": 531,
+                    "probability": 0.1167608286252354,
+                    "baseline_prob": 0.22598870056497175,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "thursday",
+                    "count": 132,
+                    "total": 531,
+                    "probability": 0.24858757062146894,
+                    "baseline_prob": 0.1902071563088512,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "friday",
+                    "count": 285,
+                    "total": 531,
+                    "probability": 0.536723163841808,
+                    "baseline_prob": 0.19962335216572505,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "monday",
+                    "count": 271,
+                    "total": 531,
+                    "probability": 0.5103578154425612,
+                    "baseline_prob": 0.17890772128060264,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "tuesday",
+                    "count": 128,
+                    "total": 531,
+                    "probability": 0.24105461393596986,
+                    "baseline_prob": 0.18832391713747645,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "wednesday",
+                    "count": 68,
+                    "total": 531,
+                    "probability": 0.128060263653484,
+                    "baseline_prob": 0.2523540489642185,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "thursday",
+                    "count": 49,
+                    "total": 531,
+                    "probability": 0.09227871939736347,
+                    "baseline_prob": 0.192090395480226,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "friday",
+                    "count": 15,
+                    "total": 531,
+                    "probability": 0.02824858757062147,
+                    "baseline_prob": 0.18832391713747645,
+                    "baseline_n": 531,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 377,
+                "results": [
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "monday",
+                    "count": 154,
+                    "total": 377,
+                    "probability": 0.40848806366047746,
+                    "baseline_prob": 0.1830238726790451,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "tuesday",
+                    "count": 102,
+                    "total": 377,
+                    "probability": 0.27055702917771884,
+                    "baseline_prob": 0.15649867374005305,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "wednesday",
+                    "count": 70,
+                    "total": 377,
+                    "probability": 0.1856763925729443,
+                    "baseline_prob": 0.2413793103448276,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "thursday",
+                    "count": 37,
+                    "total": 377,
+                    "probability": 0.09814323607427056,
+                    "baseline_prob": 0.21485411140583555,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "friday",
+                    "count": 14,
+                    "total": 377,
+                    "probability": 0.03713527851458886,
+                    "baseline_prob": 0.20424403183023873,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "monday",
+                    "count": 15,
+                    "total": 377,
+                    "probability": 0.03978779840848806,
+                    "baseline_prob": 0.22811671087533156,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "tuesday",
+                    "count": 37,
+                    "total": 377,
+                    "probability": 0.09814323607427056,
+                    "baseline_prob": 0.1909814323607427,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "wednesday",
+                    "count": 49,
+                    "total": 377,
+                    "probability": 0.129973474801061,
+                    "baseline_prob": 0.18037135278514588,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "thursday",
+                    "count": 84,
+                    "total": 377,
+                    "probability": 0.22281167108753316,
+                    "baseline_prob": 0.23076923076923078,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "friday",
+                    "count": 192,
+                    "total": 377,
+                    "probability": 0.5092838196286472,
+                    "baseline_prob": 0.16976127320954906,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "monday",
+                    "count": 151,
+                    "total": 377,
+                    "probability": 0.4005305039787798,
+                    "baseline_prob": 0.16445623342175067,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "tuesday",
+                    "count": 95,
+                    "total": 377,
+                    "probability": 0.2519893899204244,
+                    "baseline_prob": 0.20424403183023873,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "wednesday",
+                    "count": 74,
+                    "total": 377,
+                    "probability": 0.1962864721485411,
+                    "baseline_prob": 0.22281167108753316,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "thursday",
+                    "count": 39,
+                    "total": 377,
+                    "probability": 0.10344827586206896,
+                    "baseline_prob": 0.22281167108753316,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "friday",
+                    "count": 18,
+                    "total": 377,
+                    "probability": 0.04774535809018567,
+                    "baseline_prob": 0.1856763925729443,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "monday",
+                    "count": 16,
+                    "total": 377,
+                    "probability": 0.042440318302387266,
+                    "baseline_prob": 0.16180371352785147,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "tuesday",
+                    "count": 36,
+                    "total": 377,
+                    "probability": 0.09549071618037135,
+                    "baseline_prob": 0.20424403183023873,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "wednesday",
+                    "count": 46,
+                    "total": 377,
+                    "probability": 0.1220159151193634,
+                    "baseline_prob": 0.23342175066312998,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "thursday",
+                    "count": 83,
+                    "total": 377,
+                    "probability": 0.22015915119363394,
+                    "baseline_prob": 0.1909814323607427,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "friday",
+                    "count": 196,
+                    "total": 377,
+                    "probability": 0.519893899204244,
+                    "baseline_prob": 0.20954907161803712,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "weekly": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-01"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "weekly_high",
+            "outcome": "monday",
+            "count": 163,
+            "total": 913,
+            "probability": 0.17853231106243153,
+            "baseline_prob": 0.18400876232201532,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "tuesday",
+            "count": 137,
+            "total": 913,
+            "probability": 0.15005476451259583,
+            "baseline_prob": 0.1927710843373494,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "wednesday",
+            "count": 134,
+            "total": 913,
+            "probability": 0.14676889375684557,
+            "baseline_prob": 0.22343921139101863,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "thursday",
+            "count": 145,
+            "total": 913,
+            "probability": 0.1588170865279299,
+            "baseline_prob": 0.20920043811610076,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high",
+            "outcome": "friday",
+            "count": 334,
+            "total": 913,
+            "probability": 0.3658269441401972,
+            "baseline_prob": 0.19058050383351588,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "monday",
+            "count": 272,
+            "total": 913,
+            "probability": 0.29791894852135814,
+            "baseline_prob": 0.20920043811610076,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "tuesday",
+            "count": 159,
+            "total": 913,
+            "probability": 0.1741511500547645,
+            "baseline_prob": 0.19934282584884994,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "wednesday",
+            "count": 126,
+            "total": 913,
+            "probability": 0.1380065717415115,
+            "baseline_prob": 0.18181818181818182,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "thursday",
+            "count": 148,
+            "total": 913,
+            "probability": 0.16210295728368018,
+            "baseline_prob": 0.1982475355969332,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low",
+            "outcome": "friday",
+            "count": 208,
+            "total": 913,
+            "probability": 0.22782037239868566,
+            "baseline_prob": 0.21139101861993428,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "monday",
+            "count": 171,
+            "total": 913,
+            "probability": 0.18729463307776562,
+            "baseline_prob": 0.18400876232201532,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "tuesday",
+            "count": 123,
+            "total": 913,
+            "probability": 0.13472070098576122,
+            "baseline_prob": 0.2322015334063527,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "wednesday",
+            "count": 136,
+            "total": 913,
+            "probability": 0.14895947426067907,
+            "baseline_prob": 0.20372398685651696,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "thursday",
+            "count": 160,
+            "total": 913,
+            "probability": 0.17524644030668127,
+            "baseline_prob": 0.18729463307776562,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_high_close",
+            "outcome": "friday",
+            "count": 323,
+            "total": 913,
+            "probability": 0.3537787513691128,
+            "baseline_prob": 0.1927710843373494,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "monday",
+            "count": 280,
+            "total": 913,
+            "probability": 0.3066812705366922,
+            "baseline_prob": 0.18619934282584885,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "tuesday",
+            "count": 160,
+            "total": 913,
+            "probability": 0.17524644030668127,
+            "baseline_prob": 0.19167579408543264,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "wednesday",
+            "count": 132,
+            "total": 913,
+            "probability": 0.14457831325301204,
+            "baseline_prob": 0.22782037239868566,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "thursday",
+            "count": 139,
+            "total": 913,
+            "probability": 0.15224534501642936,
+            "baseline_prob": 0.19167579408543264,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "weekly_low_close",
+            "outcome": "friday",
+            "count": 202,
+            "total": 913,
+            "probability": 0.2212486308871851,
+            "baseline_prob": 0.20262869660460023,
+            "baseline_n": 913,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekly_candle": {
+            "dimension": "weekly_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 536,
+                "results": [
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "monday",
+                    "count": 15,
+                    "total": 536,
+                    "probability": 0.027985074626865673,
+                    "baseline_prob": 0.17164179104477612,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "tuesday",
+                    "count": 29,
+                    "total": 536,
+                    "probability": 0.054104477611940295,
+                    "baseline_prob": 0.19402985074626866,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "wednesday",
+                    "count": 65,
+                    "total": 536,
+                    "probability": 0.12126865671641791,
+                    "baseline_prob": 0.22574626865671643,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "thursday",
+                    "count": 107,
+                    "total": 536,
+                    "probability": 0.19962686567164178,
+                    "baseline_prob": 0.20335820895522388,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "friday",
+                    "count": 320,
+                    "total": 536,
+                    "probability": 0.5970149253731343,
+                    "baseline_prob": 0.20522388059701493,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "monday",
+                    "count": 260,
+                    "total": 536,
+                    "probability": 0.48507462686567165,
+                    "baseline_prob": 0.22201492537313433,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "tuesday",
+                    "count": 128,
+                    "total": 536,
+                    "probability": 0.23880597014925373,
+                    "baseline_prob": 0.20335820895522388,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "wednesday",
+                    "count": 79,
+                    "total": 536,
+                    "probability": 0.14738805970149255,
+                    "baseline_prob": 0.16791044776119404,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "thursday",
+                    "count": 51,
+                    "total": 536,
+                    "probability": 0.09514925373134328,
+                    "baseline_prob": 0.21828358208955223,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "friday",
+                    "count": 18,
+                    "total": 536,
+                    "probability": 0.033582089552238806,
+                    "baseline_prob": 0.1884328358208955,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "monday",
+                    "count": 17,
+                    "total": 536,
+                    "probability": 0.03171641791044776,
+                    "baseline_prob": 0.19776119402985073,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "tuesday",
+                    "count": 37,
+                    "total": 536,
+                    "probability": 0.06902985074626866,
+                    "baseline_prob": 0.19402985074626866,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "wednesday",
+                    "count": 62,
+                    "total": 536,
+                    "probability": 0.11567164179104478,
+                    "baseline_prob": 0.2294776119402985,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "thursday",
+                    "count": 119,
+                    "total": 536,
+                    "probability": 0.22201492537313433,
+                    "baseline_prob": 0.1921641791044776,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "friday",
+                    "count": 301,
+                    "total": 536,
+                    "probability": 0.5615671641791045,
+                    "baseline_prob": 0.1865671641791045,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "monday",
+                    "count": 265,
+                    "total": 536,
+                    "probability": 0.4944029850746269,
+                    "baseline_prob": 0.17350746268656717,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "tuesday",
+                    "count": 128,
+                    "total": 536,
+                    "probability": 0.23880597014925373,
+                    "baseline_prob": 0.208955223880597,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "wednesday",
+                    "count": 76,
+                    "total": 536,
+                    "probability": 0.1417910447761194,
+                    "baseline_prob": 0.23694029850746268,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "thursday",
+                    "count": 45,
+                    "total": 536,
+                    "probability": 0.08395522388059702,
+                    "baseline_prob": 0.1791044776119403,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "friday",
+                    "count": 22,
+                    "total": 536,
+                    "probability": 0.041044776119402986,
+                    "baseline_prob": 0.20149253731343283,
+                    "baseline_n": 536,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 377,
+                "results": [
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "monday",
+                    "count": 148,
+                    "total": 377,
+                    "probability": 0.3925729442970822,
+                    "baseline_prob": 0.17506631299734748,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "tuesday",
+                    "count": 108,
+                    "total": 377,
+                    "probability": 0.2864721485411141,
+                    "baseline_prob": 0.16445623342175067,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "wednesday",
+                    "count": 69,
+                    "total": 377,
+                    "probability": 0.1830238726790451,
+                    "baseline_prob": 0.23342175066312998,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "thursday",
+                    "count": 38,
+                    "total": 377,
+                    "probability": 0.10079575596816977,
+                    "baseline_prob": 0.21750663129973474,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high",
+                    "outcome": "friday",
+                    "count": 14,
+                    "total": 377,
+                    "probability": 0.03713527851458886,
+                    "baseline_prob": 0.20954907161803712,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "monday",
+                    "count": 12,
+                    "total": 377,
+                    "probability": 0.03183023872679045,
+                    "baseline_prob": 0.22546419098143236,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "tuesday",
+                    "count": 31,
+                    "total": 377,
+                    "probability": 0.08222811671087533,
+                    "baseline_prob": 0.1909814323607427,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "wednesday",
+                    "count": 47,
+                    "total": 377,
+                    "probability": 0.1246684350132626,
+                    "baseline_prob": 0.17771883289124668,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "thursday",
+                    "count": 97,
+                    "total": 377,
+                    "probability": 0.2572944297082228,
+                    "baseline_prob": 0.21750663129973474,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low",
+                    "outcome": "friday",
+                    "count": 190,
+                    "total": 377,
+                    "probability": 0.5039787798408488,
+                    "baseline_prob": 0.1883289124668435,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "monday",
+                    "count": 154,
+                    "total": 377,
+                    "probability": 0.40848806366047746,
+                    "baseline_prob": 0.1724137931034483,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "tuesday",
+                    "count": 86,
+                    "total": 377,
+                    "probability": 0.22811671087533156,
+                    "baseline_prob": 0.1962864721485411,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "wednesday",
+                    "count": 74,
+                    "total": 377,
+                    "probability": 0.1962864721485411,
+                    "baseline_prob": 0.2493368700265252,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "thursday",
+                    "count": 41,
+                    "total": 377,
+                    "probability": 0.10875331564986737,
+                    "baseline_prob": 0.17771883289124668,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_high_close",
+                    "outcome": "friday",
+                    "count": 22,
+                    "total": 377,
+                    "probability": 0.058355437665782495,
+                    "baseline_prob": 0.20424403183023873,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "monday",
+                    "count": 15,
+                    "total": 377,
+                    "probability": 0.03978779840848806,
+                    "baseline_prob": 0.1724137931034483,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "tuesday",
+                    "count": 32,
+                    "total": 377,
+                    "probability": 0.08488063660477453,
+                    "baseline_prob": 0.18037135278514588,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "wednesday",
+                    "count": 56,
+                    "total": 377,
+                    "probability": 0.14854111405835543,
+                    "baseline_prob": 0.2519893899204244,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "thursday",
+                    "count": 94,
+                    "total": 377,
+                    "probability": 0.2493368700265252,
+                    "baseline_prob": 0.1989389920424403,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "weekly_low_close",
+                    "outcome": "friday",
+                    "count": 180,
+                    "total": 377,
+                    "probability": 0.47745358090185674,
+                    "baseline_prob": 0.1962864721485411,
+                    "baseline_n": 377,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1381 @@
+{
+  "stat_name": "outside_days",
+  "title": {
+    "en": "Outside Days",
+    "fr": "Outside days"
+  },
+  "definition": {
+    "en": "How often does a session open outside the prior day's range (above its RTH high or below its RTH low), and given such an open, does price continue away from the range or reverse back into it during the session?",
+    "fr": "À quelle fréquence une session ouvre-t-elle hors du range du jour précédent (au-dessus de son plus haut RTH ou en-dessous de son plus bas RTH), et après une telle ouverture, le prix poursuit-il hors du range ou y revient-il (reversal) pendant la séance ?"
+  },
+  "labels": {
+    "conditions": {
+      "outside_open": {
+        "en": "Outside open",
+        "fr": "Ouverture hors range"
+      },
+      "bullish": {
+        "en": "Bullish outside (open above prior high)",
+        "fr": "Outside haussier (ouverture au-dessus du plus haut)"
+      },
+      "bearish": {
+        "en": "Bearish outside (open below prior low)",
+        "fr": "Outside baissier (ouverture en-dessous du plus bas)"
+      }
+    },
+    "outcomes": {
+      "bullish": {
+        "en": "Open above prior high",
+        "fr": "Ouverture au-dessus du plus haut précédent"
+      },
+      "bearish": {
+        "en": "Open below prior low",
+        "fr": "Ouverture en-dessous du plus bas précédent"
+      },
+      "continuation": {
+        "en": "Continuation (held outside)",
+        "fr": "Continuation (maintien hors range)"
+      },
+      "reversal": {
+        "en": "Reversal (back into range)",
+        "fr": "Reversal (retour dans le range)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "outside_open",
+            "outcome": "bullish",
+            "count": 1015,
+            "total": 4331,
+            "probability": 0.2343569614407758,
+            "baseline_prob": 0.4973447240821981,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "outside_open",
+            "outcome": "bearish",
+            "count": 588,
+            "total": 4331,
+            "probability": 0.13576541214500115,
+            "baseline_prob": 0.4964211498499192,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "continuation",
+            "count": 351,
+            "total": 1015,
+            "probability": 0.3458128078817734,
+            "baseline_prob": 0.9948932219127206,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "reversal",
+            "count": 664,
+            "total": 1015,
+            "probability": 0.6541871921182266,
+            "baseline_prob": 0.00510677808727948,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "continuation",
+            "count": 179,
+            "total": 588,
+            "probability": 0.304421768707483,
+            "baseline_prob": 0.9953488372093023,
+            "baseline_n": 2150,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "reversal",
+            "count": 409,
+            "total": 588,
+            "probability": 0.6955782312925171,
+            "baseline_prob": 0.004651162790697674,
+            "baseline_n": 2150,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 194,
+                    "total": 816,
+                    "probability": 0.23774509803921567,
+                    "baseline_prob": 0.5049019607843137,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 128,
+                    "total": 816,
+                    "probability": 0.1568627450980392,
+                    "baseline_prob": 0.48651960784313725,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 87,
+                    "total": 194,
+                    "probability": 0.4484536082474227,
+                    "baseline_prob": 0.9902912621359223,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 107,
+                    "total": 194,
+                    "probability": 0.5515463917525774,
+                    "baseline_prob": 0.009708737864077669,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 40,
+                    "total": 128,
+                    "probability": 0.3125,
+                    "baseline_prob": 0.9949622166246851,
+                    "baseline_n": 397,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 88,
+                    "total": 128,
+                    "probability": 0.6875,
+                    "baseline_prob": 0.005037783375314861,
+                    "baseline_n": 397,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 219,
+                    "total": 896,
+                    "probability": 0.24441964285714285,
+                    "baseline_prob": 0.49441964285714285,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 115,
+                    "total": 896,
+                    "probability": 0.12834821428571427,
+                    "baseline_prob": 0.49888392857142855,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 71,
+                    "total": 219,
+                    "probability": 0.3242009132420091,
+                    "baseline_prob": 0.9977426636568849,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 148,
+                    "total": 219,
+                    "probability": 0.6757990867579908,
+                    "baseline_prob": 0.002257336343115124,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 42,
+                    "total": 115,
+                    "probability": 0.3652173913043478,
+                    "baseline_prob": 0.9977628635346756,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 73,
+                    "total": 115,
+                    "probability": 0.6347826086956522,
+                    "baseline_prob": 0.0022371364653243847,
+                    "baseline_n": 447,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 204,
+                    "total": 890,
+                    "probability": 0.2292134831460674,
+                    "baseline_prob": 0.49887640449438203,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 100,
+                    "total": 890,
+                    "probability": 0.11235955056179775,
+                    "baseline_prob": 0.4966292134831461,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 68,
+                    "total": 204,
+                    "probability": 0.3333333333333333,
+                    "baseline_prob": 1.0,
+                    "baseline_n": 444,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 136,
+                    "total": 204,
+                    "probability": 0.6666666666666666,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 444,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 25,
+                    "total": 100,
+                    "probability": 0.25,
+                    "baseline_prob": 0.997737556561086,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 75,
+                    "total": 100,
+                    "probability": 0.75,
+                    "baseline_prob": 0.0022624434389140274,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 197,
+                    "total": 874,
+                    "probability": 0.22540045766590389,
+                    "baseline_prob": 0.4965675057208238,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 131,
+                    "total": 874,
+                    "probability": 0.14988558352402745,
+                    "baseline_prob": 0.4988558352402746,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 71,
+                    "total": 197,
+                    "probability": 0.3604060913705584,
+                    "baseline_prob": 0.9930875576036866,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 126,
+                    "total": 197,
+                    "probability": 0.6395939086294417,
+                    "baseline_prob": 0.0069124423963133645,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 36,
+                    "total": 131,
+                    "probability": 0.2748091603053435,
+                    "baseline_prob": 1.0,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 95,
+                    "total": 131,
+                    "probability": 0.7251908396946565,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 436,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 201,
+                    "total": 855,
+                    "probability": 0.23508771929824562,
+                    "baseline_prob": 0.4935672514619883,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 114,
+                    "total": 855,
+                    "probability": 0.13333333333333333,
+                    "baseline_prob": 0.4994152046783626,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 54,
+                    "total": 201,
+                    "probability": 0.26865671641791045,
+                    "baseline_prob": 0.9976303317535545,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 147,
+                    "total": 201,
+                    "probability": 0.7313432835820896,
+                    "baseline_prob": 0.002369668246445498,
+                    "baseline_n": 422,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 36,
+                    "total": 114,
+                    "probability": 0.3157894736842105,
+                    "baseline_prob": 0.9882903981264637,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 78,
+                    "total": 114,
+                    "probability": 0.6842105263157895,
+                    "baseline_prob": 0.0117096018735363,
+                    "baseline_n": 427,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 823,
+                    "total": 2383,
+                    "probability": 0.3453629878304658,
+                    "baseline_prob": 0.5006294586655476,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 160,
+                    "total": 2383,
+                    "probability": 0.06714225765841376,
+                    "baseline_prob": 0.4960134284515317,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 293,
+                    "total": 823,
+                    "probability": 0.3560145808019441,
+                    "baseline_prob": 0.9932942162615256,
+                    "baseline_n": 1193,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 530,
+                    "total": 823,
+                    "probability": 0.6439854191980559,
+                    "baseline_prob": 0.006705783738474434,
+                    "baseline_n": 1193,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 43,
+                    "total": 160,
+                    "probability": 0.26875,
+                    "baseline_prob": 0.9915397631133672,
+                    "baseline_n": 1182,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 117,
+                    "total": 160,
+                    "probability": 0.73125,
+                    "baseline_prob": 0.008460236886632826,
+                    "baseline_n": 1182,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 192,
+                    "total": 1948,
+                    "probability": 0.09856262833675565,
+                    "baseline_prob": 0.507700205338809,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 428,
+                    "total": 1948,
+                    "probability": 0.21971252566735114,
+                    "baseline_prob": 0.4856262833675565,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 58,
+                    "total": 192,
+                    "probability": 0.3020833333333333,
+                    "baseline_prob": 0.9949443882709808,
+                    "baseline_n": 989,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 134,
+                    "total": 192,
+                    "probability": 0.6979166666666666,
+                    "baseline_prob": 0.005055611729019211,
+                    "baseline_n": 989,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 136,
+                    "total": 428,
+                    "probability": 0.3177570093457944,
+                    "baseline_prob": 0.992600422832981,
+                    "baseline_n": 946,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 292,
+                    "total": 428,
+                    "probability": 0.6822429906542056,
+                    "baseline_prob": 0.007399577167019027,
+                    "baseline_n": 946,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "outside_open",
+            "outcome": "bullish",
+            "count": 1082,
+            "total": 4360,
+            "probability": 0.2481651376146789,
+            "baseline_prob": 0.49954128440366974,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "outside_open",
+            "outcome": "bearish",
+            "count": 655,
+            "total": 4360,
+            "probability": 0.15022935779816513,
+            "baseline_prob": 0.49426605504587157,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "continuation",
+            "count": 399,
+            "total": 1082,
+            "probability": 0.3687615526802218,
+            "baseline_prob": 0.9871441689623508,
+            "baseline_n": 2178,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bullish",
+            "outcome": "reversal",
+            "count": 683,
+            "total": 1082,
+            "probability": 0.6312384473197782,
+            "baseline_prob": 0.012855831037649219,
+            "baseline_n": 2178,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "continuation",
+            "count": 221,
+            "total": 655,
+            "probability": 0.3374045801526718,
+            "baseline_prob": 0.9939675174013921,
+            "baseline_n": 2155,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "bearish",
+            "outcome": "reversal",
+            "count": 434,
+            "total": 655,
+            "probability": 0.6625954198473283,
+            "baseline_prob": 0.0060324825986078886,
+            "baseline_n": 2155,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 207,
+                    "total": 820,
+                    "probability": 0.2524390243902439,
+                    "baseline_prob": 0.5024390243902439,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 133,
+                    "total": 820,
+                    "probability": 0.16219512195121952,
+                    "baseline_prob": 0.4841463414634146,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 98,
+                    "total": 207,
+                    "probability": 0.47342995169082125,
+                    "baseline_prob": 0.9951456310679612,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 109,
+                    "total": 207,
+                    "probability": 0.5265700483091788,
+                    "baseline_prob": 0.0048543689320388345,
+                    "baseline_n": 412,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 50,
+                    "total": 133,
+                    "probability": 0.37593984962406013,
+                    "baseline_prob": 0.9848866498740554,
+                    "baseline_n": 397,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 83,
+                    "total": 133,
+                    "probability": 0.6240601503759399,
+                    "baseline_prob": 0.015113350125944584,
+                    "baseline_n": 397,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 236,
+                    "total": 901,
+                    "probability": 0.2619311875693674,
+                    "baseline_prob": 0.4894561598224195,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 141,
+                    "total": 901,
+                    "probability": 0.1564927857935627,
+                    "baseline_prob": 0.5072142064372919,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 84,
+                    "total": 236,
+                    "probability": 0.3559322033898305,
+                    "baseline_prob": 0.9931972789115646,
+                    "baseline_n": 441,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 152,
+                    "total": 236,
+                    "probability": 0.6440677966101694,
+                    "baseline_prob": 0.006802721088435374,
+                    "baseline_n": 441,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 47,
+                    "total": 141,
+                    "probability": 0.3333333333333333,
+                    "baseline_prob": 0.9934354485776805,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 94,
+                    "total": 141,
+                    "probability": 0.6666666666666666,
+                    "baseline_prob": 0.006564551422319475,
+                    "baseline_n": 457,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 196,
+                    "total": 897,
+                    "probability": 0.21850613154960982,
+                    "baseline_prob": 0.48717948717948717,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 111,
+                    "total": 897,
+                    "probability": 0.12374581939799331,
+                    "baseline_prob": 0.5072463768115942,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 73,
+                    "total": 196,
+                    "probability": 0.37244897959183676,
+                    "baseline_prob": 0.9977116704805492,
+                    "baseline_n": 437,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 123,
+                    "total": 196,
+                    "probability": 0.6275510204081632,
+                    "baseline_prob": 0.002288329519450801,
+                    "baseline_n": 437,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 34,
+                    "total": 111,
+                    "probability": 0.3063063063063063,
+                    "baseline_prob": 0.989010989010989,
+                    "baseline_n": 455,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 77,
+                    "total": 111,
+                    "probability": 0.6936936936936937,
+                    "baseline_prob": 0.01098901098901099,
+                    "baseline_n": 455,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 214,
+                    "total": 880,
+                    "probability": 0.2431818181818182,
+                    "baseline_prob": 0.49204545454545456,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 139,
+                    "total": 880,
+                    "probability": 0.15795454545454546,
+                    "baseline_prob": 0.5034090909090909,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 65,
+                    "total": 214,
+                    "probability": 0.3037383177570093,
+                    "baseline_prob": 0.9953810623556582,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 149,
+                    "total": 214,
+                    "probability": 0.6962616822429907,
+                    "baseline_prob": 0.004618937644341801,
+                    "baseline_n": 433,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 46,
+                    "total": 139,
+                    "probability": 0.33093525179856115,
+                    "baseline_prob": 0.9909706546275395,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 93,
+                    "total": 139,
+                    "probability": 0.6690647482014388,
+                    "baseline_prob": 0.009029345372460496,
+                    "baseline_n": 443,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 229,
+                    "total": 862,
+                    "probability": 0.265661252900232,
+                    "baseline_prob": 0.4988399071925754,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 131,
+                    "total": 862,
+                    "probability": 0.1519721577726218,
+                    "baseline_prob": 0.4976798143851508,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 79,
+                    "total": 229,
+                    "probability": 0.34497816593886466,
+                    "baseline_prob": 0.986046511627907,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 150,
+                    "total": 229,
+                    "probability": 0.6550218340611353,
+                    "baseline_prob": 0.013953488372093023,
+                    "baseline_n": 430,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 44,
+                    "total": 131,
+                    "probability": 0.33587786259541985,
+                    "baseline_prob": 0.9790209790209791,
+                    "baseline_n": 429,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 87,
+                    "total": 131,
+                    "probability": 0.6641221374045801,
+                    "baseline_prob": 0.02097902097902098,
+                    "baseline_n": 429,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 870,
+                    "total": 2409,
+                    "probability": 0.36114570361145704,
+                    "baseline_prob": 0.4919053549190536,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 190,
+                    "total": 2409,
+                    "probability": 0.07887090078870901,
+                    "baseline_prob": 0.49937733499377335,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 327,
+                    "total": 870,
+                    "probability": 0.3758620689655172,
+                    "baseline_prob": 0.9924050632911392,
+                    "baseline_n": 1185,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 543,
+                    "total": 870,
+                    "probability": 0.6241379310344828,
+                    "baseline_prob": 0.007594936708860759,
+                    "baseline_n": 1185,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 60,
+                    "total": 190,
+                    "probability": 0.3157894736842105,
+                    "baseline_prob": 0.9875311720698254,
+                    "baseline_n": 1203,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 130,
+                    "total": 190,
+                    "probability": 0.6842105263157895,
+                    "baseline_prob": 0.012468827930174564,
+                    "baseline_n": 1203,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bullish",
+                    "count": 212,
+                    "total": 1951,
+                    "probability": 0.10866222450025628,
+                    "baseline_prob": 0.5007688364941056,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "outside_open",
+                    "outcome": "bearish",
+                    "count": 465,
+                    "total": 1951,
+                    "probability": 0.23833931317273194,
+                    "baseline_prob": 0.4900051255766274,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "continuation",
+                    "count": 72,
+                    "total": 212,
+                    "probability": 0.33962264150943394,
+                    "baseline_prob": 0.9897645854657113,
+                    "baseline_n": 977,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bullish",
+                    "outcome": "reversal",
+                    "count": 140,
+                    "total": 212,
+                    "probability": 0.660377358490566,
+                    "baseline_prob": 0.01023541453428864,
+                    "baseline_n": 977,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "continuation",
+                    "count": 161,
+                    "total": 465,
+                    "probability": 0.34623655913978496,
+                    "baseline_prob": 0.9874476987447699,
+                    "baseline_n": 956,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "bearish",
+                    "outcome": "reversal",
+                    "count": 304,
+                    "total": 465,
+                    "probability": 0.6537634408602151,
+                    "baseline_prob": 0.012552301255230125,
+                    "baseline_n": 956,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

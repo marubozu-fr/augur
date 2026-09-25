@@ -1,0 +1,1373 @@
+{
+  "stat_name": "daily_high_low_session",
+  "title": {
+    "en": "Daily High / Low Session",
+    "fr": "Session du plus haut / plus bas journalier"
+  },
+  "definition": {
+    "en": "For each trading cycle, which intraday market session produced the day's highest high and which produced the day's lowest low? Reported as a probability distribution over the configured sessions; probabilities sum to 1 within each condition.",
+    "fr": "Pour chaque cycle de trading, quelle session de marché intrajournalière a produit le plus haut du jour et laquelle a produit le plus bas du jour ? Présenté comme une distribution de probabilité sur les sessions configurées ; les probabilités somment à 1 par condition."
+  },
+  "labels": {
+    "conditions": {
+      "daily_high": {
+        "en": "Day's high",
+        "fr": "Plus haut du jour"
+      },
+      "daily_low": {
+        "en": "Day's low",
+        "fr": "Plus bas du jour"
+      }
+    },
+    "outcomes": {
+      "asia": {
+        "en": "Asia",
+        "fr": "Asie"
+      },
+      "london": {
+        "en": "London",
+        "fr": "Londres"
+      },
+      "ny": {
+        "en": "New York",
+        "fr": "New York"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "candle": {
+        "en": "Daily candle color",
+        "fr": "Couleur de la bougie journalière"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4229,
+        "results": [
+          {
+            "condition": "daily_high",
+            "outcome": "asia",
+            "count": 765,
+            "total": 4229,
+            "probability": 0.18089382832820997,
+            "baseline_prob": 0.377394183021991,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_high",
+            "outcome": "london",
+            "count": 682,
+            "total": 4229,
+            "probability": 0.1612674391109009,
+            "baseline_prob": 0.3071648143769213,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_high",
+            "outcome": "ny",
+            "count": 2782,
+            "total": 4229,
+            "probability": 0.6578387325608891,
+            "baseline_prob": 0.3154410026010877,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "asia",
+            "count": 1067,
+            "total": 4229,
+            "probability": 0.2523055095767321,
+            "baseline_prob": 0.3856703712461575,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "london",
+            "count": 659,
+            "total": 4229,
+            "probability": 0.1558288011350201,
+            "baseline_prob": 0.3026720264838023,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "ny",
+            "count": 2503,
+            "total": 4229,
+            "probability": 0.5918656892882478,
+            "baseline_prob": 0.3116576022700402,
+            "baseline_n": 4229,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 764,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 164,
+                    "total": 764,
+                    "probability": 0.21465968586387435,
+                    "baseline_prob": 0.38612565445026176,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 79,
+                    "total": 764,
+                    "probability": 0.10340314136125654,
+                    "baseline_prob": 0.2918848167539267,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 521,
+                    "total": 764,
+                    "probability": 0.6819371727748691,
+                    "baseline_prob": 0.3219895287958115,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 268,
+                    "total": 764,
+                    "probability": 0.3507853403141361,
+                    "baseline_prob": 0.3730366492146597,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 91,
+                    "total": 764,
+                    "probability": 0.11910994764397906,
+                    "baseline_prob": 0.3089005235602094,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 405,
+                    "total": 764,
+                    "probability": 0.5301047120418848,
+                    "baseline_prob": 0.3180628272251309,
+                    "baseline_n": 764,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 884,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 164,
+                    "total": 884,
+                    "probability": 0.18552036199095023,
+                    "baseline_prob": 0.3744343891402715,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 130,
+                    "total": 884,
+                    "probability": 0.14705882352941177,
+                    "baseline_prob": 0.29638009049773756,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 590,
+                    "total": 884,
+                    "probability": 0.667420814479638,
+                    "baseline_prob": 0.32918552036199095,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 215,
+                    "total": 884,
+                    "probability": 0.24321266968325791,
+                    "baseline_prob": 0.37895927601809953,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 133,
+                    "total": 884,
+                    "probability": 0.1504524886877828,
+                    "baseline_prob": 0.2918552036199095,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 536,
+                    "total": 884,
+                    "probability": 0.6063348416289592,
+                    "baseline_prob": 0.32918552036199095,
+                    "baseline_n": 884,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 878,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 131,
+                    "total": 878,
+                    "probability": 0.1492027334851936,
+                    "baseline_prob": 0.3804100227790433,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 143,
+                    "total": 878,
+                    "probability": 0.16287015945330297,
+                    "baseline_prob": 0.29043280182232345,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 604,
+                    "total": 878,
+                    "probability": 0.6879271070615034,
+                    "baseline_prob": 0.32915717539863326,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 207,
+                    "total": 878,
+                    "probability": 0.2357630979498861,
+                    "baseline_prob": 0.37585421412300685,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 134,
+                    "total": 878,
+                    "probability": 0.15261958997722094,
+                    "baseline_prob": 0.2972665148063781,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 537,
+                    "total": 878,
+                    "probability": 0.6116173120728929,
+                    "baseline_prob": 0.32687927107061504,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 156,
+                    "total": 862,
+                    "probability": 0.18097447795823665,
+                    "baseline_prob": 0.37935034802784223,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 163,
+                    "total": 862,
+                    "probability": 0.18909512761020883,
+                    "baseline_prob": 0.29582366589327147,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 543,
+                    "total": 862,
+                    "probability": 0.6299303944315545,
+                    "baseline_prob": 0.3248259860788863,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 200,
+                    "total": 862,
+                    "probability": 0.23201856148491878,
+                    "baseline_prob": 0.37470997679814383,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 144,
+                    "total": 862,
+                    "probability": 0.16705336426914152,
+                    "baseline_prob": 0.29350348027842227,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 518,
+                    "total": 862,
+                    "probability": 0.6009280742459396,
+                    "baseline_prob": 0.33178654292343385,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 841,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 150,
+                    "total": 841,
+                    "probability": 0.178359096313912,
+                    "baseline_prob": 0.38287752675386444,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 167,
+                    "total": 841,
+                    "probability": 0.1985731272294887,
+                    "baseline_prob": 0.2984542211652794,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 524,
+                    "total": 841,
+                    "probability": 0.6230677764565993,
+                    "baseline_prob": 0.31866825208085614,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 177,
+                    "total": 841,
+                    "probability": 0.21046373365041618,
+                    "baseline_prob": 0.3793103448275862,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 157,
+                    "total": 841,
+                    "probability": 0.18668252080856124,
+                    "baseline_prob": 0.2901307966706302,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 507,
+                    "total": 841,
+                    "probability": 0.6028537455410226,
+                    "baseline_prob": 0.33055885850178357,
+                    "baseline_n": 841,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "candle": {
+            "dimension": "candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2352,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 63,
+                    "total": 2352,
+                    "probability": 0.026785714285714284,
+                    "baseline_prob": 0.38095238095238093,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 166,
+                    "total": 2352,
+                    "probability": 0.070578231292517,
+                    "baseline_prob": 0.296343537414966,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 2123,
+                    "total": 2352,
+                    "probability": 0.9026360544217688,
+                    "baseline_prob": 0.3227040816326531,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 1022,
+                    "total": 2352,
+                    "probability": 0.43452380952380953,
+                    "baseline_prob": 0.3835034013605442,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 533,
+                    "total": 2352,
+                    "probability": 0.2266156462585034,
+                    "baseline_prob": 0.30272108843537415,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 797,
+                    "total": 2352,
+                    "probability": 0.3388605442176871,
+                    "baseline_prob": 0.3137755102040816,
+                    "baseline_n": 2352,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1877,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 702,
+                    "total": 1877,
+                    "probability": 0.3740010655301012,
+                    "baseline_prob": 0.37613212573255195,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 516,
+                    "total": 1877,
+                    "probability": 0.2749067661161428,
+                    "baseline_prob": 0.29515183803942463,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 659,
+                    "total": 1877,
+                    "probability": 0.351092168353756,
+                    "baseline_prob": 0.3287160362280234,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 45,
+                    "total": 1877,
+                    "probability": 0.02397442727757059,
+                    "baseline_prob": 0.37773042088438996,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 126,
+                    "total": 1877,
+                    "probability": 0.06712839637719765,
+                    "baseline_prob": 0.311134789557805,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 1706,
+                    "total": 1877,
+                    "probability": 0.9088971763452317,
+                    "baseline_prob": 0.311134789557805,
+                    "baseline_n": 1877,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4296,
+        "results": [
+          {
+            "condition": "daily_high",
+            "outcome": "asia",
+            "count": 866,
+            "total": 4296,
+            "probability": 0.2015828677839851,
+            "baseline_prob": 0.4022346368715084,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_high",
+            "outcome": "london",
+            "count": 786,
+            "total": 4296,
+            "probability": 0.1829608938547486,
+            "baseline_prob": 0.2930633147113594,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_high",
+            "outcome": "ny",
+            "count": 2644,
+            "total": 4296,
+            "probability": 0.6154562383612663,
+            "baseline_prob": 0.3047020484171322,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "asia",
+            "count": 1175,
+            "total": 4296,
+            "probability": 0.2735102420856611,
+            "baseline_prob": 0.40805400372439476,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "london",
+            "count": 729,
+            "total": 4296,
+            "probability": 0.1696927374301676,
+            "baseline_prob": 0.29655493482309125,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "daily_low",
+            "outcome": "ny",
+            "count": 2392,
+            "total": 4296,
+            "probability": 0.5567970204841713,
+            "baseline_prob": 0.295391061452514,
+            "baseline_n": 4296,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 772,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 178,
+                    "total": 772,
+                    "probability": 0.23056994818652848,
+                    "baseline_prob": 0.40025906735751293,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 105,
+                    "total": 772,
+                    "probability": 0.13601036269430053,
+                    "baseline_prob": 0.29404145077720206,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 489,
+                    "total": 772,
+                    "probability": 0.633419689119171,
+                    "baseline_prob": 0.30569948186528495,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 281,
+                    "total": 772,
+                    "probability": 0.3639896373056995,
+                    "baseline_prob": 0.39896373056994816,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 115,
+                    "total": 772,
+                    "probability": 0.1489637305699482,
+                    "baseline_prob": 0.2914507772020725,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 376,
+                    "total": 772,
+                    "probability": 0.48704663212435234,
+                    "baseline_prob": 0.30958549222797926,
+                    "baseline_n": 772,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 898,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 193,
+                    "total": 898,
+                    "probability": 0.21492204899777284,
+                    "baseline_prob": 0.40311804008908686,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 160,
+                    "total": 898,
+                    "probability": 0.17817371937639198,
+                    "baseline_prob": 0.2873051224944321,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 545,
+                    "total": 898,
+                    "probability": 0.6069042316258352,
+                    "baseline_prob": 0.30957683741648107,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 222,
+                    "total": 898,
+                    "probability": 0.24721603563474387,
+                    "baseline_prob": 0.3975501113585746,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 153,
+                    "total": 898,
+                    "probability": 0.17037861915367483,
+                    "baseline_prob": 0.2806236080178174,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 523,
+                    "total": 898,
+                    "probability": 0.5824053452115813,
+                    "baseline_prob": 0.321826280623608,
+                    "baseline_n": 898,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 891,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 154,
+                    "total": 891,
+                    "probability": 0.1728395061728395,
+                    "baseline_prob": 0.3995510662177329,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 162,
+                    "total": 891,
+                    "probability": 0.18181818181818182,
+                    "baseline_prob": 0.29180695847362514,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 575,
+                    "total": 891,
+                    "probability": 0.6453423120089786,
+                    "baseline_prob": 0.30864197530864196,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 235,
+                    "total": 891,
+                    "probability": 0.26374859708193044,
+                    "baseline_prob": 0.3984287317620651,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 135,
+                    "total": 891,
+                    "probability": 0.15151515151515152,
+                    "baseline_prob": 0.28058361391694725,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 521,
+                    "total": 891,
+                    "probability": 0.5847362514029181,
+                    "baseline_prob": 0.32098765432098764,
+                    "baseline_n": 891,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 878,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 171,
+                    "total": 878,
+                    "probability": 0.1947608200455581,
+                    "baseline_prob": 0.39977220956719817,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 173,
+                    "total": 878,
+                    "probability": 0.1970387243735763,
+                    "baseline_prob": 0.28929384965831434,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 534,
+                    "total": 878,
+                    "probability": 0.6082004555808656,
+                    "baseline_prob": 0.3109339407744875,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 215,
+                    "total": 878,
+                    "probability": 0.244874715261959,
+                    "baseline_prob": 0.39977220956719817,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 152,
+                    "total": 878,
+                    "probability": 0.17312072892938496,
+                    "baseline_prob": 0.2835990888382688,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 511,
+                    "total": 878,
+                    "probability": 0.5820045558086561,
+                    "baseline_prob": 0.31662870159453305,
+                    "baseline_n": 878,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 857,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 170,
+                    "total": 857,
+                    "probability": 0.1983663943990665,
+                    "baseline_prob": 0.4002333722287048,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 186,
+                    "total": 857,
+                    "probability": 0.21703617269544925,
+                    "baseline_prob": 0.29171528588098017,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 501,
+                    "total": 857,
+                    "probability": 0.5845974329054843,
+                    "baseline_prob": 0.3080513418903151,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 222,
+                    "total": 857,
+                    "probability": 0.2590431738623104,
+                    "baseline_prob": 0.396732788798133,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 174,
+                    "total": 857,
+                    "probability": 0.20303383897316218,
+                    "baseline_prob": 0.28354725787631274,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 461,
+                    "total": 857,
+                    "probability": 0.5379229871645275,
+                    "baseline_prob": 0.31971995332555425,
+                    "baseline_n": 857,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "candle": {
+            "dimension": "candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2413,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 83,
+                    "total": 2413,
+                    "probability": 0.03439701616245338,
+                    "baseline_prob": 0.4040613344384584,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 239,
+                    "total": 2413,
+                    "probability": 0.09904682967260671,
+                    "baseline_prob": 0.28760878574388726,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 2091,
+                    "total": 2413,
+                    "probability": 0.8665561541649399,
+                    "baseline_prob": 0.30832987981765436,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 1110,
+                    "total": 2413,
+                    "probability": 0.46000828843762953,
+                    "baseline_prob": 0.40323249067550765,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 581,
+                    "total": 2413,
+                    "probability": 0.24077911313717365,
+                    "baseline_prob": 0.3033568172399503,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 722,
+                    "total": 2413,
+                    "probability": 0.2992125984251969,
+                    "baseline_prob": 0.29341069208454207,
+                    "baseline_n": 2413,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1883,
+                "results": [
+                  {
+                    "condition": "daily_high",
+                    "outcome": "asia",
+                    "count": 783,
+                    "total": 1883,
+                    "probability": 0.4158258098778545,
+                    "baseline_prob": 0.3961763143919278,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "london",
+                    "count": 547,
+                    "total": 1883,
+                    "probability": 0.290493892724376,
+                    "baseline_prob": 0.290493892724376,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_high",
+                    "outcome": "ny",
+                    "count": 553,
+                    "total": 1883,
+                    "probability": 0.2936802973977695,
+                    "baseline_prob": 0.3133297928836962,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "asia",
+                    "count": 65,
+                    "total": 1883,
+                    "probability": 0.03451938396176314,
+                    "baseline_prob": 0.40998406797663306,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "london",
+                    "count": 148,
+                    "total": 1883,
+                    "probability": 0.07859798194370685,
+                    "baseline_prob": 0.2862453531598513,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "daily_low",
+                    "outcome": "ny",
+                    "count": 1670,
+                    "total": 1883,
+                    "probability": 0.88688263409453,
+                    "baseline_prob": 0.30377057886351566,
+                    "baseline_n": 1883,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

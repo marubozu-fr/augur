@@ -1,0 +1,260 @@
+{
+  "stat_name": "sma_performance",
+  "title": {
+    "en": "SMA Performance",
+    "fr": "Performance SMA"
+  },
+  "definition": {
+    "en": "When price crosses above or below the N-period simple moving average, how long does the move last (in bars) and how far does price travel from the SMA before crossing back?",
+    "fr": "Lorsque le prix croise au-dessus ou en dessous de la moyenne mobile simple sur N périodes, combien de temps dure le mouvement (en barres) et jusqu'où le prix s'éloigne-t-il de la SMA avant de retraverser ?"
+  },
+  "labels": {
+    "conditions": {
+      "cross_up": {
+        "en": "Cross above SMA",
+        "fr": "Croisement au-dessus de la SMA"
+      },
+      "cross_down": {
+        "en": "Cross below SMA",
+        "fr": "Croisement en dessous de la SMA"
+      }
+    },
+    "outcomes": {
+      "avg_duration": {
+        "en": "Average duration (bars)",
+        "fr": "Durée moyenne (barres)"
+      },
+      "max_duration": {
+        "en": "Maximum duration (bars)",
+        "fr": "Durée maximale (barres)"
+      },
+      "avg_travel": {
+        "en": "Average travel (points)",
+        "fr": "Distance moyenne (points)"
+      },
+      "max_travel": {
+        "en": "Maximum travel (points)",
+        "fr": "Distance maximale (points)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2009-10-05",
+          "2026-05-05"
+        ],
+        "total_samples": 4132,
+        "results": [
+          {
+            "condition": "cross_up",
+            "outcome": "avg_duration",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 267,
+            "value": 139.91304347826087,
+            "value_baseline": 10.438202247191011,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "max_duration",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 267,
+            "value": 570.0,
+            "value_baseline": 45.0,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "avg_travel",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 267,
+            "value": 1012.2316194878262,
+            "value_baseline": 2333.640983706273,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "max_travel",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 267,
+            "value": 3848.2556938199996,
+            "value_baseline": 3848.2556938199996,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "avg_duration",
+            "count": 20,
+            "total": 20,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 30.3,
+            "value_baseline": 0.0,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "max_duration",
+            "count": 20,
+            "total": 20,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 203.0,
+            "value_baseline": 0.0,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "avg_travel",
+            "count": 20,
+            "total": 20,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 960.5301491307498,
+            "value_baseline": 0.0,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "max_travel",
+            "count": 20,
+            "total": 20,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 0,
+            "value": 4038.4317939999983,
+            "value_baseline": 0.0,
+            "agg": "max"
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2009-10-05",
+          "2026-06-12"
+        ],
+        "total_samples": 4161,
+        "results": [
+          {
+            "condition": "cross_up",
+            "outcome": "avg_duration",
+            "count": 27,
+            "total": 27,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 285,
+            "value": 118.22222222222223,
+            "value_baseline": 9.596491228070175,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "max_duration",
+            "count": 27,
+            "total": 27,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 285,
+            "value": 471.0,
+            "value_baseline": 43.0,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "avg_travel",
+            "count": 27,
+            "total": 27,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 285,
+            "value": 236.2115561053703,
+            "value_baseline": 507.7593920390702,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_up",
+            "outcome": "max_travel",
+            "count": 27,
+            "total": 27,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 285,
+            "value": 731.4457961349999,
+            "value_baseline": 731.4457961349999,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "avg_duration",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 29.130434782608695,
+            "value_baseline": 6.0,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "max_duration",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 160.0,
+            "value_baseline": 6.0,
+            "agg": "max"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "avg_travel",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 258.1031193817391,
+            "value_baseline": 644.5132191250004,
+            "agg": "mean"
+          },
+          {
+            "condition": "cross_down",
+            "outcome": "max_travel",
+            "count": 23,
+            "total": 23,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 1,
+            "value": 927.8030517900002,
+            "value_baseline": 644.5132191250004,
+            "agg": "max"
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

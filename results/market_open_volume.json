@@ -1,0 +1,164 @@
+{
+  "stat_name": "market_open_volume",
+  "title": {
+    "en": "Market Open Volume",
+    "fr": "Volume à l'ouverture"
+  },
+  "definition": {
+    "en": "Pearson correlation between the opening bar's volume and the rest-of-session volume: does a high-volume open predict a high-volume session?",
+    "fr": "Corrélation de Pearson entre le volume de la bougie d'ouverture et le volume du reste de la séance : un volume élevé à l'ouverture annonce-t-il une séance active ?"
+  },
+  "labels": {
+    "conditions": {
+      "any_day": {
+        "en": "All days",
+        "fr": "Tous les jours"
+      }
+    },
+    "outcomes": {
+      "correlation": {
+        "en": "Open vs rest-of-session volume correlation",
+        "fr": "Corrélation volume ouverture / reste de séance"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "ES": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.6494771397709281,
+            "value_baseline": 0.021753541121330478,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.6880441318574733,
+            "value_baseline": 0.02351059088794384,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.7097791406008749,
+            "value_baseline": 0.026510382642886576,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "NQ": {
+      "15min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.8101403859797993,
+            "value_baseline": -0.0027366002685412726,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.8283627736604244,
+            "value_baseline": -0.0013021279458265093,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "any_day",
+            "outcome": "correlation",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.8409902433866935,
+            "value_baseline": 0.00036820094407899245,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

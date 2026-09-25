@@ -1,0 +1,388 @@
+{
+  "stat_name": "green_red_streaks",
+  "title": {
+    "en": "Green & Red Streaks",
+    "fr": "Séries vertes et rouges"
+  },
+  "definition": {
+    "en": "Once a period is green (or red), how likely is the streak to continue for one more period of the same color?",
+    "fr": "Une fois qu'une période est verte (ou rouge), quelle est la probabilité que la série se poursuive d'une période supplémentaire de la même couleur ?"
+  },
+  "labels": {
+    "conditions": {
+      "green": {
+        "en": "Green period",
+        "fr": "Période verte"
+      },
+      "red": {
+        "en": "Red period",
+        "fr": "Période rouge"
+      }
+    },
+    "outcomes": {
+      "continue": {
+        "en": "Streak continues",
+        "fr": "La série se poursuit"
+      },
+      "break": {
+        "en": "Streak breaks",
+        "fr": "La série se rompt"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 1356,
+            "total": 2447,
+            "probability": 0.5541479362484675,
+            "baseline_prob": 0.4986072423398329,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 1091,
+            "total": 2447,
+            "probability": 0.44585206375153247,
+            "baseline_prob": 0.5013927576601671,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 821,
+            "total": 1912,
+            "probability": 0.4293933054393305,
+            "baseline_prob": 0.509750566893424,
+            "baseline_n": 2205,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 1091,
+            "total": 1912,
+            "probability": 0.5706066945606695,
+            "baseline_prob": 0.490249433106576,
+            "baseline_n": 2205,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "weekly": {
+        "data_range": [
+          "2008-12-15",
+          "2026-06-08"
+        ],
+        "total_samples": 913,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 311,
+            "total": 534,
+            "probability": 0.5823970037453183,
+            "baseline_prob": 0.5,
+            "baseline_n": 464,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 223,
+            "total": 534,
+            "probability": 0.41760299625468167,
+            "baseline_prob": 0.5,
+            "baseline_n": 464,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 154,
+            "total": 378,
+            "probability": 0.4074074074074074,
+            "baseline_prob": 0.48214285714285715,
+            "baseline_n": 448,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 224,
+            "total": 378,
+            "probability": 0.5925925925925926,
+            "baseline_prob": 0.5178571428571429,
+            "baseline_n": 448,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "monthly": {
+        "data_range": [
+          "2009-01-02",
+          "2026-06-01"
+        ],
+        "total_samples": 210,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 90,
+            "total": 137,
+            "probability": 0.656934306569343,
+            "baseline_prob": 0.47619047619047616,
+            "baseline_n": 105,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 47,
+            "total": 137,
+            "probability": 0.34306569343065696,
+            "baseline_prob": 0.5238095238095238,
+            "baseline_n": 105,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 25,
+            "total": 72,
+            "probability": 0.3472222222222222,
+            "baseline_prob": 0.46153846153846156,
+            "baseline_n": 104,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 47,
+            "total": 72,
+            "probability": 0.6527777777777778,
+            "baseline_prob": 0.5384615384615384,
+            "baseline_n": 104,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4331,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 1343,
+            "total": 2420,
+            "probability": 0.5549586776859504,
+            "baseline_prob": 0.4985981308411215,
+            "baseline_n": 2140,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 1077,
+            "total": 2420,
+            "probability": 0.4450413223140496,
+            "baseline_prob": 0.5014018691588785,
+            "baseline_n": 2140,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 833,
+            "total": 1910,
+            "probability": 0.4361256544502618,
+            "baseline_prob": 0.5100456621004567,
+            "baseline_n": 2190,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 1077,
+            "total": 1910,
+            "probability": 0.5638743455497383,
+            "baseline_prob": 0.4899543378995434,
+            "baseline_n": 2190,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "weekly": {
+        "data_range": [
+          "2008-12-15",
+          "2026-05-04"
+        ],
+        "total_samples": 908,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 314,
+            "total": 530,
+            "probability": 0.5924528301886792,
+            "baseline_prob": 0.5010799136069114,
+            "baseline_n": 463,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 216,
+            "total": 530,
+            "probability": 0.4075471698113208,
+            "baseline_prob": 0.49892008639308855,
+            "baseline_n": 463,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 160,
+            "total": 377,
+            "probability": 0.4244031830238727,
+            "baseline_prob": 0.4797297297297297,
+            "baseline_n": 444,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 217,
+            "total": 377,
+            "probability": 0.5755968169761273,
+            "baseline_prob": 0.5202702702702703,
+            "baseline_n": 444,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      },
+      "monthly": {
+        "data_range": [
+          "2009-01-02",
+          "2026-05-01"
+        ],
+        "total_samples": 209,
+        "results": [
+          {
+            "condition": "green",
+            "outcome": "continue",
+            "count": 87,
+            "total": 135,
+            "probability": 0.6444444444444445,
+            "baseline_prob": 0.47619047619047616,
+            "baseline_n": 105,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "green",
+            "outcome": "break",
+            "count": 48,
+            "total": 135,
+            "probability": 0.35555555555555557,
+            "baseline_prob": 0.5238095238095238,
+            "baseline_n": 105,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "continue",
+            "count": 24,
+            "total": 73,
+            "probability": 0.3287671232876712,
+            "baseline_prob": 0.46601941747572817,
+            "baseline_n": 103,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "red",
+            "outcome": "break",
+            "count": 49,
+            "total": 73,
+            "probability": 0.6712328767123288,
+            "baseline_prob": 0.5339805825242718,
+            "baseline_n": 103,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

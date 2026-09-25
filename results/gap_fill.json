@@ -1,0 +1,2167 @@
+{
+  "stat_name": "gap_fill",
+  "title": {
+    "en": "Gap Fill",
+    "fr": "Comblement de gap"
+  },
+  "definition": {
+    "en": "When a session opens with a gap up or down from the prior session's close, how often does intraday price retrace back through the gap and fill it?",
+    "fr": "Lorsqu'une session ouvre avec un gap à la hausse ou à la baisse par rapport à la clôture de la session précédente, à quelle fréquence le prix intraday revient-il combler le gap ?"
+  },
+  "labels": {
+    "conditions": {
+      "gap_up": {
+        "en": "Gap up",
+        "fr": "Gap haussier"
+      },
+      "gap_down": {
+        "en": "Gap down",
+        "fr": "Gap baissier"
+      }
+    },
+    "outcomes": {
+      "filled": {
+        "en": "Filled",
+        "fr": "Comblé"
+      },
+      "not_filled": {
+        "en": "Not filled",
+        "fr": "Non comblé"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "size_pts": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "size_pct": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "gap_up",
+            "outcome": "filled",
+            "count": 1534,
+            "total": 2444,
+            "probability": 0.6276595744680851,
+            "baseline_prob": 0.646481178396072,
+            "baseline_n": 2444,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_up",
+            "outcome": "not_filled",
+            "count": 910,
+            "total": 2444,
+            "probability": 0.3723404255319149,
+            "baseline_prob": 0.353518821603928,
+            "baseline_n": 2444,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_down",
+            "outcome": "filled",
+            "count": 1224,
+            "total": 1866,
+            "probability": 0.6559485530546624,
+            "baseline_prob": 0.6312968917470525,
+            "baseline_n": 1866,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_down",
+            "outcome": "not_filled",
+            "count": 642,
+            "total": 1866,
+            "probability": 0.3440514469453376,
+            "baseline_prob": 0.3687031082529475,
+            "baseline_n": 1866,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 255,
+                    "total": 468,
+                    "probability": 0.5448717948717948,
+                    "baseline_prob": 0.5790598290598291,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 213,
+                    "total": 468,
+                    "probability": 0.4551282051282051,
+                    "baseline_prob": 0.42094017094017094,
+                    "baseline_n": 468,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 215,
+                    "total": 342,
+                    "probability": 0.6286549707602339,
+                    "baseline_prob": 0.5818713450292398,
+                    "baseline_n": 342,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 127,
+                    "total": 342,
+                    "probability": 0.3713450292397661,
+                    "baseline_prob": 0.41812865497076024,
+                    "baseline_n": 342,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 322,
+                    "total": 497,
+                    "probability": 0.647887323943662,
+                    "baseline_prob": 0.6599597585513078,
+                    "baseline_n": 497,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 175,
+                    "total": 497,
+                    "probability": 0.352112676056338,
+                    "baseline_prob": 0.34004024144869216,
+                    "baseline_n": 497,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 261,
+                    "total": 396,
+                    "probability": 0.6590909090909091,
+                    "baseline_prob": 0.6439393939393939,
+                    "baseline_n": 396,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 135,
+                    "total": 396,
+                    "probability": 0.3409090909090909,
+                    "baseline_prob": 0.3560606060606061,
+                    "baseline_n": 396,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 343,
+                    "total": 519,
+                    "probability": 0.6608863198458574,
+                    "baseline_prob": 0.6763005780346821,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 176,
+                    "total": 519,
+                    "probability": 0.33911368015414256,
+                    "baseline_prob": 0.3236994219653179,
+                    "baseline_n": 519,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 251,
+                    "total": 367,
+                    "probability": 0.6839237057220708,
+                    "baseline_prob": 0.662125340599455,
+                    "baseline_n": 367,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 116,
+                    "total": 367,
+                    "probability": 0.31607629427792916,
+                    "baseline_prob": 0.33787465940054495,
+                    "baseline_n": 367,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 304,
+                    "total": 480,
+                    "probability": 0.6333333333333333,
+                    "baseline_prob": 0.6479166666666667,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 176,
+                    "total": 480,
+                    "probability": 0.36666666666666664,
+                    "baseline_prob": 0.35208333333333336,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 255,
+                    "total": 390,
+                    "probability": 0.6538461538461539,
+                    "baseline_prob": 0.6358974358974359,
+                    "baseline_n": 390,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 135,
+                    "total": 390,
+                    "probability": 0.34615384615384615,
+                    "baseline_prob": 0.3641025641025641,
+                    "baseline_n": 390,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 310,
+                    "total": 480,
+                    "probability": 0.6458333333333334,
+                    "baseline_prob": 0.66875,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 170,
+                    "total": 480,
+                    "probability": 0.3541666666666667,
+                    "baseline_prob": 0.33125,
+                    "baseline_n": 480,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 242,
+                    "total": 371,
+                    "probability": 0.6522911051212938,
+                    "baseline_prob": 0.6226415094339622,
+                    "baseline_n": 371,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 129,
+                    "total": 371,
+                    "probability": 0.3477088948787062,
+                    "baseline_prob": 0.37735849056603776,
+                    "baseline_n": 371,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 556,
+                    "total": 1338,
+                    "probability": 0.4155455904334828,
+                    "baseline_prob": 0.6136023916292974,
+                    "baseline_n": 1338,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 782,
+                    "total": 1338,
+                    "probability": 0.5844544095665172,
+                    "baseline_prob": 0.3863976083707025,
+                    "baseline_n": 1338,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 874,
+                    "total": 1039,
+                    "probability": 0.8411934552454283,
+                    "baseline_prob": 0.5861405197305101,
+                    "baseline_n": 1039,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 165,
+                    "total": 1039,
+                    "probability": 0.1588065447545717,
+                    "baseline_prob": 0.4138594802694899,
+                    "baseline_n": 1039,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 978,
+                    "total": 1106,
+                    "probability": 0.8842676311030742,
+                    "baseline_prob": 0.6826401446654611,
+                    "baseline_n": 1106,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 128,
+                    "total": 1106,
+                    "probability": 0.11573236889692586,
+                    "baseline_prob": 0.31735985533453887,
+                    "baseline_n": 1106,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 350,
+                    "total": 827,
+                    "probability": 0.42321644498186217,
+                    "baseline_prob": 0.6928657799274486,
+                    "baseline_n": 827,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 477,
+                    "total": 827,
+                    "probability": 0.5767835550181378,
+                    "baseline_prob": 0.30713422007255137,
+                    "baseline_n": 827,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 859,
+                    "total": 1348,
+                    "probability": 0.637240356083086,
+                    "baseline_prob": 0.6513353115727003,
+                    "baseline_n": 1348,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 489,
+                    "total": 1348,
+                    "probability": 0.36275964391691395,
+                    "baseline_prob": 0.3486646884272997,
+                    "baseline_n": 1348,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 683,
+                    "total": 1024,
+                    "probability": 0.6669921875,
+                    "baseline_prob": 0.6484375,
+                    "baseline_n": 1024,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 341,
+                    "total": 1024,
+                    "probability": 0.3330078125,
+                    "baseline_prob": 0.3515625,
+                    "baseline_n": 1024,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 675,
+                    "total": 1096,
+                    "probability": 0.6158759124087592,
+                    "baseline_prob": 0.6295620437956204,
+                    "baseline_n": 1096,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 421,
+                    "total": 1096,
+                    "probability": 0.3841240875912409,
+                    "baseline_prob": 0.3704379562043796,
+                    "baseline_n": 1096,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 541,
+                    "total": 842,
+                    "probability": 0.6425178147268409,
+                    "baseline_prob": 0.6247030878859857,
+                    "baseline_n": 842,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 301,
+                    "total": 842,
+                    "probability": 0.35748218527315917,
+                    "baseline_prob": 0.3752969121140142,
+                    "baseline_n": 842,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pts": {
+            "dimension": "size_pts",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pts bin 1 (0.01–8.20]",
+                  "fr": "gap_size_pts tranche 1 (0.01–8.20]"
+                },
+                "total_samples": 1078,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 547,
+                    "total": 617,
+                    "probability": 0.8865478119935171,
+                    "baseline_prob": 0.893030794165316,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 70,
+                    "total": 617,
+                    "probability": 0.11345218800648298,
+                    "baseline_prob": 0.10696920583468396,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 415,
+                    "total": 461,
+                    "probability": 0.9002169197396963,
+                    "baseline_prob": 0.8915401301518439,
+                    "baseline_n": 461,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 46,
+                    "total": 461,
+                    "probability": 0.09978308026030369,
+                    "baseline_prob": 0.10845986984815618,
+                    "baseline_n": 461,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pts bin 2 (8.20–21.94]",
+                  "fr": "gap_size_pts tranche 2 (8.20–21.94]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 420,
+                    "total": 639,
+                    "probability": 0.6572769953051644,
+                    "baseline_prob": 0.6744913928012519,
+                    "baseline_n": 639,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 219,
+                    "total": 639,
+                    "probability": 0.3427230046948357,
+                    "baseline_prob": 0.325508607198748,
+                    "baseline_n": 639,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 313,
+                    "total": 438,
+                    "probability": 0.7146118721461188,
+                    "baseline_prob": 0.6894977168949772,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 125,
+                    "total": 438,
+                    "probability": 0.2853881278538813,
+                    "baseline_prob": 0.3105022831050228,
+                    "baseline_n": 438,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pts bin 3 (21.94–58.22]",
+                  "fr": "gap_size_pts tranche 3 (21.94–58.22]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 314,
+                    "total": 606,
+                    "probability": 0.5181518151815182,
+                    "baseline_prob": 0.5396039603960396,
+                    "baseline_n": 606,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 292,
+                    "total": 606,
+                    "probability": 0.48184818481848185,
+                    "baseline_prob": 0.4603960396039604,
+                    "baseline_n": 606,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 285,
+                    "total": 471,
+                    "probability": 0.6050955414012739,
+                    "baseline_prob": 0.5774946921443737,
+                    "baseline_n": 471,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 186,
+                    "total": 471,
+                    "probability": 0.39490445859872614,
+                    "baseline_prob": 0.42250530785562634,
+                    "baseline_n": 471,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pts bin 4 (58.22–1063.70]",
+                  "fr": "gap_size_pts tranche 4 (58.22–1063.70]"
+                },
+                "total_samples": 1078,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 253,
+                    "total": 582,
+                    "probability": 0.43470790378006874,
+                    "baseline_prob": 0.41580756013745707,
+                    "baseline_n": 582,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 329,
+                    "total": 582,
+                    "probability": 0.5652920962199313,
+                    "baseline_prob": 0.584192439862543,
+                    "baseline_n": 582,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 211,
+                    "total": 496,
+                    "probability": 0.4254032258064516,
+                    "baseline_prob": 0.4475806451612903,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 285,
+                    "total": 496,
+                    "probability": 0.5745967741935484,
+                    "baseline_prob": 0.5524193548387096,
+                    "baseline_n": 496,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (-0.00–0.16]",
+                  "fr": "gap_size_pct tranche 1 (-0.00–0.16]"
+                },
+                "total_samples": 1078,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 562,
+                    "total": 617,
+                    "probability": 0.9108589951377634,
+                    "baseline_prob": 0.9238249594813615,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 55,
+                    "total": 617,
+                    "probability": 0.08914100486223663,
+                    "baseline_prob": 0.07617504051863858,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 426,
+                    "total": 461,
+                    "probability": 0.9240780911062907,
+                    "baseline_prob": 0.9067245119305857,
+                    "baseline_n": 461,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 35,
+                    "total": 461,
+                    "probability": 0.07592190889370933,
+                    "baseline_prob": 0.09327548806941431,
+                    "baseline_n": 461,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.16–0.34]",
+                  "fr": "gap_size_pct tranche 2 (0.16–0.34]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 452,
+                    "total": 625,
+                    "probability": 0.7232,
+                    "baseline_prob": 0.7248,
+                    "baseline_n": 625,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 173,
+                    "total": 625,
+                    "probability": 0.2768,
+                    "baseline_prob": 0.2752,
+                    "baseline_n": 625,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 344,
+                    "total": 452,
+                    "probability": 0.7610619469026548,
+                    "baseline_prob": 0.7588495575221239,
+                    "baseline_n": 452,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 108,
+                    "total": 452,
+                    "probability": 0.23893805309734514,
+                    "baseline_prob": 0.2411504424778761,
+                    "baseline_n": 452,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.34–0.67]",
+                  "fr": "gap_size_pct tranche 3 (0.34–0.67]"
+                },
+                "total_samples": 1077,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 333,
+                    "total": 627,
+                    "probability": 0.5311004784688995,
+                    "baseline_prob": 0.5614035087719298,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 294,
+                    "total": 627,
+                    "probability": 0.4688995215311005,
+                    "baseline_prob": 0.43859649122807015,
+                    "baseline_n": 627,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 266,
+                    "total": 450,
+                    "probability": 0.5911111111111111,
+                    "baseline_prob": 0.5488888888888889,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 184,
+                    "total": 450,
+                    "probability": 0.4088888888888889,
+                    "baseline_prob": 0.45111111111111113,
+                    "baseline_n": 450,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.67–6.54]",
+                  "fr": "gap_size_pct tranche 4 (0.67–6.54]"
+                },
+                "total_samples": 1078,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 187,
+                    "total": 575,
+                    "probability": 0.32521739130434785,
+                    "baseline_prob": 0.3582608695652174,
+                    "baseline_n": 575,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 388,
+                    "total": 575,
+                    "probability": 0.6747826086956522,
+                    "baseline_prob": 0.6417391304347826,
+                    "baseline_n": 575,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 188,
+                    "total": 503,
+                    "probability": 0.37375745526838966,
+                    "baseline_prob": 0.3359840954274354,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 315,
+                    "total": 503,
+                    "probability": 0.6262425447316103,
+                    "baseline_prob": 0.6640159045725647,
+                    "baseline_n": 503,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "gap_up",
+            "outcome": "filled",
+            "count": 1418,
+            "total": 2379,
+            "probability": 0.5960487599831862,
+            "baseline_prob": 0.6116015132408575,
+            "baseline_n": 2379,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_up",
+            "outcome": "not_filled",
+            "count": 961,
+            "total": 2379,
+            "probability": 0.40395124001681376,
+            "baseline_prob": 0.3883984867591425,
+            "baseline_n": 2379,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_down",
+            "outcome": "filled",
+            "count": 1249,
+            "total": 1941,
+            "probability": 0.6434827408552293,
+            "baseline_prob": 0.624420401854714,
+            "baseline_n": 1941,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "gap_down",
+            "outcome": "not_filled",
+            "count": 692,
+            "total": 1941,
+            "probability": 0.3565172591447707,
+            "baseline_prob": 0.3755795981452859,
+            "baseline_n": 1941,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 227,
+                    "total": 445,
+                    "probability": 0.5101123595505618,
+                    "baseline_prob": 0.5640449438202247,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 218,
+                    "total": 445,
+                    "probability": 0.4898876404494382,
+                    "baseline_prob": 0.43595505617977526,
+                    "baseline_n": 445,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 217,
+                    "total": 364,
+                    "probability": 0.5961538461538461,
+                    "baseline_prob": 0.5302197802197802,
+                    "baseline_n": 364,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 147,
+                    "total": 364,
+                    "probability": 0.40384615384615385,
+                    "baseline_prob": 0.4697802197802198,
+                    "baseline_n": 364,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 294,
+                    "total": 485,
+                    "probability": 0.6061855670103092,
+                    "baseline_prob": 0.6309278350515464,
+                    "baseline_n": 485,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 191,
+                    "total": 485,
+                    "probability": 0.3938144329896907,
+                    "baseline_prob": 0.36907216494845363,
+                    "baseline_n": 485,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 261,
+                    "total": 410,
+                    "probability": 0.6365853658536585,
+                    "baseline_prob": 0.6073170731707317,
+                    "baseline_n": 410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 149,
+                    "total": 410,
+                    "probability": 0.36341463414634145,
+                    "baseline_prob": 0.3926829268292683,
+                    "baseline_n": 410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 325,
+                    "total": 500,
+                    "probability": 0.65,
+                    "baseline_prob": 0.674,
+                    "baseline_n": 500,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 175,
+                    "total": 500,
+                    "probability": 0.35,
+                    "baseline_prob": 0.326,
+                    "baseline_n": 500,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 272,
+                    "total": 385,
+                    "probability": 0.7064935064935065,
+                    "baseline_prob": 0.6753246753246753,
+                    "baseline_n": 385,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 113,
+                    "total": 385,
+                    "probability": 0.2935064935064935,
+                    "baseline_prob": 0.3246753246753247,
+                    "baseline_n": 385,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 284,
+                    "total": 467,
+                    "probability": 0.6081370449678801,
+                    "baseline_prob": 0.6338329764453962,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 183,
+                    "total": 467,
+                    "probability": 0.39186295503211993,
+                    "baseline_prob": 0.36616702355460384,
+                    "baseline_n": 467,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 268,
+                    "total": 409,
+                    "probability": 0.6552567237163814,
+                    "baseline_prob": 0.6259168704156479,
+                    "baseline_n": 409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 141,
+                    "total": 409,
+                    "probability": 0.34474327628361856,
+                    "baseline_prob": 0.3740831295843521,
+                    "baseline_n": 409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 288,
+                    "total": 482,
+                    "probability": 0.5975103734439834,
+                    "baseline_prob": 0.6120331950207469,
+                    "baseline_n": 482,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 194,
+                    "total": 482,
+                    "probability": 0.4024896265560166,
+                    "baseline_prob": 0.3879668049792531,
+                    "baseline_n": 482,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 231,
+                    "total": 373,
+                    "probability": 0.6193029490616622,
+                    "baseline_prob": 0.6005361930294906,
+                    "baseline_n": 373,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 142,
+                    "total": 373,
+                    "probability": 0.3806970509383378,
+                    "baseline_prob": 0.39946380697050937,
+                    "baseline_n": 373,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 487,
+                    "total": 1297,
+                    "probability": 0.3754818812644564,
+                    "baseline_prob": 0.5967617579028527,
+                    "baseline_n": 1297,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 810,
+                    "total": 1297,
+                    "probability": 0.6245181187355435,
+                    "baseline_prob": 0.40323824209714726,
+                    "baseline_n": 1297,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 891,
+                    "total": 1092,
+                    "probability": 0.8159340659340659,
+                    "baseline_prob": 0.5531135531135531,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 201,
+                    "total": 1092,
+                    "probability": 0.18406593406593408,
+                    "baseline_prob": 0.4468864468864469,
+                    "baseline_n": 1092,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 931,
+                    "total": 1082,
+                    "probability": 0.8604436229205176,
+                    "baseline_prob": 0.6811460258780037,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 151,
+                    "total": 1082,
+                    "probability": 0.13955637707948243,
+                    "baseline_prob": 0.3188539741219963,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 358,
+                    "total": 849,
+                    "probability": 0.4216725559481743,
+                    "baseline_prob": 0.6501766784452296,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 491,
+                    "total": 849,
+                    "probability": 0.5783274440518257,
+                    "baseline_prob": 0.3498233215547703,
+                    "baseline_n": 849,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 785,
+                    "total": 1305,
+                    "probability": 0.6015325670498084,
+                    "baseline_prob": 0.6306513409961686,
+                    "baseline_n": 1305,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 520,
+                    "total": 1305,
+                    "probability": 0.39846743295019155,
+                    "baseline_prob": 0.3693486590038314,
+                    "baseline_n": 1305,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 696,
+                    "total": 1082,
+                    "probability": 0.6432532347504621,
+                    "baseline_prob": 0.6081330868761553,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 386,
+                    "total": 1082,
+                    "probability": 0.3567467652495379,
+                    "baseline_prob": 0.39186691312384475,
+                    "baseline_n": 1082,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 633,
+                    "total": 1074,
+                    "probability": 0.5893854748603352,
+                    "baseline_prob": 0.6219739292364991,
+                    "baseline_n": 1074,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 441,
+                    "total": 1074,
+                    "probability": 0.4106145251396648,
+                    "baseline_prob": 0.3780260707635009,
+                    "baseline_n": 1074,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 553,
+                    "total": 859,
+                    "probability": 0.6437718277066357,
+                    "baseline_prob": 0.6030267753201397,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 306,
+                    "total": 859,
+                    "probability": 0.3562281722933644,
+                    "baseline_prob": 0.3969732246798603,
+                    "baseline_n": 859,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pts": {
+            "dimension": "size_pts",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pts bin 1 (0.25–3.35]",
+                  "fr": "gap_size_pts tranche 1 (0.25–3.35]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 501,
+                    "total": 562,
+                    "probability": 0.891459074733096,
+                    "baseline_prob": 0.902135231316726,
+                    "baseline_n": 562,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 61,
+                    "total": 562,
+                    "probability": 0.10854092526690391,
+                    "baseline_prob": 0.09786476868327403,
+                    "baseline_n": 562,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 467,
+                    "total": 518,
+                    "probability": 0.9015444015444015,
+                    "baseline_prob": 0.88996138996139,
+                    "baseline_n": 518,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 51,
+                    "total": 518,
+                    "probability": 0.09845559845559845,
+                    "baseline_prob": 0.11003861003861004,
+                    "baseline_n": 518,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pts bin 2 (3.35–7.74]",
+                  "fr": "gap_size_pts tranche 2 (3.35–7.74]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 403,
+                    "total": 605,
+                    "probability": 0.6661157024793388,
+                    "baseline_prob": 0.6793388429752066,
+                    "baseline_n": 605,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 202,
+                    "total": 605,
+                    "probability": 0.3338842975206612,
+                    "baseline_prob": 0.32066115702479336,
+                    "baseline_n": 605,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 347,
+                    "total": 475,
+                    "probability": 0.7305263157894737,
+                    "baseline_prob": 0.7136842105263158,
+                    "baseline_n": 475,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 128,
+                    "total": 475,
+                    "probability": 0.2694736842105263,
+                    "baseline_prob": 0.2863157894736842,
+                    "baseline_n": 475,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pts bin 3 (7.74–16.77]",
+                  "fr": "gap_size_pts tranche 3 (7.74–16.77]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 323,
+                    "total": 638,
+                    "probability": 0.5062695924764891,
+                    "baseline_prob": 0.5391849529780565,
+                    "baseline_n": 638,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 315,
+                    "total": 638,
+                    "probability": 0.493730407523511,
+                    "baseline_prob": 0.4608150470219436,
+                    "baseline_n": 638,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 251,
+                    "total": 442,
+                    "probability": 0.5678733031674208,
+                    "baseline_prob": 0.5203619909502263,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 191,
+                    "total": 442,
+                    "probability": 0.4321266968325792,
+                    "baseline_prob": 0.4796380090497738,
+                    "baseline_n": 442,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pts bin 4 (16.77–249.14]",
+                  "fr": "gap_size_pts tranche 4 (16.77–249.14]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 191,
+                    "total": 574,
+                    "probability": 0.3327526132404181,
+                    "baseline_prob": 0.3693379790940767,
+                    "baseline_n": 574,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 383,
+                    "total": 574,
+                    "probability": 0.6672473867595818,
+                    "baseline_prob": 0.6306620209059234,
+                    "baseline_n": 574,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 184,
+                    "total": 506,
+                    "probability": 0.36363636363636365,
+                    "baseline_prob": 0.3221343873517787,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 322,
+                    "total": 506,
+                    "probability": 0.6363636363636364,
+                    "baseline_prob": 0.6778656126482213,
+                    "baseline_n": 506,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "gap_size_pct bin 1 (0.00–0.14]",
+                  "fr": "gap_size_pct tranche 1 (0.00–0.14]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 505,
+                    "total": 559,
+                    "probability": 0.9033989266547406,
+                    "baseline_prob": 0.9123434704830053,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 54,
+                    "total": 559,
+                    "probability": 0.09660107334525939,
+                    "baseline_prob": 0.08765652951699464,
+                    "baseline_n": 559,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 473,
+                    "total": 521,
+                    "probability": 0.9078694817658349,
+                    "baseline_prob": 0.8982725527831094,
+                    "baseline_n": 521,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 48,
+                    "total": 521,
+                    "probability": 0.09213051823416507,
+                    "baseline_prob": 0.1017274472168906,
+                    "baseline_n": 521,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "gap_size_pct bin 2 (0.14–0.29]",
+                  "fr": "gap_size_pct tranche 2 (0.14–0.29]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 422,
+                    "total": 617,
+                    "probability": 0.6839546191247974,
+                    "baseline_prob": 0.7179902755267423,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 195,
+                    "total": 617,
+                    "probability": 0.3160453808752026,
+                    "baseline_prob": 0.2820097244732577,
+                    "baseline_n": 617,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 348,
+                    "total": 463,
+                    "probability": 0.7516198704103672,
+                    "baseline_prob": 0.7062634989200864,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 115,
+                    "total": 463,
+                    "probability": 0.24838012958963282,
+                    "baseline_prob": 0.2937365010799136,
+                    "baseline_n": 463,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "gap_size_pct bin 3 (0.29–0.57]",
+                  "fr": "gap_size_pct tranche 3 (0.29–0.57]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 324,
+                    "total": 646,
+                    "probability": 0.5015479876160991,
+                    "baseline_prob": 0.5479876160990712,
+                    "baseline_n": 646,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 322,
+                    "total": 646,
+                    "probability": 0.4984520123839009,
+                    "baseline_prob": 0.4520123839009288,
+                    "baseline_n": 646,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 259,
+                    "total": 434,
+                    "probability": 0.5967741935483871,
+                    "baseline_prob": 0.5276497695852534,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 175,
+                    "total": 434,
+                    "probability": 0.4032258064516129,
+                    "baseline_prob": 0.47235023041474655,
+                    "baseline_n": 434,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "gap_size_pct bin 4 (0.57–6.81]",
+                  "fr": "gap_size_pct tranche 4 (0.57–6.81]"
+                },
+                "total_samples": 1080,
+                "results": [
+                  {
+                    "condition": "gap_up",
+                    "outcome": "filled",
+                    "count": 167,
+                    "total": 557,
+                    "probability": 0.2998204667863555,
+                    "baseline_prob": 0.3231597845601436,
+                    "baseline_n": 557,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_up",
+                    "outcome": "not_filled",
+                    "count": 390,
+                    "total": 557,
+                    "probability": 0.7001795332136446,
+                    "baseline_prob": 0.6768402154398564,
+                    "baseline_n": 557,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "filled",
+                    "count": 169,
+                    "total": 523,
+                    "probability": 0.3231357552581262,
+                    "baseline_prob": 0.2982791586998088,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "gap_down",
+                    "outcome": "not_filled",
+                    "count": 354,
+                    "total": 523,
+                    "probability": 0.6768642447418738,
+                    "baseline_prob": 0.7017208413001912,
+                    "baseline_n": 523,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

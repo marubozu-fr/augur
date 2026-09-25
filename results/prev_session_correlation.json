@@ -1,0 +1,156 @@
+{
+  "stat_name": "prev_session_correlation",
+  "title": {
+    "en": "Previous Session Correlation",
+    "fr": "Corrélation de la session précédente"
+  },
+  "definition": {
+    "en": "How often does the current session close green or red given the prior session's color?",
+    "fr": "À quelle fréquence la session actuelle clôture-t-elle en vert ou en rouge selon la couleur de la session précédente ?"
+  },
+  "labels": {
+    "conditions": {
+      "prev_green": {
+        "en": "Prior session green",
+        "fr": "Session précédente verte"
+      },
+      "prev_red": {
+        "en": "Prior session red",
+        "fr": "Session précédente rouge"
+      }
+    },
+    "outcomes": {
+      "green": {
+        "en": "Green session (up)",
+        "fr": "Session verte (hausse)"
+      },
+      "red": {
+        "en": "Red session (down)",
+        "fr": "Session rouge (baisse)"
+      }
+    },
+    "dimensions": {}
+  },
+  "instruments": {
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "prev_green",
+            "outcome": "green",
+            "count": 1356,
+            "total": 2447,
+            "probability": 0.5541479362484675,
+            "baseline_prob": 0.4986072423398329,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_green",
+            "outcome": "red",
+            "count": 1091,
+            "total": 2447,
+            "probability": 0.44585206375153247,
+            "baseline_prob": 0.5013927576601671,
+            "baseline_n": 2154,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_red",
+            "outcome": "green",
+            "count": 1091,
+            "total": 1912,
+            "probability": 0.5706066945606695,
+            "baseline_prob": 0.490249433106576,
+            "baseline_n": 2205,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_red",
+            "outcome": "red",
+            "count": 821,
+            "total": 1912,
+            "probability": 0.4293933054393305,
+            "baseline_prob": 0.509750566893424,
+            "baseline_n": 2205,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    },
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4331,
+        "results": [
+          {
+            "condition": "prev_green",
+            "outcome": "green",
+            "count": 1343,
+            "total": 2420,
+            "probability": 0.5549586776859504,
+            "baseline_prob": 0.4985981308411215,
+            "baseline_n": 2140,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_green",
+            "outcome": "red",
+            "count": 1077,
+            "total": 2420,
+            "probability": 0.4450413223140496,
+            "baseline_prob": 0.5014018691588785,
+            "baseline_n": 2140,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_red",
+            "outcome": "green",
+            "count": 1077,
+            "total": 1910,
+            "probability": 0.5638743455497383,
+            "baseline_prob": 0.4899543378995434,
+            "baseline_n": 2190,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "prev_red",
+            "outcome": "red",
+            "count": 833,
+            "total": 1910,
+            "probability": 0.4361256544502618,
+            "baseline_prob": 0.5100456621004567,
+            "baseline_n": 2190,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {}
+      }
+    }
+  }
+}

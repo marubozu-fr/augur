@@ -1,0 +1,987 @@
+{
+  "stat_name": "opening_stats",
+  "title": {
+    "en": "Opening Stats",
+    "fr": "Statistiques d'ouverture"
+  },
+  "definition": {
+    "en": "Where does the daily session open land relative to the prior session's high and low — above the prior high, inside the prior range, or below the prior low?",
+    "fr": "Où se situe l'ouverture quotidienne par rapport au plus haut et au plus bas de la session précédente — au-dessus du plus haut, dans la fourchette ou en dessous du plus bas ?"
+  },
+  "labels": {
+    "conditions": {
+      "open": {
+        "en": "Session open",
+        "fr": "Ouverture de session"
+      }
+    },
+    "outcomes": {
+      "above_high": {
+        "en": "Above prior high",
+        "fr": "Au-dessus du plus haut précédent"
+      },
+      "inside_range": {
+        "en": "Inside prior range",
+        "fr": "Dans la fourchette précédente"
+      },
+      "below_low": {
+        "en": "Below prior low",
+        "fr": "En dessous du plus bas précédent"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-05-05"
+        ],
+        "total_samples": 4331,
+        "results": [
+          {
+            "condition": "open",
+            "outcome": "above_high",
+            "count": 1015,
+            "total": 4331,
+            "probability": 0.2343569614407758,
+            "baseline_prob": 0.3364119141075964,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "open",
+            "outcome": "inside_range",
+            "count": 2728,
+            "total": 4331,
+            "probability": 0.6298776264142231,
+            "baseline_prob": 0.3317940429462018,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "open",
+            "outcome": "below_low",
+            "count": 588,
+            "total": 4331,
+            "probability": 0.13576541214500115,
+            "baseline_prob": 0.3317940429462018,
+            "baseline_n": 4331,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 194,
+                    "total": 816,
+                    "probability": 0.23774509803921567,
+                    "baseline_prob": 0.32965686274509803,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 494,
+                    "total": 816,
+                    "probability": 0.6053921568627451,
+                    "baseline_prob": 0.32230392156862747,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 128,
+                    "total": 816,
+                    "probability": 0.1568627450980392,
+                    "baseline_prob": 0.3480392156862745,
+                    "baseline_n": 816,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 219,
+                    "total": 896,
+                    "probability": 0.24441964285714285,
+                    "baseline_prob": 0.33705357142857145,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 562,
+                    "total": 896,
+                    "probability": 0.6272321428571429,
+                    "baseline_prob": 0.31138392857142855,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 115,
+                    "total": 896,
+                    "probability": 0.12834821428571427,
+                    "baseline_prob": 0.3515625,
+                    "baseline_n": 896,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 204,
+                    "total": 890,
+                    "probability": 0.2292134831460674,
+                    "baseline_prob": 0.3382022471910112,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 586,
+                    "total": 890,
+                    "probability": 0.6584269662921348,
+                    "baseline_prob": 0.3112359550561798,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 100,
+                    "total": 890,
+                    "probability": 0.11235955056179775,
+                    "baseline_prob": 0.350561797752809,
+                    "baseline_n": 890,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 874,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 197,
+                    "total": 874,
+                    "probability": 0.22540045766590389,
+                    "baseline_prob": 0.33752860411899316,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 546,
+                    "total": 874,
+                    "probability": 0.6247139588100686,
+                    "baseline_prob": 0.3112128146453089,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 131,
+                    "total": 874,
+                    "probability": 0.14988558352402745,
+                    "baseline_prob": 0.3512585812356979,
+                    "baseline_n": 874,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 201,
+                    "total": 855,
+                    "probability": 0.23508771929824562,
+                    "baseline_prob": 0.3368421052631579,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 540,
+                    "total": 855,
+                    "probability": 0.631578947368421,
+                    "baseline_prob": 0.3157894736842105,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 114,
+                    "total": 855,
+                    "probability": 0.13333333333333333,
+                    "baseline_prob": 0.3473684210526316,
+                    "baseline_n": 855,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 823,
+                    "total": 2383,
+                    "probability": 0.3453629878304658,
+                    "baseline_prob": 0.33780948384389425,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1400,
+                    "total": 2383,
+                    "probability": 0.5874947545111204,
+                    "baseline_prob": 0.3285774234158624,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 160,
+                    "total": 2383,
+                    "probability": 0.06714225765841376,
+                    "baseline_prob": 0.33361309274024337,
+                    "baseline_n": 2383,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 192,
+                    "total": 1948,
+                    "probability": 0.09856262833675565,
+                    "baseline_prob": 0.337782340862423,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1328,
+                    "total": 1948,
+                    "probability": 0.6817248459958932,
+                    "baseline_prob": 0.3295687885010267,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 428,
+                    "total": 1948,
+                    "probability": 0.21971252566735114,
+                    "baseline_prob": 0.3326488706365503,
+                    "baseline_n": 1948,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 552,
+                    "total": 2384,
+                    "probability": 0.23154362416107382,
+                    "baseline_prob": 0.3376677852348993,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1499,
+                    "total": 2384,
+                    "probability": 0.6287751677852349,
+                    "baseline_prob": 0.3288590604026846,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 333,
+                    "total": 2384,
+                    "probability": 0.13968120805369127,
+                    "baseline_prob": 0.3334731543624161,
+                    "baseline_n": 2384,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1947,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 463,
+                    "total": 1947,
+                    "probability": 0.23780174627632256,
+                    "baseline_prob": 0.3379558294812532,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1229,
+                    "total": 1947,
+                    "probability": 0.6312275295326143,
+                    "baseline_prob": 0.32973805855161786,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 255,
+                    "total": 1947,
+                    "probability": 0.13097072419106318,
+                    "baseline_prob": 0.3323061119671289,
+                    "baseline_n": 1947,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-12",
+          "2026-06-12"
+        ],
+        "total_samples": 4360,
+        "results": [
+          {
+            "condition": "open",
+            "outcome": "above_high",
+            "count": 1082,
+            "total": 4360,
+            "probability": 0.2481651376146789,
+            "baseline_prob": 0.3357798165137615,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "open",
+            "outcome": "inside_range",
+            "count": 2623,
+            "total": 4360,
+            "probability": 0.601605504587156,
+            "baseline_prob": 0.3323394495412844,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          },
+          {
+            "condition": "open",
+            "outcome": "below_low",
+            "count": 655,
+            "total": 4360,
+            "probability": 0.15022935779816513,
+            "baseline_prob": 0.33188073394495415,
+            "baseline_n": 4360,
+            "value": null,
+            "value_baseline": null,
+            "agg": null
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 207,
+                    "total": 820,
+                    "probability": 0.2524390243902439,
+                    "baseline_prob": 0.3304878048780488,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 480,
+                    "total": 820,
+                    "probability": 0.5853658536585366,
+                    "baseline_prob": 0.32195121951219513,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 133,
+                    "total": 820,
+                    "probability": 0.16219512195121952,
+                    "baseline_prob": 0.3475609756097561,
+                    "baseline_n": 820,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 236,
+                    "total": 901,
+                    "probability": 0.2619311875693674,
+                    "baseline_prob": 0.33851276359600446,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 524,
+                    "total": 901,
+                    "probability": 0.58157602663707,
+                    "baseline_prob": 0.3118756936736959,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 141,
+                    "total": 901,
+                    "probability": 0.1564927857935627,
+                    "baseline_prob": 0.34961154273029965,
+                    "baseline_n": 901,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 196,
+                    "total": 897,
+                    "probability": 0.21850613154960982,
+                    "baseline_prob": 0.3366778149386845,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 590,
+                    "total": 897,
+                    "probability": 0.6577480490523969,
+                    "baseline_prob": 0.31215161649944256,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 111,
+                    "total": 897,
+                    "probability": 0.12374581939799331,
+                    "baseline_prob": 0.3511705685618729,
+                    "baseline_n": 897,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 880,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 214,
+                    "total": 880,
+                    "probability": 0.2431818181818182,
+                    "baseline_prob": 0.3352272727272727,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 527,
+                    "total": 880,
+                    "probability": 0.5988636363636364,
+                    "baseline_prob": 0.31363636363636366,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 139,
+                    "total": 880,
+                    "probability": 0.15795454545454546,
+                    "baseline_prob": 0.35113636363636364,
+                    "baseline_n": 880,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 229,
+                    "total": 862,
+                    "probability": 0.265661252900232,
+                    "baseline_prob": 0.33642691415313225,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 502,
+                    "total": 862,
+                    "probability": 0.5823665893271461,
+                    "baseline_prob": 0.31322505800464034,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 131,
+                    "total": 862,
+                    "probability": 0.1519721577726218,
+                    "baseline_prob": 0.3503480278422274,
+                    "baseline_n": 862,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2409,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 870,
+                    "total": 2409,
+                    "probability": 0.36114570361145704,
+                    "baseline_prob": 0.3366542133665421,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1349,
+                    "total": 2409,
+                    "probability": 0.559983395599834,
+                    "baseline_prob": 0.32918223329182233,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 190,
+                    "total": 2409,
+                    "probability": 0.07887090078870901,
+                    "baseline_prob": 0.33416355334163556,
+                    "baseline_n": 2409,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 212,
+                    "total": 1951,
+                    "probability": 0.10866222450025628,
+                    "baseline_prob": 0.33828805740645823,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1274,
+                    "total": 1951,
+                    "probability": 0.6529984623270118,
+                    "baseline_prob": 0.32906201947719116,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 465,
+                    "total": 1951,
+                    "probability": 0.23833931317273194,
+                    "baseline_prob": 0.3326499231163506,
+                    "baseline_n": 1951,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 601,
+                    "total": 2410,
+                    "probability": 0.24937759336099585,
+                    "baseline_prob": 0.3369294605809129,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1431,
+                    "total": 2410,
+                    "probability": 0.5937759336099585,
+                    "baseline_prob": 0.32904564315352697,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 378,
+                    "total": 2410,
+                    "probability": 0.15684647302904564,
+                    "baseline_prob": 0.33402489626556015,
+                    "baseline_n": 2410,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1950,
+                "results": [
+                  {
+                    "condition": "open",
+                    "outcome": "above_high",
+                    "count": 481,
+                    "total": 1950,
+                    "probability": 0.24666666666666667,
+                    "baseline_prob": 0.3384615384615385,
+                    "baseline_n": 1950,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "inside_range",
+                    "count": 1192,
+                    "total": 1950,
+                    "probability": 0.6112820512820513,
+                    "baseline_prob": 0.3292307692307692,
+                    "baseline_n": 1950,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  },
+                  {
+                    "condition": "open",
+                    "outcome": "below_low",
+                    "count": 277,
+                    "total": 1950,
+                    "probability": 0.14205128205128206,
+                    "baseline_prob": 0.3323076923076923,
+                    "baseline_n": 1950,
+                    "value": null,
+                    "value_baseline": null,
+                    "agg": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

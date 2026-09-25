@@ -1,0 +1,2357 @@
+{
+  "stat_name": "initial_balance_performance",
+  "title": {
+    "en": "Initial Balance Breakout — Performance",
+    "fr": "Cassure de l'initial balance — Performance"
+  },
+  "definition": {
+    "en": "After the initial balance forms, how far does price extend past the balance high or low on its FIRST breakout, before breaking back into the range? Reported as the average and maximum first-breakout extension, in points and as a percentage of the session open.",
+    "fr": "Après la formation de l'initial balance, de combien le prix s'étend-il au-delà du haut ou du bas de la balance lors de sa PREMIÈRE cassure, avant de revenir dans le range ? Exprimé en tant qu'extension moyenne et maximale de la première cassure, en points et en pourcentage de l'ouverture de session."
+  },
+  "labels": {
+    "conditions": {
+      "ib": {
+        "en": "Initial balance",
+        "fr": "Initial balance"
+      }
+    },
+    "outcomes": {
+      "mean_extension": {
+        "en": "Average first-breakout extension (points)",
+        "fr": "Extension moyenne de la première cassure (points)"
+      },
+      "mean_extension_pct": {
+        "en": "Average first-breakout extension (%)",
+        "fr": "Extension moyenne de la première cassure (%)"
+      },
+      "max_extension": {
+        "en": "Maximum first-breakout extension (points)",
+        "fr": "Extension maximale de la première cassure (points)"
+      },
+      "max_extension_pct": {
+        "en": "Maximum first-breakout extension (%)",
+        "fr": "Extension maximale de la première cassure (%)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      },
+      "prev_candle": {
+        "en": "Prior session candle",
+        "fr": "Bougie de la session précédente"
+      },
+      "overnight": {
+        "en": "Overnight gap",
+        "fr": "Gap overnight"
+      },
+      "size": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      },
+      "size_pct": {
+        "en": "Size bucket",
+        "fr": "Tranche de taille"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "30min": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "ib",
+            "outcome": "mean_extension",
+            "count": 4310,
+            "total": 4310,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4310,
+            "value": 5.354285249651971,
+            "value_baseline": 3.5975544494199574
+          },
+          {
+            "condition": "ib",
+            "outcome": "mean_extension_pct",
+            "count": 4310,
+            "total": 4310,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4310,
+            "value": 0.000571432333904745,
+            "value_baseline": 0.00038845405353281077
+          },
+          {
+            "condition": "ib",
+            "outcome": "max_extension",
+            "count": 4310,
+            "total": 4310,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4310,
+            "value": 128.8367380000018,
+            "value_baseline": 128.8367380000018
+          },
+          {
+            "condition": "ib",
+            "outcome": "max_extension_pct",
+            "count": 4310,
+            "total": 4310,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4310,
+            "value": 0.01855631874122046,
+            "value_baseline": 0.01855631874122046
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 809,
+                    "total": 809,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 809,
+                    "value": 5.12324774536461,
+                    "value_baseline": 3.29586725092705
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 809,
+                    "total": 809,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 809,
+                    "value": 0.0005519983749383093,
+                    "value_baseline": 0.000347927875404972
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 809,
+                    "total": 809,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 809,
+                    "value": 100.9985459999989,
+                    "value_baseline": 100.9985459999989
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 809,
+                    "total": 809,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 809,
+                    "value": 0.005409483670236331,
+                    "value_baseline": 0.005409483670236331
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 893,
+                    "total": 893,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 893,
+                    "value": 5.146358726763713,
+                    "value_baseline": 3.5031507323628195
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 893,
+                    "total": 893,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 893,
+                    "value": 0.0005749616619621238,
+                    "value_baseline": 0.00037579316376168604
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 893,
+                    "total": 893,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 893,
+                    "value": 85.88657500000045,
+                    "value_baseline": 52.696179000000484
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 893,
+                    "total": 893,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 893,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.0043010750763501715
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 888,
+                    "total": 888,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 888,
+                    "value": 4.935474948198226,
+                    "value_baseline": 3.5991996126126007
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 888,
+                    "total": 888,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 888,
+                    "value": 0.000533918840267715,
+                    "value_baseline": 0.00039348041515540716
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 888,
+                    "total": 888,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 888,
+                    "value": 63.7933320000011,
+                    "value_baseline": 75.20522999999957
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 888,
+                    "total": 888,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 888,
+                    "value": 0.003083247598043399,
+                    "value_baseline": 0.005433646806222768
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 870,
+                    "total": 870,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 870,
+                    "value": 5.486321217241363,
+                    "value_baseline": 3.946677711494256
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 870,
+                    "total": 870,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 870,
+                    "value": 0.0006108829574089179,
+                    "value_baseline": 0.00040393512940151925
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 870,
+                    "total": 870,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 870,
+                    "value": 81.64448999999877,
+                    "value_baseline": 81.64448999999877
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 870,
+                    "total": 870,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 870,
+                    "value": 0.006482026860307086,
+                    "value_baseline": 0.0043396016699546016
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 850,
+                    "total": 850,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 850,
+                    "value": 6.095014640000023,
+                    "value_baseline": 3.8271547976470837
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 850,
+                    "total": 850,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 850,
+                    "value": 0.0005850327136102264,
+                    "value_baseline": 0.0003632013164117895
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 850,
+                    "total": 850,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 850,
+                    "value": 128.8367380000018,
+                    "value_baseline": 128.8367380000018
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 850,
+                    "total": 850,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 850,
+                    "value": 0.008742314140371523,
+                    "value_baseline": 0.005383739187100778
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2376,
+                    "total": 2376,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2376,
+                    "value": 5.053774762205394,
+                    "value_baseline": 3.5036079915825002
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2376,
+                    "total": 2376,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2376,
+                    "value": 0.0005431460771893243,
+                    "value_baseline": 0.0003671017255911547
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2376,
+                    "total": 2376,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2376,
+                    "value": 128.8367380000018,
+                    "value_baseline": 128.8367380000018
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2376,
+                    "total": 2376,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2376,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1934,
+                    "total": 1934,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1934,
+                    "value": 5.723474969493269,
+                    "value_baseline": 3.9112683609100505
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1934,
+                    "total": 1934,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1934,
+                    "value": 0.0006061831849677436,
+                    "value_baseline": 0.0004092106621255811
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1934,
+                    "total": 1934,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1934,
+                    "value": 113.09709600000133,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1934,
+                    "total": 1934,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1934,
+                    "value": 0.008742314140371523,
+                    "value_baseline": 0.008313672703323153
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2370,
+                    "total": 2370,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2370,
+                    "value": 5.028932805063289,
+                    "value_baseline": 3.3784325877637214
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2370,
+                    "total": 2370,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2370,
+                    "value": 0.0005254554898874813,
+                    "value_baseline": 0.000352919716099973
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2370,
+                    "total": 2370,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2370,
+                    "value": 120.7786789999991,
+                    "value_baseline": 120.7786789999991
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2370,
+                    "total": 2370,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2370,
+                    "value": 0.008742314140371523,
+                    "value_baseline": 0.008742314140371523
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1939,
+                    "total": 1939,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1939,
+                    "value": 5.7536795703971135,
+                    "value_baseline": 3.9417539190304187
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1939,
+                    "total": 1939,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1939,
+                    "value": 0.000627179241255818,
+                    "value_baseline": 0.00041596478669122595
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1939,
+                    "total": 1939,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1939,
+                    "value": 128.8367380000018,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1939,
+                    "total": 1939,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1939,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2428,
+                    "total": 2428,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2428,
+                    "value": 5.091587059719945,
+                    "value_baseline": 3.302372966639233
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2428,
+                    "total": 2428,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2428,
+                    "value": 0.0005422013120183984,
+                    "value_baseline": 0.0003550776284133345
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2428,
+                    "total": 2428,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2428,
+                    "value": 128.8367380000018,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2428,
+                    "total": 2428,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2428,
+                    "value": 0.008742314140371523,
+                    "value_baseline": 0.008742314140371523
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1881,
+                    "total": 1881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1881,
+                    "value": 5.695152607123855,
+                    "value_baseline": 3.7242563312068118
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1881,
+                    "total": 1881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1881,
+                    "value": 0.0006087003052885116,
+                    "value_baseline": 0.0003971666681937139
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1881,
+                    "total": 1881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1881,
+                    "value": 120.7786789999991,
+                    "value_baseline": 65.55836500000078
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1881,
+                    "total": 1881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1881,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.006636038718974666
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (4.36–17.10]",
+                  "fr": "ib_size tranche 1 (4.36–17.10]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1081,
+                    "total": 1081,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1081,
+                    "value": 1.5684718344125712,
+                    "value_baseline": 1.0900907863089662
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1081,
+                    "total": 1081,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1081,
+                    "value": 0.0005483998607990727,
+                    "value_baseline": 0.0003705393105402136
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1081,
+                    "total": 1081,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1081,
+                    "value": 14.013669999999365,
+                    "value_baseline": 14.013669999999365
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1081,
+                    "total": 1081,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1081,
+                    "value": 0.005434782284425606,
+                    "value_baseline": 0.0043396016699546016
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (17.10–33.57]",
+                  "fr": "ib_size tranche 2 (17.10–33.57]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1072,
+                    "total": 1072,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1072,
+                    "value": 2.1216470774253664,
+                    "value_baseline": 1.4510442304104414
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1072,
+                    "total": 1072,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1072,
+                    "value": 0.0005061720101150335,
+                    "value_baseline": 0.00033342368828487187
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1072,
+                    "total": 1072,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1072,
+                    "value": 13.917832000000999,
+                    "value_baseline": 13.917832000000999
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1072,
+                    "total": 1072,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1072,
+                    "value": 0.006636038718974666,
+                    "value_baseline": 0.004680851400856645
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (33.57–89.96]",
+                  "fr": "ib_size tranche 3 (33.57–89.96]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1077,
+                    "total": 1077,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1077,
+                    "value": 5.895278502321256,
+                    "value_baseline": 4.433429740018591
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1077,
+                    "total": 1077,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1077,
+                    "value": 0.0005438830570426909,
+                    "value_baseline": 0.0003845626290258636
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1077,
+                    "total": 1077,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1077,
+                    "value": 57.67548499999975,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1077,
+                    "total": 1077,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1077,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (89.96–647.05]",
+                  "fr": "ib_size tranche 4 (89.96–647.05]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1080,
+                    "total": 1080,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1080,
+                    "value": 11.812806258333353,
+                    "value_baseline": 7.719639215740712
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1080,
+                    "total": 1080,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1080,
+                    "value": 0.0006867357984512584,
+                    "value_baseline": 0.0004458694910516899
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1080,
+                    "total": 1080,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1080,
+                    "value": 128.8367380000018,
+                    "value_baseline": 128.8367380000018
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1080,
+                    "total": 1080,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1080,
+                    "value": 0.008742314140371523,
+                    "value_baseline": 0.005409483670236331
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 67,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 67,
+                    "total": 67,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 67,
+                    "value": 2.4706465074626935,
+                    "value_baseline": 1.9832728805969502
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 67,
+                    "total": 67,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 67,
+                    "value": 0.00035373873784966356,
+                    "value_baseline": 0.0002879634732550769
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 67,
+                    "total": 67,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 67,
+                    "value": 16.92440699999861,
+                    "value_baseline": 16.92440699999861
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 67,
+                    "total": 67,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 67,
+                    "value": 0.0023111113539183306,
+                    "value_baseline": 0.0023111113539183306
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 1102,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1100,
+                    "total": 1100,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1100,
+                    "value": 3.286791953636363,
+                    "value_baseline": 2.6771495690908917
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1100,
+                    "total": 1100,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1100,
+                    "value": 0.00036362140569114567,
+                    "value_baseline": 0.0002836971642029295
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1100,
+                    "total": 1100,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1100,
+                    "value": 57.67548499999975,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1100,
+                    "total": 1100,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1100,
+                    "value": 0.002746105438346823,
+                    "value_baseline": 0.006639466816253599
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1346,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1341,
+                    "total": 1341,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1341,
+                    "value": 4.907402634601032,
+                    "value_baseline": 3.4599214354959074
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1341,
+                    "total": 1341,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1341,
+                    "value": 0.0005260464122708484,
+                    "value_baseline": 0.00035526976418640764
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1341,
+                    "total": 1341,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1341,
+                    "value": 128.8367380000018,
+                    "value_baseline": 128.8367380000018
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1341,
+                    "total": 1341,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1341,
+                    "value": 0.006111459897703377,
+                    "value_baseline": 0.005433646806222768
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1114,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1105,
+                    "total": 1105,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1105,
+                    "value": 5.975225044343913,
+                    "value_baseline": 3.936744633484157
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1105,
+                    "total": 1105,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1105,
+                    "value": 0.0006210748710570356,
+                    "value_baseline": 0.0003960491818477938
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1105,
+                    "total": 1105,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1105,
+                    "value": 51.94239699999889,
+                    "value_baseline": 47.015966999999364
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1105,
+                    "total": 1105,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1105,
+                    "value": 0.0043396016699546016,
+                    "value_baseline": 0.0043010750763501715
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 703,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 697,
+                    "total": 697,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 697,
+                    "value": 8.769747997130542,
+                    "value_baseline": 5.65106494978479
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 697,
+                    "total": 697,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 697,
+                    "value": 0.0009289431076901448,
+                    "value_baseline": 0.0006042674842121414
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 697,
+                    "total": 697,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 697,
+                    "value": 120.7786789999991,
+                    "value_baseline": 113.09709600000133
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 697,
+                    "total": 697,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 697,
+                    "value": 0.01855631874122046,
+                    "value_baseline": 0.01855631874122046
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "1h": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "ib",
+            "outcome": "mean_extension",
+            "count": 4162,
+            "total": 4162,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4162,
+            "value": 4.17461959298414,
+            "value_baseline": 2.723641596347913
+          },
+          {
+            "condition": "ib",
+            "outcome": "mean_extension_pct",
+            "count": 4162,
+            "total": 4162,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4162,
+            "value": 0.00044661497045099546,
+            "value_baseline": 0.0002891925092978534
+          },
+          {
+            "condition": "ib",
+            "outcome": "max_extension",
+            "count": 4162,
+            "total": 4162,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4162,
+            "value": 115.59174300000086,
+            "value_baseline": 115.59174300000086
+          },
+          {
+            "condition": "ib",
+            "outcome": "max_extension_pct",
+            "count": 4162,
+            "total": 4162,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4162,
+            "value": 0.006464828467098231,
+            "value_baseline": 0.006464828467098231
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 778,
+                    "total": 778,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 778,
+                    "value": 3.9977442390745392,
+                    "value_baseline": 2.522063831619541
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 778,
+                    "total": 778,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 778,
+                    "value": 0.00043675416509120115,
+                    "value_baseline": 0.00026877273869822246
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 778,
+                    "total": 778,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 778,
+                    "value": 57.168337999999494,
+                    "value_baseline": 38.75
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 778,
+                    "total": 778,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 778,
+                    "value": 0.003452892683101581,
+                    "value_baseline": 0.002250080433424948
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 859,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 859,
+                    "value": 4.085413725261921,
+                    "value_baseline": 2.569472281722932
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 859,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 859,
+                    "value": 0.00044355926784042676,
+                    "value_baseline": 0.0002807566244162668
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 859,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 859,
+                    "value": 52.696179000000484,
+                    "value_baseline": 52.696179000000484
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 859,
+                    "total": 859,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 859,
+                    "value": 0.00510529675730536,
+                    "value_baseline": 0.003992192836875585
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 867,
+                    "total": 867,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 867,
+                    "value": 4.212256672433662,
+                    "value_baseline": 3.1027484405997523
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 867,
+                    "total": 867,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 867,
+                    "value": 0.0004587406063577118,
+                    "value_baseline": 0.0003238664805346387
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 867,
+                    "total": 867,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 867,
+                    "value": 115.59174300000086,
+                    "value_baseline": 75.20522999999957
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 867,
+                    "total": 867,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 867,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.005433646806222768
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 843,
+                    "total": 843,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 843,
+                    "value": 4.370025034400969,
+                    "value_baseline": 2.9408613487544315
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 843,
+                    "total": 843,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 843,
+                    "value": 0.00045112381265404296,
+                    "value_baseline": 0.00029541169163716094
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 843,
+                    "total": 843,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 843,
+                    "value": 40.34360899999956,
+                    "value_baseline": 40.34360899999956
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 843,
+                    "total": 843,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 843,
+                    "value": 0.0036753944663357584,
+                    "value_baseline": 0.0036753944663357584
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 815,
+                    "total": 815,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 815,
+                    "value": 4.195329692024549,
+                    "value_baseline": 2.681846051533739
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 815,
+                    "total": 815,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 815,
+                    "value": 0.00044168573708180074,
+                    "value_baseline": 0.00027489340257951737
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 815,
+                    "total": 815,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 815,
+                    "value": 69.10426899999948,
+                    "value_baseline": 69.10426899999948
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 815,
+                    "total": 815,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 815,
+                    "value": 0.005185348552006134,
+                    "value_baseline": 0.005185348552006134
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2316,
+                    "total": 2316,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2316,
+                    "value": 3.9170031105353935,
+                    "value_baseline": 2.542689220207274
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2316,
+                    "total": 2316,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2316,
+                    "value": 0.0004180843015323788,
+                    "value_baseline": 0.00026668000302024246
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2316,
+                    "total": 2316,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2316,
+                    "value": 115.59174300000086,
+                    "value_baseline": 115.59174300000086
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2316,
+                    "total": 2316,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2316,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1846,
+                    "total": 1846,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1846,
+                    "value": 4.49782640411702,
+                    "value_baseline": 2.974756985915498
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1846,
+                    "total": 1846,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1846,
+                    "value": 0.0004824096775016542,
+                    "value_baseline": 0.0003194265290787271
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1846,
+                    "total": 1846,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1846,
+                    "value": 50.66683700000067,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1846,
+                    "total": 1846,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1846,
+                    "value": 0.00510529675730536,
+                    "value_baseline": 0.006639466816253599
+                  }
+                ]
+              }
+            }
+          },
+          "prev_candle": {
+            "dimension": "prev_candle",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2383,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2289,
+                    "total": 2289,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2289,
+                    "value": 3.943265082568797,
+                    "value_baseline": 2.434194268676294
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2289,
+                    "total": 2289,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2289,
+                    "value": 0.00042131469715532484,
+                    "value_baseline": 0.0002641746443567958
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2289,
+                    "total": 2289,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2289,
+                    "value": 52.696179000000484,
+                    "value_baseline": 36.51040699999794
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2289,
+                    "total": 2289,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2289,
+                    "value": 0.005185348552006134,
+                    "value_baseline": 0.00510529675730536
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1872,
+                    "total": 1872,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1872,
+                    "value": 4.459432449786333,
+                    "value_baseline": 2.891273028311962
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1872,
+                    "total": 1872,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1872,
+                    "value": 0.0004775693344015073,
+                    "value_baseline": 0.0003043987118210868
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1872,
+                    "total": 1872,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1872,
+                    "value": 115.59174300000086,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1872,
+                    "total": 1872,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1872,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              }
+            }
+          },
+          "overnight": {
+            "dimension": "overnight",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2444,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 2338,
+                    "total": 2338,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2338,
+                    "value": 4.018188017108635,
+                    "value_baseline": 2.4377090769888907
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 2338,
+                    "total": 2338,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2338,
+                    "value": 0.00042867676695678157,
+                    "value_baseline": 0.00026169664972992704
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 2338,
+                    "total": 2338,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2338,
+                    "value": 69.10426899999948,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 2338,
+                    "total": 2338,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2338,
+                    "value": 0.005185348552006134,
+                    "value_baseline": 0.006639466816253599
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1887,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1823,
+                    "total": 1823,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1823,
+                    "value": 4.377217628085575,
+                    "value_baseline": 2.68681240263303
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1823,
+                    "total": 1823,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1823,
+                    "value": 0.0004696395253116867,
+                    "value_baseline": 0.00029746695398934073
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1823,
+                    "total": 1823,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1823,
+                    "value": 115.59174300000086,
+                    "value_baseline": 59.88757400000031
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1823,
+                    "total": 1823,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1823,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.00510529675730536
+                  }
+                ]
+              }
+            }
+          },
+          "size": {
+            "dimension": "size",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size bin 1 (5.79–22.29]",
+                  "fr": "ib_size tranche 1 (5.79–22.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1052,
+                    "total": 1052,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1052,
+                    "value": 1.2650060665399239,
+                    "value_baseline": 0.8143933431558811
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1052,
+                    "total": 1052,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1052,
+                    "value": 0.0004110641671459756,
+                    "value_baseline": 0.0002645897698903281
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1052,
+                    "total": 1052,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1052,
+                    "value": 18.840170999999827,
+                    "value_baseline": 17.4038529999998
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1052,
+                    "total": 1052,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1052,
+                    "value": 0.005185348552006134,
+                    "value_baseline": 0.005185348552006134
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size bin 2 (22.29–43.29]",
+                  "fr": "ib_size tranche 2 (22.29–43.29]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1025,
+                    "total": 1025,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1025,
+                    "value": 1.8439903297560993,
+                    "value_baseline": 1.149194506341465
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1025,
+                    "total": 1025,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1025,
+                    "value": 0.000423218666520071,
+                    "value_baseline": 0.00025721962208853324
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1025,
+                    "total": 1025,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1025,
+                    "value": 19.83823400000074,
+                    "value_baseline": 12.392837000001236
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1025,
+                    "total": 1025,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1025,
+                    "value": 0.0025242458278481724,
+                    "value_baseline": 0.002199328561136094
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size bin 3 (43.29–117.54]",
+                  "fr": "ib_size tranche 3 (43.29–117.54]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1039,
+                    "total": 1039,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1039,
+                    "value": 4.627034836381167,
+                    "value_baseline": 3.316993748796904
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1039,
+                    "total": 1039,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1039,
+                    "value": 0.0004196492690274032,
+                    "value_baseline": 0.00028181427976809836
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1039,
+                    "total": 1039,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1039,
+                    "value": 36.36594100000002,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1039,
+                    "total": 1039,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1039,
+                    "value": 0.0037943164933995615,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size bin 4 (117.54–1753.88]",
+                  "fr": "ib_size tranche 4 (117.54–1753.88]"
+                },
+                "total_samples": 1083,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1046,
+                    "total": 1046,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1046,
+                    "value": 8.935373882409136,
+                    "value_baseline": 5.2812485554493005
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1046,
+                    "total": 1046,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1046,
+                    "value": 0.0005320815291366462,
+                    "value_baseline": 0.000319140802136812
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1046,
+                    "total": 1046,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1046,
+                    "value": 115.59174300000086,
+                    "value_baseline": 54.86719799999992
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1046,
+                    "total": 1046,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1046,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.003053760457382095
+                  }
+                ]
+              }
+            }
+          },
+          "size_pct": {
+            "dimension": "size_pct",
+            "groups": {
+              "q1": {
+                "label": {
+                  "en": "ib_size_pct bin 1 (-0.00–0.20]",
+                  "fr": "ib_size_pct tranche 1 (-0.00–0.20]"
+                },
+                "total_samples": 12,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 12,
+                    "total": 12,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 12,
+                    "value": 1.8259606666665604,
+                    "value_baseline": 1.476260916666585
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 12,
+                    "total": 12,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 12,
+                    "value": 0.00022441808287444225,
+                    "value_baseline": 0.00016593544485576171
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 12,
+                    "total": 12,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 12,
+                    "value": 7.916255000000092,
+                    "value_baseline": 7.916255000000092
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 12,
+                    "total": 12,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 12,
+                    "value": 0.0005068210201066332,
+                    "value_baseline": 0.0004911591999322493
+                  }
+                ]
+              },
+              "q2": {
+                "label": {
+                  "en": "ib_size_pct bin 2 (0.20–0.40]",
+                  "fr": "ib_size_pct tranche 2 (0.20–0.40]"
+                },
+                "total_samples": 581,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 574,
+                    "total": 574,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 574,
+                    "value": 2.363620372822284,
+                    "value_baseline": 1.7278725783971838
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 574,
+                    "total": 574,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 574,
+                    "value": 0.00028905838370410817,
+                    "value_baseline": 0.00020188755183677646
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 574,
+                    "total": 574,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 574,
+                    "value": 36.36594100000002,
+                    "value_baseline": 33.86675599999944
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 574,
+                    "total": 574,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 574,
+                    "value": 0.001870732431027225,
+                    "value_baseline": 0.0016589440871850323
+                  }
+                ]
+              },
+              "q3": {
+                "label": {
+                  "en": "ib_size_pct bin 3 (0.40–0.60]",
+                  "fr": "ib_size_pct tranche 3 (0.40–0.60]"
+                },
+                "total_samples": 1071,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1030,
+                    "total": 1030,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1030,
+                    "value": 3.1451563262136073,
+                    "value_baseline": 2.552725388349526
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1030,
+                    "total": 1030,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1030,
+                    "value": 0.00036631553573409774,
+                    "value_baseline": 0.0002664395275189558
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1030,
+                    "total": 1030,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1030,
+                    "value": 41.99413199999981,
+                    "value_baseline": 137.63635400000203
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1030,
+                    "total": 1030,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1030,
+                    "value": 0.005185348552006134,
+                    "value_baseline": 0.006805964982059423
+                  }
+                ]
+              },
+              "q4": {
+                "label": {
+                  "en": "ib_size_pct bin 4 (0.60–0.90]",
+                  "fr": "ib_size_pct tranche 4 (0.60–0.90]"
+                },
+                "total_samples": 1279,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1238,
+                    "total": 1238,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1238,
+                    "value": 4.16281069709208,
+                    "value_baseline": 2.562138746365112
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1238,
+                    "total": 1238,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1238,
+                    "value": 0.00042885674156195445,
+                    "value_baseline": 0.0002681493837958584
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1238,
+                    "total": 1238,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1238,
+                    "value": 41.74120500000208,
+                    "value_baseline": 40.34360899999956
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1238,
+                    "total": 1238,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1238,
+                    "value": 0.0037943164933995615,
+                    "value_baseline": 0.0037943164933995615
+                  }
+                ]
+              },
+              "q5": {
+                "label": {
+                  "en": "ib_size_pct bin 5 (0.90–inf]",
+                  "fr": "ib_size_pct tranche 5 (0.90–inf]"
+                },
+                "total_samples": 1389,
+                "results": [
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension",
+                    "count": 1308,
+                    "total": 1308,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1308,
+                    "value": 5.812741945718648,
+                    "value_baseline": 3.581811633027528
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "mean_extension_pct",
+                    "count": 1308,
+                    "total": 1308,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1308,
+                    "value": 0.0005978358791411095,
+                    "value_baseline": 0.00037029241529347396
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension",
+                    "count": 1308,
+                    "total": 1308,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1308,
+                    "value": 115.59174300000086,
+                    "value_baseline": 57.168337999999494
+                  },
+                  {
+                    "condition": "ib",
+                    "outcome": "max_extension_pct",
+                    "count": 1308,
+                    "total": 1308,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1308,
+                    "value": 0.006464828467098231,
+                    "value_baseline": 0.0038785834858889165
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

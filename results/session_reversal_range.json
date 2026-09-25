@@ -1,0 +1,989 @@
+{
+  "stat_name": "session_reversal_range",
+  "title": {
+    "en": "Session Reversal Range",
+    "fr": "Amplitude de retournement de session"
+  },
+  "definition": {
+    "en": "How far does a session move against its eventual direction (open-to-low for green sessions, open-to-high for red sessions) before it closes?",
+    "fr": "De combien une session évolue-t-elle à contre-sens de sa direction finale (ouverture-bas pour les sessions vertes, ouverture-haut pour les rouges) avant de clôturer ?"
+  },
+  "labels": {
+    "conditions": {
+      "session_reversal_range": {
+        "en": "All resolved sessions",
+        "fr": "Toutes les sessions résolues"
+      }
+    },
+    "outcomes": {
+      "mean_reversal": {
+        "en": "Average reversal range (points)",
+        "fr": "Amplitude de retournement moyenne (points)"
+      },
+      "mean_reversal_pct": {
+        "en": "Average reversal range (%)",
+        "fr": "Amplitude de retournement moyenne (%)"
+      },
+      "max_reversal": {
+        "en": "Maximum reversal range (points)",
+        "fr": "Amplitude de retournement maximale (points)"
+      },
+      "max_reversal_pct": {
+        "en": "Maximum reversal range (%)",
+        "fr": "Amplitude de retournement maximale (%)"
+      }
+    },
+    "dimensions": {
+      "weekday": {
+        "en": "Day of week",
+        "fr": "Jour de la semaine"
+      },
+      "close": {
+        "en": "Session close color",
+        "fr": "Couleur de clôture de session"
+      }
+    }
+  },
+  "instruments": {
+    "NQ": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-05-05"
+        ],
+        "total_samples": 4332,
+        "results": [
+          {
+            "condition": "session_reversal_range",
+            "outcome": "mean_reversal",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 34.083863073638035,
+            "value_baseline": 70.82369748037857,
+            "agg": "mean"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "mean_reversal_pct",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.0035914899906031783,
+            "value_baseline": 0.0072911504950866,
+            "agg": "mean"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "max_reversal",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 565.8498749999999,
+            "value_baseline": 1143.5759549999966,
+            "agg": "max"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "max_reversal_pct",
+            "count": 4332,
+            "total": 4332,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4332,
+            "value": 0.05172301689481442,
+            "value_baseline": 0.06551133115665018,
+            "agg": "max"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 816,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 34.07080112009807,
+                    "value_baseline": 67.34850788970597,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.003578624197967027,
+                    "value_baseline": 0.007115330201248057,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 565.8498749999999,
+                    "value_baseline": 776.5414820000005,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 816,
+                    "total": 816,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 816,
+                    "value": 0.03425122322759927,
+                    "value_baseline": 0.05350593320295443,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 896,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 34.3645080747768,
+                    "value_baseline": 62.73480585825895,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.0036525760684835867,
+                    "value_baseline": 0.006811043851964837,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 443.05461900000046,
+                    "value_baseline": 598.5492779999986,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 896,
+                    "total": 896,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 896,
+                    "value": 0.0371775416518839,
+                    "value_baseline": 0.05158882411491048,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 890,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 34.57193582022466,
+                    "value_baseline": 70.53007101123596,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.0036197742286507447,
+                    "value_baseline": 0.007214999440945009,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 377.94719199999963,
+                    "value_baseline": 2263.2603390000004,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 890,
+                    "total": 890,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 890,
+                    "value": 0.02723271900278289,
+                    "value_baseline": 0.12657988787331884,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 875,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 34.543456922285685,
+                    "value_baseline": 72.74996166057143,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.003642695177126392,
+                    "value_baseline": 0.008015277658593315,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 356.8935339999989,
+                    "value_baseline": 1143.5759549999966,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 875,
+                    "total": 875,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 875,
+                    "value": 0.04096995530984828,
+                    "value_baseline": 0.10972472342513526,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 855,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 32.82382947251463,
+                    "value_baseline": 69.32945997894736,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.0034579085297144164,
+                    "value_baseline": 0.0071696791308280775,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 461.6403360000004,
+                    "value_baseline": 945.9774379999981,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 855,
+                    "total": 855,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 855,
+                    "value": 0.05172301689481442,
+                    "value_baseline": 0.05172301689481442,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2384,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 34.98671786535236,
+                    "value_baseline": 63.403792703859075,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.00365383221952246,
+                    "value_baseline": 0.006710458835913787,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 565.8498749999999,
+                    "value_baseline": 1061.1143539999994,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 2384,
+                    "total": 2384,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2384,
+                    "value": 0.05172301689481442,
+                    "value_baseline": 0.06956688020689016,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1948,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 32.978931952772044,
+                    "value_baseline": 78.7254564835729,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.003515194367531533,
+                    "value_baseline": 0.008026792916993217,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 443.05461900000046,
+                    "value_baseline": 1222.934656999998,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 1948,
+                    "total": 1948,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1948,
+                    "value": 0.04096995530984828,
+                    "value_baseline": 0.06484669839383918,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ES": {
+      "daily": {
+        "data_range": [
+          "2008-12-11",
+          "2026-06-12"
+        ],
+        "total_samples": 4361,
+        "results": [
+          {
+            "condition": "session_reversal_range",
+            "outcome": "mean_reversal",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 8.988297553313458,
+            "value_baseline": 18.59518093969272,
+            "agg": "mean"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "mean_reversal_pct",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.0029538300241797816,
+            "value_baseline": 0.0058753203880573856,
+            "agg": "mean"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "max_reversal",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 151.47014400000035,
+            "value_baseline": 555.400345,
+            "agg": "max"
+          },
+          {
+            "condition": "session_reversal_range",
+            "outcome": "max_reversal_pct",
+            "count": 4361,
+            "total": 4361,
+            "probability": 0.0,
+            "baseline_prob": 0.0,
+            "baseline_n": 4361,
+            "value": 0.05100095343408935,
+            "value_baseline": 0.10782198591554072,
+            "agg": "max"
+          }
+        ],
+        "slices": {
+          "weekday": {
+            "dimension": "weekday",
+            "groups": {
+              "monday": {
+                "label": {
+                  "en": "Monday",
+                  "fr": "Lundi"
+                },
+                "total_samples": 820,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 8.552737452439015,
+                    "value_baseline": 16.99594214512194,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.0027829896189267658,
+                    "value_baseline": 0.005575864803107146,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 130.48504599999978,
+                    "value_baseline": 170.06266400000004,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 820,
+                    "total": 820,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 820,
+                    "value": 0.02706372183300465,
+                    "value_baseline": 0.050196221522898744,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "tuesday": {
+                "label": {
+                  "en": "Tuesday",
+                  "fr": "Mardi"
+                },
+                "total_samples": 901,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 8.832337750277485,
+                    "value_baseline": 16.329071851276353,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.0029015682526173678,
+                    "value_baseline": 0.005493383831220768,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 126.555429,
+                    "value_baseline": 211.25,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 901,
+                    "total": 901,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 901,
+                    "value": 0.03934512826920218,
+                    "value_baseline": 0.04607631375359627,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "wednesday": {
+                "label": {
+                  "en": "Wednesday",
+                  "fr": "Mercredi"
+                },
+                "total_samples": 897,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 9.542552778149394,
+                    "value_baseline": 18.06987000111481,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.0031545125060415866,
+                    "value_baseline": 0.005755778656362318,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 102.81821599999967,
+                    "value_baseline": 555.400345,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 897,
+                    "total": 897,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 897,
+                    "value": 0.03867403292265596,
+                    "value_baseline": 0.10782198591554072,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "thursday": {
+                "label": {
+                  "en": "Thursday",
+                  "fr": "Jeudi"
+                },
+                "total_samples": 881,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 9.241614162315543,
+                    "value_baseline": 18.809899049943237,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.0030602671479431887,
+                    "value_baseline": 0.006388523583140952,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 108.43563500000027,
+                    "value_baseline": 217.95160699999997,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 881,
+                    "total": 881,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 881,
+                    "value": 0.03735856401715905,
+                    "value_baseline": 0.08768898522513009,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "friday": {
+                "label": {
+                  "en": "Friday",
+                  "fr": "Vendredi"
+                },
+                "total_samples": 862,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 8.729991516241284,
+                    "value_baseline": 17.448783148491874,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.0028533586740865195,
+                    "value_baseline": 0.005644742683237582,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 151.47014400000035,
+                    "value_baseline": 159.02927499999987,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 862,
+                    "total": 862,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 862,
+                    "value": 0.05100095343408935,
+                    "value_baseline": 0.058143137593933227,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          },
+          "close": {
+            "dimension": "close",
+            "groups": {
+              "green": {
+                "label": {
+                  "en": "Green",
+                  "fr": "Verte"
+                },
+                "total_samples": 2410,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 9.281882850207468,
+                    "value_baseline": 16.68920607676348,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.003075427548271563,
+                    "value_baseline": 0.0055343919882051154,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 151.47014400000035,
+                    "value_baseline": 356.3969640000005,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 2410,
+                    "total": 2410,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 2410,
+                    "value": 0.05100095343408935,
+                    "value_baseline": 0.06976273589475482,
+                    "agg": "max"
+                  }
+                ]
+              },
+              "red": {
+                "label": {
+                  "en": "Red",
+                  "fr": "Rouge"
+                },
+                "total_samples": 1951,
+                "results": [
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 8.625642214761656,
+                    "value_baseline": 19.785339886212203,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "mean_reversal_pct",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.0028036249841689193,
+                    "value_baseline": 0.006355238092904377,
+                    "agg": "mean"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 108.43563500000027,
+                    "value_baseline": 221.81493500000033,
+                    "agg": "max"
+                  },
+                  {
+                    "condition": "session_reversal_range",
+                    "outcome": "max_reversal_pct",
+                    "count": 1951,
+                    "total": 1951,
+                    "probability": 0.0,
+                    "baseline_prob": 0.0,
+                    "baseline_n": 1951,
+                    "value": 0.03735856401715905,
+                    "value_baseline": 0.08768898522513009,
+                    "agg": "max"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
