@@ -3,7 +3,7 @@
 ## Project Overview
 Augur is a statistical analysis engine that computes conditional market probabilities
 from historical OHLCV data and delivers them as a real-time TradingView indicator.
-Repository: `marubozu-fr/augur` — License: AGPL-3.0
+Repository: `marubozu-fr/augur` — License: MIT
 
 ## Tech Stack
 - **Stats engine**: Python 3.12+, pandas, pyarrow (Parquet)

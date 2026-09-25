@@ -1,10 +1,13 @@
 # Augur — Instrument configuration
-# This file is gitignored. Each user creates their own.
+# Instrument sessions, timeframes and data paths.
 
 instrument: ES
 market_type: futures
 
 # Timezone
+# source_timezone, data.raw_csv and data.processed_dir describe the raw source data
+# for the external preparation step and are not read by the stats engine, which
+# expects 1-min Parquet data already in working_timezone.
 source_timezone: America/Chicago
 working_timezone: America/New_York
 

@@ -1,7 +1,7 @@
 # Data files — never committed
 data/
 #results/
-#output/
+output/
 
 # Python
 __pycache__/

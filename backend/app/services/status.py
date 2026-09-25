@@ -80,8 +80,8 @@ def collect_loaded_stat_files(loader: StatsLoader) -> list[LoadedStatFile]:
 def collect_data_files(data_dir: Path) -> list[DataFileInfo]:
   """List Parquet files in data_dir (recursively) with size, row count, and date range.
 
-  Recursion matters: Augur's prepared OHLCV files live under data/processed/ per
-  config (processed_dir), not at the top level.
+  Recursion matters: prepared Parquet files may sit at the top level (the stats
+  engine default, data/{INSTRUMENT}_1min.parquet) or in subdirectories.
   """
   if not data_dir.exists():
     return []
