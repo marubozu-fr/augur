@@ -15,8 +15,13 @@ does not issue trade signals, entries, or recommendations.
 
 ## Status
 
-This project is archived and not maintained. There is no live deployment;
-the instructions below are for running it locally.
+This project is archived and not maintained. There is no live deployment of
+the API; the instructions below are for running it locally.
+
+Its member-facing front end is published separately as an open-source demo:
+[marubozu-fr/augur-saas](https://github.com/marubozu-fr/augur-saas), live at
+<https://augur-saas.marubozu.ovh>. The demo serves a frozen snapshot of this
+repository's aggregated `results/` and does not call a live API.
 
 ## Statistical methodology
 
